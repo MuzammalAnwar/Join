@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: #F6F7F8;
+}
+
+.icon_size {
+    height: 121.97px;
+position: relative;
+top: 80px;
+left: 77px;
+}
+
+.text_style {
+    font-family: "inter";
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    color: black;
+}
+
+.signUp_button {
+    width: 91px;
+    height: 49px;
+    border-radius: 8px;
+    border: none;
+    padding: 15px 16px 15px 16px;
+    gap: 10px;
+    background-color: #2A3647;
+    color: #FFFFFF;
+    font-family: "inter";
+    font-weight: 700;
+}
+
+.signUp_button_position {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    position: relative;
+    top: 67px;
+    right: 77px;
+}
+
+.head_content_position {
+    display: flex;
+    justify-content: space-between;
+}
