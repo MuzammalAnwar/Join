@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    background-color: #F6F7F8;
+    height: 100vh;
+}
+
+.icon {
+    height: 334.07px;
+}
+
+.icon_position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
