@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.legalNoticeText {
+    margin: 0 50px 50px 300px;
+}
+
+.contractDetails {
+    padding-left: 1.25cm;
+    font-family: sans-serif;
+    overflow-wrap: break-word;
+}
+
+p.BodyLeft,
+p.Body {
+    margin-left: 0 !important;
+}
+
+p.BodyLeft p,
+p.Body p {
+    margin-left: 0 !important;
+}
+
+p.BodyLeft p span,
+p.Body p span {
+    margin-left: 0 !important;
+}
+
+p.BodyLeft p span span,
+p.Body p span span {
+    margin-left: 0 !important;
+}
+
+.DieterLista,
+.DieterListi,
+.BulletList1 {
+    padding-left: 1.25cm;
+}
+
+.DieterLista .number-prefix-p,
+.DieterListi .number-prefix-p,
+.BulletList1 .number-prefix-p {
+    margin-left: -1.25cm;
+    display: inline-block;
+    width: 1.25cm;
+}
+
+.DieterListaIndent,
+.DieterListiIndent,
+.BulletList2 .number-prefix-p {
+    margin-left: 1.25cm;
+    display: inline-block;
+    width: 1.25cm;
+}
+
+.DieterHeading2 .number-prefix-p,
+.DieterHeading3 .number-prefix-p,
+.DieterHeading4 .number-prefix-p {
+    display: inline-block;
+    width: 1.25cm;
+    margin-left: -1.25cm;
+}
+
+.DieterHeading2,
+.HeadingLeft {
+    font-weight: 600;
+}
+
+.DieterHeading2 span:not(.number-prefix-p) {
+    margin-left: 0 !important;
+}
+
+.BulletListNoIndent {
+    margin-left: 0 !important;
+}
+
+.BulletListNoIndent span {
+    text-indent: 0;
+}
+
+.BulletListNoIndent .number-prefix-p {
+    display: inline-block;
+    width: 1.25cm;
+    margin-left: -1.25cm;
+}
+
+.BulletListNoIndent span:not(.number-prefix-p) {
+    text-indent: 1.25cm !important;
+}
+
+.HeadingLeft {
+    margin-left: 0 !important;
+    font-size: 1.25rem;
+}
+
+.HeadingLeft span {
+    margin-left: 0 !important;
+}
+
+.DieterInvisible {
+    display: none;
+}
+
+.multiline {
+    white-space: pre-line;
+}
