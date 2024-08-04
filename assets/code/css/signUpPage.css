@@ -1,6 +1,5 @@
 body {
     margin: 0;
-    height: 100vh;
     background-color: #F6F7F8;
 }
 
@@ -8,14 +7,13 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     height: 80vh;
 }
 
 .icon_size {
     height: 121.97px;
     position: relative;
-    top: 80px;
     left: 77px;
 }
 
@@ -28,16 +26,18 @@ body {
 }
 
 .signUp_button {
-    width: 91px;
-    height: 49px;
+    width: 126px;
+    height: 55px;
     border-radius: 8px;
     border: none;
-    padding: 15px 16px 15px 16px;
+    padding: 15px 24px 15px 24px;
     gap: 10px;
     background-color: #2A3647;
     color: #FFFFFF;
     font-family: "inter";
+    font-size: 21px;
     font-weight: 700;
+    line-height: 25.2px;
 }
 
 .signUp_button_position {
@@ -45,36 +45,51 @@ body {
     align-items: center;
     gap: 35px;
     position: relative;
+    top: 67px;
     right: 77px;
 }
 
 .head_content_position {
-    height: 20vh;
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    height: 20vh;
 }
 
-.login_container {
+.signUp_container {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100vh;
 }
 
-.login_card {
-    height: 493px;
-    width: 652px;
+.signUp_card {
+    height: 630px;
+    width: 598px;
     background-color: white;
     border-radius: 30px;
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
     box-shadow: 0px 0px 14px 3px #0000000A;
 }
 
-.login_brand_container {
+.arrow_position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+}
+
+.arrow_container {
+    position: absolute;
+    left: 32px;
+}
+
+.signUp_brand_container {
     width: 315px;
     height: 89px;
     gap: 16px;
@@ -83,7 +98,7 @@ body {
     align-items: center;
 }
 
-.login_card_brand {
+.signUp_card_brand {
     font-family: "inter";
     font-weight: 700;
     font-size: 61px;
@@ -97,7 +112,7 @@ body {
     gap: 16px;
 }
 
-.login_card_brand_separator {
+.signUp_card_brand_separator {
     width: 150px;
     border: 3px solid rgba(41, 171, 226, 1);
     border-radius: 8px;
@@ -109,20 +124,14 @@ body {
     align-items: center;
 }
 
-.df {
-    display: flex;
-}
-
 .input_main_container {
     width: 422px;
-    height: 196px;
-    margin-top: 32px;
+    height: 286px;
 }
 
 .input_container_size {
     width: 422px;
-    height: 152px;
-    
+    height: 286px;
 }
 
 .input_container {
@@ -152,35 +161,11 @@ body {
     margin-right: 8px;
 }
 
-.login_button {
-    width: 91px;
-    height: 49px;
-    border-radius: 8px;
-    border: none;
-    background-color: #2A3647;
-    color: #FFFFFF;
-    font-family: "inter";
-    font-weight: 700;
-    font-size: 21px;
-    line-height: 25.2px;
-}
-
-.guest_button {
-    width: 177px;
-    height: 48px;
-    border-radius: 8px;
-    border: 1px solid rgba(42, 54, 71, 1);
-    color: rgba(42, 54, 71, 1);
-    font-family: "inter";
-    font-weight: 700;
-    font-size: 21px;
-    background-color: #FFFFFF;
-}
-
-.button_position{
+.checkbox_container {
+    width: 231px;
+    height: 24px;
     display: flex;
-    justify-content: center;
-    gap: 35px;
+    align-items: flex-end;
 }
 
 p {
@@ -188,12 +173,13 @@ p {
     font-family: "inter";
     font-size: 16px;
     font-weight: 400;
+    color: rgba(168, 168, 168, 1);
 }
 
 .GTC_position {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     width: 246px;
     height: 35px;
-    margin-bottom: 24px;
 }
