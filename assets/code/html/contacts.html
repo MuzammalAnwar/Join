@@ -1,11 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join | Contacts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <script src="/assets/code/scripts/includeHTML.js"></script>
+    <link rel="stylesheet" href="/assets/code/css/contacts.css">
 </head>
-<body>
-    
+
+<body onload="includeHTML()">
+    <div w3-include-html="headerTemplate.html"></div>
+    <div w3-include-html="navbarTemplate.html"></div>
+    <div class="main_container">
+        <div class="df">
+            <div style="margin-left: 232px;">
+                <div class="contact_container">
+                    <div class="button_container">
+                        <button class="add_button">Add new contact<img class="button_icon" src="/assets/img/person_add.png"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="contact_brand_container">
+                <div>
+                    <p style="font-size: 61px; font-weight: 700;">Contacts</p>
+                </div>
+                <div class="brand_separator"></div>
+                <div>
+                    <p style="font-size: 27px; font-weight: 400;">Better with a team</p>
+                </div>
+            </div>
+            <div>
+                
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
