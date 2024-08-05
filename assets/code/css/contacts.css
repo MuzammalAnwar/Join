@@ -1,11 +1,41 @@
-.contact_container {
+html,
+body {
+    font-family: "inter";
+    overflow: hidden;
+}
+
+.main_container {
+    display: flex;
+}
+
+.contact_main_container {
     width: 456px;
     height: 928px;
     box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.08);
     position: relative;
+    display: flex;
+    justify-content: center;
 }
 
-.contact_brand_container {
+.contact_container {
+    width: 400px;
+    height: 1188px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact_separator {
+    width: 352px;
+    height: 16px;
+}
+
+.separator {
+    width: 352px;
+    border: 1px solid rgba(209, 209, 209, 1)
+}
+
+.contact_title_container {
     width: 569px;
     height: 73px;
     display: flex;
@@ -14,16 +44,6 @@
     gap: 30px;
     margin-top: 120px;
     margin-left: 40px;
-}
-
-.brand_separator {
-    height: 59px;
-    border: 3px solid rgba(41, 171, 226, 1);
-    border-inline-start-style: none;
-}
-
-.main_container {
-    display: flex;
 }
 
 .button_container {
@@ -50,6 +70,7 @@
 
 .add_button:hover {
     cursor: pointer;
+    background-color: rgba(0, 124, 238, 1);
 }
 
 .button_icon {
@@ -58,6 +79,175 @@
     height: 32px;
 }
 
+.alphabetical_index {
+    width: 352px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.letter {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    width: 14px;
+    height: 24px;
+    margin-left: 32px;
+}
+
+.contact_small_card {
+    width: 352px;
+    height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.contact_small_card:hover {
+    cursor: pointer;
+    background: rgba(42, 54, 71, 1);
+    color: white;
+    border-radius: 10px;
+}
+
+.contact_icon {
+    border: 2px solid rgba(255, 255, 255, 1);
+    background: rgba(255, 122, 0, 1);
+    width: 42px;
+    height: 42px;
+    border-radius: 45px;
+    color: white;
+    text-align: center;
+    align-content: space-evenly;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.4px;
+    margin-right: 24px;
+    margin-left: 16px;
+}
+
+.contact_large_card {
+    width: 461px;
+    height: 364px;
+    margin-left: 40px;
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+}
+
+.tall_card_header {
+    display: flex;
+    align-items: center;
+}
+
+.large_card_name {
+    font-size: 47px;
+    font-weight: 500;
+    line-height: 56.4px;
+    margin: 0;
+}
+
+.large_cards_buttons {
+    display: flex;
+}
+
+.edit_icon {
+    width: 18.28px;
+    height: 18.25px;
+}
+
+.delete_icon {
+    width: 16px;
+    height: 18px;
+
+}
+
+.edit_button {
+    border: none;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+}
+
+.edit_button:hover {
+    cursor: pointer;
+    opacity: 0.2;
+}
+
+.delete_button {
+    border: none;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    margin-left: 16px;
+}
+
+.delete_button:hover {
+    cursor: pointer;
+    opacity: 0.2;
+}
+
+.contact_icon_large {
+    border: 2px solid rgba(255, 255, 255, 1);
+    background: rgba(255, 122, 0, 1);
+    width: 120px;
+    height: 120px;
+    border-radius: 70px;
+    color: white;
+    text-align: center;
+    align-content: space-evenly;
+    font-size: 47px;
+    font-weight: 500;
+    line-height: 54.4px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    margin-right: 50px;
+}
+
+.contact_info {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.text_info {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+}
+
 .df {
     display: flex;
+}
+
+.m0 {
+    margin: 0;
+}
+
+.font_color_blue {
+    color: rgba(0, 124, 238, 1);
+}
+
+.contact_title {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.contact_subtitle {
+    font-size: 27px;
+    font-weight: 400;
+}
+
+.title_separator {
+    height: 59px;
+    border: 3px solid rgba(41, 171, 226, 1);
+    border-inline-start-style: none;
 }
