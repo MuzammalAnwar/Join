@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: #F6F7F8;
+}
+
+.page1 {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.icon {
+    width: 274px;
+    height: auto;
+}
+
+.icon_position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+@keyframes slide-to-top-left {
+    0% {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1); 
+    }
+    100% {
+        top: 0;
+        left: 0;
+        transform: translate(0, 0) scale(0.60985); 
+    }
+}
+

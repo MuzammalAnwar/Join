@@ -11,59 +11,70 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../css/loginPage.css">
+    <link rel="stylesheet" href="../css/logo.css">
+    <script src="/assets/code/scripts/logoAnimation.js"></script>
 </head>
 
-<body>
-    <div class="head_content_position">
-        <img class="icon_size" src="/assets/img/Capa 2.png">
-        <div class="signUp_button_position">
-            <p class="text_style">Not a Join user?</p>
-            <button class="signUp_button">Sign up</button>
+<body onload="startAnimation()">
+    <div id="page1" class="page1">
+        <div class="icon_position">
+            <img id="logo" class="icon" src="../../img/Capa 2.png">
         </div>
     </div>
-    <div class="content">
-        <div class="login_container">
-            <div class="login_card">
-                <div class="login_brand_container">
-                    <p class="login_card_brand">Log in</p>
-                    <div class="login_card_brand_separator"></div>
-                </div>
-                <div class="input_main_container">
-                    <div class="input_container_size">
-                        <div class="input_container">
-                            <input class="input_size" type="email" placeholder="Email">
-                            <img class="margin_input_icon" src="/assets/img/mail.png">
-                        </div>
-                        <div class="input_container">
-                            <input class="input_size" type="password" placeholder="Password">
-                            <img class="margin_input_icon" src="/assets/img/lock.png">
-                        </div>
-                    </div>
-                    <div class="df">
-                        <div>
-                            <input class="checkbox" type="checkbox">
-                        </div>
-                        <div>
-                            <p>Remember me</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="button_position">
-                    <div>
-                        <button class="login_button">Log in</button>
-                    </div>
-                    <div>
-                        <button class="guest_button">Guest Log in</button>
-                    </div>
-                </div>
+    <div id="loginPage" class="page1 hidden"> 
+        <div class="signUp_button_position">
+            <p class="text_style">Not a Join user?</p>
+            <button onclick="document.location='/assets/code/html/signUpPage.html'" class="signUp_button">Sign up<a></a></button>
+        </div>
+        <div class="head_content_position">
+            <div class="logo_container">
+                <img class="logo" src="/assets/img/Capa 2.png">
             </div>
         </div>
-        <div class="GTC_position">
-            <div>
-                <p style="color: rgba(168, 168, 168, 1);">Privacy Policy</p>
+        <div class="content">
+            <div class="login_container">
+                <div class="login_card">
+                    <div class="login_brand_container">
+                        <p class="login_card_brand">Log in</p>
+                        <div class="login_card_brand_separator"></div>
+                    </div>
+                    <div class="input_main_container">
+                        <div class="input_container_size">
+                            <div class="input_container">
+                                <input class="input_size" type="email" placeholder="Email">
+                                <img class="margin_input_icon" src="/assets/img/mail.png">
+                            </div>
+                            <div class="input_container">
+                                <input class="input_size" type="password" placeholder="Password">
+                                <img class="margin_input_icon" src="/assets/img/lock.png">
+                            </div>
+                        </div>
+                        <div class="df">
+                            <div>
+                                <input class="checkbox" type="checkbox">
+                            </div>
+                            <div>
+                                <p>Remember me</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button_position">
+                        <div>
+                            <button onclick="" class="login_button">Log in</button>
+                        </div>
+                        <div>
+                            <button onclick="document.location='/assets/code/html/index.html'" class="guest_button">Guest Log in</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <p style="color: rgba(168, 168, 168, 1);">Legal notice</p>
+            <div class="GTC_position">
+                <div>
+                    <p onclick="document.location='/assets/code/html/privacy_policy.html'" class="privacy">Privacy Policy</p>
+                </div>
+                <div>
+                    <p onclick="document.location='/assets/code/html/legalNotice.html'" class="legal">Legal notice</p>
+                </div>
             </div>
         </div>
     </div>
