@@ -117,7 +117,8 @@ body {
 }
 
 .clearButton:hover {
-    background: #d4d4d4;
+    border-color: rgba(0, 124, 238, 1);
+    color: rgba(0, 124, 238, 1);
 }
 
 .createButton:hover {
