@@ -150,6 +150,11 @@ body {
 
 }
 
+a {
+    text-decoration: none;
+    color: unset;
+}
+
 .input_container {
     width: 422px;
     height: 48px;

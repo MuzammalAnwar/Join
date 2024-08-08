@@ -2,6 +2,11 @@ body {
     background-color: rgba(246, 247, 248, 1);
 }
 
+a {
+    text-decoration: none;
+    color: unset;
+}
+
 .main_container {
     margin-left: 333px;
 }
@@ -100,7 +105,7 @@ body {
     justify-content: center;
 }
 
-.image_container img{
+.image_container img {
     height: 69px;
     text-align: center;
 }

@@ -5,14 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join | Login</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
     <link rel="stylesheet" href="../css/loginPage.css">
     <link rel="stylesheet" href="../css/logo.css">
-    <script src="/assets/code/scripts/logoAnimation.js"></script>
+    <script src="../scripts/logoAnimation.js"></script>
 </head>
 
 <body onload="startAnimation()">
@@ -21,14 +16,14 @@
             <img id="logo" class="icon" src="../../img/Capa 2.png">
         </div>
     </div>
-    <div id="loginPage" class="page1 hidden"> 
+    <div id="loginPage" class="page1 hidden">
         <div class="signUp_button_position">
             <p class="text_style">Not a Join user?</p>
-            <button onclick="document.location='/assets/code/html/signUpPage.html'" class="signUp_button">Sign up<a></a></button>
+            <button onclick="document.location='../html/signUpPage.html'" class="signUp_button">Sign up<a></a></button>
         </div>
         <div class="head_content_position">
             <div class="logo_container">
-                <img class="logo" src="/assets/img/Capa 2.png">
+                <img class="logo" src="../../img/Capa 2.png">
             </div>
         </div>
         <div class="content">
@@ -42,11 +37,11 @@
                         <div class="input_container_size">
                             <div class="input_container">
                                 <input class="input_size" type="email" placeholder="Email">
-                                <img class="margin_input_icon" src="/assets/img/mail.png">
+                                <img class="margin_input_icon" src="../../img/mail.png">
                             </div>
                             <div class="input_container">
                                 <input class="input_size" type="password" placeholder="Password">
-                                <img class="margin_input_icon" src="/assets/img/lock.png">
+                                <img class="margin_input_icon" src="../../img/lock.png">
                             </div>
                         </div>
                         <div class="df">
@@ -63,17 +58,18 @@
                             <button onclick="" class="login_button">Log in</button>
                         </div>
                         <div>
-                            <button onclick="document.location='/assets/code/html/index.html'" class="guest_button">Guest Log in</button>
+                            <button onclick="document.location='../html/index.html'" class="guest_button">Guest Log
+                                in</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="GTC_position">
                 <div>
-                    <p onclick="document.location='/assets/code/html/privacy_policy.html'" class="privacy">Privacy Policy</p>
+                    <p onclick="document.location='../html/privacy_policy.html'" class="privacy">Privacy Policy</p>
                 </div>
                 <div>
-                    <p onclick="document.location='/assets/code/html/legalNotice.html'" class="legal">Legal notice</p>
+                    <p onclick="document.location='../html/legalNotice.html'" class="legal">Legal notice</p>
                 </div>
             </div>
         </div>

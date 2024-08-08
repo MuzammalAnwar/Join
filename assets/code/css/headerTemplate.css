@@ -4,7 +4,12 @@ body {
     width: 100%;
 }
 
-.header_main_container{
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+.header_main_container {
     height: 96px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
     padding: 0px 0px 0px 348px;
