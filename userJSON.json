@@ -1,0 +1,72 @@
+{
+    "userID": 1,
+    "loginCredentials": {
+        "userName": "Max",
+        "email": "maxmustermann@gmail.com",
+        "password": "maximilian",
+        "phoneNumber": 431291312
+    },
+    "addedTasks": {
+        "toDo": {
+            "task": {
+                "title": "Task 1",
+                "description": "Create JSON",
+                "assignedTo": {},
+                "dueDate": {
+                    "day": 1,
+                    "month": 12,
+                    "year": 2024
+                },
+                "priority": "urgent",
+                "category": "Technical Task",
+                "subtasks": {}
+            }
+        },
+        "inProgress": {
+            "task": {
+                "title": "Task 1",
+                "description": "Create JSON",
+                "assignedTo": {},
+                "dueDate": {
+                    "day": 1,
+                    "month": 12,
+                    "year": 2024
+                },
+                "priority": "urgent",
+                "category": "Technical Task",
+                "subtasks": {}
+            }
+        },
+        "awaitFeedback": {
+            "task": {
+                "title": "Task 1",
+                "description": "Create JSON",
+                "assignedTo": {},
+                "dueDate": {
+                    "day": 1,
+                    "month": 12,
+                    "year": 2024
+                },
+                "priority": "urgent",
+                "category": "Technical Task",
+                "subtasks": {}
+            }
+        },
+        "done": {
+            "task": {
+                "title": "Task 1",
+                "description": "Create JSON",
+                "assignedTo": {},
+                "dueDate": {
+                    "day": 1,
+                    "month": 12,
+                    "year": 2024
+                },
+                "priority": "urgent",
+                "category": "Technical Task",
+                "subtasks": {}
+            }
+        },
+        "addedContacts": {}
+    }
+}
