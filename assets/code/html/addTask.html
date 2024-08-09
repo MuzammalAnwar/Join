@@ -13,61 +13,66 @@
 <body onload="includeHTML()">
     <div w3-include-html="navbarTemplate.html"></div>
     <div w3-include-html="headerTemplate.html"></div>
+    <div class="title_position">
     <h1 style="margin: 0 0 0 250px; font-size: 61px; font-weight: 700;">Add Task</h1>
+    </div>
     <div class="container">
-        <div class="form">
-            <div class="left">
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" id="title" name="title">
-                </div>
-                <div style="height: 168px;" class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" name="description" rows="4" placeholder="Enter a description"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="assigned">Assigned to</label>
-                    <select id="assigned" name="assigned">
-                        <option value="user1">User 1</option>
-                        <option value="user2">User 2</option>
-                        <option value="user3">User 3</option>
-                    </select>
-                </div>
-            </div>
-            <div class="separator"></div>
-            <div class="right">
-                <div style="height: 96px;" class="form-group">
-                    <label for="due-date">Due Date</label>
-                    <input type="date" id="due-date" name="due-date">
-                </div>
-                <div style="height: 88px;" class="form-group">
-                    <p>Prio</p>
-                    <div style="height: 56px;" class="urgency">
-                        <div class="urgentStatus">Urgent</div>
-                        <div class="urgentStatus">Medium</div>
-                        <div class="urgentStatus">Low</div>
+        <form onsubmit="addToTask(event)">
+            <div class="form">
+                <div class="left">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input required type="text" id="title" name="title">
+                    </div>
+                    <div style="height: 168px;" class="form-group">
+                        <label for="description">Description</label>
+                        <textarea required id="description" name="description" rows="4"
+                            placeholder="Enter a description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="assigned">Assigned to</label>
+                        <select required id="assigned" name="assigned">
+                            <option value="user1">User 1</option>
+                            <option value="user2">User 2</option>
+                            <option value="user3">User 3</option>
+                        </select>
                     </div>
                 </div>
-                <div style="height: 80px;" class="form-group">
-                    <label for="category">Category</label>
-                    <select id="category" name="category">
-                        <option value="category1">User Story</option>
-                        <option value="category2">Technical Task</option>
-                    </select>
-                </div>
-                <div style="height: 80px;" class="form-group">
-                    <label for="subtasks">Subtasks</label>
-                    <input type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
+                <div class="separator"></div>
+                <div class="right">
+                    <div style="height: 96px;" class="form-group">
+                        <label for="due-date">Due Date</label>
+                        <input required type="date" id="due-date" name="due-date">
+                    </div>
+                    <div style="height: 88px;" class="form-group">
+                        <p>Prio</p>
+                        <div style="height: 56px;" class="urgency">
+                            <div class="urgentStatus">Urgent</div>
+                            <div class="urgentStatus">Medium</div>
+                            <div class="urgentStatus">Low</div>
+                        </div>
+                    </div>
+                    <div style="height: 80px;" class="form-group">
+                        <label for="category">Category</label>
+                        <select required id="category" name="category">
+                            <option value="category1">User Story</option>
+                            <option value="category2">Technical Task</option>
+                        </select>
+                    </div>
+                    <div style="height: 80px;" class="form-group">
+                        <label for="subtasks">Subtasks</label>
+                        <input required type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="sendFormOptions">
-            <p style="width: 170px; height: 27px;"><b style="color: red;">*</b>This field is required</p>
-            <div class="button-group">
-                <button class="clearButton" type="reset">Clear <b>✕</b></button>
-                <button class="createButton" type="submit">Create Task ✔</button>
+            <div class="sendFormOptions">
+                <p style="width: 170px; height: 27px;"><b style="color: red;">*</b>This field is required</p>
+                <div class="button-group">
+                    <button class="clearButton" type="reset">Clear <b>✕</b></button>
+                    <button class="createButton" type="submit">Create Task ✔</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </body>
 
