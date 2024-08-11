@@ -2,6 +2,7 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    background: rgb(246, 247, 258);
 }
 
 a {
@@ -59,6 +60,9 @@ a {
     padding: 8px;
     box-sizing: border-box;
     border: 1px solid rgb(227, 227, 227);
+    resize: vertical;
+    min-height: 100px;
+    max-height: 200px;
 }
 
 .form-group select {
@@ -67,6 +71,7 @@ a {
     padding: 8px;
     box-sizing: border-box;
     border: 1px solid rgb(227, 227, 227);
+    border-radius: 10px;
 }
 
 .form-group input {
@@ -75,6 +80,7 @@ a {
     padding: 8px;
     box-sizing: border-box;
     border: 1px solid rgb(227, 227, 227);
+    border-radius: 10px;
 }
 
 .button-group {
@@ -149,13 +155,57 @@ a {
 }
 
 .urgentStatus {
-    width: 136px;
-    height: 56px;
-    padding: 16px 10px 16px 10px;
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row-reverse;
     gap: 8px;
+    padding: 16px 10px 16px 10px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
     border-radius: 10px;
-    border: none;
-    background-color: white;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    border: 1px transparent;
+}
 
+.urgentIcon,
+.lowIconF {
+    width: 20px;
+    height: 14.51px;
+}
+
+.mediumIcon {
+    width: 20px;
+    height: 7.45px;
+}
+
+.urgentStatus:hover {
+    box-shadow: 0px 15px 12px 0px rgba(0, 0, 0, 0.22);
+}
+
+.urgent-selected {
+    background-color: rgba(255, 61, 0, 1);
+    color: white;
+}
+
+.medium-selected {
+    background-color: rgba(255, 168, 0, 1);
+    color: white;
+}
+
+.low-selected {
+    background-color: rgba(122, 226, 41, 1);
+    color: white;
+}
+
+.urgentStatus.urgent-selected,
+.urgentStatus.medium-selected,
+.urgentStatus.low-selected {
+    box-shadow: none;
+}
+
+.form-group select option[disabled] {
+    color: #999;
+    /* Placeholder text color */
 }

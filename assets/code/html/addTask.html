@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/addTask.css">
     <script src="../scripts/addTaskScript.js"></script>
     <script src="../scripts/includeHTML.js"></script>
+    <script src="../scripts/mainScript.js"></script>
     <title>Task Form</title>
 </head>
 
@@ -14,46 +15,53 @@
     <div w3-include-html="navbarTemplate.html"></div>
     <div w3-include-html="headerTemplate.html"></div>
     <div class="title_position">
-    <h1 style="margin: 0 0 0 250px; font-size: 61px; font-weight: 700;">Add Task</h1>
+        <h1 style="margin: 0 0 0 250px; font-size: 61px; font-weight: 700;">Add Task</h1>
     </div>
     <div class="container">
         <form onsubmit="addToTask(event)">
             <div class="form">
                 <div class="left">
                     <div class="form-group">
-                        <label for="title">Title</label>
+                        <label for="title">Title<b style="color: red;">*</b></label>
                         <input required type="text" id="title" name="title">
                     </div>
-                    <div style="height: 168px;" class="form-group">
+                    <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea required id="description" name="description" rows="4"
+                        <textarea id="description" name="description" rows="4"
                             placeholder="Enter a description"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="assigned">Assigned to</label>
-                        <select required id="assigned" name="assigned">
+                        <select id="assigned" name="assigned">
+                            <option value="" enabled selected>Select contacts to assign</option>
                             <option value="user1">User 1</option>
                             <option value="user2">User 2</option>
                             <option value="user3">User 3</option>
                         </select>
-                    </div>
+                    </div>                    
                 </div>
                 <div class="separator"></div>
                 <div class="right">
                     <div style="height: 96px;" class="form-group">
-                        <label for="due-date">Due Date</label>
+                        <label for="due-date">Due Date<b style="color: red;">*</b></label>
                         <input required type="date" id="due-date" name="due-date">
                     </div>
                     <div style="height: 88px;" class="form-group">
                         <p>Prio</p>
                         <div class="urgency">
-                            <button class="urgentStatus">Urgent</button>
-                            <button class="urgentStatus">Medium</button>
-                            <button class="urgentStatus">Low</button>
+                            <button type="button" class="urgentStatus" data-status="urgent">
+                                <img class="urgentIcon" src="../../img/urgentIcon.png" alt="Urgent Icon"> Urgent
+                            </button>
+                            <button type="button" class="urgentStatus" data-status="medium">
+                                <img class="mediumIcon" src="../../img/mediumIcon.png" alt="Medium Icon"> Medium
+                            </button>
+                            <button type="button" class="urgentStatus" data-status="low">
+                                <img class="lowIcon" src="../../img/lowIcon.png" alt="Low Icon"> Low
+                            </button>
                         </div>
                     </div>
                     <div style="height: 80px;" class="form-group">
-                        <label for="category">Category</label>
+                        <label for="category">Category<b style="color: red;">*</b></label>
                         <select required id="category" name="category">
                             <option value="category1">User Story</option>
                             <option value="category2">Technical Task</option>
@@ -61,14 +69,14 @@
                     </div>
                     <div style="height: 80px;" class="form-group">
                         <label for="subtasks">Subtasks</label>
-                        <input required type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
+                        <input type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
                     </div>
                 </div>
             </div>
             <div class="sendFormOptions">
                 <p style="width: 170px; height: 27px;"><b style="color: red;">*</b>This field is required</p>
                 <div class="button-group">
-                    <button class="clearButton" type="reset">Clear <b>✕</b></button>
+                    <button onclick="reset()" class="clearButton" type="reset">Clear <b>✕</b></button>
                     <button class="createButton" type="submit">Create Task ✔</button>
                 </div>
             </div>
