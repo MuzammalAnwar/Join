@@ -15,7 +15,8 @@
                 "dueDate": "",
                 "priority": "urgent",
                 "category": "Technical Task",
-                "subtasks": {}
+                "subtasks": {},
+                "Path": ""
             }
         },
         "inProgress": {
@@ -26,7 +27,8 @@
                 "dueDate": "",
                 "priority": "urgent",
                 "category": "Technical Task",
-                "subtasks": {}
+                "subtasks": {},
+                "Path": ""
             }
         },
         "awaitFeedback": {
@@ -37,7 +39,8 @@
                 "dueDate": "",
                 "priority": "urgent",
                 "category": "Technical Task",
-                "subtasks": {}
+                "subtasks": {},
+                "Path": ""
             }
         },
         "done": {
@@ -48,7 +51,8 @@
                 "dueDate": "",
                 "priority": "urgent",
                 "category": "Technical Task",
-                "subtasks": {}
+                "subtasks": {},
+                "Path": ""
             }
         },
         "addedContacts": {}
