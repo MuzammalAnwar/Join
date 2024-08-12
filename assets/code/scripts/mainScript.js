@@ -1,9 +1,6 @@
 const URL = 'https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users'
 
-function init() {
-    // postTask("users/addedTasks/done/tasks/firstTask", task);
-    // getTask("users");
-}
+function init() { }
 
 async function fetchTask(path = "", data = null, method = "GET") {
     try {
@@ -21,9 +18,11 @@ async function fetchTask(path = "", data = null, method = "GET") {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         let responseData = await response.json();
+        if (method === "GET") {
+            return responseData;
+        }
     } catch (error) {
-        console.error('Error putting task:', error);
-    } finally {
+        console.error('Error with task operation:', error);
     }
 }
 

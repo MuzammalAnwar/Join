@@ -1,6 +1,6 @@
 let tasks = [];
-let pathIndex = 1;
 let selectedStatus = 'none';
+let subtasks = []
 
 document.addEventListener('DOMContentLoaded', function () {
     let urgencyButtons = document.querySelectorAll('.urgentStatus');
@@ -40,7 +40,9 @@ function addToTask(event) {
     let assigned = document.getElementById('assigned');
     let dueDate = document.getElementById('due-date');
     let category = document.getElementById('category');
-    let subTasks = document.getElementById('subtasks');
+
+    let taskKey = generateUniqueKey();
+    let taskPath = `/addedTasks/toDo/${taskKey}`;
 
     let task = {
         "title": title.value,
@@ -48,8 +50,9 @@ function addToTask(event) {
         "assigned": assigned.value,
         "due-date": dueDate.value,
         "category": category.value,
-        "subtasks": subTasks.value,
-        "urgency": selectedStatus == 'medium' || selectedStatus == 'low' || selectedStatus == 'urgent' ? selectedStatus : 'none'
+        "subtasks": subtasks,
+        "urgency": selectedStatus == 'medium' || selectedStatus == 'low' || selectedStatus == 'urgent' ? selectedStatus : 'none',
+        "path": taskPath,
     };
 
     tasks.push(task);
@@ -60,8 +63,60 @@ function addToTask(event) {
     assigned.value = '';
     dueDate.value = '';
     category.value = '';
-    subTasks.value = '';
 
-    fetchTask(("/addedTasks/toDo/task" + pathIndex), task, 'PUT')
-    pathIndex++;
+    fetchTask(taskPath, task, 'PUT')
+}
+
+function generateUniqueKey() {
+    return Math.random().toString(36).substring(2, 11);
+}
+
+function changeImgSource(id, src) {
+    document.getElementById(id).src = src;
+}
+
+function addSubtask() {
+    let input = document.getElementById('subtasks')
+    let subtaskList = document.getElementById('subtaskList')
+    if (input.value !== '') {
+        subtaskList.innerHTML = '';
+        subtasks.push(input.value)
+        for (let i = 0; i < subtasks.length; i++) {
+            subtaskList.innerHTML += /*HTML*/`
+            <ul>
+                <li><p>${subtasks[i]}</p></li>
+            </ul>
+            `;
+        }
+        input.value = '';
+    } else {
+        alert('Write something')
+    }
+}
+
+function handleButtonClick(clickedIconId, originalSrc, hoverSrc, otherIconIds) {
+    otherIconIds.forEach(function (id) {
+        let icon = document.getElementById(id);
+        if (icon) {
+            icon.src = id === 'urgentIcon' ? '../../img/urgentIcon.png' :
+                id === 'mediumIcon' ? '../../img/mediumIcon.png' :
+                    '../../img/lowIcon.png';
+        }
+    });
+    toggleIcon(clickedIconId, originalSrc, hoverSrc);
+}
+
+function toggleIcon(iconId, originalSrc, hoverSrc) {
+    let icon = document.getElementById(iconId);
+    let currentSrc = icon.src.split('/').pop();
+    if (currentSrc === originalSrc.split('/').pop()) {
+        icon.src = hoverSrc;
+    } else {
+        icon.src = originalSrc;
+    }
+
+}
+
+function clearSubtasks() {
+    document.getElementById('subtaskList').innerHTML = '';
 }

@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../scripts/includeHTML.js"></script>
-    <script src="../cripts/boardScript.js"></script>
+    <script src="../scripts/mainScript.js"></script>
+    <script src="../scripts/boardScript.js"></script>
     <link rel="stylesheet" href="../css/board.css">
     <title>Join | Board</title>
 </head>
 
-<body onload="includeHTML()">
+<body>
     <div w3-include-html="navbarTemplate.html"></div>
     <div w3-include-html="headerTemplate.html"></div>
 
@@ -34,29 +35,32 @@
             <div class="bar">
                 <p>To Do</p>
                 <img src="../../img/plusIcon.png" alt="addTask">
-                <div id="categoryToDo"></div>
+                <!-- <img src="../../img/plusIconHover.png" alt="addTask Hover"> -->
             </div>
+            <div id="categoryToDo" class="taskContainer"></div>
         </div>
         <div class="categoryAndIconBar">
             <div class="bar">
                 <p>In Progress</p>
                 <img src="../../img/plusIcon.png" alt="addTask">
-                <div id="categoryInProgress"></div>
+                <!-- <img src="../../img/plusIconHover.png" alt="addTask Hover"> -->
             </div>
+            <div id="categoryInProgress" class="taskContainer"></div>
         </div>
         <div class="categoryAndIconBar">
             <div class="bar">
                 <p>Await feedback</p>
                 <img src="../../img/plusIcon.png" alt="addTask">
-                <div id="categoryAwaitFeedback"></div>
+                <!-- <img src="../../img/plusIconHover.png" alt="addTask Hover"> -->
             </div>
+            <div id="categoryAwaitFeedback" class="taskContainer"></div>
         </div>
         <div class="categoryAndIconBar">
             <div class="bar">
                 <p>Done</p>
             </div>
-            <div id="categoryDone"></div>
         </div>
+        <div id="categoryDone" class="taskContainer"></div>
     </section>
 </body>
 

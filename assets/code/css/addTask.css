@@ -83,6 +83,36 @@ a {
     border-radius: 10px;
 }
 
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-container input {
+    height: 48px;
+    width: 100%;
+    padding: 8px;
+    padding-right: 40px;
+    box-sizing: border-box;
+    border: 1px solid rgb(227, 227, 227);
+    border-radius: 10px;
+}
+
+.input-container .input-icon {
+    position: absolute;
+    right: 10px;
+    height: 24px;
+    width: auto;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.input-icon:hover {
+    background-color: lightgrey;
+    border-radius: 999px;
+}
+
 .button-group {
     display: flex;
     justify-content: flex-end;
@@ -160,7 +190,7 @@ a {
     flex-direction: row-reverse;
     gap: 8px;
     padding: 16px 10px 16px 10px;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     cursor: pointer;
     font-size: 16px;
     border-radius: 4px;
@@ -170,14 +200,16 @@ a {
 }
 
 .urgentIcon,
-.lowIconF {
+.lowIcon {
     width: 20px;
     height: 14.51px;
+    object-fit: contain;
 }
 
 .mediumIcon {
     width: 20px;
     height: 7.45px;
+    object-fit: contain;
 }
 
 .urgentStatus:hover {
@@ -207,5 +239,4 @@ a {
 
 .form-group select option[disabled] {
     color: #999;
-    /* Placeholder text color */
 }

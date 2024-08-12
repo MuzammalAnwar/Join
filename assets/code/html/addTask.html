@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/addTask.css">
-    <script src="../scripts/addTaskScript.js"></script>
     <script src="../scripts/includeHTML.js"></script>
     <script src="../scripts/mainScript.js"></script>
+    <script src="../scripts/addTaskScript.js"></script>
     <title>Task Form</title>
 </head>
 
@@ -34,11 +34,11 @@
                         <label for="assigned">Assigned to</label>
                         <select id="assigned" name="assigned">
                             <option value="" enabled selected>Select contacts to assign</option>
-                            <option value="user1">User 1</option>
-                            <option value="user2">User 2</option>
-                            <option value="user3">User 3</option>
+                            <option value="Maximillian">Maximillian</option>
+                            <option value="Philip">Philip</option>
+                            <option value="Adrian">Adrian</option>
                         </select>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="separator"></div>
                 <div class="right">
@@ -49,34 +49,52 @@
                     <div style="height: 88px;" class="form-group">
                         <p>Prio</p>
                         <div class="urgency">
-                            <button type="button" class="urgentStatus" data-status="urgent">
-                                <img class="urgentIcon" src="../../img/urgentIcon.png" alt="Urgent Icon"> Urgent
+                            <button
+                                onclick="handleButtonClick('urgentIcon', '../../img/urgentIcon.png', '../../img/urgentIconHover.png', ['mediumIcon', 'lowIcon'])"
+                                type="button" class="urgentStatus" data-status="urgent">
+                                <img id="urgentIcon" class="urgentIcon" src="../../img/urgentIcon.png"
+                                    alt="Urgent Icon">
+                                Urgent
                             </button>
-                            <button type="button" class="urgentStatus" data-status="medium">
-                                <img class="mediumIcon" src="../../img/mediumIcon.png" alt="Medium Icon"> Medium
+
+                            <button
+                                onclick="handleButtonClick('mediumIcon', '../../img/mediumIcon.png', '../../img/mediumIconHover.png', ['urgentIcon', 'lowIcon'])"
+                                type="button" class="urgentStatus" data-status="medium">
+                                <img id="mediumIcon" class="mediumIcon" src="../../img/mediumIcon.png"
+                                    alt="Medium Icon">
+                                Medium
                             </button>
-                            <button type="button" class="urgentStatus" data-status="low">
-                                <img class="lowIcon" src="../../img/lowIcon.png" alt="Low Icon"> Low
+
+                            <button
+                                onclick="handleButtonClick('lowIcon', '../../img/lowIcon.png', '../../img/lowIconHover.png', ['urgentIcon', 'mediumIcon'])"
+                                type="button" class="urgentStatus" data-status="low">
+                                <img id="lowIcon" class="lowIcon" src="../../img/lowIcon.png" alt="Low Icon">
+                                Low
                             </button>
                         </div>
                     </div>
                     <div style="height: 80px;" class="form-group">
                         <label for="category">Category<b style="color: red;">*</b></label>
                         <select required id="category" name="category">
-                            <option value="category1">User Story</option>
-                            <option value="category2">Technical Task</option>
+                            <option value="User Story">User Story</option>
+                            <option value="Technical Task">Technical Task</option>
                         </select>
                     </div>
                     <div style="height: 80px;" class="form-group">
                         <label for="subtasks">Subtasks</label>
-                        <input type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
+                        <div class="input-container">
+                            <input type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
+                            <img id="subtaskAdd" onclick="addSubtask()" src="../../img/subtaskAddPlusIcon.png"
+                                alt="Add Subtask" class="input-icon">
+                        </div>
+                        <div class="subtasksList" id="subtaskList"></div>
                     </div>
                 </div>
             </div>
             <div class="sendFormOptions">
                 <p style="width: 170px; height: 27px;"><b style="color: red;">*</b>This field is required</p>
                 <div class="button-group">
-                    <button class="clearButton" type="reset">Clear <b>✕</b></button>
+                    <button onclick="clearSubtasks()" class="clearButton" type="reset">Clear <b>✕</b></button>
                     <button class="createButton" type="submit">Create Task ✔</button>
                 </div>
             </div>

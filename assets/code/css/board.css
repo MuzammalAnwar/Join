@@ -2,6 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
+    background: rgb(246, 247, 258);
 }
 
 a {
@@ -120,48 +121,68 @@ h1 {
     width: 244px;
 }
 
-@keyframes shake {
-    0% {
-        transform: translate(1px, 1px) rotate(0deg);
-    }
+.urgentIcon,
+.lowIcon {
+    width: 20px;
+    height: 14.51px;
+}
 
-    10% {
-        transform: translate(-1px, -1px) rotate(-1deg);
-    }
+.mediumIcon {
+    width: 20px;
+    height: 7.45px;
+    object-fit: contain;
+}
 
-    20% {
-        transform: translate(-1px, 0px) rotate(1deg);
-    }
+.task {
+    width: 252px;
+    border-radius: 24px;
+    background-color: white;
+    padding: 16px;
+}
 
-    30% {
-        transform: translate(1px, 1px) rotate(0deg);
-    }
+.categoryUserStory {
+    background-color: blue;
+    display: flex;
+    justify-content: flex-start;
+    padding: 4px 16px 4px 16px;
+    width: fit-content;
+    border-radius: 8px;
+    color: white;
+}
 
-    40% {
-        transform: translate(1px, -1px) rotate(1deg);
-    }
+.categoryTechnicalTask {
+    background: rgba(31, 215, 193, 1);
+    display: flex;
+    justify-content: flex-start;
+    padding: 4px 16px 4px 16px;
+    width: fit-content;
+    border-radius: 8px;
+    color: white;
+}
 
-    50% {
-        transform: translate(-1px, 1px) rotate(-1deg);
-    }
+.taskContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-    60% {
-        transform: translate(-1px, 1px) rotate(0deg);
-    }
+.taskTitleAndDescription {
+    width: 220px;
+}
 
-    70% {
-        transform: translate(1px, 1px) rotate(-1deg);
-    }
+.title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(42, 54, 71, 1);
+}
 
-    80% {
-        transform: translate(-1px, -1px) rotate(1deg);
-    }
-
-    90% {
-        transform: translate(1px, 1px) rotate(0deg);
-    }
-
-    100% {
-        transform: translate(1px, -2px) rotate(-1deg);
-    }
+.description {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(168, 168, 168, 1)
 }
