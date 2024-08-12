@@ -1,5 +1,6 @@
 let tasks = [];
 let selectedStatus = 'none';
+let subtasks = []
 
 document.addEventListener('DOMContentLoaded', function () {
     let urgencyButtons = document.querySelectorAll('.urgentStatus');
@@ -52,7 +53,7 @@ function addToTask(event) {
         "category": category.value,
         "subtasks": subTasks.value,
         "urgency": selectedStatus == 'medium' || selectedStatus == 'low' || selectedStatus == 'urgent' ? selectedStatus : 'none',
-        "path": taskPath
+        "path": taskPath,
     };
 
     tasks.push(task);
@@ -74,4 +75,23 @@ function generateUniqueKey() {
 
 function changeImgSource(id, src) {
     document.getElementById(id).src = src;
+}
+
+function addSubtask() {
+    let input = document.getElementById('subtasks')
+    let subtaskList = document.getElementById('subtaskList')
+    if (input.value !== '') {
+        subtaskList.innerHTML = '';
+        subtasks.push(input.value)
+        for (let i = 0; i < subtasks.length; i++) {
+            subtaskList.innerHTML += /*HTML*/`
+            <ul>
+                <li><p>${subtasks[i]}</p></li>
+            </ul>
+            `;
+        }
+        input.value = '';
+    } else {
+        alert('Write something')
+    }
 }

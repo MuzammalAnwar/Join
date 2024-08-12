@@ -116,8 +116,73 @@ h1 {
 
 .bar {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     width: 244px;
+}
+
+.urgentIcon,
+.lowIcon {
+    width: 20px;
+    height: 14.51px;
+}
+
+.mediumIcon {
+    width: 20px;
+    height: 7.45px;
+    object-fit: contain;
+}
+
+.task {
+    width: 252px;
+    border-radius: 24px;
+    background-color: white;
+    padding: 16px;
+}
+
+.categoryUserStory {
+    background-color: blue;
+    display: flex;
+    justify-content: flex-start;
+    padding: 4px 16px 4px 16px;
+    width: fit-content;
+    border-radius: 8px;
+    color: white;
+}
+
+.categoryTechnicalTask {
+    background: rgba(31, 215, 193, 1);
+    display: flex;
+    justify-content: flex-start;
+    padding: 4px 16px 4px 16px;
+    width: fit-content;
+    border-radius: 8px;
+    color: white;
+}
+
+.taskContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.taskTitleAndDescription {
+    width: 220px;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(42, 54, 71, 1);
+}
+
+.description {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(168, 168, 168, 1)
 }

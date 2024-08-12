@@ -23,8 +23,6 @@ async function fetchTask(path = "", data = null, method = "GET") {
         }
     } catch (error) {
         console.error('Error with task operation:', error);
-    } finally {
-        console.log('Request completed');
     }
 }
 
