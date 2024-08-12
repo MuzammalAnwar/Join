@@ -3,11 +3,10 @@ let pathIndex = 1;
 let selectedStatus = 'none';
 
 document.addEventListener('DOMContentLoaded', function () {
-    const urgencyButtons = document.querySelectorAll('.urgentStatus');
-
+    let urgencyButtons = document.querySelectorAll('.urgentStatus');
     urgencyButtons.forEach(button => {
         button.addEventListener('click', function () {
-            const isSelected = this.classList.contains('urgent-selected') ||
+            let isSelected = this.classList.contains('urgent-selected') ||
                 this.classList.contains('medium-selected') ||
                 this.classList.contains('low-selected');
             if (isSelected) {
@@ -32,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
 
 function addToTask(event) {
     event.preventDefault();
@@ -66,13 +64,4 @@ function addToTask(event) {
 
     fetchTask(("/addedTasks/toDo/task" + pathIndex), task, 'PUT')
     pathIndex++;
-}
-
-function reset() {
-    document.getElementById('title').value = '';
-    document.getElementById('description').value = '';
-    document.getElementById('assigned').value = '';
-    document.getElementById('due-date').value = '';
-    document.getElementById('category').value = '';
-    document.getElementById('subtasks').value = '';
 }

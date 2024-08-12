@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "inter";
+    src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
+}
+
 html,
 body {
     font-family: "inter";
@@ -255,4 +260,227 @@ a {
     height: 59px;
     border: 3px solid rgba(41, 171, 226, 1);
     border-inline-start-style: none;
+}
+
+.overlay_background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay {
+    width: 1212px;
+    height: 592px;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 1000;
+    border-radius: 30px;
+    animation: slideInRight 0.5s ease-out;
+}
+
+.overlay.slide-out {
+    animation: slideOutRight 0.5s ease-out forwards;
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+
+.overlay_title_container {
+    width: 467px;
+    height: 594px;
+    background-color: rgba(42, 54, 71, 1);
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.overlay_title {
+    font-family: "inter";
+    font-size: 61px;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+}
+
+.overlay_subtitle {
+    font-family: "inter";
+    font-size: 27px;
+    font-weight: 400;
+    margin: 0;
+    color: white;
+}
+
+.overlay_logo {
+    width: 55.6px;
+    height: 66.48px;
+    margin-bottom: 16px;
+}
+
+.title_underline {
+    height: 0;
+    width: 90px;
+    border: 3px solid rgba(41, 171, 226, 1);
+    border-radius: 3px;
+    border-top-style: none;
+    margin-top: 16px;
+    display: flex;
+}
+
+.overlay_content_left {
+    width: 40%;
+    display: flex;
+}
+
+.overlay_content_right {
+    width: 60%;
+    display: flex;
+}
+
+.overlay_content_position {
+    display: flex;
+    align-items: center;
+}
+
+.overlay_title_position {
+    display: flex;
+    flex-direction: column;
+}
+
+.user_overlay {
+    border: 3px solid white;
+    background-color: rgba(209, 209, 209, 1);
+    border-radius: 559px;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    margin: 60px;
+}
+
+.input_container_overlay {
+    width: 422px;
+    height: 48px;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(209, 209, 209, 1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+
+.input_size_overlay {
+    border: none;
+    width: 380px;
+    height: 24px;
+    margin-left: 16px;
+}
+
+.input_size_overlay:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.margin_input_icon {
+    margin-right: 16px;
+}
+
+.overlay_close_button {
+    width: 32px;
+    height: 32px;
+    border-radius: 56px;
+    margin-bottom: 56px;
+}
+
+.overlay_close_button:hover {
+    background-color: rgba(209, 209, 209, 0.314);
+    cursor: pointer;
+}
+
+.close_icon_position {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.d_none {
+    display: none;
+}
+
+.submit_icon {
+    width: 214px;
+    height: 57px;
+    border-radius: 10px;
+    border: 1px none;
+    background: rgba(42, 54, 71, 1);
+    color: white;
+    font-size: 21px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+margin-left: 16px;
+}
+
+.submit_icon:hover {
+    background-color: rgba(41, 171, 226, 1);
+}
+
+.cancel_icon {
+    width: 126px;
+    height: 56px;
+    border-radius: 8px;
+    border: 1px solid rgba(42, 54, 71, 1);
+    color: rgba(42, 54, 71, 1);
+    font-family: "inter";
+    font-weight: 700;
+    font-size: 21px;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cancel_icon:hover {
+    color: rgba(41, 171, 226, 1);
+    border-color: rgba(41, 171, 226, 1);
+}
+
+.form_buttons {
+    display: flex;
 }

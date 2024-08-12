@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join | Contacts</title>
     <script src="../scripts/includeHTML.js"></script>
+    <script src="../scripts/contacts.js"></script>
     <link rel="stylesheet" href="../css/contacts.css">
 </head>
 
@@ -16,31 +17,16 @@
         <div class="df">
             <div style="margin-left: 232px;">
                 <div class="contact_main_container">
-                    <div class="contact_container">
+                    <div id="contactList" class="contact_container">
                         <div class="button_container">
-                            <button class="add_button">Add new contact<img class="button_icon"
+                            <button onclick="showOverlay()" class="add_button">Add new contact<img class="button_icon"
                                     src="../../img/person_add.png"></button>
-                        </div>
-                        <div class="alphabetical_index">
-                            <div class="letter">K</div>
-                        </div>
-                        <div class="contact_separator">
-                            <div class="separator"></div>
-                        </div>
-                        <div class="contact_small_card">
-                            <p class="contact_icon">
-                                KG
-                            </p>
-                            <div>
-                                <p class="m0">Kenan Günes</p>
-                                <p class="font_color_blue m0">kenan@gmail.com</p>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div>
-                <div class="contact_title_container">
+                <div id="largeCardContainer" class="contact_title_container">
                     <div>
                         <p class="contact_title">Contacts</p>
                     </div>
@@ -49,17 +35,17 @@
                         <p class="contact_subtitle">Better with a team</p>
                     </div>
                 </div>
-                <div class="contact_large_card">
+                <div id="largeCard" class="contact_large_card" style="display: none;">
                     <div class="tall_card_header">
                         <div>
-                            <p class="contact_icon_large">KG</p>
+                            <p id="largeCardIcon" class="contact_icon_large"></p>
                         </div>
                         <div>
-                            <p class="large_card_name">Kenan Günes</p>
+                            <p id="largeCardName" class="large_card_name"></p>
                             <div class="large_cards_buttons">
-                                <button class="edit_button"><img class="edit_icon"
+                                <button class="edit_button" onclick="showEditOverlay('${name}', '${email}', '${phone}')"><img class="edit_icon"
                                         src="../../img/edit.png">Edit</button>
-                                <button class="delete_button"><img class="delete_icon"
+                                <button onclick="deleteContact()" class="delete_button"><img class="delete_icon"
                                         src="../../img/delete.png">Delete</button>
                             </div>
                         </div>
@@ -70,13 +56,114 @@
                     <div>
                         <div>
                             <p class="text_info">Email</p>
-                            <p class="font_color_blue">kenan@gmail.com</p>
+                            <p id="largeCardEmail" class="font_color_blue"></p>
                         </div>
                         <div>
                             <p class="text_info">Phone</p>
-                            <p class="">+49 123456789</p>
+                            <p id="largeCardPhone"></p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div id="d_none" class="overlay_background d_none">
+            <div id="overlay" class="overlay">
+                <div class="overlay_content_left">
+                    <div class="overlay_title_container">
+                        <div class="overlay_title_position">
+                            <img class="overlay_logo" src="../../img/Capa1.png" alt="Logo">
+                            <p class="overlay_title">Add contact</p>
+                            <p class="overlay_subtitle">Tasks are better with a team!</p>
+                            <div class="title_underline"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="overlay_content_right">
+                    <form id="contactForm" class="overlay_content_position" onsubmit="createContact(event)">
+                        <div>
+                            <div class="user_overlay">
+                                <img src="../../img/person.png">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="close_icon_position">
+                                <div>
+                                    <div class="overlay_close_button" onclick="hideOverlay()">
+                                        <img class="close_icon" src="../../img/Close.png">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="input_container_overlay">
+                                        <input required id="inputName" class="input_size_overlay" type="text" placeholder="Name">
+                                        <img class="margin_input_icon" src="../../img/person grey.png">
+                                    </div>
+                                    <div class="input_container_overlay">
+                                        <input required id="inputEmail" class="input_size_overlay" type="email" placeholder="Email">
+                                        <img class="margin_input_icon" src="../../img/mail.png">
+                                    </div>
+                                    <div class="input_container_overlay">
+                                        <input required id="inputPhone" class="input_size_overlay" type="tel" placeholder="Phone">
+                                        <img class="margin_input_icon" src="../../img/call.png">
+                                    </div>
+                                    <div class="form_buttons">
+                                        <button type="button" class="cancel_icon">Cancel<img
+                                                src="../../img/iconoir_cancel.png"></button>
+                                        <button type="submit" class="submit_icon">Create contact<img
+                                                src="../../img/check.png"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="editOverlayBackground" class="overlay_background d_none">
+            <div id="editOverlay" class="overlay">
+                <div class="overlay_content_left">
+                    <div class="overlay_title_container">
+                        <div class="overlay_title_position">
+                            <img class="overlay_logo" src="../../img/Capa1.png" alt="Logo">
+                            <p class="overlay_title">Edit contact</p>
+                            <div class="title_underline"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="overlay_content_right">
+                    <form id="editContactForm" class="overlay_content_position" onsubmit="saveContact(event)">
+                        <div>
+                            <div class="user_overlay">
+                                <img src="../../img/person.png">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="close_icon_position">
+                                <div>
+                                    <div class="overlay_close_button" onclick="hideEditOverlay()">
+                                        <img class="close_icon" src="../../img/Close.png">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="input_container_overlay">
+                                        <input required id="editName" class="input_size_overlay" type="text" placeholder="Name">
+                                        <img class="margin_input_icon" src="../../img/person grey.png">
+                                    </div>
+                                    <div class="input_container_overlay">
+                                        <input required id="editEmail" class="input_size_overlay" type="email" placeholder="Email">
+                                        <img class="margin_input_icon" src="../../img/mail.png">
+                                    </div>
+                                    <div class="input_container_overlay">
+                                        <input required id="editPhone" class="input_size_overlay" type="tel" placeholder="Phone">
+                                        <img class="margin_input_icon" src="../../img/call.png">
+                                    </div>
+                                    <div class="form_buttons">
+                                        <button type="button" class="cancel_icon" onclick="deleteContact()">Delete<img src="../../img/iconoir_cancel.png"></button>
+                                        <button type="submit" class="submit_icon">Save<img src="../../img/check.png"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
