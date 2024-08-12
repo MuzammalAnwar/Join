@@ -40,7 +40,6 @@ function addToTask(event) {
     let assigned = document.getElementById('assigned');
     let dueDate = document.getElementById('due-date');
     let category = document.getElementById('category');
-    let subTasks = document.getElementById('subtasks');
 
     let taskKey = generateUniqueKey();
     let taskPath = `/addedTasks/toDo/${taskKey}`;
@@ -51,7 +50,7 @@ function addToTask(event) {
         "assigned": assigned.value,
         "due-date": dueDate.value,
         "category": category.value,
-        "subtasks": subTasks.value,
+        "subtasks": subtasks,
         "urgency": selectedStatus == 'medium' || selectedStatus == 'low' || selectedStatus == 'urgent' ? selectedStatus : 'none',
         "path": taskPath,
     };
@@ -64,7 +63,6 @@ function addToTask(event) {
     assigned.value = '';
     dueDate.value = '';
     category.value = '';
-    subTasks.value = '';
 
     fetchTask(taskPath, task, 'PUT')
 }
@@ -94,4 +92,31 @@ function addSubtask() {
     } else {
         alert('Write something')
     }
+}
+
+function handleButtonClick(clickedIconId, originalSrc, hoverSrc, otherIconIds) {
+    otherIconIds.forEach(function (id) {
+        let icon = document.getElementById(id);
+        if (icon) {
+            icon.src = id === 'urgentIcon' ? '../../img/urgentIcon.png' :
+                id === 'mediumIcon' ? '../../img/mediumIcon.png' :
+                    '../../img/lowIcon.png';
+        }
+    });
+    toggleIcon(clickedIconId, originalSrc, hoverSrc);
+}
+
+function toggleIcon(iconId, originalSrc, hoverSrc) {
+    let icon = document.getElementById(iconId);
+    let currentSrc = icon.src.split('/').pop();
+    if (currentSrc === originalSrc.split('/').pop()) {
+        icon.src = hoverSrc;
+    } else {
+        icon.src = originalSrc;
+    }
+
+}
+
+function clearSubtasks() {
+    document.getElementById('subtaskList').innerHTML = '';
 }
