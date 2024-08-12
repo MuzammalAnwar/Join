@@ -1,5 +1,4 @@
 let tasks = [];
-let pathIndex = 1;
 let selectedStatus = 'none';
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -42,6 +41,9 @@ function addToTask(event) {
     let category = document.getElementById('category');
     let subTasks = document.getElementById('subtasks');
 
+    let taskKey = generateUniqueKey();
+    let taskPath = `/addedTasks/toDo/${taskKey}`;
+
     let task = {
         "title": title.value,
         "description": description.value,
@@ -49,7 +51,8 @@ function addToTask(event) {
         "due-date": dueDate.value,
         "category": category.value,
         "subtasks": subTasks.value,
-        "urgency": selectedStatus == 'medium' || selectedStatus == 'low' || selectedStatus == 'urgent' ? selectedStatus : 'none'
+        "urgency": selectedStatus == 'medium' || selectedStatus == 'low' || selectedStatus == 'urgent' ? selectedStatus : 'none',
+        "path": taskPath
     };
 
     tasks.push(task);
@@ -62,6 +65,13 @@ function addToTask(event) {
     category.value = '';
     subTasks.value = '';
 
-    fetchTask(("/addedTasks/toDo/task" + pathIndex), task, 'PUT')
-    pathIndex++;
+    fetchTask(taskPath, task, 'PUT')
+}
+
+function generateUniqueKey() {
+    return Math.random().toString(36).substring(2, 11);
+}
+
+function changeImgSource(id, src) {
+    document.getElementById(id).src = src;
 }

@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/addTask.css">
-    <script src="../scripts/addTaskScript.js"></script>
     <script src="../scripts/includeHTML.js"></script>
     <script src="../scripts/mainScript.js"></script>
+    <script src="../scripts/addTaskScript.js"></script>
     <title>Task Form</title>
 </head>
 
@@ -38,7 +38,7 @@
                             <option value="user2">User 2</option>
                             <option value="user3">User 3</option>
                         </select>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="separator"></div>
                 <div class="right">
@@ -50,21 +50,27 @@
                         <p>Prio</p>
                         <div class="urgency">
                             <button type="button" class="urgentStatus" data-status="urgent">
-                                <img class="urgentIcon" src="../../img/urgentIcon.png" alt="Urgent Icon"> Urgent
+                                <img id="urgentIcon" class="urgentIcon" src="../../img/urgentIcon.png" alt="Urgent Icon">
+                                <!-- <img class="urgentIconHover" src="../../img/urgentIconHover.png" alt="Urgent Icon Hover"> -->
+                                Urgent
                             </button>
                             <button type="button" class="urgentStatus" data-status="medium">
-                                <img class="mediumIcon" src="../../img/mediumIcon.png" alt="Medium Icon"> Medium
+                                <img id="mediumIcon" class="mediumIcon" src="../../img/mediumIcon.png" alt="Medium Icon">
+                                <!-- <img class="mediumIconHover" src="../../img/mediumIconHover.png" alt="Medium Icon"> -->
+                                Medium
                             </button>
                             <button type="button" class="urgentStatus" data-status="low">
-                                <img class="lowIcon" src="../../img/lowIcon.png" alt="Low Icon"> Low
+                                <img id="lowIcon" class="lowIcon" src="../../img/lowIcon.png" alt="Low Icon">
+                                <!-- <img class="lowIconHover" src="../../img/lowIconHover.png" alt="Low Icon"> -->
+                                Medium
                             </button>
                         </div>
                     </div>
                     <div style="height: 80px;" class="form-group">
                         <label for="category">Category<b style="color: red;">*</b></label>
                         <select required id="category" name="category">
-                            <option value="category1">User Story</option>
-                            <option value="category2">Technical Task</option>
+                            <option value="User Story">User Story</option>
+                            <option value="Technical Task">Technical Task</option>
                         </select>
                     </div>
                     <div style="height: 80px;" class="form-group">
