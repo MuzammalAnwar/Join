@@ -4,87 +4,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join</title>
+    <title>Join | Login</title>
     <link rel="stylesheet" href="../css/index.css">
-    <script src="../scripts/includeHTML.js"></script>
-    <script src="../scripts/mainScript.js"></script>
+    <link rel="stylesheet" href="../css/logo.css">
+    <script src="../scripts/logoAnimation.js"></script>
 </head>
 
-<body>
-    <div w3-include-html="headerTemplate.html"></div>
-    <div w3-include-html="navbarTemplate.html"></div>
-    <div class="main_container">
-        <div class="join_title_container">
-            <div>
-                <p class="join_title">Join 360</p>
-            </div>
-            <div class="title_separator"></div>
-            <div>
-                <p class="join_subtitle">Key Metrics at a Glance</p>
+<body onload="startAnimation()">
+    <div id="page1" class="page1">
+        <div class="icon_position">
+            <img id="logo" class="icon" src="../../img/Capa 2.png">
+        </div>
+    </div>
+    <div id="loginPage" class="page1 hidden">
+        <div class="signUp_button_position">
+            <p class="text_style">Not a Join user?</p>
+            <button onclick="document.location='../html/signUpPage.html'" class="signUp_button">Sign up<a></a></button>
+        </div>
+        <div class="head_content_position">
+            <div class="logo_container">
+                <img class="logo" src="../../img/Capa 2.png">
             </div>
         </div>
-        <div class="df">
-            <div class="content">
-                <div class="distance">
-                    <div class="to-do">
-                        <div class="image_container">
-                            <img class="primary" src="../../img/edit_dark_blue.png">
-                            <img class="secondary" src="../../img/edit_white.png">
+        <div class="content">
+            <div class="login_container">
+                <div class="login_card">
+                    <div class="login_brand_container">
+                        <p class="login_card_brand">Log in</p>
+                        <div class="login_card_brand_separator"></div>
+                    </div>
+                    <div class="input_main_container">
+                        <div class="input_container_size">
+                            <div class="input_container">
+                                <input class="input_size" type="email" placeholder="Email">
+                                <img class="margin_input_icon" src="../../img/mail.png">
+                            </div>
+                            <div class="input_container">
+                                <input class="input_size" type="password" placeholder="Password">
+                                <img class="margin_input_icon" src="../../img/lock.png">
+                            </div>
                         </div>
-                        <div class="number_position">
-                            <p class="large_number">1</p>
-                            <p class="text">To-do</p>
-                        </div>
-                    </div>
-                    <div class="done">
-                        <div class="image_container">
-                            <img class="primary" src="../../img/checkmark.png">
-                            <img class="secondary" src="../../img/checkmark_white.png">
-                        </div>
-                        <div class="number_position">
-                            <p class="large_number">1</p>
-                            <p class="text">Done</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="urgent">
-                    <div>
-                        <img class="edit_icon" src="../../img/arrow_up.png">
-                    </div>
-                    <div class="number_position">
-                        <p class="large_number">1</p>
-                        <p class="text">Urgent</p>
-                    </div>
-                    <div class="separator"></div>
-                    <div>
-                        <p class="date">August 28, 2024</p>
-                        <p>Upcoming Deadline</p>
-                    </div>
-                </div>
-                <div class="distance">
-                    <div class="task_in_board">
-                        <div class="number_position">
-                            <p class="large_number">1</p>
-                            <p class="text">Tasks in<br> Board</p>
+                        <div class="df">
+                            <div>
+                                <input class="checkbox" type="checkbox">
+                            </div>
+                            <div>
+                                <p>Remember me</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="task_in_progress">
-                        <div class="number_position">
-                            <p class="large_number">1</p>
-                            <p class="text">Tasks in<br> Progress</p>
+                    <div class="button_position">
+                        <div>
+                            <button onclick="" class="login_button">Log in</button>
                         </div>
-                    </div>
-                    <div class="awaiting_feedback">
-                        <div class="number_position">
-                            <p class="large_number">1</p>
-                            <p class="text">Awaiting Feedback</p>
+                        <div>
+                            <button onclick="document.location='../html/index.html'" class="guest_button">Guest Log
+                                in</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="greeting">
-                <p class="greeting_text">Good morning,</p>
-                <p class="greeting_name">Kenan Günes</p>
+            <div class="GTC_position">
+                <div>
+                    <p onclick="document.location='../html/privacy_policy.html'" class="privacy">Privacy Policy</p>
+                </div>
+                <div>
+                    <p onclick="document.location='../html/legalNotice.html'" class="legal">Legal notice</p>
+                </div>
             </div>
         </div>
     </div>
