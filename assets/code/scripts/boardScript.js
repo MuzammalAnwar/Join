@@ -7,6 +7,7 @@ function initRender() {
 
 function renderTasks(category, id) {
     let htmlContent = document.getElementById(id)
+    htmlContent.innerHTML = '';
     fetchTask(`/addedTasks/${category}/`, null, 'GET').then(taskArray => {
         let keys = Object.keys(taskArray);
         for (let i = 0; i < keys.length; i++) {
@@ -18,6 +19,7 @@ function renderTasks(category, id) {
                         <p class="title">${task.title}</p>
                         <p class="description">${task.description}</p>
                     </div>
+                    ${insertSubtaskBar(task.subtasks)}
                     <div>
                         ${generateImage(task.urgency)}
                     </div>
@@ -52,6 +54,22 @@ function returnClass(category) {
         return 'categoryUserStory';
     } else {
         return '';
+    }
+}
+
+function insertSubtaskBar(subtasks) {
+    if (!Array.isArray(subtasks) || subtasks.length === 0) {
+        return '';
+    } else {
+        let completedSubtasks = subtasks.filter(subtask => subtask.completed).length;
+        return /*HTML*/`
+        <div class="progressSection">
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar" style="width: ${(completedSubtasks / subtasks.length) * 100}%"></div>
+            </div>
+            <div id="progress-text">${completedSubtasks}/${subtasks.length} Subtasks</div>
+        </div>
+        `;
     }
 }
 

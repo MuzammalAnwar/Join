@@ -119,4 +119,5 @@ function toggleIcon(iconId, originalSrc, hoverSrc) {
 
 function clearSubtasks() {
     document.getElementById('subtaskList').innerHTML = '';
+    subtasks = [];
 }

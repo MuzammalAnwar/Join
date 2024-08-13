@@ -18,7 +18,7 @@
         <h1 style="margin: 0 0 0 250px; font-size: 61px; font-weight: 700;">Add Task</h1>
     </div>
     <div class="container">
-        <form onsubmit="addToTask(event)">
+        <form onsubmit="addToTask(event), clearSubtasks()">
             <div class="form">
                 <div class="left">
                     <div class="form-group">
@@ -60,7 +60,7 @@
                             <button
                                 onclick="handleButtonClick('mediumIcon', '../../img/mediumIcon.png', '../../img/mediumIconHover.png', ['urgentIcon', 'lowIcon'])"
                                 type="button" class="urgentStatus" data-status="medium">
-                                <img id="meJavascript code written for contact pagediumIcon" class="mediumIcon" src="../../img/mediumIcon.png"
+                                <img id="mediumIcon" class="mediumIcon" src="../../img/mediumIcon.png"
                                     alt="Medium Icon">
                                 Medium
                             </button>
