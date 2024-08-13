@@ -15,52 +15,62 @@
     <div w3-include-html="navbarTemplate.html"></div>
     <div w3-include-html="headerTemplate.html"></div>
 
-    <section class="boardContainer">
-        <h1>Board</h1>
-        <div class="inputAndAddTaskContainer">
-            <form>
-                <div class="input-container">
-                    <input id="userInput" placeholder="Find Task" type="text">
-                    <button type="button" class="search-button">
-                        <img src="../../img/searchIconBoard.png" alt="Search Icon">
-                    </button>
+    <section class="menuBar">
+        <section class="boardContainer">
+            <h1>Board</h1>
+            <div class="inputAndAddTaskContainer">
+                <form>
+                    <div class="input-container">
+                        <input id="userInput" placeholder="Find Task" type="text">
+                        <button type="button" class="search-button">
+                            <img src="../../img/searchIconBoard.png" alt="Search Icon">
+                        </button>
+                    </div>
+                </form>
+                <button class="addTaskButton">Add Task <img class="plusIcon" src="../../img/boardAddTaskIcon.png"
+                        alt=""></button>
+            </div>
+        </section>
+        <section class="notesAndBarContainer">
+            <div class="categoryAndIconBar">
+                <div class="bar">
+                    <p>To Do</p>
+                    <img src="../../img/plusIcon.png" alt="addTask">
+                    <!-- <img src="../../img/plusIconHover.png" alt="addTask Hover"> -->
                 </div>
-            </form>
-            <button class="addTaskButton">Add Task <img class="plusIcon" src="../../img/boardAddTaskIcon.png"
-                    alt=""></button>
-        </div>
+            </div>
+            <div class="categoryAndIconBar">
+                <div class="bar">
+                    <p>In Progress</p>
+                    <img src="../../img/plusIcon.png" alt="addTask">
+                    <!-- <img src="../../img/plusIconHover.png" alt="addTask Hover"> -->
+                </div>
+            </div>
+            <div class="categoryAndIconBar">
+                <div class="bar">
+                    <p>Await feedback</p>
+                    <img src="../../img/plusIcon.png" alt="addTask">
+                    <!-- <img src="../../img/plusIconHover.png" alt="addTask Hover"> -->
+                </div>
+            </div>
+            <div class="categoryAndIconBar">
+                <div class="bar">
+                    <p>Done</p>
+                </div>
+            </div>
+        </section>
     </section>
-    <section class="notesAndBarContainer">
-        <div class="categoryAndIconBar">
-            <div class="bar">
-                <p>To Do</p>
-                <img src="../../img/plusIcon.png" alt="addTask">
-                <!-- <img src="../../img/plusIconHover.png" alt="addTask Hover"> -->
-            </div>
-            <div id="categoryToDo" class="taskContainer"></div>
+    <section class="taskSection">
+        <div id="categoryToDo" class="taskContainer"></div>
+        <div id="categoryInProgress" class="taskContainer">
+            <div class="NoTaskToDo">No tasks in progress</div>
         </div>
-        <div class="categoryAndIconBar">
-            <div class="bar">
-                <p>In Progress</p>
-                <img src="../../img/plusIcon.png" alt="addTask">
-                <!-- <img src="../../img/plusIconHover.png" alt="addTask Hover"> -->
-            </div>
-            <div id="categoryInProgress" class="taskContainer"></div>
+        <div id="categoryAwaitFeedback" class="taskContainer">
+            <div class="NoTaskToDo">No tasks awaiting feedback</div>
         </div>
-        <div class="categoryAndIconBar">
-            <div class="bar">
-                <p>Await feedback</p>
-                <img src="../../img/plusIcon.png" alt="addTask">
-                <!-- <img src="../../img/plusIconHover.png" alt="addTask Hover"> -->
-            </div>
-            <div id="categoryAwaitFeedback" class="taskContainer"></div>
+        <div id="categoryDone" class="taskContainer">
+            <div class="NoTaskToDo">No tasks done</div>
         </div>
-        <div class="categoryAndIconBar">
-            <div class="bar">
-                <p>Done</p>
-            </div>
-        </div>
-        <div id="categoryDone" class="taskContainer"></div>
     </section>
 </body>
 

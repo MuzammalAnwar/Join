@@ -10,6 +10,7 @@ nav {
     background-color: rgb(42, 54, 71);
     width: 232px;
     height: 100%;
+    z-index: 999;
 }
 
 nav img {
