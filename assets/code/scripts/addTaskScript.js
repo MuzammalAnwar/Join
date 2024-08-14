@@ -67,10 +67,6 @@ function addToTask(event) {
     fetchTask(taskPath, task, 'PUT')
 }
 
-function generateUniqueKey() {
-    return Math.random().toString(36).substring(2, 11);
-}
-
 function changeImgSource(id, src) {
     document.getElementById(id).src = src;
 }

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join | Sign up</title>
     <link rel="stylesheet" href="../css/signUpPage.css">
+    <script src="../scripts/signUpScript.js"></script>
+    <script src="../scripts/helpFunctions.js"></script>
 </head>
 
 <body>
@@ -27,32 +29,32 @@
                 <div class="input_main_container">
                     <div class="input_container_size">
                         <div class="input_container">
-                            <input class="input_size" type="" placeholder="Name">
+                            <input id="inputName" class="input_size" type="" placeholder="Name">
                             <img class="margin_input_icon" src="../../img/person grey.png">
                         </div>
                         <div class="input_container">
-                            <input class="input_size" type="email" placeholder="Email">
+                            <input id="inputEmail" class="input_size" type="email" placeholder="Email">
                             <img class="margin_input_icon" src="../../img/mail.png">
                         </div>
                         <div class="input_container">
-                            <input class="input_size" type="password" placeholder="Confirm Password">
+                            <input id="inputPassword" class="input_size" type="password" placeholder="Confirm Password">
                             <img class="margin_input_icon" src="../../img/lock.png">
                         </div>
                         <div class="input_container">
-                            <input class="input_size" type="password" placeholder="Password">
+                            <input id="inputConfirmPassword" class="input_size" type="password" placeholder="Password">
                             <img class="margin_input_icon" src="../../img/lock.png">
                         </div>
                     </div>
                 </div>../../
                 <div class="df checkbox_container">
                     <div>
-                        <input class="checkbox" type="checkbox">
+                        <input id="policyCheck" class="checkbox" type="checkbox">
                     </div>
                     <div>
                         <p>I accept the Privacy Policy</p>
                     </div>
                 </div>
-                <button class="signUp_button">Sign up</button>
+                <button onclick="signUp()" class="signUp_button">Sign up</button>
             </div>
         </div>
         <div class="GTC_position">

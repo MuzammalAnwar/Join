@@ -152,6 +152,7 @@ a {
 }
 
 .input_size {
+    outline: none;
     border: none;
     width: 380px;
     height: 24px;
