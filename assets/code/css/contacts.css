@@ -18,6 +18,7 @@ body {
     height: 928px;
     box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.08);
     position: relative;
+    top: 96px;
     display: flex;
     justify-content: center;
 }
@@ -47,7 +48,7 @@ body {
     justify-content: space-evenly;
     align-items: center;
     gap: 30px;
-    margin-top: 120px;
+    margin-top: 180px;
     margin-left: 40px;
 }
 
@@ -473,14 +474,42 @@ margin-left: 16px;
     background-color: #FFFFFF;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    padding-right: 40px;
+    background-image: url(../../img/iconoir_cancel.png);
+    background-repeat: no-repeat;
+    background-position: right 10px center;
 }
 
 .cancel_icon:hover {
     color: rgba(41, 171, 226, 1);
     border-color: rgba(41, 171, 226, 1);
+    background-image: url(../../img/iconoir_cancel_blue.png);
 }
 
 .form_buttons {
     display: flex;
+}
+
+.slide-in-notification {
+    width: 326px;
+    height: 74px;
+    background-color: rgba(42, 54, 71, 1);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 20%;
+    right: -600px;
+    transform: translateX(-50%); 
+    border-radius: 10px;
+    z-index: 1000;
+    transition: right 0.5s ease-out;
+}
+
+.show-notification {
+    right: 20px;
 }

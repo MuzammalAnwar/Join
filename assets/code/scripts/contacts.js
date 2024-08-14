@@ -59,7 +59,18 @@ function createContact(event) {
         `;
         showContactDetails(name, email, phone, color);
     hideOverlay();
+    showNotification();
     document.getElementById('contactForm').reset();
+}
+
+
+function showNotification() {
+    let notification = document.getElementById('notification');
+    notification.classList.add('show-notification');
+
+    setTimeout(() => {
+        notification.classList.remove('show-notification');
+    }, 2000);
 }
 
 
