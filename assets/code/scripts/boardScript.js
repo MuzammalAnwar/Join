@@ -1,5 +1,5 @@
 function initRender() {
-    renderTasks('toDo', 'categoryToDo');
+    // renderTasks('toDo', 'categoryToDo');
     // renderTasks('InProgress', 'categoryInProgress');
     // renderTasks('AwaitFeedback', 'categoryAwaitFeedback');
     // renderTasks('Done', 'categoryDone');

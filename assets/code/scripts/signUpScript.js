@@ -1,16 +1,9 @@
-
-
 function getSignUpData() {
-    let name = document.getElementById('inputName').value;
-    let email = document.getElementById('inputEmail').value;
-    let password = document.getElementById('inputPassword').value;
-    let userID = generateUniqueKey();
-
     let signUpData = {
-        "userID": userID,
-        "name": name,
-        "email": email,
-        "password": btoa(password),
+        "userID": generateUniqueKey(),
+        "name": document.getElementById('inputName').value,
+        "email": document.getElementById('inputEmail').value,
+        "password": btoa(document.getElementById('inputPassword').value),
         "phone": null,
         "contacts": "N/A",
         "addedTasks": {

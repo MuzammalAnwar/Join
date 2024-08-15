@@ -1,4 +1,5 @@
-const URL = 'https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users'
+// let URL = 'https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users'
+
 async function fetchTask(path = "", data = null, method = "GET") {
     try {
         let options = {
@@ -10,7 +11,7 @@ async function fetchTask(path = "", data = null, method = "GET") {
             };
             options.body = JSON.stringify(data);
         }
-        let response = await fetch(URL + path + '.json', options);
+        let response = await fetch(base_URL + path + '.json', options);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

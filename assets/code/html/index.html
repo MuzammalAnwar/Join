@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../css/logo.css">
     <script src="../scripts/logoAnimation.js"></script>
     <script src="../scripts/helpFunctions.js"></script>
+    <script src="../scripts/indexScript.js"></script>
+    <script src="../scripts/boardScript.js"></script>
 </head>
 
 <body onload="startAnimation()">
@@ -37,11 +39,11 @@
                     <div class="input_main_container">
                         <div class="input_container_size">
                             <div class="input_container">
-                                <input class="input_size" type="email" placeholder="Email">
+                                <input id="inputEmail" class="input_size" type="email" placeholder="Email">
                                 <img class="margin_input_icon" src="../../img/mail.png">
                             </div>
                             <div class="input_container">
-                                <input class="input_size" type="password" placeholder="Password">
+                                <input id="inputPassword" class="input_size" type="password" placeholder="Password">
                                 <img class="margin_input_icon" src="../../img/lock.png">
                             </div>
                         </div>
@@ -56,7 +58,7 @@
                     </div>
                     <div class="button_position">
                         <div>
-                            <button onclick="" class="login_button">Log in</button>
+                            <button onclick="proceedLogin()" class="login_button">Log in</button>
                         </div>
                         <div>
                             <button onclick="document.location='./summeryUser.html'" class="guest_button">Guest Log
