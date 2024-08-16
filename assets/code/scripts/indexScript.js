@@ -22,8 +22,8 @@ async function authenticateUser() {
 function proceedLogin() {
     authenticateUser().then(user => {
         if (user) {
+            localStorage.setItem('loggedInUserID', user.userID);
             window.location.href = 'summeryUser.html';
-            // renderTasks('toDo', 'categoryToDo', `/${user.userID}`);
         } else {
             alert('Incorrect password or email')
         }

@@ -10,6 +10,7 @@
     <script src="../scripts/mainScript.js"></script>
     <script src="../scripts/helpFunctions.js"></script>
     <script src="../scripts/htmlTemplates.js"></script>
+    <script src="../scripts/summaryUserScript.js"></script>
 </head>
 
 <body>
@@ -34,7 +35,7 @@
                             <img class="secondary" src="../../img/edit_white.png">
                         </div>
                         <div class="number_position">
-                            <p class="large_number">1</p>
+                            <p id="taskToDo" class="large_number">1</p>
                             <p class="text">To-do</p>
                         </div>
                     </div>
@@ -44,7 +45,7 @@
                             <img class="secondary" src="../../img/checkmark_white.png">
                         </div>
                         <div class="number_position">
-                            <p class="large_number">1</p>
+                            <p id="doneTasks" class="large_number">1</p>
                             <p class="text">Done</p>
                         </div>
                     </div>
@@ -66,19 +67,19 @@
                 <div class="distance">
                     <div class="task_in_board">
                         <div class="number_position">
-                            <p class="large_number">1</p>
+                            <p id="totalAmountOfTasks" class="large_number">1</p>
                             <p class="text">Tasks in<br> Board</p>
                         </div>
                     </div>
                     <div class="task_in_progress">
                         <div class="number_position">
-                            <p class="large_number">1</p>
+                            <p id="inProgress" class="large_number">1</p>
                             <p class="text">Tasks in<br> Progress</p>
                         </div>
                     </div>
                     <div class="awaiting_feedback">
                         <div class="number_position">
-                            <p class="large_number">1</p>
+                            <p id="awaitingFeedback" class="large_number">1</p>
                             <p class="text">Awaiting Feedback</p>
                         </div>
                     </div>

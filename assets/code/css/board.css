@@ -100,6 +100,7 @@ h1 {
     justify-content: space-around;
     margin: 0 3rem 0px 16rem;
     font-weight: 700;
+    background: rgb(246, 247, 258);
 }
 
 .categoryAndIconBar {
@@ -125,7 +126,7 @@ h1 {
     justify-content: space-between;
     align-items: center;
     width: 244px;
-    font-size: 27px;
+    font-size: 20px;
     font-weight: 700;
     line-height: 32.4px;
 }
@@ -219,7 +220,7 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin: 380px 3rem 0px 34rem;
+    margin: 380px 3rem 0px 16rem;
     padding: 0 0 20px 0;
     font-weight: 700;
 }

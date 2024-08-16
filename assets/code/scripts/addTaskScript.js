@@ -40,10 +40,13 @@ function addToTask(event) {
     let assigned = document.getElementById('assigned');
     let dueDate = document.getElementById('due-date');
     let category = document.getElementById('category');
-
+    let userID = localStorage.getItem('loggedInUserID');
     let taskKey = generateUniqueKey();
-    let taskPath = `/addedTasks/toDo/${taskKey}`;
-
+    let taskPath = `/${userID}/addedTasks/toDo/${taskKey}`;
+    if (!userID) {
+        alert('User not logged in.');
+        return;
+    }
     let task = {
         "title": title.value,
         "description": description.value,
@@ -65,6 +68,7 @@ function addToTask(event) {
     category.value = '';
 
     fetchTask(taskPath, task, 'PUT')
+    // renderTasks('toDo', 'categoryToDo');
 }
 
 function changeImgSource(id, src) {
