@@ -1,14 +1,14 @@
 function initRender() {
-    // renderTasks('toDo', 'categoryToDo');
+    renderTasks('toDo', 'categoryToDo');
     // renderTasks('InProgress', 'categoryInProgress');
     // renderTasks('AwaitFeedback', 'categoryAwaitFeedback');
     // renderTasks('Done', 'categoryDone');
 }
 
-function renderTasks(category, id, userIdPath = '') {
+function renderTasks(category, id) {
     let htmlContent = document.getElementById(id)
     htmlContent.innerHTML = '';
-    fetchTask(`/${userIdPath}/addedTasks/${category}/`, null, 'GET').then(taskArray => {
+    fetchTask(`/addedTasks/${category}/`, null, 'GET').then(taskArray => {
         let keys = Object.keys(taskArray);
         for (let i = 0; i < keys.length; i++) {
             let task = taskArray[keys[i]];
