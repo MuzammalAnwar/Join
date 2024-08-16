@@ -1,8 +1,14 @@
+@font-face {
+    font-family: "inter";
+    src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
+}
+
 body {
     display: flex;
     flex-direction: column;
     margin: 0;
     background: rgb(246, 247, 258);
+    font-family: "inter";
 }
 
 a {
@@ -119,6 +125,9 @@ h1 {
     justify-content: space-between;
     align-items: center;
     width: 244px;
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 32.4px;
 }
 
 .urgentIcon,
@@ -210,7 +219,7 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin: 338px 3rem 0px 16rem;
+    margin: 380px 3rem 0px 34rem;
     padding: 0 0 20px 0;
     font-weight: 700;
 }
@@ -257,4 +266,15 @@ h1 {
     gap: 10px;
     width: 220px;
     height: 16px;
+}
+
+.plusIconBoard {
+    background-image: url(../../img/Property\ 1=Default.png);
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+}
+
+.plusIconBoard:hover {
+    background-image: url(../../img/Property\ 1=click.png);
 }
