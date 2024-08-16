@@ -12,7 +12,7 @@ function renderTasks(category, id) {
         let keys = Object.keys(taskArray);
         for (let i = 0; i < keys.length; i++) {
             let task = taskArray[keys[i]];
-            htmlContent.innerHTML += /*HTML*/`
+            htmlContent.innerHTML += `
                 <div class="task">
                     <p id="category" class='${returnClass(task.category)}'>${task.category}</p>
                     <div class="taskTitleAndDescription">

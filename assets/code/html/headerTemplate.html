@@ -1,16 +1,35 @@
-<link rel="stylesheet" href="../css/headerTemplate.css">
-<div class="header_main_container">
-    <div class="content_position">
-        <div>
-            <p>Kanban Project Management Tool</p>
-        </div>
-        <div class="user_container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../scripts/htmlTemplates.js"></script>
+    <link rel="stylesheet" href="../css/headerTemplate.css">
+</head>
+<body>
+    <div class="header_main_container">
+        <div class="content_position">
             <div>
-                <img class="help_icon" src="../../img/help.png">
+                <p>Kanban Project Management Tool</p>
             </div>
-            <div>
-                <p class="user">KG</p>
+            <div class="user_container">
+                <div>
+                    <img class="help_icon" src="../../img/help.png">
+                </div>
+                <div onclick="toggleUserMenu()">
+                    <p class="user" id="userMenuButton">KG</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="user-menu d_none" id="userMenu">
+        <ul>
+            <li><a href="#">Legal Notice</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Log out</a></li>
+        </ul>
+    </div>
+    
+</body>
+</html>
