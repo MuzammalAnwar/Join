@@ -18,21 +18,23 @@ function getSignUpData() {
 
 async function saveUser(signUpData, userID) {
     try {
-        let response = await fetchTask(`/${userID}`, signUpData, 'PUT');
-        console.log("User signed up: ", response);
+        await fetchTask(`/${userID}`, signUpData, 'PUT');
         return userID;
     } catch (error) {
         console.error(error);
     }
 }
 
-function signUp() {
+async function signUp() {
     let checkbox = document.getElementById('policyCheck')
     let confirmedPassword = document.getElementById('inputConfirmPassword').value;
     let userData = getSignUpData();
     if (checkbox.checked) {
-        atob(userData.password) === confirmedPassword ? saveUser(userData, userData.userID) : alert('password is not same');
-    } else {
-        alert('accept privacy policy');
+        if (atob(userData.password) === confirmedPassword) {
+            await saveUser(userData, userData.userID);
+            window.location.href = 'index.html';
+        } else {
+            alert('Password is not the same');
+        }
     }
 }

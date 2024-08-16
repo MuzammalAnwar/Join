@@ -22,10 +22,10 @@ async function authenticateUser() {
 function proceedLogin() {
     authenticateUser().then(user => {
         if (user) {
-            base_URL = `https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users/${user.userID}`
             window.location.href = 'summeryUser.html';
+            // renderTasks('toDo', 'categoryToDo', `/${user.userID}`);
         } else {
-            alert('Incorrect Password or email')
+            alert('Incorrect password or email')
         }
     });
 }
