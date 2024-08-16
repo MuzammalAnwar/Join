@@ -1,4 +1,4 @@
-// let URL = 'https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users'
+let base_URL = `https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users`
 
 async function fetchTask(path = "", data = null, method = "GET") {
     try {
@@ -19,6 +19,7 @@ async function fetchTask(path = "", data = null, method = "GET") {
         return responseData;
     } catch (error) {
         console.error('Error with task operation:', error);
+        console.log(base_URL);
     }
 }
 

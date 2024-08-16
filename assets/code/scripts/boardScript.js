@@ -5,10 +5,10 @@ function initRender() {
     // renderTasks('Done', 'categoryDone');
 }
 
-function renderTasks(category, id) {
+function renderTasks(category, id, userIdPath = '') {
     let htmlContent = document.getElementById(id)
     htmlContent.innerHTML = '';
-    fetchTask(`/addedTasks/${category}/`, null, 'GET').then(taskArray => {
+    fetchTask(`/${userIdPath}/addedTasks/${category}/`, null, 'GET').then(taskArray => {
         let keys = Object.keys(taskArray);
         for (let i = 0; i < keys.length; i++) {
             let task = taskArray[keys[i]];
