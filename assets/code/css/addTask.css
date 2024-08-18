@@ -1,8 +1,14 @@
+@font-face {
+    font-family: "inter";
+    src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
+}
+
 body {
     margin: 0;
     display: flex;
     flex-direction: column;
     background: rgb(246, 247, 258);
+    font-family: "inter";
 }
 
 a {

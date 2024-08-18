@@ -1,4 +1,10 @@
+@font-face {
+    font-family: "inter";
+    src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
+}
+
 body {
+    font-family: "inter";
     background-color: rgba(246, 247, 248, 1);
 }
 
