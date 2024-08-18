@@ -294,6 +294,7 @@ a {
         transform: translateX(0);
         opacity: 1;
     }
+
     to {
         transform: translateX(100%);
         opacity: 0;
@@ -311,8 +312,6 @@ a {
         opacity: 1;
     }
 }
-
-
 
 .overlay_title_container {
     width: 467px;
@@ -371,6 +370,7 @@ a {
 .overlay_content_position {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .overlay_title_position {
@@ -424,7 +424,7 @@ a {
     width: 32px;
     height: 32px;
     border-radius: 56px;
-    margin-bottom: 56px;
+    margin-top: 40px;
 }
 
 .overlay_close_button:hover {
@@ -436,6 +436,14 @@ a {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    height: 592px;
+}
+
+.form_position {
+    height: 592px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .d_none {
@@ -443,6 +451,25 @@ a {
 }
 
 .submit_icon {
+    width: 111px;
+    height: 57px;
+    border-radius: 10px;
+    border: 1px none;
+    background: rgba(42, 54, 71, 1);
+    color: white;
+    font-size: 21px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 16px;
+}
+
+.submit_icon:hover {
+    background-color: rgba(41, 171, 226, 1);
+}
+
+.create_icon {
     width: 214px;
     height: 57px;
     border-radius: 10px;
@@ -454,11 +481,14 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    justify-content: space-between;
-margin-left: 16px;
+    margin-left: 16px;
 }
 
-.submit_icon:hover {
+.create_icon img {
+    margin-left: 8px;
+}
+
+.create_icon:hover {
     background-color: rgba(41, 171, 226, 1);
 }
 
@@ -474,17 +504,35 @@ margin-left: 16px;
     background-color: #FFFFFF;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding-right: 40px;
-    background-image: url(../../img/iconoir_cancel.png);
+    justify-content: space-between;
     background-repeat: no-repeat;
     background-position: right 10px center;
+    background-image: url(../../img/iconoir_cancel.png);
 }
-
 .cancel_icon:hover {
     color: rgba(41, 171, 226, 1);
     border-color: rgba(41, 171, 226, 1);
     background-image: url(../../img/iconoir_cancel_blue.png);
+}
+
+.delete_button_overlay {
+    width: 113px;
+    height: 55px;
+    border-radius: 8px;
+    border: 1px solid rgba(42, 54, 71, 1);
+    color: rgba(42, 54, 71, 1);
+    font-family: "inter";
+    font-weight: 700;
+    font-size: 21px;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete_button_overlay:hover {
+    color: rgba(41, 171, 226, 1);
+    border-color: rgba(41, 171, 226, 1);
 }
 
 .form_buttons {
@@ -504,7 +552,7 @@ margin-left: 16px;
     position: fixed;
     bottom: 20%;
     right: -600px;
-    transform: translateX(-50%); 
+    transform: translateX(-50%);
     border-radius: 10px;
     z-index: 1000;
     transition: right 0.5s ease-out;

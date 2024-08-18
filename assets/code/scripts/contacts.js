@@ -42,24 +42,35 @@ function getRandomColor() {
 
 function createContact(event) {
     event.preventDefault();
-
+    
     let name = document.querySelector('#inputName').value;
     let email = document.querySelector('#inputEmail').value;
     let phone = document.querySelector('#inputPhone').value;
     let color = getRandomColor();
-    let contactList = document.getElementById('contactList');
-    contactList.innerHTML += `
-        <div class="contact_small_card" onclick="showContactDetails('${name}', '${email}', '${phone}', '${color}')">
-                <p class="contact_icon" style="background-color: ${color}">${name.charAt(0)}</p>
+
+    let contact = {
+        name,
+        email,
+        phone,
+        color
+    };
+
+    saveContactToFirebase(contact).then(newContactId => {
+        let initials = getInitials(contact.name);
+        let contactList = document.getElementById('contactList');
+        contactList.innerHTML += `
+            <div class="contact_small_card" data-contact-id="${newContactId}" onclick="showContactDetails('${name}', '${email}', '${phone}', '${color}', '${newContactId}')">
+                <p class="contact_icon" style="background-color: ${color}">${initials}</p>
                 <div>
                     <p class="m0">${name}</p>
                     <p class="font_color_blue m0">${email}</p>
                 </div>
             </div>
         `;
-        showContactDetails(name, email, phone, color);
+        window.location.reload();
+    });
+
     hideOverlay();
-    showNotification();
     document.getElementById('contactForm').reset();
 }
 
@@ -100,15 +111,13 @@ function clearLargeCard() {
 
 function showEditOverlay(name, email, phone, color) {
     let editOverlay = document.getElementById('editOverlay');
-    editOverlay.classList.remove('slide-out');
-    document.getElementById('editOverlayBackground').classList.remove('d_none');
-    editOverlay.style.display = 'flex';
-
     document.getElementById('editName').value = name;
     document.getElementById('editEmail').value = email;
     document.getElementById('editPhone').value = phone;
 
-    document.getElementById('largeCardIcon').style.backgroundColor = color;
+    document.getElementById('editOverlayBackground').classList.remove('d_none');
+    editOverlay.classList.remove('slide-out');
+    editOverlay.style.display = 'flex';
 }
 
 
@@ -129,28 +138,82 @@ function saveContact(event) {
     let email = document.getElementById('editEmail').value;
     let phone = document.getElementById('editPhone').value;
     let color = document.getElementById('largeCardIcon').style.backgroundColor;
-    
-    let contactCards = document.querySelectorAll('.contact_small_card');
-    contactCards.forEach(card => {
-        if (card.querySelector('.m0').textContent === document.getElementById('largeCardName').textContent) {
-            card.querySelector('.m0').textContent = name;
-            card.querySelector('.font_color_blue').textContent = email;
-            card.setAttribute('onclick', `showContactDetails('${name}', '${email}', '${phone}', '${color}')`);
-        }
-    });
 
-    showContactDetails(name, email, phone, color);
+    let contact = {
+        name,
+        email,
+        phone,
+        color
+    };
+
+    let contactId = document.getElementById('largeCard').getAttribute('data-contact-id');
+
+    let initials = getInitials(name);
+
+    if (contactId) {
+        saveContactToFirebase(contact, contactId);
+        
+        let existingCard = document.querySelector(`.contact_small_card[data-contact-id="${contactId}"]`);
+        if (existingCard) {
+            existingCard.querySelector('.contact_icon').style.backgroundColor = color;
+            existingCard.querySelector('.contact_icon').textContent = initials;
+            existingCard.querySelector('.m0').textContent = name;
+            existingCard.querySelector('.font_color_blue').textContent = email;
+            existingCard.setAttribute('onclick', `showContactDetails('${name}', '${email}', '${phone}', '${color}', '${contactId}')`);
+        }
+    } else {
+        saveContactToFirebase(contact).then(newContactId => {
+            let contactList = document.getElementById('contactList');
+            contactList.innerHTML += `
+                <div class="contact_small_card" data-contact-id="${newContactId}" onclick="showContactDetails('${name}', '${email}', '${phone}', '${color}', '${newContactId}')">
+                    <p class="contact_icon" style="background-color: ${color}">${initials}</p>
+                    <div>
+                        <p class="m0">${name}</p>
+                        <p class="font_color_blue m0">${email}</p>
+                    </div>
+                </div>
+            `;
+            window.location.reload();
+        });
+    }
+
+    showContactDetails(name, email, phone, color, contactId || newContactId);
     hideEditOverlay();
 }
 
+
 function deleteContact() {
     let currentName = document.getElementById('largeCard').getAttribute('data-current-name');
+    let contactId = document.getElementById('largeCard').getAttribute('data-contact-id');
+
+    if (contactId) {
+        deleteContactFromFirebase(contactId); 
+    }
+
     let contactCards = document.querySelectorAll('.contact_small_card');
     contactCards.forEach(card => {
         if (card.querySelector('.m0').textContent === currentName) {
             card.remove();
         }
     });
+
     clearLargeCard();
     hideEditOverlay();
+}
+
+
+
+function getInitials(name) {
+    let names = name.trim().split(' ');
+    let initials = '';
+
+    if (names.length > 0) {
+        initials += names[0].charAt(0);
+    }
+
+    if (names.length > 1) {
+        initials += names[names.length - 1].charAt(0); 
+    }
+
+    return initials.toUpperCase(); 
 }

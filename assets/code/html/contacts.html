@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join | Contacts</title>
     <script src="../scripts/includeHTML.js"></script>
-    <script src="../scripts/contacts.js"></script>
     <script src="../scripts/htmlTemplates.js"></script>
+    <script src="../scripts/contacts.js"></script>
+    <script src="../scripts/contactBackend.js"></script>
     <link rel="stylesheet" href="../css/contacts.css">
 </head>
 
@@ -89,12 +90,12 @@
                         </div>
                         <div>
                             <div class="close_icon_position">
-                                <div>
+                                <div class="close_button_container">
                                     <div class="overlay_close_button" onclick="hideOverlay()">
                                         <img class="close_icon" src="../../img/Close.png">
                                     </div>
                                 </div>
-                                <div>
+                                <div class="form_position">
                                     <div class="input_container_overlay">
                                         <input required id="inputName" class="input_size_overlay" type="text"
                                             placeholder="Name">
@@ -112,7 +113,7 @@
                                     </div>
                                     <div class="form_buttons">
                                         <button type="button" class="cancel_icon">Cancel</button>
-                                        <button type="submit" class="submit_icon">Create contact<img
+                                        <button type="submit" class="create_icon">Create contact<img
                                                 src="../../img/check.png"></button>
                                     </div>
                                 </div>
@@ -136,38 +137,40 @@
                 <div class="overlay_content_right">
                     <form id="editContactForm" class="overlay_content_position" onsubmit="saveContact(event)">
                         <div>
-                            <div class="user_overlay">
-                                <img src="../../img/person.png">
+                            <div class="overlay_close_button" onclick="hideEditOverlay()">
+                                <img class="close_icon" src="../../img/Close.png">
                             </div>
                         </div>
-                        <div>
-                            <div class="close_icon_position">
-                                <div>
-                                    <div class="overlay_close_button" onclick="hideEditOverlay()">
-                                        <img class="close_icon" src="../../img/Close.png">
-                                    </div>
+                        <div class="df">
+                            <div>
+                                <div class="user_overlay">
+                                    <img src="../../img/person.png">
                                 </div>
-                                <div>
-                                    <div class="input_container_overlay">
-                                        <input required id="editName" class="input_size_overlay" type="text"
-                                            placeholder="Name">
-                                        <img class="margin_input_icon" src="../../img/person grey.png">
-                                    </div>
-                                    <div class="input_container_overlay">
-                                        <input required id="editEmail" class="input_size_overlay" type="email"
-                                            placeholder="Email">
-                                        <img class="margin_input_icon" src="../../img/mail.png">
-                                    </div>
-                                    <div class="input_container_overlay">
-                                        <input required id="editPhone" class="input_size_overlay" type="tel"
-                                            placeholder="Phone">
-                                        <img class="margin_input_icon" src="../../img/call.png">
-                                    </div>
-                                    <div class="form_buttons">
-                                        <button type="button" class="cancel_icon" onclick="deleteContact()">Delete<img
-                                                src="../../img/iconoir_cancel.png"></button>
-                                        <button type="submit" class="submit_icon">Save<img
-                                                src="../../img/check.png"></button>
+                            </div>
+                            <div>
+                                <div class="close_icon_position">
+                                    <div>
+                                        <div class="input_container_overlay">
+                                            <input required id="editName" class="input_size_overlay" type="text"
+                                                placeholder="Name">
+                                            <img class="margin_input_icon" src="../../img/person grey.png">
+                                        </div>
+                                        <div class="input_container_overlay">
+                                            <input required id="editEmail" class="input_size_overlay" type="email"
+                                                placeholder="Email">
+                                            <img class="margin_input_icon" src="../../img/mail.png">
+                                        </div>
+                                        <div class="input_container_overlay">
+                                            <input required id="editPhone" class="input_size_overlay" type="tel"
+                                                placeholder="Phone">
+                                            <img class="margin_input_icon" src="../../img/call.png">
+                                        </div>
+                                        <div class="form_buttons">
+                                            <button type="button" class="delete_button_overlay"
+                                                onclick="deleteContact()">Delete</button>
+                                            <button id="saveEditButton" type="submit" class="submit_icon">Save<img
+                                                    src="../../img/check.png"></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -175,9 +178,6 @@
                     </form>
                 </div>
             </div>
-        </div>
-        <div id="notification" class="slide-in-notification">
-            Contact successfully created
         </div>
     </div>
 </body>
