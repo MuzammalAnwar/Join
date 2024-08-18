@@ -1,3 +1,11 @@
+function init() {
+    let userID = localStorage.getItem('loggedInUserID');
+    if (!userID) {
+        window.location.href = 'loadingSpinner.html';
+        return;
+    }
+}
+
 function showOverlay() {
     let overlay = document.getElementById('overlay');
     overlay.classList.remove('slide-out');
@@ -213,3 +221,5 @@ function getInitials(name) {
     }
     return initials.toUpperCase();
 }
+
+window.addEventListener('load', init)

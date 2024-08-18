@@ -4,9 +4,14 @@ function toggleUserMenu() {
 }
 
 document.addEventListener('click', function (event) {
-    let isClickInside = document.getElementById('userMenuButton').contains(event.target) || document.getElementById('userMenu').contains(event.target);
+    let userMenuButton = document.getElementById('userMenuButton');
+    let userMenu = document.getElementById('userMenu');
 
+    let isClickInside = userMenuButton.contains(event.target) || userMenu.contains(event.target);
     if (!isClickInside) {
-        document.getElementById('userMenu').style.display = 'none';
+        // Check if the menu is visible before hiding
+        if (!userMenu.classList.contains('d_none')) {
+            userMenu.classList.add('d_none');
+        }
     }
 });
