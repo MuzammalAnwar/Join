@@ -201,8 +201,6 @@ function deleteContact() {
     hideEditOverlay();
 }
 
-
-
 function getInitials(name) {
     let names = name.trim().split(' ');
     let initials = '';
