@@ -42,7 +42,7 @@ function getRandomColor() {
 
 function createContact(event) {
     event.preventDefault();
-    
+
     let name = document.querySelector('#inputName').value;
     let email = document.querySelector('#inputEmail').value;
     let phone = document.querySelector('#inputPhone').value;
@@ -152,7 +152,7 @@ function saveContact(event) {
 
     if (contactId) {
         saveContactToFirebase(contact, contactId);
-        
+
         let existingCard = document.querySelector(`.contact_small_card[data-contact-id="${contactId}"]`);
         if (existingCard) {
             existingCard.querySelector('.contact_icon').style.backgroundColor = color;
@@ -187,7 +187,7 @@ function deleteContact() {
     let contactId = document.getElementById('largeCard').getAttribute('data-contact-id');
 
     if (contactId) {
-        deleteContactFromFirebase(contactId); 
+        deleteContactFromFirebase(contactId);
     }
 
     let contactCards = document.querySelectorAll('.contact_small_card');
@@ -206,14 +206,12 @@ function deleteContact() {
 function getInitials(name) {
     let names = name.trim().split(' ');
     let initials = '';
-
     if (names.length > 0) {
         initials += names[0].charAt(0);
     }
 
     if (names.length > 1) {
-        initials += names[names.length - 1].charAt(0); 
+        initials += names[names.length - 1].charAt(0);
     }
-
-    return initials.toUpperCase(); 
+    return initials.toUpperCase();
 }

@@ -1,4 +1,4 @@
-let firebaseUrl = 'https://join-301-default-rtdb.europe-west1.firebasedatabase.app/contacts.json';
+let firebaseUrl = 'https://join-301-default-rtdb.europe-west1.firebasedatabase.app/user/contacts.json';
 let userId = 'someUserId';
 
 
@@ -55,7 +55,7 @@ async function fetchContactsFromFirebase() {
 
 function createContact(event) {
     event.preventDefault();
-    
+
     let name = document.querySelector('#inputName').value;
     let email = document.querySelector('#inputEmail').value;
     let phone = document.querySelector('#inputPhone').value;
@@ -66,7 +66,7 @@ function createContact(event) {
         email,
         phone,
         color,
-        userId 
+        userId
     };
 
     saveContactToFirebase(contact);

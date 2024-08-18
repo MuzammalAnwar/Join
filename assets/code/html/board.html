@@ -59,19 +59,20 @@
         </section>
     </section>
     <section class="taskSection">
-        <div id="categoryToDo" class="taskContainer">
+        <div id="categoryToDo" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
             <div class="NoTaskToDo">No tasks to do</div>
         </div>
-        <div id="categoryInProgress" class="taskContainer">
+        <div id="categoryInProgress" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
             <div class="NoTaskToDo">No tasks in progress</div>
         </div>
-        <div id="categoryAwaitFeedback" class="taskContainer">
+        <div id="categoryAwaitFeedback" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
             <div class="NoTaskToDo">No tasks awaiting feedback</div>
         </div>
-        <div id="categoryDone" class="taskContainer">
+        <div id="categoryDone" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
             <div class="NoTaskToDo">No tasks done</div>
         </div>
     </section>
+
 </body>
 
 </html>

@@ -47,6 +47,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    cursor: pointer;
 }
 
 .done {
@@ -58,6 +59,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    cursor: pointer;
 }
 
 .urgent {
@@ -69,6 +71,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    cursor: pointer;
 }
 
 .task_in_board {
@@ -80,6 +83,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .task_in_progress {
@@ -91,6 +95,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .awaiting_feedback {
@@ -103,6 +108,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .image_container img {
