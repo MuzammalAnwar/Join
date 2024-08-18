@@ -10,7 +10,7 @@ function renderTasks(category, id) {
     htmlContent.innerHTML = '';
     let userID = localStorage.getItem('loggedInUserID');
     if (!userID) {
-        alert('User not logged in.');
+        window.location.href = 'loadingSpinner.html';
         return;
     }
     let taskPath = `/${userID}/addedTasks/${category}/`;

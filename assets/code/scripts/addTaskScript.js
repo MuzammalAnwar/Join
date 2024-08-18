@@ -121,3 +121,13 @@ function clearSubtasks() {
     document.getElementById('subtaskList').innerHTML = '';
     subtasks = [];
 }
+
+function checkLoginStatus() {
+    if (localStorage.getItem('loggedInUserID')) {
+        return;
+    } else {
+        window.location.href = 'loadingSpinner.html';
+    }
+}
+
+window.addEventListener('load', checkLoginStatus);

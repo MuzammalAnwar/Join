@@ -22,7 +22,6 @@ function includeHTML() {
     }
 }
 includeHTML();
-
 // Copy these lines to insert Navbar in each html file:
-    // <div w3-include-html="navbarTemplate.html"></div>
-    // <script src="../scripts/includeHTML.js"></script>
+// <div w3-include-html="navbarTemplate.html"></div>
+// <script src="../scripts/includeHTML.js"></script>

@@ -10,7 +10,7 @@ function init() {
 function renderSummaryStats(category = '', id) {
     let userID = localStorage.getItem('loggedInUserID');
     if (!userID) {
-        alert('User not logged in.');
+        window.location.href = 'loadingSpinner.html';
         return;
     }
     if (category == '') {

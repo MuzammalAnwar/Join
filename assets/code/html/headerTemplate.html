@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <script src="../scripts/htmlTemplates.js"></script>
     <link rel="stylesheet" href="../css/headerTemplate.css">
 </head>
+
 <body>
     <div class="header_main_container">
         <div class="content_position">
@@ -27,9 +29,9 @@
         <ul>
             <li><a href="../html/legalNotice.html">Legal Notice</a></li>
             <li><a href="../html/privacy_policy.html">Privacy Policy</a></li>
-            <li><a href="../html/index.html">Log out</a></li>
+            <li><a href="#" onclick="window.location.href = 'loggingOutSpinner.html',localStorage.removeItem('loggedInUserID');">Log out</a></li>
         </ul>
     </div>
-    
 </body>
+
 </html>

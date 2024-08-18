@@ -1,5 +1,4 @@
 function startAnimation() {
-
     setTimeout(function () {
         document.getElementById('page1').classList.add('hidden');
         document.getElementById('loginPage').classList.remove('hidden');
