@@ -98,11 +98,6 @@ p {
     margin: 0;
 }
 
-li:hover {
-    background-color: rgb(42, 61, 89);
-    cursor: pointer;
-}
-
 .user-menu li {
     padding: 10px;
     text-align: center;
@@ -123,4 +118,9 @@ li:hover {
     line-height: 19.2px;
     text-align: left;
     color: rgba(205, 205, 205, 1);
+}
+
+.listHover:hover {
+    background-color: rgb(42, 61, 89);
+    cursor: pointer;
 }

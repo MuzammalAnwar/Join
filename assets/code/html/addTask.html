@@ -85,10 +85,19 @@
                         <label for="subtasks">Subtasks</label>
                         <div class="input-container">
                             <input type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
-                            <img id="subtaskAdd" onclick="addSubtask()" src="../../img/subtaskAddPlusIcon.png"
-                                alt="Add Subtask" class="input-icon">
+                            <div id="icon-container" class="icon-container">
+                                <img id="subtaskAdd" onclick="addSubtask()" src="../../img/subtaskAddPlusIcon.png"
+                                    alt="Add Subtask" class="input-icon">
+                                <img id="subtaskCancel" src="../../img/subtaskCancelIcon.png" alt="Cancel Subtask"
+                                    class="input-icon hidden">
+                                <div class="separatorSubtask"></div>
+                                <img id="subtaskSave" src="../../img/subtaskAddIcon.png" alt="Save Subtask"
+                                    class="input-icon hidden">
+                            </div>
                         </div>
-                        <div class="subtasksList" id="subtaskList"></div>
+                        <div class="subtasksList">
+                            <ul class="subtaskUnsortedList" id="subtaskList"></ul>
+                        </div>
                     </div>
                 </div>
             </div>
