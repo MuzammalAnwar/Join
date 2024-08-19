@@ -1,5 +1,5 @@
-let firebaseUrl = 'https://join-301-default-rtdb.europe-west1.firebasedatabase.app/user/contacts.json';
-let userId = 'someUserId';
+let userId = localStorage.getItem('loggedInUserID');
+let firebaseUrl = `https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/contacts.json`;
 
 
 async function saveContactToFirebase(contact, id = null) {
