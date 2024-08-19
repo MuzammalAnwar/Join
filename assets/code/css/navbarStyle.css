@@ -19,6 +19,10 @@ nav {
     font-family: "inter";
 }
 
+.toggled {
+    background-color: rgb(9, 25, 49) !important;
+}
+
 nav img {
     width: 30px;
     height: 30px;
@@ -41,7 +45,7 @@ a {
 }
 
 .flex:hover {
-    background-color: rgb(9, 25, 49);
+    background-color: rgb(42, 61, 82);
 }
 
 .joinLogo {
@@ -75,5 +79,5 @@ a {
 }
 
 .placeMid:hover {
-    background-color: rgb(9, 25, 49);
+    background-color: rgb(42, 61, 82);
 }

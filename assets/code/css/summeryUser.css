@@ -15,6 +15,7 @@ a {
 
 .main_container {
     margin-left: 333px;
+    overflow-y: auto;
 }
 
 .join_title_container {

@@ -104,7 +104,6 @@ function addSubtask() {
 function renderSubtasks() {
     let subtaskList = document.getElementById('subtaskList');
     subtaskList.innerHTML = '';
-
     subtasks.forEach((subtask, i) => {
         subtaskList.innerHTML += /*HTML*/`
             <li class="subtaskListItem" id="subtaskListItem${i}">

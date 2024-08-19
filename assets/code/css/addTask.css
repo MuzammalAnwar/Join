@@ -346,7 +346,6 @@ input:focus {
     display: flex;
     align-items: center;
     margin-right: auto;
-    line-height: 19.2;
 }
 
 .subtaskIcon {
