@@ -32,13 +32,18 @@
                             placeholder="Enter a description"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="assigned">Assigned to</label>
-                        <select id="assigned" name="assigned">
-                            <option value="" enabled selected>Select contacts to assign</option>
-                            <option value="Maximillian">Maximillian</option>
-                            <option value="Philip">Philip</option>
-                            <option value="Adrian">Adrian</option>
-                        </select>
+                        <label>Assigned to</label>
+                        <div class="custom-select-wrapper">
+                            <div class="custom-select" id="assigned">
+                                <div class="custom-select-trigger">
+                                    <span>Select contacts to assign</span>
+                                    <img src="../../img/dropDownMenuArrowIcon.png" class="arrow-icon" alt="Arrow">
+                                </div>
+                                <div class="custom-options">
+                                    <!-- Options will be added here dynamically -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="separator"></div>

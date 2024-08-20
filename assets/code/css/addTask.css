@@ -426,3 +426,102 @@ input:focus {
     height: 24px;
     border-left: 1px solid rgba(209, 209, 209, 1);
 }
+
+.custom-select-wrapper {
+    position: relative;
+    display: inline-block;
+    user-select: none;
+}
+
+.custom-select {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 440px;
+    cursor: pointer;
+}
+
+.custom-select-trigger {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 300;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-select-trigger img.arrow-icon {
+    width: 7.21px;
+    height: 4.6px;
+    transition: transform 0.3s ease;
+}
+
+.custom-options {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 438px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.custom-options.open {
+    display: block;
+}
+
+/* Corrected rotation selector */
+.custom-options.open+.custom-select-trigger img.arrow-icon {
+    transform: rotate(90deg);
+}
+
+.custom-option {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.custom-option:hover {
+    background-color: #f0f0f0;
+}
+
+/* Custom option checkbox */
+.custom-option input[type="checkbox"] {
+    gap: 0px;
+    opacity: 0px;
+    width: 16px;
+    height: 16px;
+    padding: 4px 0 0 0;
+    gap: 0px;
+    border-radius: 3px 0 0 0;
+    cursor: pointer;
+    appearance: none;
+    background-color: #ffffff;
+    border: 2px solid #000;
+    border-radius: 5px;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.custom-option input[type="checkbox"]:checked {
+    background-color: #ffffff;
+    /* Color when checked */
+    border-color: #000000;
+}
+
+/* Custom checkmark when checkbox is checked */
+.custom-option input[type="checkbox"]:checked::after {
+    width: 16px;
+    height: 16px;
+    content: '✔';
+    font-size: 16px;
+    color: #000000;
+    display: block;
+    text-align: center;
+    transform: translate(-7%, -61%);
+}
