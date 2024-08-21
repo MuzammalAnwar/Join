@@ -139,3 +139,4 @@ async function deleteContactFromFirebase(contactId) {
 
 
 document.addEventListener('DOMContentLoaded', fetchContactsFromFirebase);
+window.addEventListener('load', checkLoginStatus)

@@ -30,39 +30,13 @@
     <div class="policy-legalNotice">
         <a href="./privacy_policy.html" class="nav-link">
             <div class="placeMid">
-                <p>Privacy Policy</p>
+                <p class="privacyAndNoticeTxt">Privacy Policy</p>
             </div>
         </a>
         <a href="./legalNotice.html" class="nav-link">
             <div class="placeMid">
-                <p>Legal Notice</p>
+                <p class="privacyAndNoticeTxt">Legal Notice</p>
             </div>
         </a>
     </div>
 </nav>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        console.log('Script loaded and DOM content is ready.');
-        const nav = document.querySelector('nav');
-        let activeLink = null;
-
-        nav.addEventListener('click', function (e) {
-            console.log('Nav clicked'); // Debugging log
-            // Check if a link was clicked
-            const link = e.target.closest('.nav-link');
-            if (!link) return;
-
-            e.preventDefault();
-
-            // Reset the previous active link if it's not the current one
-            if (activeLink && activeLink !== link) {
-                activeLink.querySelector('.flex, .placeMid').classList.remove('toggled');
-            }
-
-            // Toggle the active class on the clicked link
-            const isActive = link.querySelector('.flex, .placeMid').classList.toggle('toggled');
-            activeLink = isActive ? link : null;
-        });
-    });
-</script>

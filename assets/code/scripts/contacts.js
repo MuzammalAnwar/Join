@@ -1,9 +1,5 @@
 function init() {
-    let userID = localStorage.getItem('loggedInUserID');
-    if (!userID) {
-        window.location.href = 'loadingSpinner.html';
-        return;
-    }
+
 }
 
 function showOverlay() {

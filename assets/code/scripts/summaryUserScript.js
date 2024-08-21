@@ -9,10 +9,6 @@ function init() {
 
 function renderSummaryStats(category = '', id) {
     let userID = localStorage.getItem('loggedInUserID');
-    if (!userID) {
-        window.location.href = 'loadingSpinner.html';
-        return;
-    }
     if (category == '') {
         renderNonTaskStats(`/${userID}`, id)
     } else {
@@ -41,3 +37,4 @@ function renderTotalAmountOfBoardTasks() {
 }
 
 window.addEventListener('load', init);
+window.addEventListener('load', checkLoginStatus)
