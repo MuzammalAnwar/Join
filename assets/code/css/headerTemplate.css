@@ -99,7 +99,11 @@ p {
 }
 
 .user-menu li a {
-    color: white;
+    color:rgba(205, 205, 205, 1);
     text-decoration: none;
     display: block;
+}
+
+a:hover {
+    color: rgba(41, 171, 226, 1);
 }

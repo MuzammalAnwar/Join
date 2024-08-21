@@ -1,6 +1,12 @@
+@font-face {
+    font-family: "inter";
+    src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
+}
+
 body {
     margin: 0;
     height: 100vh;
+    font-family: "inter";
     background-color: #F6F7F8;
     overflow: hidden;
 }

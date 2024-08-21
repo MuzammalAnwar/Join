@@ -1,7 +1,6 @@
 let firebaseUrl = 'https://join-301-default-rtdb.europe-west1.firebasedatabase.app/contacts.json';
 let userId = 'someUserId';
 
-
 async function saveContactToFirebase(contact, id = null) {
     try {
         let url = id ? `${firebaseUrl.replace('.json', '')}/${id}.json` : `${firebaseUrl}`;
@@ -17,24 +16,18 @@ async function saveContactToFirebase(contact, id = null) {
 
         if (response.ok) {
             let responseData = await response.json();
-
             if (!id) {
-                let newContactId = responseData.name;
-                console.log("Generated contact ID:", newContactId);
-                document.getElementById('largeCard').setAttribute('data-contact-id', newContactId);
+                return responseData.name; 
+            } else {
+                return id; 
             }
-
-            showNotification('Contact saved successfully!');
-
-            window.location.reload();
-
         } else {
             console.error('Failed to save contact:', response.statusText);
-            showNotification('Failed to save contact.');
+            return null;
         }
     } catch (error) {
-        console.error('Error:', error);
-        showNotification('Error saving contact.');
+        console.error('Error saving contact:', error);
+        return null;
     }
 }
 
@@ -49,7 +42,7 @@ async function fetchContactsFromFirebase() {
             console.error('Failed to fetch contacts:', response.statusText);
         }
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error fetching contacts:', error);
     }
 }
 
@@ -68,17 +61,36 @@ function createContact(event) {
         color,
         userId 
     };
-
-    saveContactToFirebase(contact);
+   
+    
+    saveContactToFirebase(contact).then(() => {
+        fetchContactsFromFirebase();
+    });
     hideOverlay();
     document.getElementById('contactForm').reset();
+    showNotification();
 }
 
 function updateContactList(contacts) {
     let contactList = document.getElementById('contactList');
-
-    for (let id in contacts) {
+    contactList.innerHTML = ''; 
+    let sortedContacts = Object.keys(contacts).sort((a, b) => {
+        return contacts[a].name.localeCompare(contacts[b].name);
+    });
+    let currentLetter = '';
+    sortedContacts.forEach((id, index) => {
         let contact = contacts[id];
+        let firstLetter = contact.name.charAt(0).toUpperCase();
+
+        if (firstLetter !== currentLetter) {
+            currentLetter = firstLetter;
+            contactList.innerHTML += `
+                <div class="alphabetical_index">
+                    <div class="letter">${currentLetter}</div>
+                </div>
+                <div class="separator"></div> <!-- Trennlinie direkt unter dem Buchstaben -->
+            `;
+        }
         let initials = getInitials(contact.name);
         contactList.innerHTML += `
             <div class="contact_small_card" data-contact-id="${id}" onclick="showContactDetails('${contact.name}', '${contact.email}', '${contact.phone}', '${contact.color}', '${id}')">
@@ -89,9 +101,8 @@ function updateContactList(contacts) {
                 </div>
             </div>
         `;
-    }
+    });
 }
-
 
 function showContactDetails(name, email, phone, color, id) {
     let initials = getInitials(name);
@@ -107,9 +118,6 @@ function showContactDetails(name, email, phone, color, id) {
     document.querySelector('.edit_button').setAttribute('onclick', `showEditOverlay('${name}', '${email}', '${phone}', '${color}')`);
 }
 
-document.addEventListener('DOMContentLoaded', fetchContactsFromFirebase);
-
-
 async function deleteContactFromFirebase(contactId) {
     try {
         let url = `${firebaseUrl.replace('.json', '')}/${contactId}.json`;
@@ -119,7 +127,6 @@ async function deleteContactFromFirebase(contactId) {
                 'Content-Type': 'application/json'
             }
         });
-
         if (response.ok) {
             console.log('Contact deleted successfully from Firebase.');
         } else {
@@ -129,3 +136,6 @@ async function deleteContactFromFirebase(contactId) {
         console.error('Error deleting contact from Firebase:', error);
     }
 }
+
+
+document.addEventListener('DOMContentLoaded', fetchContactsFromFirebase);

@@ -18,7 +18,7 @@ function hideOverlay() {
 
 
 function getRandomColor() {
-    const colors = [
+    let colors = [
         'rgba(255, 122, 0, 1)',
         'rgba(255, 94, 179, 1)',
         'rgba(110, 82, 255, 1)',
@@ -40,6 +40,16 @@ function getRandomColor() {
 }
 
 
+function showNotification() {
+    let notification = document.getElementById('notification');
+    notification.classList.add('show-notification');
+
+    setTimeout(() => {
+        notification.classList.remove('show-notification');
+    }, 3000);
+}
+
+
 function createContact(event) {
     event.preventDefault();
     
@@ -52,37 +62,25 @@ function createContact(event) {
         name,
         email,
         phone,
-        color
+        color,
+        userId 
     };
 
     saveContactToFirebase(contact).then(newContactId => {
-        let initials = getInitials(contact.name);
-        let contactList = document.getElementById('contactList');
-        contactList.innerHTML += `
-            <div class="contact_small_card" data-contact-id="${newContactId}" onclick="showContactDetails('${name}', '${email}', '${phone}', '${color}', '${newContactId}')">
-                <p class="contact_icon" style="background-color: ${color}">${initials}</p>
-                <div>
-                    <p class="m0">${name}</p>
-                    <p class="font_color_blue m0">${email}</p>
-                </div>
-            </div>
-        `;
-        window.location.reload();
+        if (newContactId) {
+            fetchContactsFromFirebase().then(() => {
+                hideOverlay();
+                document.getElementById('contactForm').reset();
+                showNotification();
+            });
+        } else {
+            console.error('Failed to create contact.');
+        }
+    }).catch(error => {
+        console.error('Error creating contact:', error);
     });
-
-    hideOverlay();
-    document.getElementById('contactForm').reset();
 }
 
-
-function showNotification() {
-    let notification = document.getElementById('notification');
-    notification.classList.add('show-notification');
-
-    setTimeout(() => {
-        notification.classList.remove('show-notification');
-    }, 2000);
-}
 
 
 function showContactDetails(name, email, phone, color) {
@@ -110,15 +108,22 @@ function clearLargeCard() {
 
 
 function showEditOverlay(name, email, phone, color) {
-    let editOverlay = document.getElementById('editOverlay');
+    let initials = getInitials(name);
+
+    let editOverlayIcon = document.getElementById('editOverlayIcon');
+    editOverlayIcon.textContent = initials;
+    editOverlayIcon.style.backgroundColor = color;
+
     document.getElementById('editName').value = name;
     document.getElementById('editEmail').value = email;
     document.getElementById('editPhone').value = phone;
 
     document.getElementById('editOverlayBackground').classList.remove('d_none');
+    let editOverlay = document.getElementById('editOverlay');
     editOverlay.classList.remove('slide-out');
     editOverlay.style.display = 'flex';
 }
+
 
 
 function hideEditOverlay() {
@@ -128,6 +133,11 @@ function hideEditOverlay() {
         editOverlay.style.display = 'none';
         document.getElementById('editOverlayBackground').classList.add('d_none');
     }, 500);
+}
+
+function cancelEdit() {
+    hideOverlay();
+    document.getElementById('contactForm').reset(); 
 }
 
 

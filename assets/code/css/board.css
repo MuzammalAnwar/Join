@@ -279,3 +279,80 @@ h1 {
 .plusIconBoard:hover {
     background-image: url(../../img/Property\ 1=click.png);
 }
+
+
+.overlay-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none; 
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay {
+    width: 1116px;
+    height: 870px;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 1000;
+    border-radius: 30px;
+    animation: slideInRight 0.5s ease-out;
+}
+
+.overlay.slide-out {
+    animation: slideOutRight 0.5s ease-out forwards;
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.container_overlay {
+    display: flex;
+    justify-content: center;
+}
+
+.overlay_title {
+    font-size: 61px;
+    padding-left: 100px;
+}
+
+.overlay_title_position {
+    display: flex;
+    justify-content: space-between;
+}
+
+.overlay_close_button {
+    width: 32px;
+    height: 32px;
+    border-radius: 56px;
+    margin-top: 50px;
+    margin-right: 100px;
+}
+
+.overlay_close_button:hover {
+    background-color: rgba(209, 209, 209, 0.314);
+    cursor: pointer;
+}

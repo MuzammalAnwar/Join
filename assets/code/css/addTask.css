@@ -1,8 +1,14 @@
+@font-face {
+    font-family: "inter";
+    src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
+}
+
 body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    background: rgb(246, 247, 258);
+    background-color: rgb(246, 247, 258);
+    font-family: "inter";
 }
 
 a {
@@ -13,7 +19,7 @@ a {
 .title_position {
     display: flex;
     margin-left: 110px;
-    margin-top: 80px;
+    margin-top: 150px;
     margin-bottom: 32px;
 }
 
@@ -63,6 +69,7 @@ a {
     resize: vertical;
     min-height: 100px;
     max-height: 200px;
+    border-radius: 10px;
 }
 
 .form-group select {
@@ -72,6 +79,18 @@ a {
     box-sizing: border-box;
     border: 1px solid rgb(227, 227, 227);
     border-radius: 10px;
+}
+
+.form-group select:focus {
+    outline: 1px solid rgba(41, 171, 226, 1);
+}
+
+.form-group textarea:focus {
+    outline: 1px solid rgba(41, 171, 226, 1);
+}
+
+input:focus {
+    outline: 1px solid rgba(41, 171, 226, 1);
 }
 
 .form-group input {
@@ -85,33 +104,69 @@ a {
 
 .input-container {
     position: relative;
-    display: flex;
-    align-items: center;
 }
 
 .input-container input {
     height: 48px;
     width: 100%;
     padding: 8px;
-    padding-right: 40px;
+    padding-right: 70px;
+    /* Adjust padding to accommodate icons */
     box-sizing: border-box;
     border: 1px solid rgb(227, 227, 227);
     border-radius: 10px;
+    margin-bottom: 6px;
 }
 
-.input-container .input-icon {
+.icon-container {
     position: absolute;
     right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    /* Space between icons and separator */
+}
+
+.input-icon {
     height: 24px;
     width: auto;
-    pointer-events: all;
     cursor: pointer;
+}
+
+.input-icon.hidden {
+    display: none;
 }
 
 .input-icon:hover {
     background-color: lightgrey;
     border-radius: 999px;
 }
+
+.separatorSubtask {
+    height: 24px;
+    border-left: 1px solid rgba(209, 209, 209, 1);
+    margin: 0 5px;
+    /* Space around the separator */
+    display: none;
+    /* Hide by default */
+}
+
+/* Show the separator and change icons when the input is focused */
+.input-container input:focus+.icon-container .separatorSubtask {
+    display: block;
+}
+
+.input-container input:focus+.icon-container #subtaskAdd {
+    display: none;
+}
+
+.input-container input:focus+.icon-container #subtaskCancel,
+.input-container input:focus+.icon-container #subtaskSave {
+    display: inline;
+}
+
 
 .button-group {
     display: flex;
@@ -241,4 +296,232 @@ a {
 
 .form-group select option[disabled] {
     color: #999;
+}
+
+.subtaskUnsortedList {
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 0;
+}
+
+.subtaskListItem {
+    position: relative;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 10px;
+    transition: background-color 0.3s ease;
+    padding-left: 30px;
+    margin-left: 10px;
+    border-radius: 12px;
+}
+
+.subtaskListItem::before {
+    content: '•';
+    position: absolute;
+    left: 10px;
+    font-size: 20px;
+    color: black;
+}
+
+.subtaskListItem:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.subtaskIcons {
+    display: none;
+    align-items: center;
+}
+
+.subtaskListItem:hover .subtaskIcons {
+    display: flex;
+}
+
+.subtaskListText {
+    height: 16px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+}
+
+.subtaskIcon {
+    margin-left: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    border-radius: 999px;
+    padding: 1px;
+}
+
+.subtaskIcon:hover {
+    transform: scale(0.9);
+    background-color: #ccc;
+}
+
+/* Edit Mode Styles */
+.subtaskEditContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-left: 0;
+    /* Remove padding when in edit mode */
+    gap: 0;
+    /* Remove gap between input and icons */
+}
+
+.subtaskEditInput {
+    flex-grow: 1;
+    /* Make the input take the remaining space */
+    height: 100%;
+    /* Ensure input height matches list item */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0 40px 0 10px;
+    /* Add padding for text and space for icons */
+    box-sizing: border-box;
+    /* Include padding and border in width */
+    font-size: 14px;
+}
+
+.subtaskEditIcons {
+    display: flex;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    gap: 5px;
+}
+
+.subtaskEditIcons img {
+    height: 20px;
+    /* Ensure icon size is consistent */
+    width: auto;
+}
+
+.subtaskListItem.edit-mode::before {
+    content: none;
+    /* Remove bullet point in edit mode */
+}
+
+.subtaskEditContainer input {
+    height: 32px;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid rgb(227, 227, 227);
+    border-bottom: 1px solid rgba(41, 171, 226, 1);
+    border-radius: 0px;
+    outline: none;
+}
+
+.subtaskEditSeparator {
+    position: absolute;
+    right: 40px;
+    /* Adjust based on icon width */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 24px;
+    border-left: 1px solid rgba(209, 209, 209, 1);
+}
+
+.custom-select-wrapper {
+    position: relative;
+    display: inline-block;
+    user-select: none;
+}
+
+.custom-select {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 440px;
+    cursor: pointer;
+}
+
+.custom-select-trigger {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 300;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-select-trigger img.arrow-icon {
+    width: 7.21px;
+    height: 4.6px;
+    transition: transform 0.3s ease;
+}
+
+.custom-options {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 438px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.custom-options.open {
+    display: block;
+}
+
+/* Corrected rotation selector */
+.custom-options.open+.custom-select-trigger img.arrow-icon {
+    transform: rotate(90deg);
+}
+
+.custom-option {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.custom-option:hover {
+    background-color: #f0f0f0;
+}
+
+/* Custom option checkbox */
+.custom-option input[type="checkbox"] {
+    gap: 0px;
+    opacity: 0px;
+    width: 16px;
+    height: 16px;
+    padding: 4px 0 0 0;
+    gap: 0px;
+    border-radius: 3px 0 0 0;
+    cursor: pointer;
+    appearance: none;
+    background-color: #ffffff;
+    border: 2px solid #000;
+    border-radius: 5px;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.custom-option input[type="checkbox"]:checked {
+    background-color: #ffffff;
+    /* Color when checked */
+    border-color: #000000;
+}
+
+/* Custom checkmark when checkbox is checked */
+.custom-option input[type="checkbox"]:checked::after {
+    width: 16px;
+    height: 16px;
+    content: '✔';
+    font-size: 16px;
+    color: #000000;
+    display: block;
+    text-align: center;
+    transform: translate(-7%, -61%);
 }

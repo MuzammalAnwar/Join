@@ -67,8 +67,7 @@ function addToTask(event) {
     dueDate.value = '';
     category.value = '';
 
-    fetchTask(taskPath, task, 'PUT')
-    // renderTasks('toDo', 'categoryToDo');
+    fetchTask(taskPath, task, 'PUT');
 }
 
 function changeImgSource(id, src) {

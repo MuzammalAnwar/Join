@@ -7,28 +7,46 @@ html,
 body {
     font-family: "inter";
     overflow: hidden;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .main_container {
     display: flex;
+    overflow: hidden;
+    flex: 1;
+}
+
+.contact_list {
+    margin-left: 232px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 96px;
+}
+
+.scroll_bar {
+    width: 24px;
+    height: 90%;
+    overflow-y: scroll;
+    scrollbar-width: thin;
 }
 
 .contact_main_container {
-    width: 456px;
-    height: 928px;
+    width: 440px;
+    height: 100%;
     box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.08);
-    position: relative;
-    top: 96px;
-    display: flex;
-    justify-content: center;
+    overflow: auto;
+    padding-top: 80px;
+    scrollbar-width: thin; 
+    scrollbar-color: rgba(168, 168, 168, 1) rgba(255, 255, 255, 1);
 }
 
 .contact_container {
-    width: 400px;
-    height: 1188px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+    overflow-y: auto;
+    margin-top: 20px;
 }
 
 .contact_separator {
@@ -58,11 +76,15 @@ a {
 }
 
 .button_container {
-    width: 456px;
+    width: 430px;
     height: 101px;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 1);
+    top: 96px;
+    z-index: 1;
 }
 
 .add_button {
@@ -77,6 +99,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 24px;
 }
 
 .add_button:hover {
@@ -113,12 +136,15 @@ a {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    margin-left: 24px;
+    margin-top: 8px;
+
 }
 
 .contact_small_card:hover {
     cursor: pointer;
-    background: rgba(42, 54, 71, 1);
-    color: white;
+    background: linear-gradient(180deg, #F9F9F9 0%, #F0F0F0 100%);
+    color: black;
     border-radius: 10px;
 }
 
@@ -135,7 +161,7 @@ a {
     font-weight: 400;
     line-height: 14.4px;
     margin-right: 24px;
-    margin-left: 16px;
+    margin-left: 40px;
 }
 
 .contact_large_card {
@@ -220,7 +246,7 @@ a {
     font-weight: 500;
     line-height: 54.4px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-    margin-right: 50px;
+    margin-right: 40px;
 }
 
 .contact_info {
@@ -358,16 +384,23 @@ a {
 }
 
 .overlay_content_left {
-    width: 40%;
+    width: 35%;
     display: flex;
 }
 
 .overlay_content_right {
-    width: 60%;
+    width: 65%;
     display: flex;
+    justify-content: center;
 }
 
-.overlay_content_position {
+.overlay_add_content_position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay_edit_content_position {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -376,6 +409,11 @@ a {
 .overlay_title_position {
     display: flex;
     flex-direction: column;
+}
+
+.user_position {
+    display: flex;
+    width: 200px;
 }
 
 .user_overlay {
@@ -436,11 +474,10 @@ a {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    height: 592px;
 }
 
 .form_position {
-    height: 592px;
+    height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -509,6 +546,7 @@ a {
     background-position: right 10px center;
     background-image: url(../../img/iconoir_cancel.png);
 }
+
 .cancel_icon:hover {
     color: rgba(41, 171, 226, 1);
     border-color: rgba(41, 171, 226, 1);
@@ -550,14 +588,60 @@ a {
     align-items: center;
     justify-content: center;
     position: fixed;
-    bottom: 20%;
-    right: -600px;
-    transform: translateX(-50%);
+    top: 80%;
+    left: 100%;
+    transform: translateY(-50%);
     border-radius: 10px;
     z-index: 1000;
-    transition: right 0.5s ease-out;
+    transition: left 0.5s ease-out;
 }
 
 .show-notification {
-    right: 20px;
+    animation: slideIn 0.5s forwards, slideOut 0.5s 2.5s forwards;
+}
+
+@keyframes slideIn {
+    from {
+        left: 100%;
+    }
+
+    to {
+        left: 50%;
+        transform: translateX(-30%);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        left: 50%;
+        transform: translateX(-30%);
+    }
+
+    to {
+        left: 100%;
+    }
+}
+
+.alphabetical_index {
+    width: 352px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+.letter {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    width: 14px;
+    height: 24px;
+    margin-left: 80px;
+}
+
+.separator {
+    width: 352px;
+    margin: 0 auto;
+    border: 1px solid rgba(209, 209, 209, 1);
 }

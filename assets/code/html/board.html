@@ -7,8 +7,10 @@
     <script src="../scripts/includeHTML.js"></script>
     <script src="../scripts/helpFunctions.js"></script>
     <script src="../scripts/boardScript.js"></script>
+    <script src="../scripts/addTaskScript.js"></script>
     <script src="../scripts/htmlTemplates.js"></script>
     <link rel="stylesheet" href="../css/board.css">
+    <link rel="stylesheet" href="../css/addTask.css">
     <title>Join | Board</title>
 </head>
 
@@ -28,27 +30,27 @@
                         </button>
                     </div>
                 </form>
-                <button class="addTaskButton">Add Task <img class="plusIcon" src="../../img/boardAddTaskIcon.png"
-                        alt=""></button>
+                <button class="addTaskButton" onclick="showOverlay()">Add Task <img class="plusIcon"
+                        src="../../img/boardAddTaskIcon.png" alt=""></button>
             </div>
         </section>
         <section class="notesAndBarContainer">
             <div class="categoryAndIconBar">
                 <div class="bar">
                     <p>To Do</p>
-                    <div class="plusIconBoard"></div>
+                    <div onclick="showOverlay()" class="plusIconBoard"></div>
                 </div>
             </div>
             <div class="categoryAndIconBar">
                 <div class="bar">
                     <p>In Progress</p>
-                    <div class="plusIconBoard"></div>
+                    <div onclick="showOverlay()" class="plusIconBoard"></div>
                 </div>
             </div>
             <div class="categoryAndIconBar">
                 <div class="bar">
                     <p>Await feedback</p>
-                    <div class="plusIconBoard"></div>
+                    <div onclick="showOverlay()" class="plusIconBoard"></div>
                 </div>
             </div>
             <div class="categoryAndIconBar">
@@ -72,6 +74,129 @@
             <div class="NoTaskToDo">No tasks done</div>
         </div>
     </section>
+    <div class="overlay-background" id="taskOverlay">
+        <div class="overlay">
+            <div class="overlay_title_position">
+                <div>
+                    <h2 class="overlay_title">Add Task</h2>
+                </div>
+                <div class="overlay_close_button">
+                    <img onclick="hideOverlay()" src="../../img/Close.png">
+                </div>
+            </div>
+            <div class="container_overlay">
+                <form onsubmit="addToTask(event), clearSubtasks()">
+                    <div class="form">
+                        <div class="left">
+                            <div class="form-group">
+                                <label for="title">Title<b style="color: red;">*</b></label>
+                                <input required type="text" id="title" name="title">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea id="description" name="description" rows="4"
+                                    placeholder="Enter a description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="assigned">Assigned to</label>
+                                <select id="assigned" name="assigned">
+                                    <option value="" enabled selected>Select contacts to assign</option>
+                                    <option value="Maximillian">Maximillian</option>
+                                    <option value="Philip">Philip</option>
+                                    <option value="Adrian">Adrian</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="separator"></div>
+                        <div class="right">
+                            <div style="height: 96px;" class="form-group">
+                                <label for="due-date">Due Date<b style="color: red;">*</b></label>
+                                <input required type="date" id="due-date" name="due-date">
+                            </div>
+                            <div style="height: 88px;" class="form-group">
+                                <label>Prio</label>
+                                <div class="urgency">
+                                    <button
+                                        onclick="handleButtonClick('urgentIcon', '../../img/urgentIcon.png', '../../img/urgentIconHover.png', ['mediumIcon', 'lowIcon'])"
+                                        type="button" class="urgentStatus" data-status="urgent">
+                                        <img id="urgentIcon" class="urgentIcon" src="../../img/urgentIcon.png"
+                                            alt="Urgent Icon">
+                                        Urgent
+                                    </button>
+
+                                    <button
+                                        onclick="handleButtonClick('mediumIcon', '../../img/mediumIcon.png', '../../img/mediumIconHover.png', ['urgentIcon', 'lowIcon'])"
+                                        type="button" class="urgentStatus" data-status="medium">
+                                        <img id="mediumIcon" class="mediumIcon" src="../../img/mediumIcon.png"
+                                            alt="Medium Icon">
+                                        Medium
+                                    </button>
+
+                                    <button
+                                        onclick="handleButtonClick('lowIcon', '../../img/lowIcon.png', '../../img/lowIconHover.png', ['urgentIcon', 'mediumIcon'])"
+                                        type="button" class="urgentStatus" data-status="low">
+                                        <img id="lowIcon" class="lowIcon" src="../../img/lowIcon.png" alt="Low Icon">
+                                        Low
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="height: 80px;" class="form-group">
+                                <label for="category">Category<b style="color: red;">*</b></label>
+                                <select required id="category" name="category">
+                                    <option value="User Story">User Story</option>
+                                    <option value="Technical Task">Technical Task</option>
+                                </select>
+                            </div>
+                            <div style="height: 80px;" class="form-group">
+                                <label for="subtasks">Subtasks</label>
+                                <div class="input-container">
+                                    <input type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
+                                    <img id="subtaskAdd" onclick="addSubtask()" src="../../img/subtaskAddPlusIcon.png"
+                                        alt="Add Subtask" class="input-icon">
+                                </div>
+                                <div class="subtasksList" id="subtaskList"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sendFormOptions">
+                        <p style="width: 170px; height: 27px;"><b style="color: red;">*</b>This field is required</p>
+                        <div class="button-group">
+                            <button onclick="clearSubtasks()" class="clearButton" type="reset">Clear <b>✕</b></button>
+                            <button class="createButton" type="submit">Create Task ✔</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<div class="overlay-background" id="taskOverlay">
+</div>
+
+
+<div class="overlay-background" id="taskDetailsOverlay">
+    <div class="overlay slide-in">
+        <div class="overlay_header">
+            <h2 id="overlayTitle" class="overlay_title">Task Title</h2>
+            <img onclick="hideTaskDetailsOverlay()" src="../../img/Close.png" class="overlay_close_button">
+        </div>
+        <div class="overlay_content">
+            <p id="overlayDescription">Task description will appear here.</p>
+            <p><strong>Due date:</strong> <span id="overlayDueDate">Date</span></p>
+            <p><strong>Priority:</strong> <span id="overlayPriority">Priority</span></p>
+            <p><strong>Assigned To:</strong></p>
+            <ul id="overlayAssignedTo">
+            </ul>
+            <p><strong>Subtasks:</strong></p>
+            <ul id="overlaySubtasks">
+            </ul>
+        </div>
+        <div class="overlay_footer">
+            <button id="deleteButton" class="delete_button">Delete</button>
+            <button id="editButton" class="edit_button">Edit</button>
+        </div>
+    </div>
+</div>
+
 </body>
 
 </html>
