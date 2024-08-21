@@ -295,7 +295,7 @@ h1 {
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
-    display: none; 
+    display: none;
     align-items: center;
     justify-content: center;
 }
@@ -318,6 +318,7 @@ h1 {
         transform: translateX(0);
         opacity: 1;
     }
+
     to {
         transform: translateX(100%);
         opacity: 0;
@@ -329,6 +330,7 @@ h1 {
         transform: translateX(100%);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;
