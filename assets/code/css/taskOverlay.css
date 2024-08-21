@@ -1,0 +1,154 @@
+@font-face {
+    font-family: "inter";
+    src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    font-family: "inter";
+}
+
+.tall_task_overlay_background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tall_task_overlay {
+    width: 525px;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 1000;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.task_category {
+    width: 164px;
+    height: 36px;
+    margin-top: 40px;
+    margin-bottom: 32px;
+    border-radius: 8px;
+    background-color: rgba(0, 56, 255, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 27.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tall_task_overlay_head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tall_overlay_content_position {
+    display: flex;
+    flex-direction: column;
+    width: 445px;
+}
+
+.overlay_close_button {
+    width: 32px;
+    height: 32px;
+    border-radius: 56px;
+    margin-top: 40px;
+}
+
+.overlay_close_button:hover {
+    background-color: rgba(209, 209, 209, 0.314);
+    cursor: pointer;
+}
+
+.tall_task_overlay_title {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.date_position {
+display: flex;
+flex-direction: column;
+}
+
+.prio_position {
+display: flex;
+flex-direction: column;
+margin-left: 24px;
+}
+
+.prio_icon_position {
+    display: flex;
+    align-items: center;
+}
+
+.prio_icon {
+    margin-left: 8px;
+}
+
+.df {
+    display: flex;
+}
+
+.contact_icon {
+    border: 2px solid rgba(255, 255, 255, 1);
+    background: rgba(255, 122, 0, 1);
+    width: 42px;
+    height: 42px;
+    border-radius: 45px;
+    color: white;
+    text-align: center;
+    align-content: space-evenly;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.4px;
+    margin-right: 24px;
+    margin-left: 8px;
+    margin-bottom: 16px;
+}
+
+.name_container {
+    width: 100%;
+    height: 42px;
+}
+
+.checkbox_position {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 8px; 
+}
+
+.checkbox {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    margin-left: 16px;
+    margin-bottom: 16px;
+}
+
+.sub_task_position {
+    display: flex;
+    align-items: center; 
+}
+
+.sub_task {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+}
