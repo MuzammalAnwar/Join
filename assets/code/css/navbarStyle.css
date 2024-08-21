@@ -46,6 +46,7 @@ a {
 
 .flex:hover {
     background-color: rgb(42, 61, 82);
+    color: rgb(205, 205, 205);
 }
 
 .joinLogo {
@@ -76,8 +77,4 @@ a {
     justify-content: center;
     cursor: pointer;
     width: 100%;
-}
-
-.placeMid:hover {
-    background-color: rgb(42, 61, 82);
 }

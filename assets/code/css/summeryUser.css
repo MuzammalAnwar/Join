@@ -147,36 +147,42 @@ a {
     background-color: rgba(42, 54, 71, 1);
     color: white;
     transform: scale(1.1);
+    transition: 0.1s cubic-bezier(0, 0, 0.2, 1);
 }
 
 .done:hover {
     background-color: rgba(42, 54, 71, 1);
     color: white;
     transform: scale(1.1);
+    transition: 0.1s cubic-bezier(0, 0, 0.2, 1);
 }
 
 .urgent:hover {
     background-color: rgba(42, 54, 71, 1);
     color: white;
     transform: scale(1.1);
+    transition: 0.1s cubic-bezier(0, 0, 0.2, 1);
 }
 
 .task_in_board:hover {
     background-color: rgba(42, 54, 71, 1);
     color: white;
     transform: scale(1.1);
+    transition: 0.1s cubic-bezier(0, 0, 0.2, 1);
 }
 
 .task_in_progress:hover {
     background-color: rgba(42, 54, 71, 1);
     color: white;
     transform: scale(1.1);
+    transition: 0.1s cubic-bezier(0, 0, 0.2, 1);
 }
 
 .awaiting_feedback:hover {
     background-color: rgba(42, 54, 71, 1);
     color: white;
     transform: scale(1.1);
+    transition: 0.1s cubic-bezier(0, 0, 0.2, 1);
 }
 
 .content {

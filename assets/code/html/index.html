@@ -7,11 +7,6 @@
     <title>Join | Login</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/logo.css">
-    <script src="../scripts/logoAnimation.js"></script>
-    <script src="../scripts/helpFunctions.js"></script>
-    <script src="../scripts/indexScript.js"></script>
-    <script src="../scripts/htmlTemplates.js"></script>
-    <!-- <script src="../scripts/boardScript.js"></script> -->
 </head>
 
 <body onload="startAnimation()">
@@ -62,7 +57,9 @@
                             <button onclick="proceedLogin()" class="login_button">Log in</button>
                         </div>
                         <div>
-                            <button onclick="document.location='./summeryUser.html'" class="guest_button">Guest Log
+                            <button
+                                onclick="document.location='./summeryUser.html', localStorage.setItem('loggedInGuest', 'guestUser');"
+                                class="guest_button">Guest Log
                                 in</button>
                         </div>
                     </div>
@@ -78,6 +75,11 @@
             </div>
         </div>
     </div>
+    <script src="../scripts/logoAnimation.js"></script>
+    <script src="../scripts/mainScript.js"></script>
+    <script src="../scripts/indexScript.js"></script>
+    <script src="../scripts/htmlTemplates.js"></script>
+    <!-- <script src="../scripts/boardScript.js"></script> -->
 </body>
 
 </html>

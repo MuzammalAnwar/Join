@@ -4,11 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../scripts/includeHTML.js"></script>
-    <script src="../scripts/helpFunctions.js"></script>
-    <script src="../scripts/boardScript.js"></script>
-    <script src="../scripts/addTaskScript.js"></script>
-    <script src="../scripts/htmlTemplates.js"></script>
     <link rel="stylesheet" href="../css/board.css">
     <link rel="stylesheet" href="../css/addTask.css">
     <title>Join | Board</title>
@@ -169,34 +164,36 @@
             </div>
         </div>
     </div>
-<div class="overlay-background" id="taskOverlay">
-</div>
-
-
-<div class="overlay-background" id="taskDetailsOverlay">
-    <div class="overlay slide-in">
-        <div class="overlay_header">
-            <h2 id="overlayTitle" class="overlay_title">Task Title</h2>
-            <img onclick="hideTaskDetailsOverlay()" src="../../img/Close.png" class="overlay_close_button">
-        </div>
-        <div class="overlay_content">
-            <p id="overlayDescription">Task description will appear here.</p>
-            <p><strong>Due date:</strong> <span id="overlayDueDate">Date</span></p>
-            <p><strong>Priority:</strong> <span id="overlayPriority">Priority</span></p>
-            <p><strong>Assigned To:</strong></p>
-            <ul id="overlayAssignedTo">
-            </ul>
-            <p><strong>Subtasks:</strong></p>
-            <ul id="overlaySubtasks">
-            </ul>
-        </div>
-        <div class="overlay_footer">
-            <button id="deleteButton" class="delete_button">Delete</button>
-            <button id="editButton" class="edit_button">Edit</button>
+    <div class="overlay-background" id="taskOverlay">
+    </div>
+    <div class="overlay-background" id="taskDetailsOverlay">
+        <div class="overlay slide-in">
+            <div class="overlay_header">
+                <h2 id="overlayTitle" class="overlay_title">Task Title</h2>
+                <img onclick="hideTaskDetailsOverlay()" src="../../img/Close.png" class="overlay_close_button">
+            </div>
+            <div class="overlay_content">
+                <p id="overlayDescription">Task description will appear here.</p>
+                <p><strong>Due date:</strong> <span id="overlayDueDate">Date</span></p>
+                <p><strong>Priority:</strong> <span id="overlayPriority">Priority</span></p>
+                <p><strong>Assigned To:</strong></p>
+                <ul id="overlayAssignedTo">
+                </ul>
+                <p><strong>Subtasks:</strong></p>
+                <ul id="overlaySubtasks">
+                </ul>
+            </div>
+            <div class="overlay_footer">
+                <button id="deleteButton" class="delete_button">Delete</button>
+                <button id="editButton" class="edit_button">Edit</button>
+            </div>
         </div>
     </div>
-</div>
-
+    <script src="../scripts/includeHTML.js"></script>
+    <script src="../scripts/mainScript.js"></script>
+    <script src="../scripts/boardScript.js"></script>
+    <!-- <script src="../scripts/addTaskScript.js"></script> -->
+    <script src="../scripts/htmlTemplates.js"></script>
 </body>
 
 </html>

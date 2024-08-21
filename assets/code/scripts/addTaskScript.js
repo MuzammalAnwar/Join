@@ -44,10 +44,6 @@ function addToTask(event) {
     let category = document.getElementById('category');
     let taskKey = generateUniqueKey();
     taskPath = `/${userID}/addedTasks/toDo/${taskKey}`;
-    if (!userID) {
-        alert('User not logged in.');
-        return;
-    }
     let task = {
         "title": title.value,
         "description": description.value,
@@ -164,13 +160,6 @@ function clearSubtasks() {
     subtasks = [];
 }
 
-function checkLoginStatus() {
-    if (localStorage.getItem('loggedInUserID')) {
-        return;
-    } else {
-        window.location.href = 'loadingSpinner.html';
-    }
-}
 function toggleIcon(iconId, originalSrc, hoverSrc) {
     let icon = document.getElementById(iconId);
     let currentSrc = icon.src.split('/').pop();
@@ -268,8 +257,5 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-
-
-
-window.addEventListener('load', checkLoginStatus);
 window.addEventListener('load', getContacts);
+window.addEventListener('load', checkLoginStatus);
