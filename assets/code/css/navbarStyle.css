@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "inter";
+    src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
+}
+
 nav {
     position: fixed;
     top: 0;
@@ -11,6 +16,11 @@ nav {
     width: 232px;
     height: 100%;
     z-index: 999;
+    font-family: "inter";
+}
+
+.toggled {
+    background-color: rgb(9, 25, 49) !important;
 }
 
 nav img {
@@ -35,7 +45,7 @@ a {
 }
 
 .flex:hover {
-    background-color: rgb(9, 25, 49);
+    background-color: rgb(42, 61, 82);
 }
 
 .joinLogo {
@@ -69,5 +79,5 @@ a {
 }
 
 .placeMid:hover {
-    background-color: rgb(9, 25, 49);
+    background-color: rgb(42, 61, 82);
 }

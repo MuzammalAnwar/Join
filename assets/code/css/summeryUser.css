@@ -1,4 +1,10 @@
+@font-face {
+    font-family: "inter";
+    src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
+}
+
 body {
+    font-family: "inter";
     background-color: rgba(246, 247, 248, 1);
 }
 
@@ -9,6 +15,7 @@ a {
 
 .main_container {
     margin-left: 333px;
+    overflow-y: auto;
 }
 
 .join_title_container {
@@ -47,6 +54,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    cursor: pointer;
 }
 
 .done {
@@ -58,6 +66,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    cursor: pointer;
 }
 
 .urgent {
@@ -69,6 +78,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    cursor: pointer;
 }
 
 .task_in_board {
@@ -80,6 +90,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .task_in_progress {
@@ -91,6 +102,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .awaiting_feedback {
@@ -103,6 +115,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .image_container img {

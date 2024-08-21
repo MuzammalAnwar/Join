@@ -1,6 +1,8 @@
 let tasks = [];
 let selectedStatus = 'none';
 let subtasks = []
+let taskPath;
+let userID = localStorage.getItem('loggedInUserID');
 
 document.addEventListener('DOMContentLoaded', function () {
     let urgencyButtons = document.querySelectorAll('.urgentStatus');
@@ -40,9 +42,8 @@ function addToTask(event) {
     let assigned = document.getElementById('assigned');
     let dueDate = document.getElementById('due-date');
     let category = document.getElementById('category');
-    let userID = localStorage.getItem('loggedInUserID');
     let taskKey = generateUniqueKey();
-    let taskPath = `/${userID}/addedTasks/toDo/${taskKey}`;
+    taskPath = `/${userID}/addedTasks/toDo/${taskKey}`;
     if (!userID) {
         alert('User not logged in.');
         return;
@@ -75,23 +76,75 @@ function changeImgSource(id, src) {
 }
 
 function addSubtask() {
-    let input = document.getElementById('subtasks')
-    let subtaskList = document.getElementById('subtaskList')
+    let input = document.getElementById('subtasks');
+    let subtaskList = document.getElementById('subtaskList');
     if (input.value !== '') {
         subtaskList.innerHTML = '';
-        subtasks.push(input.value)
-        for (let i = 0; i < subtasks.length; i++) {
-            subtaskList.innerHTML += /*HTML*/`
-            <ul>
-                <li><p>${subtasks[i]}</p></li>
-            </ul>
-            `;
-        }
+        subtasks.push(input.value);
+        renderSubtasks();
         input.value = '';
     } else {
-        alert('Write something')
+        alert('Write something');
     }
 }
+
+function renderSubtasks() {
+    let subtaskList = document.getElementById('subtaskList');
+    subtaskList.innerHTML = '';
+    subtasks.forEach((subtask, i) => {
+        subtaskList.innerHTML += /*HTML*/`
+            <li class="subtaskListItem" id="subtaskListItem${i}">
+                <p class="subtaskListText">${subtask}</p>
+                <div class="subtaskIcons">
+                    <img onclick="editSubtask(${i})" src="../../img/subtaskEditIcon.png" class="subtaskIcon" alt="Edit Icon">
+                    <img onclick="deleteSubtask(${i})" src="../../img/subtaskTrashIcon.png" class="subtaskIcon" alt="Trash Icon">
+                </div>
+            </li>
+        `;
+    });
+}
+
+function editSubtask(index) {
+    let subtaskListItem = document.getElementById(`subtaskListItem${index}`);
+    let subtaskText = subtasks[index];
+
+    // Replace the text with an input field and icons
+    subtaskListItem.innerHTML = /*HTML*/`
+        <div class="subtaskEditContainer">
+            <input class="editInput" type="text" value="${subtaskText}" class="subtaskEditInput" id="subtaskEditInput${index}">
+            <div class="subtaskEditSeparator"></div>
+            <div class="subtaskEditIcons">
+                <img onclick="renderSubtasks()" src="../../img/subtaskTrashIcon.png" class="subtaskIcon" alt="Cancel Icon">
+                <img onclick="saveSubtask(${index})" src="../../img/subtaskAddIcon.png" class="subtaskIcon" alt="Save Icon">
+            </div>
+        </div>
+    `;
+}
+
+function saveSubtask(index) {
+    let input = document.getElementById(`subtaskEditInput${index}`);
+    subtasks[index] = input.value;
+    renderSubtasks(); // Re-render the list with the updated value
+}
+
+function deleteSubtask(index) {
+    subtasks.splice(index, 1);
+    renderSubtasks(); // Re-render the list after deleting the item
+}
+
+// function getContacts() {
+//     taskPath = `/${userID}/contacts`;
+//     let inputContent = document.getElementById('assigned');
+//     fetchTask(taskPath, null, 'GET').then(contacts => {
+//         let keys = Object.keys(contacts);
+//         for (let i = 0; i < keys.length; i++) {
+//             let contact = contacts[keys[i]];
+//             inputContent.innerHTML += /*html*/ `
+//                 <option class="contactOption" value="${contact.name}">${contact.name} <div><input type="checkbox"></div></option>
+//             `;
+//         }
+//     })
+// }
 
 function handleButtonClick(clickedIconId, originalSrc, hoverSrc, otherIconIds) {
     otherIconIds.forEach(function (id) {
@@ -105,6 +158,19 @@ function handleButtonClick(clickedIconId, originalSrc, hoverSrc, otherIconIds) {
     toggleIcon(clickedIconId, originalSrc, hoverSrc);
 }
 
+
+function clearSubtasks() {
+    document.getElementById('subtaskList').innerHTML = '';
+    subtasks = [];
+}
+
+function checkLoginStatus() {
+    if (localStorage.getItem('loggedInUserID')) {
+        return;
+    } else {
+        window.location.href = 'loadingSpinner.html';
+    }
+}
 function toggleIcon(iconId, originalSrc, hoverSrc) {
     let icon = document.getElementById(iconId);
     let currentSrc = icon.src.split('/').pop();
@@ -113,10 +179,97 @@ function toggleIcon(iconId, originalSrc, hoverSrc) {
     } else {
         icon.src = originalSrc;
     }
-
 }
 
-function clearSubtasks() {
-    document.getElementById('subtaskList').innerHTML = '';
-    subtasks = [];
+function toggleInputIcons(inputId, addIconId, cancelIconId, saveIconId) {
+    const input = document.getElementById(inputId);
+    const addIcon = document.getElementById(addIconId);
+    const cancelIcon = document.getElementById(cancelIconId);
+    const saveIcon = document.getElementById(saveIconId);
+
+    input.addEventListener('focus', function () {
+        addIcon.classList.add('hidden');
+        cancelIcon.classList.remove('hidden');
+        saveIcon.classList.remove('hidden');
+    });
+
+    input.addEventListener('blur', function () {
+        addIcon.classList.remove('hidden');
+        cancelIcon.classList.add('hidden');
+        saveIcon.classList.add('hidden');
+    });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    toggleInputIcons('subtasks', 'subtaskAdd', 'subtaskCancel', 'subtaskSave');
+});
+
+function getContacts() {
+    let taskPath = `/${userID}/contacts`;
+    let selectWrapper = document.querySelector('.custom-options');
+    fetchTask(taskPath, null, 'GET').then(contacts => {
+        let keys = Object.keys(contacts);
+        for (let i = 0; i < keys.length; i++) {
+            let contact = contacts[keys[i]];
+            // Create the option div
+            let option = document.createElement('div');
+            option.classList.add('custom-option');
+            option.setAttribute('data-value', contact.name);
+
+            // Create the checkbox element
+            let checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = contact.name;
+
+            // Create a span to hold the contact name
+            let label = document.createElement('span');
+            label.textContent = contact.name;
+
+            // Append the label and checkbox to the option
+            option.appendChild(label);
+            option.appendChild(checkbox);
+
+            // Append the option to the select wrapper
+            selectWrapper.appendChild(option);
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const select = document.querySelector('.custom-select');
+    const options = document.querySelector('.custom-options');
+    const trigger = document.querySelector('.custom-select-trigger');
+
+    trigger.addEventListener('click', function (e) {
+        options.classList.toggle('open');
+    });
+
+    options.addEventListener('click', function (e) {
+        e.stopPropagation(); // Prevent event from bubbling up
+    });
+
+    options.addEventListener('click', function (e) {
+        if (e.target.tagName === 'INPUT' && e.target.type === 'checkbox') {
+            options.classList.add('open');
+            updateSelectedContacts();
+        }
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!select.contains(e.target)) {
+            options.classList.remove('open');
+        }
+    });
+
+    function updateSelectedContacts() {
+        const selected = Array.from(document.querySelectorAll('.custom-option input[type="checkbox"]:checked'))
+            .map(checkbox => checkbox.value);
+        trigger.querySelector('span').textContent = selected.length > 0 ? selected.join(', ') : 'Select contacts to assign';
+    }
+});
+
+
+
+
+window.addEventListener('load', checkLoginStatus);
+window.addEventListener('load', getContacts);

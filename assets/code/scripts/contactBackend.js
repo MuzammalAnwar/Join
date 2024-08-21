@@ -1,5 +1,5 @@
-let firebaseUrl = 'https://join-301-default-rtdb.europe-west1.firebasedatabase.app/contacts.json';
-let userId = 'someUserId';
+let userId = localStorage.getItem('loggedInUserID');
+let firebaseUrl = `https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/contacts.json`;
 
 async function saveContactToFirebase(contact, id = null) {
     try {
@@ -48,7 +48,7 @@ async function fetchContactsFromFirebase() {
 
 function createContact(event) {
     event.preventDefault();
-    
+
     let name = document.querySelector('#inputName').value;
     let email = document.querySelector('#inputEmail').value;
     let phone = document.querySelector('#inputPhone').value;
@@ -59,7 +59,7 @@ function createContact(event) {
         email,
         phone,
         color,
-        userId 
+        userId
     };
    
     

@@ -195,3 +195,12 @@ p {
     width: 246px;
     height: 35px;
 }
+
+.goToLogInIcon {
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.goToLogInIcon:hover {
+    background-color: lightgrey;
+}

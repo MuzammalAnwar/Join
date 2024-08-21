@@ -6,11 +6,11 @@ function initRender() {
 }
 
 function renderTasks(category, id) {
-    let htmlContent = document.getElementById(id)
+    let htmlContent = document.getElementById(id);
     htmlContent.innerHTML = '';
     let userID = localStorage.getItem('loggedInUserID');
     if (!userID) {
-        alert('User not logged in.');
+        window.location.href = 'loadingSpinner.html';
         return;
     }
     let taskPath = `/${userID}/addedTasks/${category}/`;
@@ -19,7 +19,7 @@ function renderTasks(category, id) {
         for (let i = 0; i < keys.length; i++) {
             let task = taskArray[keys[i]];
             htmlContent.innerHTML += /*HTML*/`
-                <div class="task">
+                <div class="task" draggable="true" ondragstart="drag(event)" id="task-${task.id}">
                     <p id="category" class='${returnClass(task.category)}'>${task.category}</p>
                     <div class="taskTitleAndDescription">
                         <p class="title">${task.title}</p>
@@ -34,6 +34,7 @@ function renderTasks(category, id) {
         }
     });
 }
+
 
 function generateImage(urgency) {
     if (urgency === 'none') {
@@ -77,6 +78,40 @@ function insertSubtaskBar(subtasks) {
         </div>
         `;
     }
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drag(event) {
+    event.dataTransfer.setData("text", event.target.id);
+}
+
+function drop(event) {
+    event.preventDefault();
+    let taskId = event.dataTransfer.getData("text");
+    let taskElement = document.getElementById(taskId);
+
+    // Find the closest .task or .taskContainer
+    let dropTarget = event.target.closest('.task, .taskContainer');
+
+    if (dropTarget.classList.contains('task')) {
+        // If dropping on another task, insert before it
+        dropTarget.parentNode.insertBefore(taskElement, dropTarget);
+    } else if (dropTarget.classList.contains('taskContainer')) {
+        // If dropping on the container (or bottom), append it
+        dropTarget.appendChild(taskElement);
+    }
+
+    // Update the task's category
+    updateTaskCategory(taskId, dropTarget.closest('.taskContainer').id);
+}
+
+function updateTaskCategory(taskId, newCategoryId) {
+    // This is where you would implement logic to update the task's category.
+    // E.g., you could make an API call to update the task's category in the database.
+    console.log(`Task ${taskId} moved to ${newCategoryId}`);
 }
 
 window.addEventListener('load', includeHTML);

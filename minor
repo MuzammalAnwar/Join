@@ -1,0 +1,12 @@
+
+C:\Users\Muhammad Muzammil\Desktop\Software\Join>git pull 
+Already up to date.
+
+C:\Users\Muhammad Muzammil\Desktop\Software\Join>git add . 
+
+C:\Users\Muhammad Muzammil\Desktop\Software\Join>git commit -m "various sites cant be accessed when user is not logged in = changs" 
+[main 02b8f3a] various sites cant be accessed when user is not logged in = changs
+ 5 files changed, 9 insertions(+), 6 deletions(-)
+ create mode 100644 minor
+
+C:\Users\Muhammad Muzammil\Desktop\Software\Join>git push 

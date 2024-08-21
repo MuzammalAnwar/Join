@@ -32,13 +32,18 @@
                             placeholder="Enter a description"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="assigned">Assigned to</label>
-                        <select id="assigned" name="assigned">
-                            <option value="" enabled selected>Select contacts to assign</option>
-                            <option value="Maximillian">Maximillian</option>
-                            <option value="Philip">Philip</option>
-                            <option value="Adrian">Adrian</option>
-                        </select>
+                        <label>Assigned to</label>
+                        <div class="custom-select-wrapper">
+                            <div class="custom-select" id="assigned">
+                                <div class="custom-select-trigger">
+                                    <span>Select contacts to assign</span>
+                                    <img src="../../img/dropDownMenuArrowIcon.png" class="arrow-icon" alt="Arrow">
+                                </div>
+                                <div class="custom-options">
+                                    <!-- Options will be added here dynamically -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="separator"></div>
@@ -85,10 +90,19 @@
                         <label for="subtasks">Subtasks</label>
                         <div class="input-container">
                             <input type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
-                            <img id="subtaskAdd" onclick="addSubtask()" src="../../img/subtaskAddPlusIcon.png"
-                                alt="Add Subtask" class="input-icon">
+                            <div id="icon-container" class="icon-container">
+                                <img id="subtaskAdd" onclick="addSubtask()" src="../../img/subtaskAddPlusIcon.png"
+                                    alt="Add Subtask" class="input-icon">
+                                <img id="subtaskCancel" src="../../img/subtaskCancelIcon.png" alt="Cancel Subtask"
+                                    class="input-icon hidden">
+                                <div class="separatorSubtask"></div>
+                                <img id="subtaskSave" src="../../img/subtaskAddIcon.png" alt="Save Subtask"
+                                    class="input-icon hidden">
+                            </div>
                         </div>
-                        <div class="subtasksList" id="subtaskList"></div>
+                        <div class="subtasksList">
+                            <ul class="subtaskUnsortedList" id="subtaskList"></ul>
+                        </div>
                     </div>
                 </div>
             </div>
