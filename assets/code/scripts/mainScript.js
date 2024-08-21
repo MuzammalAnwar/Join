@@ -29,8 +29,9 @@ function generateUniqueKey() {
 
 function checkLoginStatus() {
     if (localStorage.getItem('loggedInUserID')) {
-        return;
-    } else {
+        return localStorage.getItem('loggedInUserID');
+    }
+    else {
         window.location.href = 'loadingSpinner.html';
     }
 }

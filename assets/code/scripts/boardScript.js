@@ -8,11 +8,7 @@ function initRender() {
 function renderTasks(category, id) {
     let htmlContent = document.getElementById(id);
     htmlContent.innerHTML = '';
-    let userID = localStorage.getItem('loggedInUserID');
-    if (!userID) {
-        window.location.href = 'loadingSpinner.html';
-        return;
-    }
+    let userID = checkLoginStatus();
     let taskPath = `/${userID}/addedTasks/${category}/`;
     fetchTask(taskPath, null, 'GET').then(taskArray => {
         let keys = Object.keys(taskArray);

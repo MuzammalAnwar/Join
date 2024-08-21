@@ -1,39 +1,78 @@
+let taskIds = ['toDo', 'inProgress', 'awaitingFeedback', 'doneTasks'];
 function init() {
     renderSummaryStats('', 'greetingName');
-    renderSummaryStats('/addedTasks/toDo', 'taskToDo');
-    renderSummaryStats('/addedTasks/inProgress', 'inProgress');
-    renderSummaryStats('/addedTasks/awaitingFeedback', 'awaitingFeedback');
-    renderSummaryStats('/addedTasks/done', 'doneTasks');
-    renderTotalAmountOfBoardTasks()
+    taskIds.forEach(element => {
+        renderSummaryStats(`/addedTasks/${element}`, element);
+    })
 }
 
 function renderSummaryStats(category = '', id) {
-    let userID = localStorage.getItem('loggedInUserID');
+    let userID = checkLoginStatus();
     if (category == '') {
-        renderNonTaskStats(`/${userID}`, id)
+        renderGreeting(`/${userID}`, id)
     } else {
         renderTaskCategoryStats(`/${userID}/${category}`, id);
     }
 }
 
-function renderNonTaskStats(taskPath, contentID) {
+function renderGreeting(taskPath, contentID) {
     fetchTask(taskPath, null, 'GET').then(user => {
-        document.getElementById(contentID).innerText = user.name
-    });
-}
-
-function renderTaskCategoryStats(taskPath, contentID) {
-    fetchTask(taskPath, null, 'GET').then(task => {
-        if (!task) {
-            return document.getElementById(contentID).innerText = 0;
+        if (user.name) {
+            document.getElementById('greeting').innerText = getGreeting() + ',';
+            document.getElementById(contentID).innerText = user.name
+        } else {
+            document.getElementById('greeting').innerText = getGreeting();
+            document.getElementById(contentID).innerText = '';
         }
-        let keys = Object.keys(task);
-        return document.getElementById(contentID).innerText = keys.length
     });
 }
 
-function renderTotalAmountOfBoardTasks() {
+async function renderTaskCategoryStats(taskPath, contentID) {
+    let task = await fetchTask(taskPath, null, 'GET');
+    let taskCount = 0;
+    if (task && typeof task === 'object') {
+        taskCount = Object.keys(task).length;
+    }
+    if (taskCount == 0) {
+        document.getElementById(contentID).innerText = taskCount;
+        document.getElementById('totalAmountOfTasks').innerText = '0';
+    } else {
+        incrementalDisplay(taskCount, contentID)
+    }
+    setTimeout(() => { calculateTotalTaskCount() }, (taskCount * 60))
+}
 
+function calculateTotalTaskCount() {
+    let taskCount = 0;
+    taskIds.forEach(element => {
+        let count = Number(document.getElementById(element).innerText);
+        taskCount += count;
+    });
+    incrementalDisplay(taskCount, 'totalAmountOfTasks')
+}
+
+function incrementalDisplay(finalCount, elementID) {
+    let currentCount = 0;
+    let targetElement = document.getElementById(elementID);
+    for (let i = 1; i <= finalCount; i++) {
+        setTimeout(() => {
+            currentCount++;
+            targetElement.innerText = currentCount;
+        }, i * 60);
+    }
+}
+
+function getGreeting() {
+    let currentHour = new Date().getHours();
+    if (currentHour >= 5 && currentHour < 12) {
+        return "Good morning";
+    } else if (currentHour >= 12 && currentHour < 18) {
+        return "Good afternoon";
+    } else if (currentHour >= 18 && currentHour < 22) {
+        return "Good evening";
+    } else {
+        return "Good night";
+    }
 }
 
 window.addEventListener('load', init);

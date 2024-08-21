@@ -6,6 +6,7 @@
 body {
     font-family: "inter";
     background-color: rgba(246, 247, 248, 1);
+    overflow-y: hidden;
 }
 
 a {
@@ -15,7 +16,6 @@ a {
 
 .main_container {
     margin-left: 333px;
-    overflow-y: auto;
 }
 
 .join_title_container {

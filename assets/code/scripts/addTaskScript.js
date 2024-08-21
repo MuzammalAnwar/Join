@@ -2,7 +2,7 @@ let tasks = [];
 let selectedStatus = 'none';
 let subtasks = []
 let taskPath;
-let userID = localStorage.getItem('loggedInUserID');
+let userID = checkLoginStatus();
 
 document.addEventListener('DOMContentLoaded', function () {
     let urgencyButtons = document.querySelectorAll('.urgentStatus');
