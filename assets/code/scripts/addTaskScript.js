@@ -43,7 +43,7 @@ function addToTask(event) {
     let dueDate = document.getElementById('due-date');
     let category = document.getElementById('category');
     let taskKey = generateUniqueKey();
-    taskPath = `/${userID}/addedTasks/toDo/${taskKey}`;
+    taskPath = `/${userID}/addedTasks/done/${taskKey}`;
     let task = {
         "title": title.value,
         "description": description.value,

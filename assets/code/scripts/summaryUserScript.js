@@ -1,10 +1,12 @@
-let taskIds = ['toDo', 'inProgress', 'awaitingFeedback', 'doneTasks'];
+let categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
+
 function init() {
     renderSummaryStats('', 'greetingName');
-    taskIds.forEach(element => {
+    categories.forEach(element => {
         renderSummaryStats(`/addedTasks/${element}`, element);
-    })
+    });
 }
+
 
 function renderSummaryStats(category = '', id) {
     let userID = checkLoginStatus();
@@ -44,7 +46,7 @@ async function renderTaskCategoryStats(taskPath, contentID) {
 
 function calculateTotalTaskCount() {
     let taskCount = 0;
-    taskIds.forEach(element => {
+    categories.forEach(element => {
         let count = Number(document.getElementById(element).innerText);
         taskCount += count;
     });
