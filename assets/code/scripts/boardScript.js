@@ -1,21 +1,39 @@
+let userID = checkLoginStatus();
+let categories = [
+    { id: 'toDo', element: document.getElementById('categoryToDo'), message: 'No tasks to do' },
+    { id: 'inProgress', element: document.getElementById('categoryInProgress'), message: 'No tasks in progress' },
+    { id: 'awaitFeedback', element: document.getElementById('categoryAwaitFeedback'), message: 'No tasks awaiting feedback' },
+    { id: 'done', element: document.getElementById('categoryDone'), message: 'No tasks done' }
+];
+
 function initRender() {
-    renderTasks('toDo', 'categoryToDo');
-    renderTasks('inProgress', 'categoryInProgress');
-    renderTasks('awaitFeedback', 'categoryAwaitFeedback');
-    renderTasks('done', 'categoryDone');
+    Promise.all([
+        renderTasks('toDo', 'categoryToDo'),
+        renderTasks('inProgress', 'categoryInProgress'),
+        renderTasks('awaitFeedback', 'categoryAwaitFeedback'),
+        renderTasks('done', 'categoryDone')
+    ]).then(() => {
+        checkIfCategoryHasNoTasks();
+    }).catch(error => {
+        console.error("Error during initialization:", error);
+    });
 }
 
-function renderTasks(category, id) {
+async function renderTasks(category, id) {
     let htmlContent = document.getElementById(id);
     htmlContent.innerHTML = '';
-    let userID = checkLoginStatus();
-    let taskPath = `/${userID}/addedTasks/${category}/`;
-    fetchTask(taskPath, null, 'GET').then(taskArray => {
-        let keys = Object.keys(taskArray);
-        for (let i = 0; i < keys.length; i++) {
-            let task = taskArray[keys[i]];
-            htmlContent.innerHTML += /*HTML*/`
-                <div class="task" draggable="true" ondragstart="drag(event)" id="task-${task.id}">
+    let taskPath = `/${userID}/addedTasks/`;
+
+    try {
+        const taskArray = await fetchTask(taskPath, null, 'GET');
+        let filteredTasks = Object.keys(taskArray).filter(taskKey => taskArray[taskKey].taskCategory === category);
+        if (filteredTasks.length === 0) {
+            htmlContent.innerHTML = `<div class="NoTaskToDo">${returnEqualMsg(category)}</div>`;
+        } else {
+            filteredTasks.forEach(taskKey_1 => {
+                let task = taskArray[taskKey_1];
+                htmlContent.innerHTML += /*HTML*/ `
+                <div class="task" draggable="true" ondragend="dragend(event)" ondragstart="drag(event)" id="task${taskKey_1}" data-path="${task.path}">
                     <p id="category" class='${returnClass(task.category)}'>${task.category}</p>
                     <div class="taskTitleAndDescription">
                         <p class="title">${task.title}</p>
@@ -27,10 +45,79 @@ function renderTasks(category, id) {
                     </div>
                 </div>
             `;
+            });
+        }
+    } catch (error) {
+        console.error(`Error rendering tasks for category ${category}:`, error);
+    }
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drag(event) {
+    event.dataTransfer.setData("text", event.target.id);
+}
+
+function drop(event) {
+    event.preventDefault();
+    let taskId = event.dataTransfer.getData("text");
+    let taskElement = document.getElementById(taskId);
+    let dropTarget = event.target.closest('.taskContainer');
+    if (dropTarget) {
+        dropTarget.appendChild(taskElement);
+        let newCategory = dropTarget.id.replace('category', '');
+        newCategory = newCategory.charAt(0).toLowerCase() + newCategory.slice(1);
+        updateTaskCategory(taskId, newCategory);
+    }
+    taskElement.classList.remove('dragging');
+}
+
+function dragend(event) {
+    event.target.classList.remove('dragging');
+    checkIfCategoryHasNoTasks()
+}
+
+function updateTaskCategory(taskId, newCategory) {
+    let taskElement = document.getElementById(taskId);
+    let taskPath = taskElement.dataset.path;
+    fetchTask(taskPath, null, 'GET').then(task => {
+        task.taskCategory = newCategory;
+        fetchTask(taskPath, task, 'PUT');
+    }).catch(error => {
+        console.error("Error updating task category:", error);
+    });
+}
+
+function checkIfCategoryHasNoTasks() {
+    removePlaceholders()
+    categories.forEach(category => {
+        if (category.element.children.length === 0) {
+            category.element.innerHTML = `<div class="NoTaskToDo">${category.message}</div>`;
         }
     });
 }
 
+function removePlaceholders() {
+    categories.forEach(category => {
+        // Check if there are tasks in the category
+        if (category.element.children.length > 0) {
+            // Find and remove the placeholder if it exists
+            let placeholder = category.element.querySelector('.NoTaskToDo');
+            if (placeholder) {
+                placeholder.remove();
+            }
+        }
+    });
+}
+
+function returnEqualMsg(category) {
+    let categoryObj = categories.find(cat => cat.id === category);
+    if (categoryObj) {
+        return categoryObj.message;
+    }
+}
 
 function generateImage(urgency) {
     if (urgency === 'none') {
@@ -76,56 +163,22 @@ function insertSubtaskBar(subtasks) {
     }
 }
 
-function allowDrop(event) {
-    event.preventDefault();
-}
-
-function drag(event) {
-    event.dataTransfer.setData("text", event.target.id);
-}
-
-function drop(event) {
-    event.preventDefault();
-    let taskId = event.dataTransfer.getData("text");
-    let taskElement = document.getElementById(taskId);
-
-    // Find the closest .task or .taskContainer
-    let dropTarget = event.target.closest('.task, .taskContainer');
-
-    if (dropTarget.classList.contains('task')) {
-        // If dropping on another task, insert before it
-        dropTarget.parentNode.insertBefore(taskElement, dropTarget);
-    } else if (dropTarget.classList.contains('taskContainer')) {
-        // If dropping on the container (or bottom), append it
-        dropTarget.appendChild(taskElement);
-    }
-
-    // Update the task's category
-    updateTaskCategory(taskId, dropTarget.closest('.taskContainer').id);
-}
-
-function updateTaskCategory(taskId, newCategoryId) {
-    // This is where you would implement logic to update the task's category.
-    // E.g., you could make an API call to update the task's category in the database.
-    console.log(`Task ${taskId} moved to ${newCategoryId}`);
-}
-
-window.addEventListener('load', includeHTML);
-window.addEventListener('load', initRender)
-
 function showOverlay() {
     let overlay = document.getElementById('taskOverlay');
-    overlay.style.display = 'flex'; 
-    overlay.querySelector('.overlay').classList.remove('slide-out'); 
-    overlay.querySelector('.overlay').classList.add('slide-in'); 
+    overlay.style.display = 'flex';
+    overlay.querySelector('.overlay').classList.remove('slide-out');
+    overlay.querySelector('.overlay').classList.add('slide-in');
 }
 
 function hideOverlay() {
     let overlay = document.getElementById('taskOverlay');
     overlay.querySelector('.overlay').classList.remove('slide-in');
-    overlay.querySelector('.overlay').classList.add('slide-out'); 
+    overlay.querySelector('.overlay').classList.add('slide-out');
     setTimeout(() => {
-        overlay.style.display = 'none'; 
-    }, 500); 
+        overlay.style.display = 'none';
+    }, 500);
 }
+
+window.addEventListener('load', includeHTML);
+window.addEventListener('load', initRender)
 

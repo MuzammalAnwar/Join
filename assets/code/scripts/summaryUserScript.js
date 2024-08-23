@@ -1,56 +1,54 @@
 let categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
+let userID = checkLoginStatus();
 
 function init() {
-    renderSummaryStats('', 'greetingName');
-    categories.forEach(element => {
-        renderSummaryStats(`/addedTasks/${element}`, element);
-    });
-}
-
-
-function renderSummaryStats(category = '', id) {
-    let userID = checkLoginStatus();
-    if (category == '') {
-        renderGreeting(`/${userID}`, id)
-    } else {
-        renderTaskCategoryStats(`/${userID}/${category}`, id);
-    }
+    renderGreeting(`/${userID}`, 'greetingName');
+    renderTaskCategoryStats()
 }
 
 function renderGreeting(taskPath, contentID) {
     fetchTask(taskPath, null, 'GET').then(user => {
-        if (user.name) {
+        if (user) {
             document.getElementById('greeting').innerText = getGreeting() + ',';
-            document.getElementById(contentID).innerText = user.name
-        } else {
+            document.getElementById(contentID).innerText = user.name;
+        } if (userID == 'guestUser') {
             document.getElementById('greeting').innerText = getGreeting();
             document.getElementById(contentID).innerText = '';
         }
     });
 }
 
-async function renderTaskCategoryStats(taskPath, contentID) {
-    let task = await fetchTask(taskPath, null, 'GET');
+async function renderTaskCategoryStats() {
     let taskCount = 0;
-    if (task && typeof task === 'object') {
-        taskCount = Object.keys(task).length;
+    for (let category of categories) {
+        try {
+            let taskArray = await fetchTask(`/${userID}/addedTasks`, null, 'GET');
+            if (taskArray && typeof taskArray === 'object') {
+                let count = Object.values(taskArray).filter(task => task.taskCategory === category).length;
+                document.getElementById(category).innerText = count;
+                incrementalDisplay(count, category)
+                taskCount += count;
+            } else {
+                document.getElementById(category).innerText = '0';
+            }
+        } catch (error) {
+            console.error("Error fetching tasks for category:", category, error);
+            document.getElementById(category).innerText = '0'; // Set to 0 on error
+        }
     }
-    if (taskCount == 0) {
-        document.getElementById(contentID).innerText = taskCount;
-        document.getElementById('totalAmountOfTasks').innerText = '0';
-    } else {
-        incrementalDisplay(taskCount, contentID)
-    }
-    setTimeout(() => { calculateTotalTaskCount() }, (taskCount * 60))
+    document.getElementById('totalAmountOfTasks').innerText = '0';
+    setTimeout(() => {
+        incrementalDisplay(taskCount, 'totalAmountOfTasks');
+    }, taskCount * 60);
 }
 
 function calculateTotalTaskCount() {
     let taskCount = 0;
-    categories.forEach(element => {
-        let count = Number(document.getElementById(element).innerText);
+    categories.forEach(category => {
+        let count = Number(document.getElementById(category).innerText);
         taskCount += count;
     });
-    incrementalDisplay(taskCount, 'totalAmountOfTasks')
+    incrementalDisplay(taskCount, 'totalAmountOfTasks');
 }
 
 function incrementalDisplay(finalCount, elementID) {

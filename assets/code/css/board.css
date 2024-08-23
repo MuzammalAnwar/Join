@@ -364,3 +364,9 @@ h1 {
     background-color: rgba(209, 209, 209, 0.314);
     cursor: pointer;
 }
+
+.task.dragging {
+    transform: rotate(-90deg);
+    transition: transform 0.2s ease;
+    opacity: 0.8;
+}

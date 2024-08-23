@@ -57,16 +57,12 @@
     </section>
     <section class="taskSection">
         <div id="categoryToDo" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <div class="NoTaskToDo">No tasks to do</div>
         </div>
         <div id="categoryInProgress" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <div class="NoTaskToDo">No tasks in progress</div>
         </div>
         <div id="categoryAwaitFeedback" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <div class="NoTaskToDo">No tasks awaiting feedback</div>
         </div>
         <div id="categoryDone" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <div class="NoTaskToDo">No tasks done</div>
         </div>
     </section>
     <div class="overlay-background" id="taskOverlay">
@@ -98,7 +94,8 @@
                                     <div class="custom-select" id="assigned">
                                         <div class="custom-select-trigger">
                                             <span>Select contacts to assign</span>
-                                            <img src="../../img/dropDownMenuArrowIcon.png" class="arrow-icon" alt="Arrow">
+                                            <img src="../../img/dropDownMenuArrowIcon.png" class="arrow-icon"
+                                                alt="Arrow">
                                         </div>
                                         <div class="custom-options">
                                             <!-- Options will be added here dynamically -->
@@ -123,7 +120,7 @@
                                             alt="Urgent Icon">
                                         Urgent
                                     </button>
-        
+
                                     <button
                                         onclick="handleButtonClick('mediumIcon', '../../img/mediumIcon.png', '../../img/mediumIconHover.png', ['urgentIcon', 'lowIcon'])"
                                         type="button" class="urgentStatus" data-status="medium">
@@ -131,7 +128,7 @@
                                             alt="Medium Icon">
                                         Medium
                                     </button>
-        
+
                                     <button
                                         onclick="handleButtonClick('lowIcon', '../../img/lowIcon.png', '../../img/lowIconHover.png', ['urgentIcon', 'mediumIcon'])"
                                         type="button" class="urgentStatus" data-status="low">
@@ -152,10 +149,10 @@
                                 <div class="input-container">
                                     <input type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
                                     <div id="icon-container" class="icon-container">
-                                        <img id="subtaskAdd" onclick="addSubtask()" src="../../img/subtaskAddPlusIcon.png"
-                                            alt="Add Subtask" class="input-icon">
-                                        <img id="subtaskCancel" src="../../img/subtaskCancelIcon.png" alt="Cancel Subtask"
-                                            class="input-icon hidden">
+                                        <img id="subtaskAdd" onclick="addSubtask()"
+                                            src="../../img/subtaskAddPlusIcon.png" alt="Add Subtask" class="input-icon">
+                                        <img id="subtaskCancel" src="../../img/subtaskCancelIcon.png"
+                                            alt="Cancel Subtask" class="input-icon hidden">
                                         <div class="separatorSubtask"></div>
                                         <img id="subtaskSave" src="../../img/subtaskAddIcon.png" alt="Save Subtask"
                                             class="input-icon hidden">
