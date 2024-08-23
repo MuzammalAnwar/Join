@@ -23,7 +23,6 @@ async function renderTasks(category, id) {
     let htmlContent = document.getElementById(id);
     htmlContent.innerHTML = '';
     let taskPath = `/${userID}/addedTasks/`;
-
     try {
         const taskArray = await fetchTask(taskPath, null, 'GET');
         let filteredTasks = Object.keys(taskArray).filter(taskKey => taskArray[taskKey].taskCategory === category);
@@ -74,9 +73,7 @@ function checkIfCategoryHasNoTasks() {
 
 function removePlaceholders() {
     categories.forEach(category => {
-        // Check if there are tasks in the category
         if (category.element.children.length > 0) {
-            // Find and remove the placeholder if it exists
             let placeholder = category.element.querySelector('.NoTaskToDo');
             if (placeholder) {
                 placeholder.remove();
