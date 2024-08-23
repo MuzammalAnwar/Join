@@ -11,6 +11,7 @@ body {
 }
 
 .tall_task_overlay_background {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -24,8 +25,9 @@ body {
 }
 
 .tall_task_overlay {
+    display: none;
     width: 525px;
-    height: 100%;
+    min-height: auto;
     background-color: rgba(255, 255, 255, 1);
     z-index: 1000;
     border-radius: 30px;
@@ -53,6 +55,7 @@ body {
 .tall_task_overlay_head {
     display: flex;
     justify-content: space-between;
+    
 }
 
 .tall_overlay_content_position {
@@ -61,14 +64,14 @@ body {
     width: 445px;
 }
 
-.overlay_close_button {
+.tall_overlay_close_button {
     width: 32px;
     height: 32px;
     border-radius: 56px;
     margin-top: 40px;
 }
 
-.overlay_close_button:hover {
+.tall_overlay_close_button:hover {
     background-color: rgba(209, 209, 209, 0.314);
     cursor: pointer;
 }
@@ -137,6 +140,7 @@ margin-left: 24px;
     margin-right: 8px;
     margin-left: 16px;
     margin-bottom: 16px;
+    cursor: pointer;
 }
 
 .sub_task_position {
@@ -151,4 +155,68 @@ margin-left: 24px;
     font-size: 16px;
     font-weight: 400;
     line-height: 19.2px;
+}
+
+.buttons {
+    width: 445px;
+    height: 24px;
+    gap: 10px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+    margin-bottom: 40px;
+}
+
+.delete {
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    border: none;
+}
+
+.edit {
+    width: 24px;
+    height: 24px;
+}
+
+.delete_button {
+    width: 81px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    background-image: url(../../img/delete_small.png);
+    background-repeat: no-repeat;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.delete_button:hover {
+    background-repeat: no-repeat;
+    background-image: url(../../img/delete_blue.png);
+    color:rgba(41, 171, 226, 1);
+    font-weight: 700;
+}
+
+.edit_button{
+    font-weight: 400;
+    width: 62px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    background-image: url(../../img/edit.png);
+    background-repeat: no-repeat;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.edit_button:hover {
+    background-repeat: no-repeat;
+    background-image: url(../../img/edit_blue.png);
+    color:rgba(41, 171, 226, 1);
+    font-weight: 700;
+}
+
+.separator {
+    height: 24px;
+    border: 1px solid rgba(209, 209, 209, 1);
 }

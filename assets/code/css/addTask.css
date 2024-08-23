@@ -102,18 +102,16 @@ input:focus {
     border-radius: 10px;
 }
 
-.input-container {
+.input-container-addTask {
     position: relative;
 }
 
-.input-container input {
+.input-container-addTask input {
     height: 48px;
     width: 100%;
     padding: 8px;
     padding-right: 70px;
-    /* Adjust padding to accommodate icons */
     box-sizing: border-box;
-    border: 1px solid rgb(227, 227, 227);
     border-radius: 10px;
     margin-bottom: 6px;
 }
@@ -154,16 +152,16 @@ input:focus {
 }
 
 /* Show the separator and change icons when the input is focused */
-.input-container input:focus+.icon-container .separatorSubtask {
+.input-container-addTask input:focus+.icon-container .separatorSubtask {
     display: block;
 }
 
-.input-container input:focus+.icon-container #subtaskAdd {
+.input-container-addTask input:focus+.icon-container #subtaskAdd {
     display: none;
 }
 
-.input-container input:focus+.icon-container #subtaskCancel,
-.input-container input:focus+.icon-container #subtaskSave {
+.input-container-addTask input:focus+.icon-container #subtaskCancel,
+.input-container-addTask input:focus+.icon-container #subtaskSave {
     display: inline;
 }
 

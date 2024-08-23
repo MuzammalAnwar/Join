@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/board.css">
     <link rel="stylesheet" href="../css/addTask.css">
+    <link rel="stylesheet" href="../css/taskOverlay.css">
     <title>Join | Board</title>
 </head>
 
@@ -98,10 +99,10 @@
                                     <div class="custom-select" id="assigned">
                                         <div class="custom-select-trigger">
                                             <span>Select contacts to assign</span>
-                                            <img src="../../img/dropDownMenuArrowIcon.png" class="arrow-icon" alt="Arrow">
+                                            <img src="../../img/dropDownMenuArrowIcon.png" class="arrow-icon"
+                                                alt="Arrow">
                                         </div>
                                         <div class="custom-options">
-                                            <!-- Options will be added here dynamically -->
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +124,7 @@
                                             alt="Urgent Icon">
                                         Urgent
                                     </button>
-        
+
                                     <button
                                         onclick="handleButtonClick('mediumIcon', '../../img/mediumIcon.png', '../../img/mediumIconHover.png', ['urgentIcon', 'lowIcon'])"
                                         type="button" class="urgentStatus" data-status="medium">
@@ -131,7 +132,7 @@
                                             alt="Medium Icon">
                                         Medium
                                     </button>
-        
+
                                     <button
                                         onclick="handleButtonClick('lowIcon', '../../img/lowIcon.png', '../../img/lowIconHover.png', ['urgentIcon', 'mediumIcon'])"
                                         type="button" class="urgentStatus" data-status="low">
@@ -149,13 +150,13 @@
                             </div>
                             <div style="height: 80px;" class="form-group">
                                 <label for="subtasks">Subtasks</label>
-                                <div class="input-container">
+                                <div class="input-container-addTask">
                                     <input type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
                                     <div id="icon-container" class="icon-container">
-                                        <img id="subtaskAdd" onclick="addSubtask()" src="../../img/subtaskAddPlusIcon.png"
-                                            alt="Add Subtask" class="input-icon">
-                                        <img id="subtaskCancel" src="../../img/subtaskCancelIcon.png" alt="Cancel Subtask"
-                                            class="input-icon hidden">
+                                        <img id="subtaskAdd" onclick="addSubtask()"
+                                            src="../../img/subtaskAddPlusIcon.png" alt="Add Subtask" class="input-icon">
+                                        <img id="subtaskCancel" src="../../img/subtaskCancelIcon.png"
+                                            alt="Cancel Subtask" class="input-icon hidden">
                                         <div class="separatorSubtask"></div>
                                         <img id="subtaskSave" src="../../img/subtaskAddIcon.png" alt="Save Subtask"
                                             class="input-icon hidden">
@@ -170,7 +171,7 @@
                     <div class="sendFormOptions">
                         <p style="width: 170px; height: 27px;"><b style="color: red;">*</b>This field is required</p>
                         <div class="button-group">
-                            <button onclick="clearSubtasks()" class="clearButton" type="reset">Clear <b>✕</b></button>
+                            <button onclick="hideOverlay()" class="clearButton" type="reset">Cancel <b>✕</b></button>
                             <button class="createButton" type="submit">Create Task ✔</button>
                         </div>
                     </div>
@@ -178,35 +179,84 @@
             </div>
         </div>
     </div>
-    <div class="overlay-background" id="taskOverlay">
-    </div>
-    <div class="overlay-background" id="taskDetailsOverlay">
-        <div class="overlay slide-in">
-            <div class="overlay_header">
-                <h2 id="overlayTitle" class="overlay_title">Task Title</h2>
-                <img onclick="hideTaskDetailsOverlay()" src="../../img/Close.png" class="overlay_close_button">
-            </div>
-            <div class="overlay_content">
-                <p id="overlayDescription">Task description will appear here.</p>
-                <p><strong>Due date:</strong> <span id="overlayDueDate">Date</span></p>
-                <p><strong>Priority:</strong> <span id="overlayPriority">Priority</span></p>
-                <p><strong>Assigned To:</strong></p>
-                <ul id="overlayAssignedTo">
-                </ul>
-                <p><strong>Subtasks:</strong></p>
-                <ul id="overlaySubtasks">
-                </ul>
-            </div>
-            <div class="overlay_footer">
-                <button id="deleteButton" class="delete_button">Delete</button>
-                <button id="editButton" class="edit_button">Edit</button>
+    <div id="tall_task_overlay_background" class="tall_task_overlay_background">
+        <div id="tall_task_overlay" class="tall_task_overlay">
+            <div class="tall_overlay_content_position">
+                <div class="tall_task_overlay_head">
+                    <div id="task_category" class="task_category">User Story</div>
+                    <div class="tall_overlay_close_button" onclick="hideTallTaskOverlay()">
+                        <img src="../../img/Close.png">
+                    </div>
+                </div>
+                <div>
+                    <div id="tall_task_overlay_title" class="tall_task_overlay_title">Kochwelt Page & Recipe Recommender
+                    </div>
+                    <p id="task_description">Build start page with recipe recommendation</p>
+                    <div class="df">
+                        <div class="date_position">
+                            <p>Due date:</p>
+                            <p>Priority:</p>
+                        </div>
+                        <div class="prio_position">
+                            <p id="task_due_date">10/05/2024</p>
+                            <div class="prio_icon_position">
+                                <p id="prio_name">Medium</p><img id="prio_icon" class="prio_icon" src="../../img/mediumIcon.png">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p>Assigned To:</p>
+                        </div>
+                        <div class="df">
+                            <div>
+                                <div class="contact_icon">EM</div>
+                                <div class="contact_icon">MB</div>
+                                <div class="contact_icon">AM</div>
+                            </div>
+                            <div>
+                                <p class="name_container">Emmanuel Mauer</p>
+                                <p class="name_container">Marcel Bauer</p>
+                                <p class="name_container">Anton Mayer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Subtasks</p>
+                        <div class="sub_task_position">
+                            <div class="checkbox_position">
+                                <div>
+                                    <input class="checkbox" type="checkbox">
+                                </div>
+                                <div>
+                                    <input class="checkbox" type="checkbox">
+                                </div>
+                            </div>
+                            <div>
+                                <p class="sub_task">Implement Recipe Recommendation</p>
+                                <p class="sub_task">Start Page Layout</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <div class="delete_button">
+                            <div class="delete"></div>
+                            <p>Delete</p>
+                        </div>
+                        <div class="separator"></div>
+                        <div class="edit_button">
+                            <div class="edit"></div>
+                            <p>Edit</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <script src="../scripts/includeHTML.js"></script>
     <script src="../scripts/mainScript.js"></script>
     <script src="../scripts/boardScript.js"></script>
-    <!-- <script src="../scripts/addTaskScript.js"></script> -->
+    <script src="../scripts/addTaskScript.js"></script>
     <script src="../scripts/htmlTemplates.js"></script>
 </body>
 
