@@ -52,33 +52,6 @@ async function renderTasks(category, id) {
     }
 }
 
-function allowDrop(event) {
-    event.preventDefault();
-}
-
-function drag(event) {
-    event.dataTransfer.setData("text", event.target.id);
-}
-
-function drop(event) {
-    event.preventDefault();
-    let taskId = event.dataTransfer.getData("text");
-    let taskElement = document.getElementById(taskId);
-    let dropTarget = event.target.closest('.taskContainer');
-    if (dropTarget) {
-        dropTarget.appendChild(taskElement);
-        let newCategory = dropTarget.id.replace('category', '');
-        newCategory = newCategory.charAt(0).toLowerCase() + newCategory.slice(1);
-        updateTaskCategory(taskId, newCategory);
-    }
-    taskElement.classList.remove('dragging');
-}
-
-function dragend(event) {
-    event.target.classList.remove('dragging');
-    checkIfCategoryHasNoTasks()
-}
-
 function updateTaskCategory(taskId, newCategory) {
     let taskElement = document.getElementById(taskId);
     let taskPath = taskElement.dataset.path;

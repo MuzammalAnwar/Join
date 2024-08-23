@@ -366,7 +366,15 @@ h1 {
 }
 
 .task.dragging {
-    transform: rotate(-90deg);
+    transform: rotate(-10deg);
     transition: transform 0.2s ease;
-    opacity: 0.8;
+    opacity: 0.5;
+}
+
+.drop-highlight {
+    border: 1px dashed rgb(42, 54, 71);
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(41, 171, 226, 0.5);
+    padding-bottom: 200px;
 }
