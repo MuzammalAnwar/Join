@@ -24,7 +24,7 @@ async function renderTasks(category, id) {
     htmlContent.innerHTML = '';
     let taskPath = `/${userID}/addedTasks/`;
     try {
-        const taskArray = await fetchTask(taskPath, null, 'GET');
+        let taskArray = await fetchTask(taskPath, null, 'GET');
         let filteredTasks = Object.keys(taskArray).filter(taskKey => taskArray[taskKey].taskCategory === category);
         if (filteredTasks.length === 0) {
             htmlContent.innerHTML = `<div class="NoTaskToDo">${returnEqualMsg(category)}</div>`;
@@ -86,24 +86,6 @@ function returnEqualMsg(category) {
     let categoryObj = categories.find(cat => cat.id === category);
     if (categoryObj) {
         return categoryObj.message;
-    }
-}
-
-function generateImage(urgency) {
-    if (urgency === 'none') {
-        return '';
-    } else if (urgency === 'urgent') {
-        return /*html*/ `
-            <img class="urgentIcon" src='../../img/urgentIcon.png' alt="">
-        `;
-    } else if (urgency === 'medium') {
-        return /*html*/ `
-            <img class="mediumIcon" src='../../img/mediumIcon.png' alt="">
-        `;
-    } else if (urgency === 'low') {
-        return /*html*/ `
-            <img class="lowIcon" src='../../img/lowIcon.png' alt="">
-        `;
     }
 }
 

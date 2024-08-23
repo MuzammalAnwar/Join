@@ -4,6 +4,7 @@ let userID = checkLoginStatus();
 function init() {
     renderGreeting(`/${userID}`, 'greetingName');
     renderTaskCategoryStats()
+    // sortByDateStat()
 }
 
 function renderGreeting(taskPath, contentID) {
@@ -17,6 +18,33 @@ function renderGreeting(taskPath, contentID) {
         }
     });
 }
+
+// function sortByDateStat() {
+//     let dateArray = [];
+//     let inputContentDate = document.getElementById('taskDate');
+//     let inputContentUrgency = document.getElementById('dueDateTaskUrgency');
+//     let urgencyImg = document.getElementById('urgencyIcon');
+//     let urgentTaskContainer = document.getElementById('urgentTaskContainer');
+//     fetchTask(`/${userID}/addedTasks`, null, 'GET').then(tasks => {
+//         let keys = Object.keys(tasks);
+//         for (let i = 0; i < keys.length; i++) {
+//             let task = tasks[keys[i]];
+//             dateArray.push(task);
+//         }
+//         dateArray.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+//         let mostRecentTask = dateArray[0];
+//         if (mostRecentTask) {
+//             console.log(`Most recent due date: ${mostRecentTask.dueDate}, Urgency: ${mostRecentTask.urgency}`);
+//             inputContentDate.textContent = `${mostRecentTask.dueDate}`;
+//             inputContentUrgency.textContent = `${mostRecentTask.urgency}`;
+//             urgencyImg.innerHTML = generateImage(mostRecentTask.urgency)
+//         } else {
+//             urgentTaskContainer.textContent = "No tasks found.";
+//         }
+//     }).catch(error => {
+//         console.error("Error fetching tasks:", error);
+//     });
+// }
 
 async function renderTaskCategoryStats() {
     let taskCount = 0;
