@@ -37,36 +37,52 @@ document.addEventListener('DOMContentLoaded', function () {
 function addToTask(event) {
     event.preventDefault();
 
-    let title = document.getElementById('title');
-    let description = document.getElementById('description');
-    let assigned = document.getElementById('assigned');
-    let dueDate = document.getElementById('due-date');
-    let category = document.getElementById('category');
-    let taskKey = generateUniqueKey();
-    taskPath = `/${userID}/addedTasks/${taskKey}`;
+    // Annahme: title, description und andere Werte werden aus dem Formular gezogen
+    let title = document.getElementById('title').value;
+    let description = document.getElementById('description').value;
+    let dueDate = document.getElementById('due-date').value;
+    let urgency = document.querySelector('.urgency .urgentStatus[data-status]').getAttribute('data-status');
+
+    // Kategorie wird auf "To Do" gesetzt
     let task = {
-        "title": title.value,
-        "description": description.value,
-        "assigned": assigned.value,
-        "dueDate": dueDate.value,
-        "category": category.value,
-        "subtasks": subtasks,
-        "urgency": selectedStatus == 'medium' || selectedStatus == 'low' || selectedStatus == 'urgent' ? selectedStatus : 'none',
-        "path": taskPath,
-        "taskCategory": 'toDo'
+        title: title,
+        description: description,
+        category: 'To Do',
+        urgency: urgency,
+        'due-date': dueDate,
+        subtasks: [] // Wenn Subtasks vorhanden sind
     };
 
-    tasks.push(task);
-    console.log(tasks);
+    let userID = checkLoginStatus();
+    let taskPath = `/${userID}/addedTasks/`;
 
-    title.value = '';
-    description.value = '';
-    assigned.value = '';
-    dueDate.value = '';
-    category.value = '';
-
-    fetchTask(taskPath, task, 'PUT');
+    // Hier die Aufgabe speichern
+    saveTask(taskPath, task).then(() => {
+        // Nach dem Speichern die Aufgabe im "To Do"-Abschnitt anzeigen
+        renderTasks('toDo', 'categoryToDo');
+        hideOverlay(); // Schließt das Overlay nach dem Hinzufügen
+    }).catch(error => {
+        console.error('Error saving task:', error);
+    });
 }
+
+function saveTask(taskPath, task) {
+    return fetch(taskPath, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(task)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to save task');
+        }
+        return response.json();
+    });
+}
+
+
 
 function changeImgSource(id, src) {
     document.getElementById(id).src = src;
@@ -128,6 +144,20 @@ function deleteSubtask(index) {
     subtasks.splice(index, 1);
     renderSubtasks(); // Re-render the list after deleting the item
 }
+
+// function getContacts() {
+//     taskPath = `/${userID}/contacts`;
+//     let inputContent = document.getElementById('assigned');
+//     fetchTask(taskPath, null, 'GET').then(contacts => {
+//         let keys = Object.keys(contacts);
+//         for (let i = 0; i < keys.length; i++) {
+//             let contact = contacts[keys[i]];
+//             inputContent.innerHTML += /*html*/ `
+//                 <option class="contactOption" value="${contact.name}">${contact.name} <div><input type="checkbox"></div></option>
+//             `;
+//         }
+//     })
+// }
 
 function handleButtonClick(clickedIconId, originalSrc, hoverSrc, otherIconIds) {
     otherIconIds.forEach(function (id) {
