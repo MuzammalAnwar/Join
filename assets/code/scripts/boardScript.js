@@ -1,3 +1,11 @@
+// let userID = checkLoginStatus();
+let categories = [
+    { id: 'toDo', element: document.getElementById('categoryToDo'), message: 'No tasks to do' },
+    { id: 'inProgress', element: document.getElementById('categoryInProgress'), message: 'No tasks in progress' },
+    { id: 'awaitFeedback', element: document.getElementById('categoryAwaitFeedback'), message: 'No tasks awaiting feedback' },
+    { id: 'done', element: document.getElementById('categoryDone'), message: 'No tasks done' }
+];
+
 function initRender() {
     renderTasks('toDo', 'categoryToDo');
     renderTasks('inProgress', 'categoryInProgress');
@@ -10,18 +18,20 @@ function renderTasks(category, id) {
     htmlContent.innerHTML = '';
     let userID = checkLoginStatus();
     let taskPath = `/${userID}/addedTasks/`;
-    fetchTask(taskPath, null, 'GET').then(taskArray => {
+
+    try {
+        let taskArray = await fetchTask(taskPath, null, 'GET');
         if (!taskArray) {
             console.error(`No tasks found for category: ${category}`);
             return;
         }
-
+        console.log(taskArray);
         let keys = Object.keys(taskArray);
         for (let i = 0; i < keys.length; i++) {
             let task = taskArray[keys[i]];
             htmlContent.innerHTML += /*HTML*/`
                 <div class="task" draggable="true" ondragstart="drag(event)" id="task-${task.id}" 
-                     onclick="showTallTaskOverlay('${task.title}', '${task.category}', '${task.urgency}', '${task["due-date"]}', '${task.description}')">
+                     onclick="showTallTaskOverlay('${task.title}', '${task.category}', '${task.urgency}', '${task.dueDate}', '${task.description}')">
                     <p id="category" class='${returnClass(task.category)}'>${task.category}</p>
                     <div class="taskTitleAndDescription">
                         <p class="title">${task.title}</p>
@@ -190,5 +200,4 @@ function hideTallTaskOverlay() {
     }, 500);
 }
 
-document.addEventListener('DOMContentLoaded', fetchContactsFromFirebase);
-window.addEventListener('load', checkLoginStatus)
+window.addEventListener('load', initRender);
