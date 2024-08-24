@@ -78,3 +78,7 @@ a {
     cursor: pointer;
     width: 100%;
 }
+
+.privacyAndNoticeTxt:hover {
+color: rgba(41, 171, 226, 1);
+}

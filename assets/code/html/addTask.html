@@ -11,11 +11,11 @@
 <body onload="includeHTML()">
     <div w3-include-html="navbarTemplate.html"></div>
     <div w3-include-html="headerTemplate.html"></div>
-    <div class="title_position">
-        <h1 style="margin: 0 0 0 250px; font-size: 61px; font-weight: 700;">Add Task</h1>
-    </div>
     <div class="container">
         <form onsubmit="addToTask(event), clearSubtasks()">
+            <div class="title_position">
+                <p>Add Task</p>
+            </div>
             <div class="form">
                 <div class="left">
                     <div class="form-group">

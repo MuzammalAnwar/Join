@@ -121,11 +121,17 @@ p {
     color: rgba(205, 205, 205, 1);
 }
 
-.listHover:hover {
-    background-color: rgb(42, 61, 89);
+.legalNotice:hover {
+    color: rgba(41, 171, 226, 1);
     cursor: pointer;
 }
 
-a:hover {
+.privacyPolicy:hover {
     color: rgba(41, 171, 226, 1);
+    cursor: pointer;
+}
+
+.logOut:hover {
+    color: rgba(41, 171, 226, 1);
+    cursor: pointer;
 }

@@ -26,12 +26,9 @@
     </div>
     <div class="user-menu d_none" id="userMenu">
         <ul>
-            <li><a href="../html/helpInstructions.html">Help</a></li>
-            <li><a href="../html/legalNotice.html">Legal Notice</a></li>
-            <li><a href="../html/privacy_policy.html">Privacy Policy</a></li>
-            <li><a href="#"
-                    onclick="window.location.href = 'loggingOutSpinner.html', localStorage.removeItem('loggedInUserID');">Log
-                    out</a></li>
+            <li><a class="legalNotice" href="../html/legalNotice.html">Legal Notice</a></li>
+            <li><a class="privacyPolicy" href="../html/privacy_policy.html">Privacy Policy</a></li>
+            <li><a class="logOut" onclick="window.location.href = 'loggingOutSpinner.html', localStorage.removeItem('loggedInUserID');">Log out</a></li>
         </ul>
     </div>
     <script src="../scripts/htmlTemplates.js"></script>
