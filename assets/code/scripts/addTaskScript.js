@@ -48,7 +48,7 @@ function addToTask(event) {
         "title": title.value,
         "description": description.value,
         "assigned": assigned.value,
-        "due-date": dueDate.value,
+        "dueDate": dueDate.value,
         "category": category.value,
         "subtasks": subtasks,
         "urgency": selectedStatus == 'medium' || selectedStatus == 'low' || selectedStatus == 'urgent' ? selectedStatus : 'none',

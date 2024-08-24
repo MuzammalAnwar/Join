@@ -57,13 +57,17 @@
         </section>
     </section>
     <section class="taskSection">
-        <div id="categoryToDo" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="categoryToDo" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
+            ondragleave="dragleave(event)">
         </div>
-        <div id="categoryInProgress" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="categoryInProgress" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
+            ondragleave="dragleave(event)">
         </div>
-        <div id="categoryAwaitFeedback" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="categoryAwaitFeedback" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
+            ondragleave="dragleave(event)">
         </div>
-        <div id="categoryDone" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="categoryDone" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
+            ondragleave="dragleave(event)">
         </div>
     </section>
     <div class="overlay-background" id="taskOverlay">
@@ -254,6 +258,7 @@
     <script src="../scripts/boardScript.js"></script>
     <script src="../scripts/addTaskScript.js"></script>
     <script src="../scripts/htmlTemplates.js"></script>
+    <script src="../scripts/dragAndDropScript.js"></script>
 </body>
 
 </html>

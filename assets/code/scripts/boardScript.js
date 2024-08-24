@@ -110,9 +110,7 @@ function checkIfCategoryHasNoTasks() {
 
 function removePlaceholders() {
     categories.forEach(category => {
-        // Check if there are tasks in the category
         if (category.element.children.length > 0) {
-            // Find and remove the placeholder if it exists
             let placeholder = category.element.querySelector('.NoTaskToDo');
             if (placeholder) {
                 placeholder.remove();

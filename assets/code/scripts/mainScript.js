@@ -27,6 +27,24 @@ function generateUniqueKey() {
     return Math.random().toString(36).substring(2, 11);
 }
 
+function generateImage(urgency) {
+    if (urgency === 'none') {
+        return '';
+    } else if (urgency === 'urgent') {
+        return /*html*/ `
+            <img class="urgentIcon" src='../../img/urgentIcon.png' alt="">
+        `;
+    } else if (urgency === 'medium') {
+        return /*html*/ `
+            <img class="mediumIcon" src='../../img/mediumIcon.png' alt="">
+        `;
+    } else if (urgency === 'low') {
+        return /*html*/ `
+            <img class="lowIcon" src='../../img/lowIcon.png' alt="">
+        `;
+    }
+}
+
 function checkLoginStatus() {
     if (localStorage.getItem('loggedInUserID')) {
         return localStorage.getItem('loggedInUserID');

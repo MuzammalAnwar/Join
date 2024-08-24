@@ -143,6 +143,11 @@ a {
     display: block;
 }
 
+.edit_icon {
+    height: 60px;
+    width: 60px;
+}
+
 .to-do:hover {
     background-color: rgba(42, 54, 71, 1);
     color: white;
