@@ -236,3 +236,5 @@ function hideTallTaskOverlay() {
         overlay.style.display = 'none';
     }, 500);
 }
+
+window.addEventListener('load', initRender);
