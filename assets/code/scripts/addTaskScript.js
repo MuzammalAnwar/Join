@@ -43,7 +43,7 @@ function addToTask(event) {
     let dueDate = document.getElementById('due-date');
     let category = document.getElementById('category');
     let taskKey = generateUniqueKey();
-    taskPath = `/${userID}/addedTasks/done/${taskKey}`;
+    taskPath = `/${userID}/addedTasks/${taskKey}`;
     let task = {
         "title": title.value,
         "description": description.value,
@@ -53,6 +53,7 @@ function addToTask(event) {
         "subtasks": subtasks,
         "urgency": selectedStatus == 'medium' || selectedStatus == 'low' || selectedStatus == 'urgent' ? selectedStatus : 'none',
         "path": taskPath,
+        "taskCategory": 'toDo'
     };
 
     tasks.push(task);
@@ -127,20 +128,6 @@ function deleteSubtask(index) {
     subtasks.splice(index, 1);
     renderSubtasks(); // Re-render the list after deleting the item
 }
-
-// function getContacts() {
-//     taskPath = `/${userID}/contacts`;
-//     let inputContent = document.getElementById('assigned');
-//     fetchTask(taskPath, null, 'GET').then(contacts => {
-//         let keys = Object.keys(contacts);
-//         for (let i = 0; i < keys.length; i++) {
-//             let contact = contacts[keys[i]];
-//             inputContent.innerHTML += /*html*/ `
-//                 <option class="contactOption" value="${contact.name}">${contact.name} <div><input type="checkbox"></div></option>
-//             `;
-//         }
-//     })
-// }
 
 function handleButtonClick(clickedIconId, originalSrc, hoverSrc, otherIconIds) {
     otherIconIds.forEach(function (id) {

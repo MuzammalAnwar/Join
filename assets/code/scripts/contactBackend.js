@@ -17,9 +17,9 @@ async function saveContactToFirebase(contact, id = null) {
         if (response.ok) {
             let responseData = await response.json();
             if (!id) {
-                return responseData.name; 
+                return responseData.name;
             } else {
-                return id; 
+                return id;
             }
         } else {
             console.error('Failed to save contact:', response.statusText);
@@ -61,8 +61,8 @@ function createContact(event) {
         color,
         userId
     };
-   
-    
+
+
     saveContactToFirebase(contact).then(() => {
         fetchContactsFromFirebase();
     });
@@ -73,7 +73,7 @@ function createContact(event) {
 
 function updateContactList(contacts) {
     let contactList = document.getElementById('contactList');
-    contactList.innerHTML = ''; 
+    contactList.innerHTML = '';
     let sortedContacts = Object.keys(contacts).sort((a, b) => {
         return contacts[a].name.localeCompare(contacts[b].name);
     });
