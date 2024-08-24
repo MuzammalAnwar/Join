@@ -1,4 +1,4 @@
-// let userID = checkLoginStatus();
+let userID = checkLoginStatus();
 let categories = [
     { id: 'toDo', element: document.getElementById('categoryToDo'), message: 'No tasks to do' },
     { id: 'inProgress', element: document.getElementById('categoryInProgress'), message: 'No tasks in progress' },
@@ -13,8 +13,7 @@ function initRender() {
         renderTasks('awaitFeedback', 'categoryAwaitFeedback'),
         renderTasks('done', 'categoryDone')
     ]).then(() => {
-        checkIfCategoryHasNoTasks(); // Ensure placeholders are managed after initial render
-        removePlaceholders(); // Remove placeholders if tasks are present
+        checkIfCategoryHasNoTasks();
     }).catch(error => {
         console.error("Error during initialization:", error);
     });
@@ -22,7 +21,7 @@ function initRender() {
 
 async function renderTasks(category, id) {
     let htmlContent = document.getElementById(id);
-    htmlContent.innerHTML = ''; // Clear existing content
+    htmlContent.innerHTML = '';
     let taskPath = `/${userID}/addedTasks/`;
 
     try {
@@ -53,21 +52,71 @@ async function renderTasks(category, id) {
     }
 }
 
-// Return the message for an empty category
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drag(event) {
+    event.dataTransfer.setData("text", event.target.id);
+}
+
+function drop(event) {
+    event.preventDefault();
+    let taskId = event.dataTransfer.getData("text");
+    let taskElement = document.getElementById(taskId);
+    let dropTarget = event.target.closest('.taskContainer');
+    if (dropTarget) {
+        dropTarget.appendChild(taskElement);
+        let newCategory = dropTarget.id.replace('category', '');
+        newCategory = newCategory.charAt(0).toLowerCase() + newCategory.slice(1);
+        updateTaskCategory(taskId, newCategory);
+    }
+    taskElement.classList.remove('dragging');
+}
+
+function dragend(event) {
+    event.target.classList.remove('dragging');
+    checkIfCategoryHasNoTasks()
+}
+
+function updateTaskCategory(taskId, newCategory) {
+    let taskElement = document.getElementById(taskId);
+    let taskPath = taskElement.dataset.path;
+    fetchTask(taskPath, null, 'GET').then(task => {
+        task.taskCategory = newCategory;
+        fetchTask(taskPath, task, 'PUT');
+    }).catch(error => {
+        console.error("Error updating task category:", error);
+    });
+}
+
+function checkIfCategoryHasNoTasks() {
+    removePlaceholders()
+    categories.forEach(category => {
+        if (category.element.children.length === 0) {
+            category.element.innerHTML = `<div class="NoTaskToDo">${category.message}</div>`;
+        }
+    });
+}
+
+function removePlaceholders() {
+    categories.forEach(category => {
+        // Check if there are tasks in the category
+        if (category.element.children.length > 0) {
+            // Find and remove the placeholder if it exists
+            let placeholder = category.element.querySelector('.NoTaskToDo');
+            if (placeholder) {
+                placeholder.remove();
+            }
+        }
+    });
+}
+
 function returnEqualMsg(category) {
     let categoryObj = categories.find(cat => cat.id === category);
     if (categoryObj) {
         return categoryObj.message;
     }
-}
-
-function checkIfCategoryHasNoTasks() {
-    categories.forEach(category => {
-        let categoryElement = document.getElementById(`category${category.charAt(0).toUpperCase() + category.slice(1)}`);
-        if (categoryElement && categoryElement.children.length === 0 && !categoryElement.querySelector('.NoTaskToDo')) {
-            categoryElement.innerHTML = `<div class="NoTaskToDo">${returnEqualMsg(category)}</div>`;
-        }
-    });
 }
 
 function generateImage(urgency) {
@@ -114,12 +163,6 @@ function insertSubtaskBar(subtasks) {
     }
 }
 
-function updateTaskCategory(taskId, newCategoryId) {
-    // This is where you would implement logic to update the task's category.
-    // E.g., you could make an API call to update the task's category in the database.
-    console.log(`Task ${taskId} moved to ${newCategoryId}`);
-}
-
 function showOverlay() {
     let overlay = document.getElementById('taskOverlay');
     overlay.style.display = 'flex';
@@ -131,56 +174,6 @@ function hideOverlay() {
     let overlay = document.getElementById('taskOverlay');
     overlay.querySelector('.overlay').classList.remove('slide-in');
     overlay.querySelector('.overlay').classList.add('slide-out');
-    setTimeout(() => {
-        overlay.style.display = 'none';
-    }, 500);
-}
-
-function showTallTaskOverlay(title, category, urgency, dueDate, description) {
-    let overlay = document.getElementById('tall_task_overlay_background');
-    overlay.style.display = 'flex';
-
-    let tallOverlay = document.getElementById('tall_task_overlay');
-    tallOverlay.classList.remove('slide-out');
-    tallOverlay.classList.add('slide-in');
-
-    document.getElementById('tall_task_overlay_title').textContent = title;
-    document.getElementById('task_category').textContent = category;
-    document.getElementById('task_due_date').textContent = dueDate || 'No due date';
-    document.getElementById('task_description').textContent = description;
-
-    let prioText = '';
-    let prioIconPath = '';
-
-    if (urgency === 'low') {
-        prioText = 'Low';
-        prioIconPath = '../../img/lowIcon.png';
-    } else if (urgency === 'medium') {
-        prioText = 'Medium';
-        prioIconPath = '../../img/mediumIcon.png';
-    } else if (urgency === 'urgent') {
-        prioText = 'Urgent';
-        prioIconPath = '../../img/urgentIcon.png';
-    }
-
-    document.getElementById('prio_name').textContent = prioText;
-    document.getElementById('prio_icon').src = prioIconPath;
-
-    let categoryElement = document.getElementById('task_category');
-    categoryElement.className = '';
-    categoryElement.classList.remove('categoryTechnicalTaskOverlay', 'categoryUserStoryOverlay');
-    if (category === 'Technical Task') {
-        categoryElement.classList.add('categoryTechnicalTaskOverlay');
-    } else if (category === 'User Story') {
-        categoryElement.classList.add('categoryUserStoryOverlay');
-    }
-}
-
-function hideTallTaskOverlay() {
-    let overlay = document.getElementById('tall_task_overlay_background');
-    let tallOverlay = document.getElementById('tall_task_overlay');
-    tallOverlay.classList.remove('slide-in');
-    tallOverlay.classList.add('slide-out');
     setTimeout(() => {
         overlay.style.display = 'none';
     }, 500);
