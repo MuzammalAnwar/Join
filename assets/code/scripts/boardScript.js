@@ -13,7 +13,7 @@ function initRender() {
     renderTasks('done', 'categoryDone');
 }
 
-function renderTasks(category, id) {
+async function renderTasks(category, id) {
     let htmlContent = document.getElementById(id);
     htmlContent.innerHTML = '';
     let userID = checkLoginStatus();
@@ -47,9 +47,9 @@ function renderTasks(category, id) {
                 </div>
             `;
         }
-    }).catch(error => {
+    } catch (error) {
         console.error('Error fetching tasks:', error);
-    });
+    }
 }
 
 
@@ -101,38 +101,11 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
-function drag(event) {
-    event.dataTransfer.setData("text", event.target.id);
-}
-
-function drop(event) {
-    event.preventDefault();
-    let taskId = event.dataTransfer.getData("text");
-    let taskElement = document.getElementById(taskId);
-
-    // Find the closest .task or .taskContainer
-    let dropTarget = event.target.closest('.task, .taskContainer');
-
-    if (dropTarget.classList.contains('task')) {
-        // If dropping on another task, insert before it
-        dropTarget.parentNode.insertBefore(taskElement, dropTarget);
-    } else if (dropTarget.classList.contains('taskContainer')) {
-        // If dropping on the container (or bottom), append it
-        dropTarget.appendChild(taskElement);
-    }
-
-    // Update the task's category
-    updateTaskCategory(taskId, dropTarget.closest('.taskContainer').id);
-}
-
 function updateTaskCategory(taskId, newCategoryId) {
     // This is where you would implement logic to update the task's category.
     // E.g., you could make an API call to update the task's category in the database.
     console.log(`Task ${taskId} moved to ${newCategoryId}`);
 }
-
-window.addEventListener('load', includeHTML);
-window.addEventListener('load', initRender)
 
 function showOverlay() {
     let overlay = document.getElementById('taskOverlay');
@@ -153,7 +126,7 @@ function hideOverlay() {
 function showTallTaskOverlay(title, category, urgency, dueDate, description) {
     let overlay = document.getElementById('tall_task_overlay_background');
     overlay.style.display = 'flex';
-
+    
     let tallOverlay = document.getElementById('tall_task_overlay');
     tallOverlay.classList.remove('slide-out');
     tallOverlay.classList.add('slide-in');
@@ -162,10 +135,10 @@ function showTallTaskOverlay(title, category, urgency, dueDate, description) {
     document.getElementById('task_category').textContent = category;
     document.getElementById('task_due_date').textContent = dueDate || 'No due date';
     document.getElementById('task_description').textContent = description;
-
+    
     let prioText = '';
     let prioIconPath = '';
-
+    
     if (urgency === 'low') {
         prioText = 'Low';
         prioIconPath = '../../img/lowIcon.png';
@@ -176,10 +149,10 @@ function showTallTaskOverlay(title, category, urgency, dueDate, description) {
         prioText = 'Urgent';
         prioIconPath = '../../img/urgentIcon.png';
     }
-
+    
     document.getElementById('prio_name').textContent = prioText;
     document.getElementById('prio_icon').src = prioIconPath;
-
+    
     let categoryElement = document.getElementById('task_category');
     categoryElement.className = '';
     categoryElement.classList.remove('categoryTechnicalTaskOverlay', 'categoryUserStoryOverlay');
@@ -200,4 +173,5 @@ function hideTallTaskOverlay() {
     }, 500);
 }
 
-window.addEventListener('load', initRender);
+window.addEventListener('load', includeHTML);
+window.addEventListener('load', initRender)
