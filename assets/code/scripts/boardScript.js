@@ -1,4 +1,4 @@
-let userID = checkLoginStatus();
+// let userID = checkLoginStatus();
 let categories = [
     { id: 'toDo', element: document.getElementById('categoryToDo'), message: 'No tasks to do' },
     { id: 'inProgress', element: document.getElementById('categoryInProgress'), message: 'No tasks in progress' },
@@ -23,7 +23,7 @@ async function renderTasks(category, id) {
     let htmlContent = document.getElementById(id);
     htmlContent.innerHTML = '';
     let userID = checkLoginStatus();
-    let taskPath = `/${userID}/addedTasks/${category}/`;
+    let taskPath = `/${userID}/addedTasks/`;
 
     try {
         let taskArray = await fetchTask(taskPath, null, 'GET');
@@ -31,13 +31,13 @@ async function renderTasks(category, id) {
             console.error(`No tasks found for category: ${category}`);
             return;
         }
-
+        console.log(taskArray);
         let keys = Object.keys(taskArray);
         for (let i = 0; i < keys.length; i++) {
             let task = taskArray[keys[i]];
             htmlContent.innerHTML += /*HTML*/`
                 <div class="task" draggable="true" ondragstart="drag(event)" id="task-${task.id}" 
-                     onclick="showTallTaskOverlay('${task.title}', '${task.category}', '${task.urgency}', '${task["due-date"]}', '${task.description}')">
+                     onclick="showTallTaskOverlay('${task.title}', '${task.category}', '${task.urgency}', '${task.dueDate}', '${task.description}')">
                     <p id="category" class='${returnClass(task.category)}'>${task.category}</p>
                     <div class="taskTitleAndDescription">
                         <p class="title">${task.title}</p>
