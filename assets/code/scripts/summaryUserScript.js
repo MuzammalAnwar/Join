@@ -24,13 +24,14 @@ function sortByDateStat() {
     let inputContentTaskAmount = document.getElementById('urgentTaskAmount');
     let inputContentDeadlineText = document.getElementById('upcomingDeadlineText');
     fetchTask(`/${userID}/addedTasks`, null, 'GET').then(tasks => {
-        let taskArray = Object.keys(tasks).map(key => tasks[key]);
-        let urgentTasks = taskArray.filter(task => task.urgency === 'urgent');
-        if (urgentTasks.length > 0) {
+        if (tasks) {
+            let taskArray = Object.keys(tasks).map(key => tasks[key]);
+            let urgentTasks = taskArray.filter(task => task.urgency === 'urgent');
             urgentTasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
             let mostRecentUrgentTask = urgentTasks[0];
             inputContentDate.textContent = `${formatDate(mostRecentUrgentTask.dueDate)}`;
-        } else {
+        }
+        else {
             inputContentDate.textContent = "No urgent tasks found.";
             inputContentTaskAmount.textContent = 0;
             inputContentDeadlineText.innerHTML = '';
@@ -97,3 +98,4 @@ function getGreeting() {
 
 window.addEventListener('load', init);
 window.addEventListener('load', checkLoginStatus)
+window.addEventListener('load', setProfileCircleInitials);

@@ -71,3 +71,16 @@ function formatDate(dateString) {
     let date = new Date(dateString);
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
+
+function setProfileCircleInitials() {
+    let userID = checkLoginStatus();
+    let taskPath = `/${userID}`
+    fetchTask(taskPath, null, 'GET').then(user => {
+        if (userID == 'guestUser') {
+            document.getElementById('userMenuButton').innerText = 'G';
+        }
+        else {
+            document.getElementById('userMenuButton').innerText = getInitials(user.name);
+        }
+    });
+}

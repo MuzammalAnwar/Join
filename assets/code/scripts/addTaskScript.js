@@ -318,3 +318,4 @@ function initializeEventListeners() {
 document.addEventListener('DOMContentLoaded', initializeEventListeners);
 window.addEventListener('load', getContacts);
 window.addEventListener('load', checkLoginStatus);
+window.addEventListener('load', setProfileCircleInitials);

@@ -151,3 +151,4 @@ function hideOverlay() {
 
 window.addEventListener('load', includeHTML);
 window.addEventListener('load', initRender)
+window.addEventListener('load', setProfileCircleInitials);
