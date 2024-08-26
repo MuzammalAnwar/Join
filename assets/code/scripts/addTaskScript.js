@@ -108,8 +108,7 @@ function renderSubtasks() {
 function editSubtask(index) {
     let subtaskListItem = document.getElementById(`subtaskListItem${index}`);
     let subtaskText = subtasks[index];
-
-    // Replace the text with an input field and icons
+    
     subtaskListItem.innerHTML = /*HTML*/`
         <div class="subtaskEditContainer">
             <input class="editInput" type="text" value="${subtaskText}" class="subtaskEditInput" id="subtaskEditInput${index}">
@@ -125,12 +124,12 @@ function editSubtask(index) {
 function saveSubtask(index) {
     let input = document.getElementById(`subtaskEditInput${index}`);
     subtasks[index] = input.value;
-    renderSubtasks(); // Re-render the list with the updated value
+    renderSubtasks(); 
 }
 
 function deleteSubtask(index) {
     subtasks.splice(index, 1);
-    renderSubtasks(); // Re-render the list after deleting the item
+    renderSubtasks(); 
 }
 
 function handleButtonClick(clickedIconId, originalSrc, hoverSrc, otherIconIds) {
@@ -162,10 +161,10 @@ function toggleIcon(iconId, originalSrc, hoverSrc) {
 }
 
 function toggleInputIcons(inputId, addIconId, cancelIconId, saveIconId) {
-    const input = document.getElementById(inputId);
-    const addIcon = document.getElementById(addIconId);
-    const cancelIcon = document.getElementById(cancelIconId);
-    const saveIcon = document.getElementById(saveIconId);
+    let input = document.getElementById(inputId);
+    let addIcon = document.getElementById(addIconId);
+    let cancelIcon = document.getElementById(cancelIconId);
+    let saveIcon = document.getElementById(saveIconId);
 
     input.addEventListener('focus', function () {
         addIcon.classList.add('hidden');
@@ -174,25 +173,22 @@ function toggleInputIcons(inputId, addIconId, cancelIconId, saveIconId) {
     });
 
     input.addEventListener('blur', function () {
-        // Introduce a slight delay to allow for the onclick event to process
         setTimeout(function () {
             addIcon.classList.remove('hidden');
             cancelIcon.classList.add('hidden');
             saveIcon.classList.add('hidden');
-        }, 150); // Delay in milliseconds
+        }, 150); 
     });
 
-    // Ensure the save icon click event works as expected
     saveIcon.addEventListener('click', function (event) {
-        addSubtask(); // Call the addSubtask function
-        input.focus(); // Refocus the input field to prevent blur behavior
+        addSubtask();
+        input.focus(); 
     });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
     toggleInputIcons('subtasks', 'subtaskAdd', 'subtaskCancel', 'subtaskSave');
 });
-
 
 function getContacts() {
     let taskPath = `/${userID}/contacts`;
@@ -216,16 +212,15 @@ function getContacts() {
         }
         selectWrapper.innerHTML = html;
 
-        // Add click event listener to each option
+        
         document.querySelectorAll('.custom-option').forEach(option => {
             option.addEventListener('click', handleOptionClick);
         });
     });
 }
 
-
 function updateTriggerText(selected) {
-    const trigger = document.querySelector('.custom-select-trigger');
+    let trigger = document.querySelector('.custom-select-trigger');
     trigger.querySelector('span').textContent = selected.length > 0 ? '' : 'Select contacts to assign';
 }
 
@@ -238,9 +233,9 @@ function addMoreIndicatorIfNeeded(selected, wrapper) {
 function renderSelectedContacts(selected, wrapper) {
     selected.forEach((contactName, index) => {
         if (index < 5) {
-            const contactElement = document.querySelector(`.custom-option[data-value="${contactName}"]`);
-            const color = contactElement.querySelector('.profile-circle').style.backgroundColor;
-            const initials = contactElement.querySelector('.profile-circle').textContent;
+            let contactElement = document.querySelector(`.custom-option[data-value="${contactName}"]`);
+            let color = contactElement.querySelector('.profile-circle').style.backgroundColor;
+            let initials = contactElement.querySelector('.profile-circle').textContent;
             wrapper.innerHTML += `
                 <div class="profile-circle" style="background-color: ${color};">
                     ${initials}
@@ -254,15 +249,14 @@ function clearSelectedContacts(wrapper) {
     wrapper.innerHTML = '';
 }
 
-
 function getSelectedContacts() {
-    const checkboxes = document.querySelectorAll('.custom-option input[type="checkbox"]:checked');
+    let checkboxes = document.querySelectorAll('.custom-option input[type="checkbox"]:checked');
     return Array.from(checkboxes).map(checkbox => checkbox.value);
 }
 
 function updateSelectedContacts() {
-    const selected = getSelectedContacts();
-    const selectedContactsWrapper = document.querySelector('.selected-contacts');
+    let selected = getSelectedContacts();
+    let selectedContactsWrapper = document.querySelector('.selected-contacts');
 
     clearSelectedContacts(selectedContactsWrapper);
     renderSelectedContacts(selected, selectedContactsWrapper);
@@ -271,8 +265,8 @@ function updateSelectedContacts() {
 }
 
 function closeDropdownOnClickOutside(e) {
-    const select = document.querySelector('.custom-select');
-    const options = document.querySelector('.custom-options');
+    let select = document.querySelector('.custom-select');
+    let options = document.querySelector('.custom-options');
 
     if (!select.contains(e.target)) {
         options.classList.remove('open');
@@ -280,37 +274,33 @@ function closeDropdownOnClickOutside(e) {
 }
 
 function handleOptionClick(e) {
-    const option = e.currentTarget; // The .custom-option div
-    const checkbox = option.querySelector('input[type="checkbox"]');
+    let option = e.currentTarget; 
+    let checkbox = option.querySelector('input[type="checkbox"]');
 
-    // Toggle checkbox checked state
     checkbox.checked = !checkbox.checked;
 
-    // Update the selected class based on the new state
     if (checkbox.checked) {
         option.classList.add('selected');
     } else {
         option.classList.remove('selected');
     }
 
-    // Update the selected contacts display
     updateSelectedContacts();
 }
-
 
 function preventClickBubbling(e) {
     e.stopPropagation();
 }
 
 function toggleDropdown() {
-    const options = document.querySelector('.custom-options');
+    let options = document.querySelector('.custom-options');
     options.classList.toggle('open');
 }
 
 function initializeEventListeners() {
-    const select = document.querySelector('.custom-select');
-    const options = document.querySelector('.custom-options');
-    const trigger = document.querySelector('.custom-select-trigger');
+    let select = document.querySelector('.custom-select');
+    let options = document.querySelector('.custom-options');
+    let trigger = document.querySelector('.custom-select-trigger');
 
     trigger.addEventListener('click', toggleDropdown);
     options.addEventListener('click', preventClickBubbling);

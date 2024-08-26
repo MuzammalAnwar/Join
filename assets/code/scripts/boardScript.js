@@ -1,4 +1,3 @@
-// let userID = checkLoginStatus();
 let categories = [
     { id: 'toDo', element: document.getElementById('categoryToDo'), message: 'No tasks to do' },
     { id: 'inProgress', element: document.getElementById('categoryInProgress'), message: 'No tasks in progress' },
@@ -38,12 +37,13 @@ async function renderTasks(category, id) {
                         <p class="title">${task.title}</p>
                         <p class="description">${task.description}</p>
                     </div>
-                    ${insertSubtaskBar(task.subtasks)}
+                    ${insertSubtaskBar(taskKey_1, task.subtasks)}
                     <div>
                         ${generateImage(task.urgency)}
                     </div>
                 </div>
             `;
+                initializeProgressBarForTask(taskKey_1);
             });
         }
     } catch (error) {
@@ -117,7 +117,7 @@ function returnClass(category) {
     }
 }
 
-function insertSubtaskBar(subtasks) {
+function insertSubtaskBar(taskId, subtasks) {
     if (!Array.isArray(subtasks) || subtasks.length === 0) {
         return '';
     } else {
@@ -125,11 +125,37 @@ function insertSubtaskBar(subtasks) {
         return /*HTML*/`
         <div class="progressSection">
             <div class="progress-container">
-                <div id="progress-bar" class="progress-bar" style="width: ${(completedSubtasks / subtasks.length) * 100}%"></div>
+                <div id="progress-bar-${taskId}" class="progress-bar" style="width: ${(completedSubtasks / subtasks.length) * 100}%"></div>
             </div>
-            <div id="progress-text">${completedSubtasks}/${subtasks.length} Subtasks</div>
+            <div class="progress-text" id="progress-text-${taskId}">${completedSubtasks}/${subtasks.length} Subtasks</div>
         </div>
         `;
+    }
+}
+
+function initializeProgressBarForTask(taskId) {
+    let progressBar = document.getElementById(`progress-bar-${taskId}`);
+    let progressText = document.getElementById(`progress-text-${taskId}`);
+
+    let subTaskStates = JSON.parse(localStorage.getItem('subTasks_' + taskId)) || [];
+    let totalSubtasks = subTaskStates.length;
+    let completedSubtasks = subTaskStates.filter(state => state).length;
+
+    if (progressBar && progressText && totalSubtasks > 0) {
+        let progressPercentage = (completedSubtasks / totalSubtasks) * 100;
+        progressBar.style.width = `${progressPercentage}%`; 
+        progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`; 
+    }
+}
+
+function updateProgressBarForTask(taskId, completedSubtasks, totalSubtasks) {
+    let progressPercentage = (completedSubtasks / totalSubtasks) * 100;
+    let progressBar = document.getElementById(`progress-bar-${taskId}`);
+    let progressText = document.getElementById(`progress-text-${taskId}`);
+
+    if (progressBar && progressText && totalSubtasks > 0) {
+        progressBar.style.width = `${progressPercentage}%`; 
+        progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`; 
     }
 }
 
@@ -150,4 +176,4 @@ function hideOverlay() {
 }
 
 window.addEventListener('load', includeHTML);
-window.addEventListener('load', initRender)
+window.addEventListener('load', initRender);
