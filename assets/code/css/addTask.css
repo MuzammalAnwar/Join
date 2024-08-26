@@ -168,6 +168,19 @@ input:focus {
     display: inline;
 }
 
+/* Reset to original state when input is not focused
+.input-container-addTask input:not(:focus)+.icon-container .separatorSubtask {
+    display: none;
+}
+
+.input-container-addTask input:not(:focus)+.icon-container #subtaskAdd {
+    display: inline;
+}
+
+.input-container-addTask input:not(:focus)+.icon-container #subtaskCancel,
+.input-container-addTask input:not(:focus)+.icon-container #subtaskSave {
+    display: none;
+} */
 
 .button-group {
     display: flex;
@@ -481,6 +494,7 @@ input:focus {
 .custom-option {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
     font-size: 16px;
     font-weight: 300;
@@ -525,4 +539,58 @@ input:focus {
     display: block;
     text-align: center;
     transform: translate(-7%, -61%);
+}
+
+.profile-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+.profileCircleAndName {
+    display: flex;
+    align-items: center;
+}
+
+.selected-contacts {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.selected-contacts .profile-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+    font-size: 12px;
+}
+
+.selected-contacts .more-indicator {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    background-color: #ddd;
+}
+
+.custom-option.selected {
+    background-color: rgba(42, 54, 71, 1);
+    color: #fff;
+    /* Optional: Adjust text color for better contrast */
 }

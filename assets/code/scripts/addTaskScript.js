@@ -74,16 +74,16 @@ function changeImgSource(id, src) {
 
 function addSubtask() {
     let input = document.getElementById('subtasks');
-    let subtaskList = document.getElementById('subtaskList');
     if (input.value !== '') {
-        subtaskList.innerHTML = '';
         subtasks.push(input.value);
         renderSubtasks();
         input.value = '';
+        input.blur();
     } else {
-        alert('Write something');
+        alert('Please write something');
     }
 }
+
 
 function renderSubtasks() {
     let subtaskList = document.getElementById('subtaskList');
@@ -170,9 +170,18 @@ function toggleInputIcons(inputId, addIconId, cancelIconId, saveIconId) {
     });
 
     input.addEventListener('blur', function () {
-        addIcon.classList.remove('hidden');
-        cancelIcon.classList.add('hidden');
-        saveIcon.classList.add('hidden');
+        // Introduce a slight delay to allow for the onclick event to process
+        setTimeout(function () {
+            addIcon.classList.remove('hidden');
+            cancelIcon.classList.add('hidden');
+            saveIcon.classList.add('hidden');
+        }, 150); // Delay in milliseconds
+    });
+
+    // Ensure the save icon click event works as expected
+    saveIcon.addEventListener('click', function (event) {
+        addSubtask(); // Call the addSubtask function
+        input.focus(); // Refocus the input field to prevent blur behavior
     });
 }
 
@@ -180,69 +189,130 @@ document.addEventListener('DOMContentLoaded', function () {
     toggleInputIcons('subtasks', 'subtaskAdd', 'subtaskCancel', 'subtaskSave');
 });
 
+
 function getContacts() {
     let taskPath = `/${userID}/contacts`;
     let selectWrapper = document.querySelector('.custom-options');
     fetchTask(taskPath, null, 'GET').then(contacts => {
         let keys = Object.keys(contacts);
+        let html = '';
         for (let i = 0; i < keys.length; i++) {
             let contact = contacts[keys[i]];
-            // Create the option div
-            let option = document.createElement('div');
-            option.classList.add('custom-option');
-            option.setAttribute('data-value', contact.name);
+            html += `
+                <div class="custom-option" data-value="${contact.name}">
+                    <div class="profileCircleAndName"> 
+                        <div class="profile-circle" style="background-color: ${contact.color};">
+                            ${getInitials(contact.name)}
+                        </div>
+                        <span>${contact.name}</span>
+                    </div>
+                    <input type="checkbox" value="${contact.name}">
+                </div>
+            `;
+        }
+        selectWrapper.innerHTML = html;
 
-            // Create the checkbox element
-            let checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.value = contact.name;
+        // Add click event listener to each option
+        document.querySelectorAll('.custom-option').forEach(option => {
+            option.addEventListener('click', handleOptionClick);
+        });
+    });
+}
 
-            // Create a span to hold the contact name
-            let label = document.createElement('span');
-            label.textContent = contact.name;
 
-            // Append the label and checkbox to the option
-            option.appendChild(label);
-            option.appendChild(checkbox);
+function updateTriggerText(selected) {
+    const trigger = document.querySelector('.custom-select-trigger');
+    trigger.querySelector('span').textContent = selected.length > 0 ? '' : 'Select contacts to assign';
+}
 
-            // Append the option to the select wrapper
-            selectWrapper.appendChild(option);
+function addMoreIndicatorIfNeeded(selected, wrapper) {
+    if (selected.length > 5) {
+        wrapper.innerHTML += '<div class="more-indicator">...</div>';
+    }
+}
+
+function renderSelectedContacts(selected, wrapper) {
+    selected.forEach((contactName, index) => {
+        if (index < 5) {
+            const contactElement = document.querySelector(`.custom-option[data-value="${contactName}"]`);
+            const color = contactElement.querySelector('.profile-circle').style.backgroundColor;
+            const initials = contactElement.querySelector('.profile-circle').textContent;
+            wrapper.innerHTML += `
+                <div class="profile-circle" style="background-color: ${color};">
+                    ${initials}
+                </div>
+            `;
         }
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+function clearSelectedContacts(wrapper) {
+    wrapper.innerHTML = '';
+}
+
+
+function getSelectedContacts() {
+    const checkboxes = document.querySelectorAll('.custom-option input[type="checkbox"]:checked');
+    return Array.from(checkboxes).map(checkbox => checkbox.value);
+}
+
+function updateSelectedContacts() {
+    const selected = getSelectedContacts();
+    const selectedContactsWrapper = document.querySelector('.selected-contacts');
+
+    clearSelectedContacts(selectedContactsWrapper);
+    renderSelectedContacts(selected, selectedContactsWrapper);
+    addMoreIndicatorIfNeeded(selected, selectedContactsWrapper);
+    updateTriggerText(selected);
+}
+
+function closeDropdownOnClickOutside(e) {
+    const select = document.querySelector('.custom-select');
+    const options = document.querySelector('.custom-options');
+
+    if (!select.contains(e.target)) {
+        options.classList.remove('open');
+    }
+}
+
+function handleOptionClick(e) {
+    const option = e.currentTarget; // The .custom-option div
+    const checkbox = option.querySelector('input[type="checkbox"]');
+
+    // Toggle checkbox checked state
+    checkbox.checked = !checkbox.checked;
+
+    // Update the selected class based on the new state
+    if (checkbox.checked) {
+        option.classList.add('selected');
+    } else {
+        option.classList.remove('selected');
+    }
+
+    // Update the selected contacts display
+    updateSelectedContacts();
+}
+
+
+function preventClickBubbling(e) {
+    e.stopPropagation();
+}
+
+function toggleDropdown() {
+    const options = document.querySelector('.custom-options');
+    options.classList.toggle('open');
+}
+
+function initializeEventListeners() {
     const select = document.querySelector('.custom-select');
     const options = document.querySelector('.custom-options');
     const trigger = document.querySelector('.custom-select-trigger');
 
-    trigger.addEventListener('click', function (e) {
-        options.classList.toggle('open');
-    });
+    trigger.addEventListener('click', toggleDropdown);
+    options.addEventListener('click', preventClickBubbling);
+    document.addEventListener('click', closeDropdownOnClickOutside);
+}
 
-    options.addEventListener('click', function (e) {
-        e.stopPropagation(); // Prevent event from bubbling up
-    });
-
-    options.addEventListener('click', function (e) {
-        if (e.target.tagName === 'INPUT' && e.target.type === 'checkbox') {
-            options.classList.add('open');
-            updateSelectedContacts();
-        }
-    });
-
-    document.addEventListener('click', function (e) {
-        if (!select.contains(e.target)) {
-            options.classList.remove('open');
-        }
-    });
-
-    function updateSelectedContacts() {
-        const selected = Array.from(document.querySelectorAll('.custom-option input[type="checkbox"]:checked'))
-            .map(checkbox => checkbox.value);
-        trigger.querySelector('span').textContent = selected.length > 0 ? selected.join(', ') : 'Select contacts to assign';
-    }
-});
-
+document.addEventListener('DOMContentLoaded', initializeEventListeners);
 window.addEventListener('load', getContacts);
 window.addEventListener('load', checkLoginStatus);

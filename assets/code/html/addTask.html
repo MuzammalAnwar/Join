@@ -39,8 +39,11 @@
                                     <!-- Options will be added here dynamically -->
                                 </div>
                             </div>
+                            <div class="selected-contacts">
+                                <!-- Selected profile circles will be added here -->
+                            </div>
                         </div>
-                    </div>
+                    </div>                    
                 </div>
                 <div class="separator"></div>
                 <div class="right">
@@ -87,13 +90,13 @@
                         <div class="input-container-addTask">
                             <input type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
                             <div id="icon-container" class="icon-container">
-                                <img id="subtaskAdd" onclick="addSubtask()" src="../../img/subtaskAddPlusIcon.png"
-                                    alt="Add Subtask" class="input-icon">
-                                <img id="subtaskCancel" src="../../img/subtaskCancelIcon.png" alt="Cancel Subtask"
-                                    class="input-icon hidden">
+                                <img id="subtaskAdd" src="../../img/subtaskAddPlusIcon.png" alt="Add Subtask"
+                                    class="input-icon">
+                                <img onclick="clearSubtasks()" id="subtaskCancel" src="../../img/subtaskCancelIcon.png"
+                                    alt="Cancel Subtask" class="input-icon hidden">
                                 <div class="separatorSubtask"></div>
-                                <img id="subtaskSave" src="../../img/subtaskAddIcon.png" alt="Save Subtask"
-                                    class="input-icon hidden">
+                                <img id="subtaskSave" onclick="addSubtask()" src="../../img/subtaskAddIcon.png"
+                                    alt="Save Subtask" class="input-icon hidden">
                             </div>
                         </div>
                         <div class="subtasksList">
