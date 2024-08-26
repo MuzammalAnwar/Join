@@ -39,7 +39,6 @@ function addToTask(event) {
 
     let title = document.getElementById('title');
     let description = document.getElementById('description');
-    let assigned = document.getElementById('assigned');
     let dueDate = document.getElementById('due-date');
     let category = document.getElementById('category');
     let taskKey = generateUniqueKey();
@@ -253,7 +252,6 @@ function renderSelectedContacts(selected, wrapper) {
 function clearSelectedContacts(wrapper) {
     wrapper.innerHTML = '';
 }
-
 
 function getSelectedContacts() {
     const checkboxes = document.querySelectorAll('.custom-option input[type="checkbox"]:checked');
