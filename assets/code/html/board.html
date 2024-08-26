@@ -208,38 +208,27 @@
                         <div>
                             <p>Assigned To:</p>
                         </div>
-                        <div class="df">
-                            <div>
-                                <div class="contact_icon">EM</div>
-                                <div class="contact_icon">MB</div>
-                                <div class="contact_icon">AM</div>
-                            </div>
-                            <div>
-                                <p class="name_container">Emmanuel Mauer</p>
-                                <p class="name_container">Marcel Bauer</p>
-                                <p class="name_container">Anton Mayer</p>
-                            </div>
+                        <div  class="df">
+                        <div>
+                            <div class="contact_icon">EM</div>
+                            <div class="contact_icon">MB</div>
+                            <div class="contact_icon">AM</div>
+                        </div>
+                        <div>
+                            <p class="name_container">Emmanuel Mauer</p>
+                            <p class="name_container">Marcel Bauer</p>
+                            <p class="name_container">Anton Mayer</p>
                         </div>
                     </div>
-                    <div>
-                        <p>Subtasks</p>
-                        <div class="sub_task_position">
-                            <div class="checkbox_position">
-                                <div>
-                                    <input class="checkbox" type="checkbox">
-                                </div>
-                                <div>
-                                    <input class="checkbox" type="checkbox">
-                                </div>
-                            </div>
-                            <div>
-                                <p class="sub_task">Implement Recipe Recommendation</p>
-                                <p class="sub_task">Start Page Layout</p>
-                            </div>
+                </div>
+                <div>
+                    <p>Subtasks</p>
+                    <div  class="sub_task_position">
+                           <div id="subtasks_container"></div>
                         </div>
                     </div>
                     <div class="buttons">
-                        <div class="delete_button">
+                        <div id="delete_task_button" onclick="deleteTaskFromFirebase()" class="delete_button">
                             <div class="delete"></div>
                             <p>Delete</p>
                         </div>
@@ -256,6 +245,7 @@
     <script src="../scripts/includeHTML.js"></script>
     <script src="../scripts/mainScript.js"></script>
     <script src="../scripts/boardScript.js"></script>
+    <script src="../scripts/tallTaskOverlay.js"></script>
     <script src="../scripts/addTaskScript.js"></script>
     <script src="../scripts/htmlTemplates.js"></script>
     <script src="../scripts/dragAndDropScript.js"></script>

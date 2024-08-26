@@ -24,7 +24,7 @@ async function renderTasks(category, id) {
     htmlContent.innerHTML = '';
     let taskPath = `/${userID}/addedTasks/`;
     try {
-        const taskArray = await fetchTask(taskPath, null, 'GET');
+        let taskArray = await fetchTask(taskPath, null, 'GET');
         let filteredTasks = Object.keys(taskArray).filter(taskKey => taskArray[taskKey].taskCategory === category);
         if (filteredTasks.length === 0) {
             htmlContent.innerHTML = `<div class="NoTaskToDo">${returnEqualMsg(category)}</div>`;
@@ -32,7 +32,7 @@ async function renderTasks(category, id) {
             filteredTasks.forEach(taskKey_1 => {
                 let task = taskArray[taskKey_1];
                 htmlContent.innerHTML += /*HTML*/ `
-                <div class="task" draggable="true" ondragend="dragend(event)" ondragstart="drag(event)" id="task${taskKey_1}" data-path="${task.path}" onclick="showTallTaskOverlay('${task.title}', '${task.category}', '${task.urgency}', '${task["due-date"]}', '${task.description}')">
+                <div class="task" draggable="true" ondragend="dragend(event)" ondragstart="drag(event)" id="task${taskKey_1}" data-path="${task.path}" onclick="showTallTaskOverlay('${taskKey_1}', '${task.title}', '${task.category}', '${task.urgency}', '${task["dueDate"]}', '${task.description}', '${task.subtasks}')">
                     <p id="category" class='${returnClass(task.category)}'>${task.category}</p>
                     <div class="taskTitleAndDescription">
                         <p class="title">${task.title}</p>
@@ -144,56 +144,6 @@ function hideOverlay() {
     let overlay = document.getElementById('taskOverlay');
     overlay.querySelector('.overlay').classList.remove('slide-in');
     overlay.querySelector('.overlay').classList.add('slide-out');
-    setTimeout(() => {
-        overlay.style.display = 'none';
-    }, 500);
-}
-
-function showTallTaskOverlay(title, category, urgency, dueDate, description) {
-    let overlay = document.getElementById('tall_task_overlay_background');
-    overlay.style.display = 'flex';
-
-    let tallOverlay = document.getElementById('tall_task_overlay');
-    tallOverlay.classList.remove('slide-out');
-    tallOverlay.classList.add('slide-in');
-
-    document.getElementById('tall_task_overlay_title').textContent = title;
-    document.getElementById('task_category').textContent = category;
-    document.getElementById('task_due_date').textContent = dueDate || 'No due date';
-    document.getElementById('task_description').textContent = description;
-
-    let prioText = '';
-    let prioIconPath = '';
-
-    if (urgency === 'low') {
-        prioText = 'Low';
-        prioIconPath = '../../img/lowIcon.png';
-    } else if (urgency === 'medium') {
-        prioText = 'Medium';
-        prioIconPath = '../../img/mediumIcon.png';
-    } else if (urgency === 'urgent') {
-        prioText = 'Urgent';
-        prioIconPath = '../../img/urgentIcon.png';
-    }
-
-    document.getElementById('prio_name').textContent = prioText;
-    document.getElementById('prio_icon').src = prioIconPath;
-
-    let categoryElement = document.getElementById('task_category');
-    categoryElement.className = '';
-    categoryElement.classList.remove('categoryTechnicalTaskOverlay', 'categoryUserStoryOverlay');
-    if (category === 'Technical Task') {
-        categoryElement.classList.add('categoryTechnicalTaskOverlay');
-    } else if (category === 'User Story') {
-        categoryElement.classList.add('categoryUserStoryOverlay');
-    }
-}
-
-function hideTallTaskOverlay() {
-    let overlay = document.getElementById('tall_task_overlay_background');
-    let tallOverlay = document.getElementById('tall_task_overlay');
-    tallOverlay.classList.remove('slide-in');
-    tallOverlay.classList.add('slide-out');
     setTimeout(() => {
         overlay.style.display = 'none';
     }, 500);

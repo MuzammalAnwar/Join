@@ -47,7 +47,7 @@ function addToTask(event) {
     let task = {
         "title": title.value,
         "description": description.value,
-        "assigned": assigned.value,
+        "assigned": returnSelectedContacts(),
         "dueDate": dueDate.value,
         "category": category.value,
         "subtasks": subtasks,
@@ -84,6 +84,10 @@ function addSubtask() {
     }
 }
 
+function returnSelectedContacts() {
+    return Array.from(document.querySelectorAll('.custom-option input[type="checkbox"]:checked'))
+        .map(checkbox => checkbox.value);
+}
 
 function renderSubtasks() {
     let subtaskList = document.getElementById('subtaskList');
