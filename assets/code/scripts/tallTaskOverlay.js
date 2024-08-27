@@ -186,8 +186,6 @@ function renderAssignedContactsInOverlay(taskID) {
     inputContent.innerHTML = '';
     fetchTask(`/${userID}/addedTasks/${taskID}/assigned/`, null, 'GET').then(assignedContacts => {
         if (assignedContacts) {
-            inputContent.style = 'display: inline-grid;'
-            document.getElementById('noContactsAssigned').classList.add('d-none');
             assignedContacts.forEach(contact => {
                 inputContent.innerHTML += /*HTML*/`
                 <div class="profileCircleAndNameForFullTaskView"> 
@@ -200,8 +198,7 @@ function renderAssignedContactsInOverlay(taskID) {
             })
         }
         else {
-            inputContent.style = 'display: none;'
-            document.getElementById('noContactsAssigned').classList.remove('d-none');
+            inputContent.innerHTML = `No contacts assigned`
         }
     })
 }
