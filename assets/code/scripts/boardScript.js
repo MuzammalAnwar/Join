@@ -31,7 +31,7 @@ async function renderTasks(category, id) {
             filteredTasks.forEach(taskKey_1 => {
                 let task = taskArray[taskKey_1];
                 htmlContent.innerHTML += /*HTML*/ `
-                <div class="task" draggable="true" ondragend="dragend(event)" ondragstart="drag(event)" id="task${taskKey_1}" data-path="${task.path}" onclick="showTallTaskOverlay('${taskKey_1}', '${task.title}', '${task.category}', '${task.urgency}', '${task["dueDate"]}', '${task.description}', '${task.subtasks}')">
+                <div class="task" draggable="true" ondragend="dragend(event)" ondragstart="drag(event)" id="task${taskKey_1}" data-path="${task.path}" onclick="showTallTaskOverlay('${taskKey_1}', '${task.title}', '${task.category}', '${task.urgency}', '${task.dueDate}', '${task.description}', '${task.subtasks}')">
                     <p id="category" class='${returnClass(task.category)}'>${task.category}</p>
                     <div class="taskTitleAndDescription">
                         <p class="title">${task.title}</p>
@@ -143,8 +143,8 @@ function initializeProgressBarForTask(taskId) {
 
     if (progressBar && progressText && totalSubtasks > 0) {
         let progressPercentage = (completedSubtasks / totalSubtasks) * 100;
-        progressBar.style.width = `${progressPercentage}%`; 
-        progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`; 
+        progressBar.style.width = `${progressPercentage}%`;
+        progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`;
     }
 }
 
@@ -154,8 +154,8 @@ function updateProgressBarForTask(taskId, completedSubtasks, totalSubtasks) {
     let progressText = document.getElementById(`progress-text-${taskId}`);
 
     if (progressBar && progressText && totalSubtasks > 0) {
-        progressBar.style.width = `${progressPercentage}%`; 
-        progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`; 
+        progressBar.style.width = `${progressPercentage}%`;
+        progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`;
     }
 }
 

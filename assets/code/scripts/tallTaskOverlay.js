@@ -27,7 +27,7 @@ function showTallTaskOverlay(taskId, title, category, urgency, dueDate, descript
         categoryElement.textContent = category || 'No category';
     }
 
-    document.getElementById('task_due_date').textContent = dueDate || 'No due date';
+    document.getElementById('task_due_date').textContent = formatDate(dueDate) || 'No due date';
     document.getElementById('task_description').textContent = description || 'No description provided';
 
     let subtasksContainer = document.getElementById('subtasks_container');
@@ -57,7 +57,7 @@ function showTallTaskOverlay(taskId, title, category, urgency, dueDate, descript
     document.getElementById('prio_icon').src = prioIconPath;
 
     if (categoryElement) {
-        categoryElement.className = ''; 
+        categoryElement.className = '';
         categoryElement.classList.remove('categoryTechnicalTaskOverlay', 'categoryUserStoryOverlay');
         if (category === 'Technical Task') {
             categoryElement.classList.add('categoryTechnicalTaskOverlay');
@@ -65,6 +65,7 @@ function showTallTaskOverlay(taskId, title, category, urgency, dueDate, descript
             categoryElement.classList.add('categoryUserStoryOverlay');
         }
     }
+    renderAssignedContactsInOverlay(taskId);
 }
 
 
@@ -153,7 +154,7 @@ async function deleteTaskFromFirebase() {
         }
         let taskPath = taskElement.dataset.path;
         await fetchTask(taskPath, null, 'DELETE');
-        
+
         taskElement.remove();
         hideTallTaskOverlay();
         checkIfCategoryHasNoTasks();
@@ -178,4 +179,29 @@ function hideTallTaskOverlay() {
     } else {
         console.error('Tall overlay element not found');
     }
+}
+
+function renderAssignedContactsInOverlay(taskID) {
+    let inputContent = document.getElementById('assignedContactsContainer');
+    inputContent.innerHTML = '';
+    fetchTask(`/${userID}/addedTasks/${taskID}/assigned/`, null, 'GET').then(assignedContacts => {
+        if (assignedContacts) {
+            inputContent.style = 'display: inline-grid;'
+            document.getElementById('noContactsAssigned').classList.add('d-none');
+            assignedContacts.forEach(contact => {
+                inputContent.innerHTML += /*HTML*/`
+                <div class="profileCircleAndNameForFullTaskView"> 
+                        <div class="profile-circle" style="background-color: ${getRandomRgbColor()};">
+                            ${getInitials(contact)}
+                        </div>
+                        <span>${contact}</span>
+                    </div>
+            `;
+            })
+        }
+        else {
+            inputContent.style = 'display: none;'
+            document.getElementById('noContactsAssigned').classList.remove('d-none');
+        }
+    })
 }

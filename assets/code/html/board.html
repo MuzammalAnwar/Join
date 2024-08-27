@@ -104,6 +104,8 @@
                                         </div>
                                         <div class="custom-options">
                                         </div>
+                                        <div class="selected-contacts">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -200,7 +202,8 @@
                         <div class="prio_position">
                             <p id="task_due_date">10/05/2024</p>
                             <div class="prio_icon_position">
-                                <p id="prio_name">Medium</p><img id="prio_icon" class="prio_icon" src="../../img/mediumIcon.png">
+                                <p id="prio_name">Medium</p><img id="prio_icon" class="prio_icon"
+                                    src="../../img/mediumIcon.png">
                             </div>
                         </div>
                     </div>
@@ -208,23 +211,16 @@
                         <div>
                             <p>Assigned To:</p>
                         </div>
-                        <div  class="df">
-                        <div>
-                            <div class="contact_icon">EM</div>
-                            <div class="contact_icon">MB</div>
-                            <div class="contact_icon">AM</div>
+                        <div class="df">
+                            <div id="assignedContactsContainer">
+                            </div>
                         </div>
-                        <div>
-                            <p class="name_container">Emmanuel Mauer</p>
-                            <p class="name_container">Marcel Bauer</p>
-                            <p class="name_container">Anton Mayer</p>
-                        </div>
+                        <div id="noContactsAssigned" class="d-none"><span>No contacts assigned</span></div>
                     </div>
-                </div>
-                <div>
-                    <p>Subtasks</p>
-                    <div  class="sub_task_position">
-                           <div id="subtasks_container"></div>
+                    <div>
+                        <p>Subtasks</p>
+                        <div class="sub_task_position">
+                            <div id="subtasks_container"></div>
                         </div>
                     </div>
                     <div class="buttons">

@@ -197,7 +197,7 @@ function getContacts() {
         let html = '';
         for (let i = 0; i < keys.length; i++) {
             let contact = contacts[keys[i]];
-            html += `
+            html += /*HTML*/`
                 <div class="custom-option" data-value="${contact.name}">
                     <div class="profileCircleAndName"> 
                         <div class="profile-circle" style="background-color: ${contact.color};">

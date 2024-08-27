@@ -26,7 +26,8 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0rem 6rem 0 17rem;;
+    margin: 0rem 6rem 0 17rem;
+    ;
 }
 
 h1 {
@@ -268,7 +269,7 @@ h1 {
 
 .progressSection {
     display: flex;
-    
+
     gap: 10px;
     width: 220px;
     height: 16px;
@@ -370,6 +371,7 @@ h1 {
         transform: translateX(100%);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;
@@ -381,6 +383,7 @@ h1 {
         transform: translateX(0);
         opacity: 1;
     }
+
     to {
         transform: translateX(100%);
         opacity: 0;
@@ -450,4 +453,24 @@ h1 {
 .subtask-list {
     padding: 0;
     margin: 0;
+}
+
+.profileCircleAndNameForFullTaskView {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 0 16px;
+}
+
+#assignedContactsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 200px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.d-none {
+    display: none;
 }

@@ -594,3 +594,8 @@ input:focus {
     color: #fff;
     /* Optional: Adjust text color for better contrast */
 }
+
+.subtasksList {
+    height: 140px;
+    overflow-y: auto;
+}
