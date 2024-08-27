@@ -150,6 +150,9 @@ h1 {
     background-color: white;
     padding: 16px;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .NoTaskToDo {
@@ -478,7 +481,6 @@ h1 {
 #contactCircles {
     display: flex;
     align-items: center;
-    /* Optional: to center circles vertically */
 }
 
 .profile-circleSmall {
@@ -497,8 +499,7 @@ h1 {
     z-index: 1;
 }
 
-/* Ensure the first circle does not get pushed by the negative margin */
-.profile-circle:first-child {
+.profile-circleSmall:first-child {
     margin-left: 0;
 }
 
@@ -509,10 +510,18 @@ h1 {
     flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
-    margin-left: 10px;
 }
 
 .no-contacts {
     background-color: #ff0d0d;
     color: white;
+    border-radius: 999px;
+    padding: 1px 12px 1px 12px;
+    font-weight: 400;
+}
+
+.categoryPlacement {
+    display: flex;
+    justify-content: left;
+    width: 220px;
 }

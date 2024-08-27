@@ -33,7 +33,9 @@ async function renderTasks(category, id) {
                 console.log(task.assigned);
                 htmlContent.innerHTML += /*HTML*/ `
                 <div class="task" draggable="true" ondragend="dragend(event)" ondragstart="drag(event)" id="task${taskKey_1}" data-path="${task.path}" onclick="showTallTaskOverlay('${taskKey_1}', '${task.title}', '${task.category}', '${task.urgency}', '${task.dueDate}', '${task.description}', '${task.subtasks}')">
-                    <p id="category" class='${returnClass(task.category)}'>${task.category}</p>
+                    <div class="categoryPlacement">
+                        <p id="category" class='${returnClass(task.category)}'>${task.category}</p>
+                    </div>
                     <div class="taskTitleAndDescription">
                         <p class="title">${task.title}</p>
                         <p class="description">${task.description}</p>
@@ -75,7 +77,7 @@ function generateMoreContactsCircle() {
 
 function generateNoContactsCircle() {
     return `
-        <div class="profile-circleSmall no-contacts">
+        <div class="no-contacts">
             N/A
         </div>
     `;
