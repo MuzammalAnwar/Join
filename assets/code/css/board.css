@@ -245,7 +245,7 @@ h1 {
 }
 
 .progress-container {
-    width: 100%;
+    width: 128px;
     height: 8px;
     background-color: rgba(244, 244, 244, 1);
     border-radius: 8px;
@@ -473,4 +473,46 @@ h1 {
 
 .d-none {
     display: none;
+}
+
+#contactCircles {
+    display: flex;
+    align-items: center;
+    /* Optional: to center circles vertically */
+}
+
+.profile-circleSmall {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 300;
+    font-size: 12px;
+    color: white;
+    margin-left: -10px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure the first circle does not get pushed by the negative margin */
+.profile-circle:first-child {
+    margin-left: 0;
+}
+
+.contactsAndUrgencyInfo {
+    width: 220px;
+    height: 32px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.no-contacts {
+    background-color: #ff0d0d;
+    color: white;
 }

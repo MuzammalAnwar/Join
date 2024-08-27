@@ -30,6 +30,7 @@ async function renderTasks(category, id) {
         } else {
             filteredTasks.forEach(taskKey_1 => {
                 let task = taskArray[taskKey_1];
+                console.log(task.assigned);
                 htmlContent.innerHTML += /*HTML*/ `
                 <div class="task" draggable="true" ondragend="dragend(event)" ondragstart="drag(event)" id="task${taskKey_1}" data-path="${task.path}" onclick="showTallTaskOverlay('${taskKey_1}', '${task.title}', '${task.category}', '${task.urgency}', '${task.dueDate}', '${task.description}', '${task.subtasks}')">
                     <p id="category" class='${returnClass(task.category)}'>${task.category}</p>
@@ -37,9 +38,10 @@ async function renderTasks(category, id) {
                         <p class="title">${task.title}</p>
                         <p class="description">${task.description}</p>
                     </div>
-                    ${insertSubtaskBar(taskKey_1, task.subtasks)}
-                    <div>
+                        ${insertSubtaskBar(taskKey_1, task.subtasks)}
+                    <div class="contactsAndUrgencyInfo">
                         ${generateImage(task.urgency)}
+                        <div id="contactCircles">${generateContactCircles(task.assigned)}</div>
                     </div>
                 </div>
             `;
@@ -50,6 +52,52 @@ async function renderTasks(category, id) {
         console.error(`Error rendering tasks for category ${category}:`, error);
     }
 }
+
+function getContactArray(contacts) {
+    return contacts ? Object.values(contacts) : [];
+}
+
+function generateContactCircle(contact) {
+    return `
+        <div class="profile-circleSmall" style="background-color: ${getRandomRgbColor()};">
+            ${getInitials(contact)}
+        </div>
+    `;
+}
+
+function generateMoreContactsCircle() {
+    return `
+        <div class="profile-circleSmall more-contacts" style="background-color: #cccccc;">
+            ...
+        </div>
+    `;
+}
+
+function generateNoContactsCircle() {
+    return `
+        <div class="profile-circleSmall no-contacts">
+            N/A
+        </div>
+    `;
+}
+
+function generateContactCircles(contacts) {
+    const contactArray = getContactArray(contacts);
+
+    if (contactArray.length === 0) {
+        return generateNoContactsCircle();
+    }
+
+    let contactHTML = contactArray.slice(0, 4).map(generateContactCircle).join('');
+
+    if (contactArray.length > 4) {
+        contactHTML += generateMoreContactsCircle();
+    }
+
+    return contactHTML;
+}
+
+
 
 function updateTaskCategory(taskId, newCategory) {
     let taskElement = document.getElementById(taskId);
