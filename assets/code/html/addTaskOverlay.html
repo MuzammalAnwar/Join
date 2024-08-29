@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/addTask.css">
+</head>
+<body onload="includeHTML()">
+    <div class="overlay-background" id="taskOverlay">
+        <div class="overlay">
+            <div class="overlay_title_position">
+                <div>
+                    <h2 class="overlay_title">Add Task</h2>
+                </div>
+                <div class="overlay_close_button">
+                    <img onclick="hideOverlay()" src="../../img/Close.png">
+                </div>
+            </div>
+            <div class="container_overlay">
+                <form onsubmit="addToTask(event), clearSubtasks()">
+                    <div class="form">
+                        <div class="left">
+                            <div class="form-group">
+                                <label for="title">Title<b style="color: red;">*</b></label>
+                                <input required type="text" id="title" name="title">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea id="description" name="description" rows="4"
+                                    placeholder="Enter a description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Assigned to</label>
+                                <div class="custom-select-wrapper">
+                                    <div class="custom-select" id="assigned">
+                                        <div class="custom-select-trigger">
+                                            <span>Select contacts to assign</span>
+                                            <img src="../../img/dropDownMenuArrowIcon.png" class="arrow-icon" alt="Arrow">
+                                        </div>
+                                        <div class="custom-options">
+                                        </div>
+                                    </div>
+                                    <div class="selected-contacts">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="separator"></div>
+                        <div class="right">
+                            <div style="height: 96px;" class="form-group">
+                                <label for="due-date">Due Date<b style="color: red;">*</b></label>
+                                <input required type="date" id="due-date" name="due-date">
+                            </div>
+                            <div style="height: 88px;" class="form-group">
+                                <label>Prio</label>
+                                <div class="urgency">
+                                    <button
+                                        onclick="handleButtonClick('urgentIcon', '../../img/urgentIcon.png', '../../img/urgentIconHover.png', ['mediumIcon', 'lowIcon'])"
+                                        type="button" class="urgentStatus" data-status="urgent">
+                                        <img id="urgentIcon" class="urgentIcon" src="../../img/urgentIcon.png"
+                                            alt="Urgent Icon">
+                                        Urgent
+                                    </button>
+        
+                                    <button
+                                        onclick="handleButtonClick('mediumIcon', '../../img/mediumIcon.png', '../../img/mediumIconHover.png', ['urgentIcon', 'lowIcon'])"
+                                        type="button" class="urgentStatus" data-status="medium">
+                                        <img id="mediumIcon" class="mediumIcon" src="../../img/mediumIcon.png"
+                                            alt="Medium Icon">
+                                        Medium
+                                    </button>
+        
+                                    <button
+                                        onclick="handleButtonClick('lowIcon', '../../img/lowIcon.png', '../../img/lowIconHover.png', ['urgentIcon', 'mediumIcon'])"
+                                        type="button" class="urgentStatus" data-status="low">
+                                        <img id="lowIcon" class="lowIcon" src="../../img/lowIcon.png" alt="Low Icon">
+                                        Low
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="height: 80px;" class="form-group">
+                                <label for="category">Category<b style="color: red;">*</b></label>
+                                <select required id="category" name="category">
+                                    <option value="User Story">User Story</option>
+                                    <option value="Technical Task">Technical Task</option>
+                                </select>
+                            </div>
+                            <div style="height: 80px;" class="form-group">
+                                <label for="subtasks">Subtasks</label>
+                                <div class="input-container-addTask">
+                                    <input type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
+                                    <div id="icon-container" class="icon-container">
+                                        <img id="subtaskAdd" src="../../img/subtaskAddPlusIcon.png" alt="Add Subtask"
+                                            class="input-icon">
+                                        <img onclick="clearSubtasks()" id="subtaskCancel" src="../../img/subtaskCancelIcon.png"
+                                            alt="Cancel Subtask" class="input-icon hidden">
+                                        <div class="separatorSubtask"></div>
+                                        <img id="subtaskSave" onclick="addSubtask()" src="../../img/subtaskAddIcon.png"
+                                            alt="Save Subtask" class="input-icon hidden">
+                                    </div>
+                                </div>
+                                <div class="subtasksList">
+                                    <ul class="subtaskUnsortedList" id="subtaskList"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sendFormOptions">
+                        <p style="width: 170px; height: 27px;"><b style="color: red;">*</b>This field is required</p>
+                        <div class="button-group">
+                            <button onclick="clearSubtasks()" class="clearButton" type="reset">Clear <b>✕</b></button>
+                            <button class="createButton" type="submit">Create Task ✔</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/mainScript.js"></script>
+    <script src="../scripts/addTaskScript.js"></script>
+    <script src="../scripts/addTaskOverlay.js"></script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+@font-face {
+    font-family: "inter";
+    src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    font-family: "inter";
+}
+
+
+.edit_task_overlay_background {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit_task_overlay {
+    display: none;
+    width: 525px;
+    min-height: auto;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 1000;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.task_category {
+    width: 164px;
+    height: 36px;
+    margin-top: 40px;
+    margin-bottom: 32px;
+    border-radius: 8px;
+    background-color: rgba(0, 56, 255, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 27.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit_task_overlay_head {
+    width: 445px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.edit_overlay_content_position {
+    display: flex;
+    flex-direction: column;
+    width: 445px;
+}
+
+.edit_overlay_close_button {
+    width: 32px;
+    height: 32px;
+    border-radius: 56px;
+    margin-top: 40px;
+}
+
+.edit_overlay_close_button:hover {
+    background-color: rgba(209, 209, 209, 0.314);
+    cursor: pointer;
+}
+
+.edit_task_overlay_title {
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(42, 54, 71, 1);
+    display: flex;
+    flex-direction: column;
+    width: 445px;
+}
+
+.input_title {
+    border: 1px solid rgba(209, 209, 209, 1);
+    border-radius: 10px;
+    height: 40px;
+    padding-left: 10px;
+    margin-bottom: 40px;
+    margin-top: 8px;
+}
+
+.description_position {
+    display: flex;
+    flex-direction: column;
+    width: 445px;
+}
+
+.description_text {
+    height: 120px;
+    border: 1px solid rgba(209, 209, 209, 1);
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    margin-bottom: 40px;
+    margin-top: 8px;
+}
+
+.edit_date_position {
+    width: 445px;
+    display: flex;
+    flex-direction: column;
+}
+
+.date {
+    height: 48px;
+    border: 1px solid rgba(209, 209, 209, 1);
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 8px;
+    margin-bottom: 40px;
+}
+
+.edit_prio_position {
+    width: 445px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.prio_position label {
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.urgency {
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.urgentIcon,
+.lowIcon {
+    width: 20px;
+    height: 14.51px;
+    object-fit: contain;
+}
+
+.mediumIcon {
+    width: 20px;
+    height: 7.45px;
+    object-fit: contain;
+}
+
+.urgentStatus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 8px;
+    padding: 16px 10px 16px 10px;
+    background-color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    width: 136px;
+    height: 56px;
+    margin-top: 8px;
+}
+
+.urgentStatus:hover {
+    box-shadow: 0px 15px 12px 0px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+}
+
+.urgent_selected {
+    background-color: rgba(255, 61, 0, 1);
+    color: white;
+}
+
+.medium_selected {
+    background-color: rgba(255, 168, 0, 1);
+    color: white;
+}
+
+.low_selected {
+    background-color: rgba(122, 226, 41, 1);
+    color: white;
+}
+
+
+.prio_icon_position {
+    display: flex;
+    align-items: center;
+}
+
+.prio_icon {
+    margin-left: 8px;
+}
+
+.assigned_position {
+    width: 445px;
+}
+
+.custom-select-wrapper {
+    position: relative;
+    display: inline-block;
+    user-select: none;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.custom-select {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 440px;
+    cursor: pointer;
+}
+
+.custom-select-trigger {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 300;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-select-trigger img.arrow-icon {
+    width: 7.21px;
+    height: 4.6px;
+    transition: transform 0.3s ease;
+}
+
+.custom-options {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 438px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.custom-options.open {
+    display: block;
+}
+
+.custom-options.open+.custom-select-trigger img.arrow-icon {
+    transform: rotate(90deg);
+}
+
+.custom-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.custom-option:hover {
+    background-color: #f0f0f0;
+}
+
+.df {
+    display: flex;
+}
+
+.contact_icon {
+    border: 2px solid rgba(255, 255, 255, 1);
+    background: rgba(255, 122, 0, 1);
+    width: 42px;
+    height: 42px;
+    border-radius: 45px;
+    color: white;
+    text-align: center;
+    align-content: space-evenly;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.4px;
+    margin-left: 8px;
+    margin-bottom: 16px;
+}
+
+.subtasks_position {
+    width: 445px;
+}
+
+.input-container-addTask {
+    position: relative;
+}
+
+.input-container-addTask input {
+    height: 48px;
+    width: 100%;
+    padding: 8px;
+    padding-right: 70px;
+    /* Platz für das Icon */
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    border: 1px solid rgba(209, 209, 209, 1);
+}
+
+.icon-container {
+    position: absolute;
+    right: 10px;
+    top: 48%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.input-icon {
+    height: 24px;
+    width: auto;
+    cursor: pointer;
+}
+
+.input-icon.hidden {
+    display: none;
+}
+
+.input-icon:hover {
+    background-color: lightgrey;
+    border-radius: 999px;
+}
+
+.separatorSubtask {
+    height: 24px;
+    border-left: 1px solid rgba(209, 209, 209, 1);
+    margin: 0 5px;
+    display: none;
+    /* Standardmäßig ausgeblendet */
+}
+
+/* Wenn das Input-Feld fokussiert ist, ändern sich die Icons */
+.input-container-addTask input:focus+.icon-container .separatorSubtask {
+    display: block;
+}
+
+.input-container-addTask input:focus+.icon-container #subtaskAdd {
+    display: none;
+}
+
+.input-container-addTask input:focus+.icon-container #subtaskCancel,
+.input-container-addTask input:focus+.icon-container #subtaskSave {
+    display: inline;
+}
+
+
+.checkbox_position {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 8px;
+}
+
+.checkbox {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    margin-left: 16px;
+    margin-bottom: 16px;
+    cursor: pointer;
+}
+
+.sub_task_position {
+    display: flex;
+    align-items: center;
+}
+
+.sub_task {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+}
+
+.buttons {
+    width: 445px;
+    height: 24px;
+    gap: 10px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+    margin-bottom: 40px;
+}
+
+.ok_button {
+    width: 89px;
+    height: 57px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(42, 54, 71, 1);
+    font-size: 21px;
+    font-weight: 700;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.ok_button:hover {
+    cursor: pointer;
+    background-color: rgba(41, 171, 226, 1);
+}
+
+/* Other existing styles */
+
+/* Styling for the scrollable area */
+.scroll_area {
+    height: 705px;
+    overflow-y: scroll;
+    position: relative;
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+/* Custom scrollbar styling */
+.scroll_area::-webkit-scrollbar {
+    width: 16px;
+    /* width of the entire scrollbar */
+}
+
+.scroll_area::-webkit-scrollbar-track {
+    background: transparent;
+    /* background of the scrollbar track */
+}
+
+.scroll_area::-webkit-scrollbar-thumb {
+    background-color: rgba(168, 168, 168, 1);
+    /* color of the scrollbar thumb */
+    border-radius: 12px;
+    /* roundness of the thumb */
+    border: 5px solid transparent;
+    /* adds space around the thumb */
+    background-clip: padding-box;
+    /* ensures that the background color does not extend into the border */
+}
+
+.scroll_area::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(128, 128, 128, 1);
+    /* color on hover */
+}
