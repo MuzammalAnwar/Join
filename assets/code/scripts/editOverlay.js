@@ -4,9 +4,8 @@ document.querySelector('.edit_button').addEventListener('click', function() {
     const taskDescription = document.getElementById('task_description').textContent;
     const taskDueDate = document.getElementById('task_due_date').textContent;
     const taskPriority = document.getElementById('prio_name').textContent.toLowerCase();
-    const assignedTo = [...document.querySelectorAll('.profile-circle')].map(el => el.textContent); // Abrufen der zugewiesenen Personen
-
-    console.log("Task Title:", assignedTo); // Überprüfen, ob der Titel korrekt abgerufen wurde
+    const assignedTo = [...document.querySelectorAll('.profile-circle')].map(el => el.textContent); 
+    console.log("Task Title:", assignedTo);
     showEditOverlay(taskId, taskTitle, taskDescription, taskDueDate, taskPriority, assignedTo); 
 });
 
@@ -25,7 +24,6 @@ function showEditOverlay(taskId, title, description, dueDate, priority, assigned
         document.getElementById('edit_title').value = title || 'No title provided';
         document.getElementById('edit_description').value = description || 'No description provided';
         
-        // Datum setzen
         if (dueDate) {
             const localDate = new Date(dueDate);
             const offsetDate = new Date(localDate.getTime() - localDate.getTimezoneOffset() * 60000);
@@ -35,7 +33,6 @@ function showEditOverlay(taskId, title, description, dueDate, priority, assigned
             document.getElementById('edit_due_date').value = ''; 
         }
 
-        // Priorität setzen
         const priorityMapping = {
             'urgent': 'edit_urgentIcon',
             'medium': 'edit_mediumIcon',
@@ -47,9 +44,8 @@ function showEditOverlay(taskId, title, description, dueDate, priority, assigned
                 Object.values(priorityMapping).filter(id => id !== priorityMapping[priority]));
         }
 
-        // Zugewiesene Personen setzen
         const assignedContainer = document.querySelector('.selected-contacts');
-        assignedContainer.innerHTML = ''; // Vorherige Einträge entfernen
+        assignedContainer.innerHTML = ''; 
         
         if (assignedTo && assignedTo.length > 0) {
             assignedTo.forEach(contact => {
@@ -80,10 +76,6 @@ function getRandomRgbColor() {
 function getInitials(name) {
     return name.split(' ').map(word => word[0]).join('').toUpperCase();
 }
-
-
-
-
 
 function hideEditOverlay() {
     let editOverlay = document.getElementById('edit_task_overlay_background');
