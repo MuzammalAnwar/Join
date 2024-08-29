@@ -99,6 +99,8 @@ function generateContactCircles(contacts) {
     return contactHTML;
 }
 
+
+
 function updateTaskCategory(taskId, newCategory) {
     let taskElement = document.getElementById(taskId);
     let taskPath = taskElement.dataset.path;
