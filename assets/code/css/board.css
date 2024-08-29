@@ -341,57 +341,7 @@ h1 {
     }
 }
 
-.container_overlay {
-    display: flex;
-    justify-content: center;
-}
 
-.overlay_title {
-    font-size: 61px;
-    padding-left: 100px;
-}
-
-.overlay_title_position {
-    display: flex;
-    justify-content: space-between;
-}
-
-.overlay_close_button {
-    width: 32px;
-    height: 32px;
-    border-radius: 56px;
-    margin-top: 50px;
-    margin-right: 100px;
-}
-
-.overlay_close_button:hover {
-    background-color: rgba(209, 209, 209, 0.314);
-    cursor: pointer;
-}
-
-@keyframes slideInLeftTall {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes slideOutLeftTall {
-    from {
-        transform: translateX(0);
-        opacity: 1;
-    }
-
-    to {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-}
 
 .tall_task_overlay {
     animation: slideInLeftTall 0.5s ease-out;

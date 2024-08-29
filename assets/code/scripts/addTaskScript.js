@@ -107,7 +107,7 @@ function renderSubtasks() {
 function editSubtask(index) {
     let subtaskListItem = document.getElementById(`subtaskListItem${index}`);
     let subtaskText = subtasks[index];
-    
+
     subtaskListItem.innerHTML = /*HTML*/`
         <div class="subtaskEditContainer">
             <input class="editInput" type="text" value="${subtaskText}" class="subtaskEditInput" id="subtaskEditInput${index}">
@@ -123,12 +123,12 @@ function editSubtask(index) {
 function saveSubtask(index) {
     let input = document.getElementById(`subtaskEditInput${index}`);
     subtasks[index] = input.value;
-    renderSubtasks(); 
+    renderSubtasks();
 }
 
 function deleteSubtask(index) {
     subtasks.splice(index, 1);
-    renderSubtasks(); 
+    renderSubtasks();
 }
 
 function handleButtonClick(clickedIconId, originalSrc, hoverSrc, otherIconIds) {
@@ -176,12 +176,12 @@ function toggleInputIcons(inputId, addIconId, cancelIconId, saveIconId) {
             addIcon.classList.remove('hidden');
             cancelIcon.classList.add('hidden');
             saveIcon.classList.add('hidden');
-        }, 150); 
+        }, 150);
     });
 
     saveIcon.addEventListener('click', function (event) {
         addSubtask();
-        input.focus(); 
+        input.focus();
     });
 }
 
@@ -211,7 +211,7 @@ function getContacts() {
         }
         selectWrapper.innerHTML = html;
 
-        
+
         document.querySelectorAll('.custom-option').forEach(option => {
             option.addEventListener('click', handleOptionClick);
         });
@@ -220,8 +220,12 @@ function getContacts() {
 
 function updateTriggerText(selected) {
     let trigger = document.querySelector('.custom-select-trigger');
-    trigger.querySelector('span').textContent = selected.length > 0 ? '' : 'Select contacts to assign';
-}
+    if (trigger) {
+        trigger.addEventListener('click', toggleDropdown);
+    } else {
+        console.warn('.custom-select-trigger element not found');
+    }
+}    
 
 function addMoreIndicatorIfNeeded(selected, wrapper) {
     if (selected.length > 5) {
@@ -273,7 +277,7 @@ function closeDropdownOnClickOutside(e) {
 }
 
 function handleOptionClick(e) {
-    let option = e.currentTarget; 
+    let option = e.currentTarget;
     let checkbox = option.querySelector('input[type="checkbox"]');
 
     checkbox.checked = !checkbox.checked;
@@ -300,8 +304,12 @@ function initializeEventListeners() {
     let select = document.querySelector('.custom-select');
     let options = document.querySelector('.custom-options');
     let trigger = document.querySelector('.custom-select-trigger');
+    if (trigger) {
+        trigger.addEventListener('click', toggleDropdown);
+    } else {
+        console.warn('.custom-select-trigger element not found');
+    }
 
-    trigger.addEventListener('click', toggleDropdown);
     options.addEventListener('click', preventClickBubbling);
     document.addEventListener('click', closeDropdownOnClickOutside);
 }
