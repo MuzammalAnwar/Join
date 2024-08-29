@@ -275,3 +275,7 @@ p {
     transform: scale(1.1);
     color: rgba(41, 171, 226, 1);
 }
+
+.input-error {
+    border: 2px solid red;
+}

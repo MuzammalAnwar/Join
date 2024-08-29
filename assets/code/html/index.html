@@ -12,17 +12,17 @@
 <body onload="startAnimation()">
     <div id="page1" class="page1">
         <div class="icon_position">
-            <img id="logo" class="icon" src="../../img/Capa 2.png">
+            <img id="logo" class="icon" src="../../img/Capa 2.png" alt="Logo">
         </div>
     </div>
     <div id="loginPage" class="page1 hidden">
         <div class="signUp_button_position">
             <p class="text_style">Not a Join user?</p>
-            <button onclick="document.location='../html/signUpPage.html'" class="signUp_button">Sign up<a></a></button>
+            <button onclick="document.location='../html/signUpPage.html'" class="signUp_button">Sign up</button>
         </div>
         <div class="head_content_position">
             <div class="logo_container">
-                <img class="logo" src="../../img/Capa 2.png">
+                <img class="logo" src="../../img/Capa 2.png" alt="Logo">
             </div>
         </div>
         <div class="content">
@@ -32,37 +32,40 @@
                         <p class="login_card_brand">Log in</p>
                         <div class="login_card_brand_separator"></div>
                     </div>
-                    <div class="input_main_container">
-                        <div class="input_container_size">
-                            <div class="input_container">
-                                <input id="inputEmail" class="input_size" type="email" placeholder="Email">
-                                <img class="margin_input_icon" src="../../img/mail.png">
+                    <form onsubmit="return proceedLogin(event)">
+                        <div class="input_main_container">
+                            <div class="input_container_size">
+                                <div id="input_containerEmail" class="input_container">
+                                    <input id="inputEmail" class="input_size" type="email" name="email"
+                                        placeholder="Email" required>
+                                    <img class="margin_input_icon" src="../../img/mail.png" alt="Email Icon">
+                                </div>
+                                <div id="input_containerPassword" class="input_container">
+                                    <input minlength="5" id="inputPassword" class="input_size" type="password"
+                                        name="password" placeholder="Password" required>
+                                    <img class="margin_input_icon" src="../../img/lock.png" alt="Password Icon">
+                                </div>
                             </div>
-                            <div class="input_container">
-                                <input id="inputPassword" class="input_size" type="password" placeholder="Password">
-                                <img class="margin_input_icon" src="../../img/lock.png">
+                            <div class="df">
+                                <div>
+                                    <input id="rememberMe" class="checkbox" type="checkbox" name="rememberMe">
+                                </div>
+                                <div>
+                                    <label for="rememberMe">Remember me</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="df">
+                        <div class="button_position">
                             <div>
-                                <input class="checkbox" type="checkbox">
+                                <button type="submit" class="login_button">Log in</button>
                             </div>
                             <div>
-                                <p>Remember me</p>
+                                <button type="button"
+                                    onclick="document.location='./summeryUser.html'; localStorage.setItem('loggedInUserID', 'guestUser');"
+                                    class="guest_button">Guest Log in</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="button_position">
-                        <div>
-                            <button onclick="proceedLogin()" class="login_button">Log in</button>
-                        </div>
-                        <div>
-                            <button
-                                onclick="document.location='./summeryUser.html', localStorage.setItem('loggedInUserID', 'guestUser');"
-                                class="guest_button">Guest Log
-                                in</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="GTC_position">

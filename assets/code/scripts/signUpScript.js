@@ -1,9 +1,15 @@
+let nameInput = document.getElementById('inputName')
+let emailInput = document.getElementById('inputEmail')
+let passwordInput = document.getElementById('inputPassword')
+let confirmedPasswordInput = document.getElementById('inputConfirmPassword');
+let checkbox = document.getElementById('policyCheck')
+
 function getSignUpData() {
-    let signUpData = {
+    return {
         "userID": generateUniqueKey(),
-        "name": document.getElementById('inputName').value,
-        "email": document.getElementById('inputEmail').value,
-        "password": btoa(document.getElementById('inputPassword').value),
+        "name": nameInput.value,
+        "email": emailInput.value,
+        "password": btoa(passwordInput.value),
         "phone": null,
         "contacts": "N/A",
         "addedTasks": {
@@ -13,7 +19,6 @@ function getSignUpData() {
             "done": {}
         }
     }
-    return signUpData
 }
 
 async function saveUser(signUpData, userID) {
@@ -25,16 +30,15 @@ async function saveUser(signUpData, userID) {
     }
 }
 
-async function signUp() {
-    let checkbox = document.getElementById('policyCheck')
-    let confirmedPassword = document.getElementById('inputConfirmPassword').value;
+async function signUp(event) {
+    event.preventDefault()
     let userData = getSignUpData();
     if (checkbox.checked) {
-        if (atob(userData.password) === confirmedPassword) {
+        if (atob(userData.password) === confirmedPasswordInput.value) {
             await saveUser(userData, userData.userID);
             window.location.href = 'index.html';
         } else {
-            alert('Password is not the same');
+            notifyFailedAuthentication('input_containerPassword', 'input_containerConfirmedPassword', passwordInput, confirmedPasswordInput, 'Password is not the same', 'Password is not the same', 'Password', 'Confirm Password')
         }
     }
 }

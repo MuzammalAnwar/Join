@@ -10,62 +10,71 @@
 
 <body>
     <div class="head_content_position">
-        <img class="icon_size" src="../../img/Capa 2.png">
+        <img class="icon_size" src="../../img/Capa 2.png" alt="Logo">
     </div>
     <div class="content">
         <div class="signUp_container">
             <div class="signUp_card">
                 <div class="arrow_position">
                     <div onclick="window.location.href = 'index.html';" class="arrow_container">
-                        <img class="goToLogInIcon" src="../../img/arrow-left-line.png">
+                        <img class="goToLogInIcon" src="../../img/arrow-left-line.png" alt="Back to Login">
                     </div>
                     <div class="signUp_brand_container">
                         <p style="color: black;" class="signUp_card_brand">Sign up</p>
                         <div class="signUp_card_brand_separator"></div>
                     </div>
                 </div>
-                <div class="input_main_container">
-                    <div class="input_container_size">
-                        <div class="input_container">
-                            <input id="inputName" class="input_size" type="" placeholder="Name">
-                            <img class="margin_input_icon" src="../../img/person grey.png">
-                        </div>
-                        <div class="input_container">
-                            <input id="inputEmail" class="input_size" type="email" placeholder="Email">
-                            <img class="margin_input_icon" src="../../img/mail.png">
-                        </div>
-                        <div class="input_container">
-                            <input id="inputPassword" class="input_size" type="password" placeholder="Confirm Password">
-                            <img class="margin_input_icon" src="../../img/lock.png">
-                        </div>
-                        <div class="input_container">
-                            <input id="inputConfirmPassword" class="input_size" type="password" placeholder="Password">
-                            <img class="margin_input_icon" src="../../img/lock.png">
+                <form onsubmit="return signUp(event)">
+                    <div class="input_main_container">
+                        <div class="input_container_size">
+                            <div id="input_containerName" class="input_container">
+                                <input id="inputName" minlength="4" class="input_size" type="text" name="name" placeholder="Name"
+                                    required>
+                                <img class="margin_input_icon" src="../../img/person grey.png" alt="Name Icon">
+                            </div>
+                            <div id="input_containerEmail" class="input_container">
+                                <input id="inputEmail" class="input_size" type="email" name="email" placeholder="Email"
+                                    required>
+                                <img class="margin_input_icon" src="../../img/mail.png" alt="Email Icon">
+                            </div>
+                            <div id="input_containerPassword" class="input_container">
+                                <input minlength="5" id="inputPassword" class="input_size" type="password" name="password"
+                                    placeholder="Password" required>
+                                <img class="margin_input_icon" src="../../img/lock.png" alt="Password Icon">
+                            </div>
+                            <div id="input_containerConfirmedPassword" class="input_container">
+                                <input minlength="5" id="inputConfirmPassword" class="input_size" type="password"
+                                    name="confirmPassword" placeholder="Confirm Password" required>
+                                <img class="margin_input_icon" src="../../img/lock.png" alt="Confirm Password Icon">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="df checkbox_container">
-                    <div>
-                        <input id="policyCheck" class="checkbox" type="checkbox">
+                    <div class="df checkbox_container">
+                        <div>
+                            <input id="policyCheck" class="checkbox" type="checkbox" name="policy" required>
+                        </div>
+                        <div>
+                            <label for="policyCheck">I accept the Privacy Policy</label>
+                        </div>
                     </div>
-                    <div>
-                        <p>I accept the Privacy Policy</p>
+                    <div class="placeInMid">
+                        <button type="submit" class="signUp_button">Sign up</button>
                     </div>
-                </div>
-                <button onclick="signUp()" class="signUp_button">Sign up</button>
+                </form>
             </div>
         </div>
         <div class="GTC_position">
             <div>
-                <p>Privacy Policy</p>
+                <p onclick="window.location.href = 'privacy_policy.html';">Privacy Policy</p>
             </div>
             <div>
-                <p>Legal notice</p>
+                <p onclick="window.location.href = 'legalNotice.html';">Legal notice</p>
             </div>
         </div>
     </div>
     <script src="../scripts/signUpScript.js"></script>
     <script src="../scripts/mainScript.js"></script>
 </body>
+
 
 </html>

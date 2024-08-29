@@ -87,7 +87,22 @@ function setProfileCircleInitials() {
 
 function getRandomRgbColor() {
     let r = Math.floor(Math.random() * 256);
-    let g = Math.floor(Math.random() * 256); 
+    let g = Math.floor(Math.random() * 256);
     let b = Math.floor(Math.random() * 256);
     return `rgb(${r}, ${g}, ${b})`;
+}
+
+function notifyFailedAuthentication(inputField1Marker, inputField2Marker, Field1ValueResetID, Field2ValueResetID, msg1, msg2, resetPlaceholder1, resetPlaceholder2) {
+    document.getElementById(inputField1Marker).classList.add('input-error')
+    document.getElementById(inputField2Marker).classList.add('input-error')
+    Field1ValueResetID.placeholder = msg1;
+    Field2ValueResetID.placeholder = msg2;
+    setTimeout(() => {
+        document.getElementById(inputField1Marker).classList.remove('input-error')
+        document.getElementById(inputField2Marker).classList.remove('input-error')
+        Field1ValueResetID.placeholder = resetPlaceholder1;
+        Field2ValueResetID.placeholder = resetPlaceholder2;
+    }, 2000)
+    Field1ValueResetID.value = '';
+    Field2ValueResetID.value = '';
 }

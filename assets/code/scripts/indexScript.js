@@ -1,9 +1,11 @@
+let emailInput = document.getElementById('inputEmail');
+let passwordInput = document.getElementById('inputPassword');
+
 function getLoginData() {
-    let loginData = {
-        "email": document.getElementById('inputEmail').value,
-        "password": btoa(document.getElementById('inputPassword').value)
-    }
-    return loginData
+    return {
+        email: emailInput.value,
+        password: btoa(passwordInput.value)
+    };
 }
 
 async function authenticateUser() {
@@ -19,13 +21,14 @@ async function authenticateUser() {
     return null;
 }
 
-function proceedLogin() {
+function proceedLogin(event) {
+    event.preventDefault();
     authenticateUser().then(user => {
         if (user) {
             localStorage.setItem('loggedInUserID', user.userID);
             window.location.href = 'summeryUser.html';
         } else {
-            alert('Incorrect password or email')
+            notifyFailedAuthentication('input_containerEmail', 'input_containerPassword', emailInput, passwordInput, 'Please enter valid email', 'Please enter valid password', 'Email', 'Password')
         }
     });
 }

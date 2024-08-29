@@ -495,8 +495,6 @@ h1 {
     font-size: 12px;
     color: white;
     margin-left: -10px;
-    position: relative;
-    z-index: 1;
 }
 
 .profile-circleSmall:first-child {

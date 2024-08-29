@@ -51,6 +51,12 @@ a {
     line-height: 25.2px;
 }
 
+.signUp_button:hover {
+    cursor: pointer;
+    background-color: rgba(41, 171, 226, 1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
 .signUp_button_position {
     display: flex;
     align-items: center;
@@ -174,10 +180,11 @@ a {
 }
 
 .checkbox_container {
-    width: 231px;
+    width: 100%;
     height: 24px;
     display: flex;
-    align-items: flex-end;
+    justify-content: center;
+    margin: 42px 0 0 0;
 }
 
 p {
@@ -203,4 +210,15 @@ p {
 
 .goToLogInIcon:hover {
     background-color: lightgrey;
+}
+
+.placeInMid {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 22px 0 0 0;
+}
+
+.input-error {
+    border: 2px solid red;
 }
