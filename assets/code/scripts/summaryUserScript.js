@@ -54,7 +54,7 @@ async function renderTaskCategoryStats() {
             }
         } catch (error) {
             console.error("Error fetching tasks for category:", category, error);
-            document.getElementById(category).innerText = '0'; // Set to 0 on error
+            document.getElementById(category).innerText = '0';
         }
     }
     document.getElementById('totalAmountOfTasks').innerText = '0';
