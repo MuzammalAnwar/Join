@@ -5,12 +5,10 @@ document.querySelector('.edit_button').addEventListener('click', function() {
     const taskDueDate = document.getElementById('task_due_date').textContent;
     const taskPriority = document.getElementById('prio_name').textContent.toLowerCase();
     const assignedTo = [...document.querySelectorAll('.profile-circle')].map(el => el.textContent); 
-    console.log("Task Title:", assignedTo);
     showEditOverlay(taskId, taskTitle, taskDescription, taskDueDate, taskPriority, assignedTo); 
 });
 
 function showEditOverlay(taskId, title, description, dueDate, priority, assignedTo) {
-    console.log("showEditOverlay function called with taskId: ", taskId);
     hideTallTaskOverlay(); 
     
     let tallOverlay = document.getElementById('tall_task_overlay_background');
@@ -33,16 +31,7 @@ function showEditOverlay(taskId, title, description, dueDate, priority, assigned
             document.getElementById('edit_due_date').value = ''; 
         }
 
-        const priorityMapping = {
-            'urgent': 'edit_urgentIcon',
-            'medium': 'edit_mediumIcon',
-            'low': 'edit_lowIcon'
-        };
-        
-        if (priorityMapping[priority]) {
-            handleButtonClick(priorityMapping[priority], `../../img/${priority}Icon.png`, `../../img/${priority}IconHover.png`, 
-                Object.values(priorityMapping).filter(id => id !== priorityMapping[priority]));
-        }
+        setPriorityInEditOverlay(priority);
 
         const assignedContainer = document.querySelector('.selected-contacts');
         assignedContainer.innerHTML = ''; 
@@ -64,6 +53,105 @@ function showEditOverlay(taskId, title, description, dueDate, priority, assigned
     } else {
         console.error('Edit overlay element not found');
     }
+}
+
+function saveTaskChanges(event) {
+    event.preventDefault();
+
+    const selectedElement = document.querySelector('.urgent_selected, .medium_selected, .low_selected');
+    let selectedPriority = '';
+    if (selectedElement) {
+        selectedPriority = selectedElement.classList[0].split('_')[0];
+    } else {
+        alert("Please select a priority before saving.");
+        return;
+    }
+
+    const updatedTask = {
+        title: document.getElementById('edit_title').value,
+        description: document.getElementById('edit_description').value,
+        dueDate: document.getElementById('edit_due_date').value,
+        priority: selectedPriority,
+        assignedTo: [...document.querySelectorAll('.selected-contacts .profile-circle')].map(el => el.textContent),
+        subtasks: [...document.querySelectorAll('#edit_subtaskList li')].map(li => ({
+            title: li.textContent,
+            completed: li.classList.contains('completed')
+        }))
+    };
+
+    const taskId = currentTaskId;
+
+    console.log('Saving task:', taskId, updatedTask); 
+
+    fetchTask(`/tasks/${taskId}`, updatedTask, 'PUT')
+    .then(responseData => {
+        console.log('Response data:', responseData); 
+        updateTaskInBoard(taskId, updatedTask);
+        hideEditOverlay();
+    })
+    .catch(error => {
+        console.error('Fehler beim Speichern der Änderungen:', error);
+        alert('Es gab einen Fehler beim Speichern der Änderungen. Bitte versuche es erneut.');
+    });
+}
+
+
+
+function updateTaskInBoard(taskId, updatedTask) {
+    const taskElement = document.getElementById(`task${taskId}`);
+    if (taskElement) {
+        taskElement.querySelector('.title').textContent = updatedTask.title;
+        taskElement.querySelector('.description').textContent = updatedTask.description;
+        taskElement.querySelector('#task_due_date').textContent = updatedTask.dueDate;
+        taskElement.querySelector('#prio_name').textContent = updatedTask.priority;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('edit_urgentIcon').addEventListener('click', function() {
+        setPriorityInEditOverlay('urgent');
+    });
+
+    document.getElementById('edit_mediumIcon').addEventListener('click', function() {
+        setPriorityInEditOverlay('medium');
+    });
+
+    document.getElementById('edit_lowIcon').addEventListener('click', function() {
+        setPriorityInEditOverlay('low');
+    });
+});
+
+function setPriorityInEditOverlay(selectedPriority) {
+    const priorityMapping = {
+        'urgent': {
+            buttonId: 'edit_urgentIcon',
+            selectedClass: 'edit_urgent_selected',
+            whiteIcon: '../../img/Prio alta white.png',
+            defaultIcon: '../../img/urgentIcon.png'
+        },
+        'medium': {
+            buttonId: 'edit_mediumIcon',
+            selectedClass: 'edit_medium_selected',
+            whiteIcon: '../../img/Prio media white.png',
+            defaultIcon: '../../img/mediumIcon.png'
+        },
+        'low': {
+            buttonId: 'edit_lowIcon',
+            selectedClass: 'edit_low_selected',
+            whiteIcon: '../../img/Prio baja white.png',
+            defaultIcon: '../../img/lowIcon.png'
+        }
+    };
+
+    Object.keys(priorityMapping).forEach(priority => {
+        const button = document.getElementById(priorityMapping[priority].buttonId);
+        button.classList.remove('edit_urgent_selected', 'edit_medium_selected', 'edit_low_selected');
+        button.querySelector('img').src = priorityMapping[priority].defaultIcon;
+    });
+
+    const selectedButton = document.getElementById(priorityMapping[selectedPriority].buttonId);
+    selectedButton.classList.add(priorityMapping[selectedPriority].selectedClass);
+    selectedButton.querySelector('img').src = priorityMapping[selectedPriority].whiteIcon;
 }
 
 function getRandomRgbColor() {

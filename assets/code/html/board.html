@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/board.css">
     <link rel="stylesheet" href="../css/addTask.css">
     <link rel="stylesheet" href="../css/taskOverlay.css">
+    <link rel="stylesheet" href="../css/editOverlay.css">
     <title>Join | Board</title>
 </head>
 
@@ -237,12 +238,103 @@
             </div>
         </div>
     </div>
+    <div id="edit_task_overlay_background" class="edit_task_overlay_background">
+        <div class="edit_task_overlay">
+            <div class="edit_task_overlay_head">
+                <div class="edit_overlay_close_button">
+                    <img onclick="hideEditOverlay()" src="../../img/Close.png" alt="Close">
+                </div>
+            </div>
+            <div class="scroll_area">
+                <form id="editTaskForm" onsubmit="saveTaskChanges(event)">
+                    <div class="edit_task_overlay_title">
+                        <label for="edit_title">Title</label>
+                        <input class="input_title" required type="text" id="edit_title" name="title">
+                    </div>
+                    <div class="description_position">
+                        <label for="edit_description">Description</label>
+                        <textarea class="description_text" id="edit_description"
+                            rows="3">Build start page with recipe recommendation.</textarea>
+                    </div>
+                    <div class="edit_date_position">
+                        <label>Due date</label>
+                        <input class="date" type="date" id="edit_due_date" name="due-date">
+                    </div>
+                    <div class="edit_prio_position">
+                        <label>Priority</label>
+                        <div class="urgency">
+                            <button id="edit_urgentIcon" type="button" class="urgentStatus">
+                                <img class="urgentIcon" src="../../img/urgentIcon.png" alt="Urgent Icon">
+                                Urgent
+                            </button>
+                            <button id="edit_mediumIcon" type="button" class="urgentStatus">
+                                <img class="mediumIcon" src="../../img/mediumIcon.png" alt="Medium Icon">
+                                Medium
+                            </button>
+                            <button id="edit_lowIcon" type="button" class="urgentStatus">
+                                <img class="lowIcon" src="../../img/lowIcon.png" alt="Low Icon">
+                                Low
+                            </button>
+                        </div>
+                    </div>
+                    <div class="assigned_position">
+                        <label>Assigned To:</label>
+                        <div class="custom-select-wrapper">
+                            <div class="custom-select" id="edit_assigned">
+                                <div class="custom-select-trigger">
+                                    <span>Select contacts to assign</span>
+                                    <img src="../../img/dropDownMenuArrowIcon.png" class="arrow-icon" alt="Arrow">
+                                </div>
+                                <div class="custom-options">
+                                    <!-- Options will be added here dynamically -->
+                                </div>
+                            </div>
+                            <div class="selected-contacts">
+                                <!-- Selected profile circles will be added here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subtasks_position">
+                        <div style="height: 80px;" class="form-group">
+                            <label for="edit_subtasks">Subtasks</label>
+                            <div class="input-container-addTask">
+                                <input type="text" id="edit_subtasks" name="subtasks" placeholder="Add new subtask"
+                                    src="../../img/subtaskAddPlusIcon.png">
+                                <div id="icon-container" class="icon-container">
+                                    <img id="edit_subtaskAdd" src="../../img/subtaskAddPlusIcon.png" alt="Add Subtask"
+                                        class="input-icon">
+                                    <img onclick="clearSubtasks()" id="edit_subtaskCancel"
+                                        src="../../img/subtaskCancelIcon.png" alt="Cancel Subtask"
+                                        class="input-icon hidden">
+                                    <div class="separatorSubtask"></div>
+                                    <img id="edit_subtaskSave" onclick="addSubtask()" src="../../img/subtaskAddIcon.png"
+                                        alt="Save Subtask" class="input-icon hidden">
+                                </div>
+                            </div>
+                            <div class="subtasksList">
+                                <ul class="subtaskUnsortedList" id="edit_subtaskList"></ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="buttons">
+                        <button type="submit" class="ok_button">Ok <img src="../../img/check.png"></button>
+                    </div>
+                </form>
+                <div class="scroll_bar"></div>
+            </div>
+        </div>
+    </div>
+
     <script src="../scripts/includeHTML.js"></script>
     <script src="../scripts/mainScript.js"></script>
+    <script src="../scripts/htmlTemplates.js"></script>
+    <script src="../scripts/editOverlay.js"></script>
     <script src="../scripts/boardScript.js"></script>
     <script src="../scripts/tallTaskOverlay.js"></script>
     <script src="../scripts/addTaskScript.js"></script>
-    <script src="../scripts/htmlTemplates.js"></script>
     <script src="../scripts/dragAndDropScript.js"></script>
 </body>
 

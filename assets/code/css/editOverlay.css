@@ -181,17 +181,17 @@ body {
     cursor: pointer;
 }
 
-.urgent_selected {
+.edit_urgent_selected {
     background-color: rgba(255, 61, 0, 1);
     color: white;
 }
 
-.medium_selected {
+.edit_medium_selected {
     background-color: rgba(255, 168, 0, 1);
     color: white;
 }
 
-.low_selected {
+.edit_low_selected {
     background-color: rgba(122, 226, 41, 1);
     color: white;
 }
@@ -309,7 +309,6 @@ body {
     width: 100%;
     padding: 8px;
     padding-right: 70px;
-    /* Platz für das Icon */
     box-sizing: border-box;
     border-radius: 10px;
     margin-bottom: 6px;
@@ -346,10 +345,8 @@ body {
     border-left: 1px solid rgba(209, 209, 209, 1);
     margin: 0 5px;
     display: none;
-    /* Standardmäßig ausgeblendet */
 }
 
-/* Wenn das Input-Feld fokussiert ist, ändern sich die Icons */
 .input-container-addTask input:focus+.icon-container .separatorSubtask {
     display: block;
 }
@@ -425,9 +422,6 @@ body {
     background-color: rgba(41, 171, 226, 1);
 }
 
-/* Other existing styles */
-
-/* Styling for the scrollable area */
 .scroll_area {
     height: 705px;
     overflow-y: scroll;
@@ -439,29 +433,21 @@ body {
     margin-bottom: 24px;
 }
 
-/* Custom scrollbar styling */
 .scroll_area::-webkit-scrollbar {
     width: 16px;
-    /* width of the entire scrollbar */
 }
 
 .scroll_area::-webkit-scrollbar-track {
     background: transparent;
-    /* background of the scrollbar track */
 }
 
 .scroll_area::-webkit-scrollbar-thumb {
     background-color: rgba(168, 168, 168, 1);
-    /* color of the scrollbar thumb */
     border-radius: 12px;
-    /* roundness of the thumb */
     border: 5px solid transparent;
-    /* adds space around the thumb */
     background-clip: padding-box;
-    /* ensures that the background color does not extend into the border */
 }
 
 .scroll_area::-webkit-scrollbar-thumb:hover {
     background-color: rgba(128, 128, 128, 1);
-    /* color on hover */
 }
