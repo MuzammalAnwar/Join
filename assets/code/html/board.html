@@ -117,29 +117,19 @@
                                 <label for="due-date">Due Date<b style="color: red;">*</b></label>
                                 <input required type="date" id="due-date" name="due-date">
                             </div>
-                            <div style="height: 88px;" class="form-group">
+                            <div class="edit_prio_position">
                                 <label>Prio</label>
                                 <div class="urgency">
-                                    <button
-                                        onclick="handleButtonClick('urgentIcon', '../../img/urgentIcon.png', '../../img/urgentIconHover.png', ['mediumIcon', 'lowIcon'])"
-                                        type="button" class="urgentStatus" data-status="urgent">
-                                        <img id="urgentIcon" class="urgentIcon" src="../../img/urgentIcon.png"
-                                            alt="Urgent Icon">
+                                    <button id="edit_urgentIcon" type="button" class="urgentStatus" data-status="urgent">
+                                        <img class="urgentIcon" src="../../img/urgentIcon.png" alt="Urgent Icon">
                                         Urgent
                                     </button>
-
-                                    <button
-                                        onclick="handleButtonClick('mediumIcon', '../../img/mediumIcon.png', '../../img/mediumIconHover.png', ['urgentIcon', 'lowIcon'])"
-                                        type="button" class="urgentStatus" data-status="medium">
-                                        <img id="mediumIcon" class="mediumIcon" src="../../img/mediumIcon.png"
-                                            alt="Medium Icon">
+                                    <button id="edit_mediumIcon" type="button" class="urgentStatus" data-status="medium">
+                                        <img class="mediumIcon" src="../../img/mediumIcon.png" alt="Medium Icon">
                                         Medium
                                     </button>
-
-                                    <button
-                                        onclick="handleButtonClick('lowIcon', '../../img/lowIcon.png', '../../img/lowIconHover.png', ['urgentIcon', 'mediumIcon'])"
-                                        type="button" class="urgentStatus" data-status="low">
-                                        <img id="lowIcon" class="lowIcon" src="../../img/lowIcon.png" alt="Low Icon">
+                                    <button id="edit_lowIcon" type="button" class="urgentStatus" data-status="low">
+                                        <img class="lowIcon" src="../../img/lowIcon.png" alt="Low Icon">
                                         Low
                                     </button>
                                 </div>
@@ -334,6 +324,7 @@
     <script src="../scripts/editOverlay.js"></script>
     <script src="../scripts/boardScript.js"></script>
     <script src="../scripts/tallTaskOverlay.js"></script>
+    <script src="../scripts/addTaskOverlay.js"></script>
     <script src="../scripts/addTaskScript.js"></script>
     <script src="../scripts/dragAndDropScript.js"></script>
 </body>
