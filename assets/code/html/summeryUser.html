@@ -13,18 +13,15 @@
     <div w3-include-html="navbarTemplate.html"></div>
     <div class="main_container">
         <div class="join_title_container">
-            <div>
-                <p class="join_title">Join 360</p>
-            </div>
+            <p class="join_title">Join 360</p>
             <div class="title_separator"></div>
-            <div>
-                <p class="join_subtitle">Key Metrics at a Glance</p>
-            </div>
+            <p class="join_subtitle">Key Metrics at a Glance</p>
+            <div class="title_separatorResponsive"></div>
         </div>
         <div class="df">
             <div class="content">
                 <div class="distance" onclick="window.location.href = 'board.html'">
-                    <div class="to-do">
+                    <div class="to-do responsiveSizeUpperStats">
                         <div class="image_container">
                             <img class="primary" src="../../img/edit_dark_blue.png">
                             <img class="secondary" src="../../img/edit_white.png">
@@ -34,7 +31,7 @@
                             <p class="text">To-do</p>
                         </div>
                     </div>
-                    <div class="done" onclick="window.location.href = 'board.html'">
+                    <div class="done responsiveSizeUpperStats" onclick="window.location.href = 'board.html'">
                         <div class="image_container">
                             <img class="primary" src="../../img/checkmark.png">
                             <img class="secondary" src="../../img/checkmark_white.png">
@@ -60,22 +57,22 @@
                     </div>
                 </div>
                 <div class="distance">
-                    <div class="task_in_board">
+                    <div class="task_in_board responsiveSizeLowerStats">
                         <div class="number_position" onclick="window.location.href = 'board.html'">
                             <p id="totalAmountOfTasks" class="large_number"></p>
                             <p class="text">Tasks in<br> Board</p>
                         </div>
                     </div>
-                    <div class="task_in_progress">
+                    <div class="task_in_progress responsiveSizeLowerStats">
                         <div class="number_position" onclick="window.location.href = 'board.html'">
                             <p id="inProgress" class="large_number"></p>
                             <p class="text">Tasks in<br> Progress</p>
                         </div>
                     </div>
-                    <div class="awaiting_feedback">
+                    <div class="awaiting_feedback responsiveSizeLowerStats">
                         <div class="number_position" onclick="window.location.href = 'board.html'">
                             <p id="awaitFeedback" class="large_number"></p>
-                            <p class="text">Awaiting Feedback</p>
+                            <p class="text">Awaiting<br>Feedback</p>
                         </div>
                     </div>
                 </div>
