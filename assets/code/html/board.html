@@ -37,11 +37,17 @@
                     <p>To Do</p>
                     <div onclick="showOverlay()" class="plusIconBoard"></div>
                 </div>
+                <div id="categoryToDo" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
+                    ondragleave="dragleave(event)">
+                </div>
             </div>
             <div class="categoryAndIconBar">
                 <div class="bar">
                     <p>In Progress</p>
                     <div onclick="showOverlay()" class="plusIconBoard"></div>
+                </div>
+                <div id="categoryInProgress" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
+                    ondragleave="dragleave(event)">
                 </div>
             </div>
             <div class="categoryAndIconBar">
@@ -49,28 +55,22 @@
                     <p>Await feedback</p>
                     <div onclick="showOverlay()" class="plusIconBoard"></div>
                 </div>
+                <div id="categoryAwaitFeedback" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
+                    ondragleave="dragleave(event)">
+                </div>
             </div>
             <div class="categoryAndIconBar">
                 <div class="bar">
                     <p>Done</p>
                 </div>
+                <div id="categoryDone" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
+                    ondragleave="dragleave(event)">
+                </div>
             </div>
         </section>
     </section>
-    <section class="taskSection">
-        <div id="categoryToDo" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
-            ondragleave="dragleave(event)">
-        </div>
-        <div id="categoryInProgress" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
-            ondragleave="dragleave(event)">
-        </div>
-        <div id="categoryAwaitFeedback" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
-            ondragleave="dragleave(event)">
-        </div>
-        <div id="categoryDone" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
-            ondragleave="dragleave(event)">
-        </div>
-    </section>
+    <!-- <section class="taskSection">
+    </section> -->
     <div class="overlay-background" id="taskOverlay">
         <div class="overlay">
             <div class="overlay_title_position">

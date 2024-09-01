@@ -222,3 +222,67 @@ p {
 .input-error {
     border: 2px solid red;
 }
+
+@media (max-width: 660px) {
+    .signUp_card {
+        width: 90%;
+    }
+
+    .responsiveWidth {
+        width: 90%;
+    }
+
+    .input_main_container {
+        width: unset;
+    }
+
+    .input_container_size {
+        width: unset;
+    }
+
+    .input_container {
+        width: unset;
+    }
+
+    .signUp_card_brand {
+        font-size: 47px;
+    }
+
+    .icon_size {
+        height: 78.08px;
+        width: 64px;
+        position: absolute;
+        left: 38px;
+        top: 37px;
+    }
+
+    .signUp_card_brand_separator {
+        width: 88px;
+    }
+}
+
+@media (max-width: 380px) {
+    .signUp_card_brand {
+        font-size: 38px;
+    }
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 375px) and (min-device-height: 667px) and (max-device-height: 667px) and (-webkit-device-pixel-ratio: 2) {
+    .signUp_card {
+        margin-bottom: 18px;
+    }
+
+    .GTC_position {
+        padding: 0 0 16px 0;
+    }
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 380px) and (min-device-height: 740px) and (max-device-height: 760px) and (-webkit-min-device-pixel-ratio: 4) {
+    .signUp_card {
+        margin-bottom: 18px;
+    }
+
+    .GTC_position {
+        padding: 0 0 16px 0;
+    }
+}

@@ -40,6 +40,14 @@ body {
     padding-left: 40px;
 }
 
+.text_style_responsive {
+    font-family: "inter";
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    color: black;
+}
+
 .text_style {
     font-family: "inter";
     font-size: 20px;
@@ -49,6 +57,20 @@ body {
 }
 
 .signUp_button {
+    width: 91px;
+    height: 49px;
+    border-radius: 8px;
+    border: none;
+    padding: 15px 16px 15px 16px;
+    background-color: #2A3647;
+    color: #FFFFFF;
+    font-family: "inter";
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19.2px;
+}
+
+.signUp_button_responsive {
     width: 91px;
     height: 49px;
     border-radius: 8px;
@@ -76,6 +98,14 @@ body {
     right: 77px;
     top: 88px;
     justify-content: flex-end;
+}
+
+.signUp_button_position_responive {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    position: unset;
+    margin: 0 0 12px 0;
 }
 
 .content {
@@ -278,4 +308,113 @@ p {
 
 .input-error {
     border: 2px solid red;
+}
+
+.responsiveSignUpContainer {
+    display: none;
+}
+
+.logo_container {}
+
+
+@media (max-width: 700px) {
+    .login_card {
+        width: 90%;
+        height: 515px;
+    }
+
+    .content {
+        height: 77vh;
+    }
+}
+
+@media (max-width: 630px) {
+    .responsiveSignUpContainer {
+        display: block;
+    }
+
+    .signUp_button_position {
+        display: none;
+    }
+
+    .GTC_position {
+        position: absolute;
+        bottom: 20px;
+        margin-bottom: unset;
+    }
+
+    .head_content_position {
+        height: 10vh;
+    }
+
+    .logo {
+        width: 64px;
+        height: 78.03px;
+    }
+
+    .logo_container {
+        position: absolute;
+        top: 37px;
+        left: 38px;
+    }
+
+    .logo {
+        padding: 0;
+    }
+}
+
+@media (max-width: 530px) {
+    .input_main_container {
+        width: unset;
+    }
+
+    .input_container_size {
+        width: unset;
+    }
+
+    .input_container {
+        width: unset;
+    }
+
+    .input_size {
+        width: unset;
+    }
+
+    .responsiveWidth {
+        width: 90%;
+    }
+}
+
+@media (max-width: 430px) {
+    .button_position {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .login_button {
+        width: 180px;
+    }
+
+    .login_card_brand {
+        font-size: 47px;
+    }
+
+    .login_card_brand_separator {
+        width: 88px;
+    }
+
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 375px) and (min-device-height: 667px) and (max-device-height: 667px) and (-webkit-device-pixel-ratio: 2) {
+    .head_content_position {
+        display: none;
+    }
+
+    .content {
+        padding: 12px 0 0 0;
+    }
+
+    .responsiveSignUpContainer {
+        margin: 16px 0 0 0;
+    }
 }
