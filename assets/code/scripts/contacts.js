@@ -9,7 +9,6 @@ function showOverlay() {
     document.getElementById('d_none').classList.remove('d_none');
 }
 
-
 function hideOverlay() {
     let overlay = document.getElementById('overlay');
     overlay.classList.add('slide-out');
@@ -19,7 +18,6 @@ function hideOverlay() {
         document.getElementById('d_none').classList.add('d_none');
     }, 500);
 }
-
 
 function getRandomColor() {
     let colors = [
@@ -43,7 +41,6 @@ function getRandomColor() {
     return colors[Math.floor(Math.random() * colors.length)];
 }
 
-
 function showNotification() {
     let notification = document.getElementById('notification');
     notification.classList.add('show-notification');
@@ -52,7 +49,6 @@ function showNotification() {
         notification.classList.remove('show-notification');
     }, 3000);
 }
-
 
 function createContact(event) {
     event.preventDefault();
@@ -85,8 +81,6 @@ function createContact(event) {
     });
 }
 
-
-
 function showContactDetails(name, email, phone, color) {
     document.getElementById('largeCardIcon').textContent = name.charAt(0);
     document.getElementById('largeCardIcon').style.backgroundColor = color;
@@ -99,7 +93,6 @@ function showContactDetails(name, email, phone, color) {
     document.querySelector('.edit_button').setAttribute('onclick', `showEditOverlay('${name}', '${email}', '${phone}', '${color}')`);
 }
 
-
 function clearLargeCard() {
     document.getElementById('largeCardIcon').textContent = '';
     document.getElementById('largeCardIcon').style.backgroundColor = 'transparent';
@@ -109,7 +102,6 @@ function clearLargeCard() {
 
     document.getElementById('largeCard').style.display = 'none';
 }
-
 
 function showEditOverlay(name, email, phone, color) {
     let initials = getInitials(name);
@@ -128,8 +120,6 @@ function showEditOverlay(name, email, phone, color) {
     editOverlay.style.display = 'flex';
 }
 
-
-
 function hideEditOverlay() {
     let editOverlay = document.getElementById('editOverlay');
     editOverlay.classList.add('slide-out');
@@ -143,7 +133,6 @@ function cancelEdit() {
     hideOverlay();
     document.getElementById('contactForm').reset(); 
 }
-
 
 function saveContact(event) {
     event.preventDefault();
@@ -194,7 +183,6 @@ function saveContact(event) {
     showContactDetails(name, email, phone, color, contactId || newContactId);
     hideEditOverlay();
 }
-
 
 function deleteContact() {
     let currentName = document.getElementById('largeCard').getAttribute('data-current-name');

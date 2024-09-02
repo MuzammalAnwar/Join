@@ -12,19 +12,22 @@
     <div w3-include-html="headerTemplate.html"></div>
     <div w3-include-html="navbarTemplate.html"></div>
     <div class="main_container">
-        <div class="df">
+        <div class="df contacts_scrollbar_position">
             <div class="contact_list">
-                <div class="contact_main_container">
+                <div class="scroll_area_contacts">
                     <div class="button_container">
                         <button onclick="showOverlay()" class="add_button">Add new contact<img class="button_icon"
-                                src="../../img/person_add.png"></button>
-                    </div>
-                    <div>
-                        <div id="contactList" class="contact_container"></div>
+                            src="../../img/person_add.png"></button>
+                        </div>
+                        <div class="contact_main_container">
+                        <div class="contact_container">
+                            <div id="contactList" ></div>
+                            <div class="mobile_contact_button"><img onclick="showOverlay()" src="../../img/contact_icon.png"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="d_none_contacts_view">
                 <div id="largeCardContainer" class="contact_title_container">
                     <div>
                         <p class="contact_title">Contacts</p>
@@ -33,6 +36,8 @@
                     <div>
                         <p class="contact_subtitle">Better with a team</p>
                     </div>
+                    <div class="title_separator_respo"></div>
+
                 </div>
                 <div id="largeCard" class="contact_large_card" style="display: none;">
                     <div class="tall_card_header">

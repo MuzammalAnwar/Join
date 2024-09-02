@@ -55,6 +55,10 @@ a {
     height: 96px;
 }
 
+.logo_header {
+    display: none;
+}
+
 .user_container {
     display: flex;
     align-items: center;
@@ -121,6 +125,15 @@ p {
     color: rgba(205, 205, 205, 1);
 }
 
+.d_none_help {
+    display: none;
+}
+
+.help_menu:hover {
+    color: rgba(41, 171, 226, 1);
+    cursor: pointer;
+}
+
 .legalNotice:hover {
     color: rgba(41, 171, 226, 1);
     cursor: pointer;
@@ -134,4 +147,35 @@ p {
 .logOut:hover {
     color: rgba(41, 171, 226, 1);
     cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+    .header_main_container{
+        padding: 0;
+    }
+
+.headline {
+    display: none;
+}
+
+.help_icon {
+    display: none;
+}
+
+.logo_header {
+    display: flex;
+    width: 32px;
+    padding-left: 40px;
+}
+
+.user {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+}
+
+.d_none_help {
+    display: block;
+}
+
 }
