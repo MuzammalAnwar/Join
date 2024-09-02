@@ -270,23 +270,22 @@
                         </div>
                     </div>
                     <div class="assigned_position">
-                        <label>Assigned To:</label>
-                        <div class="custom-select-wrapper">
-                            <div class="custom-select" id="edit_assigned">
-                                <div class="custom-select-trigger">
-                                    <span>Select contacts to assign</span>
+                        <label style="padding-bottom: 12px;">Assigned To:</label>
+                        <div class="select-wrapper">
+                            <div class="select-box" id="edit_assigned">
+                                <div class="select-trigger">
+                                    <span>Change assigned contacts</span>
                                     <img src="../../img/dropDownMenuArrowIcon.png" class="arrow-icon" alt="Arrow">
                                 </div>
-                                <div class="custom-options">
+                                <div id="contactsAssigned" class="select-options">
                                     <!-- Options will be added here dynamically -->
                                 </div>
                             </div>
-                            <div class="selected-contacts">
+                            <div id="selectedContacts" class="selected-contacts">
                                 <!-- Selected profile circles will be added here -->
                             </div>
                         </div>
                     </div>
-
                     <div class="subtasks_position">
                         <div style="height: 80px;" class="form-group">
                             <label for="edit_subtasks">Subtasks</label>
