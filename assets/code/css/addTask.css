@@ -243,6 +243,11 @@ input:focus {
     margin-top: 120px;
 }
 
+.required_field {
+    width: 170px; 
+    height: 27px;
+}
+
 .urgency {
     height: 56px;
     display: flex;
@@ -598,4 +603,196 @@ input:focus {
 .subtasksList {
     height: 140px;
     overflow-y: auto;
+}
+
+@media (max-width: 1000px) {
+    .form {
+        flex-direction: column;
+        align-items: center;
+        width: 396px;
+    }
+
+    form {
+        width: 396px;
+    }
+
+    .left {
+        width: 396px;
+    }
+
+    .right {
+        width: 396px;
+    }
+
+    .title_position {
+        width: 396px;
+        font-size: 47px;
+        margin-bottom: 48px;
+    }
+
+    .separator {
+        display: none;
+    }
+
+    body::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    .form-group input {
+        width: 396px;
+        height: 40px;
+    }
+
+    .form-group textarea {
+        width: 396px;
+        height: 88px;
+    }
+
+    .custom-select {
+        width: 396px;
+    }
+
+    .form-group select {
+        width: 396px;
+    }
+
+    .urgency {
+        width: 396px;
+    }
+
+    .urgentStatus {
+        width: 121.33px;
+        height: 41px;
+    }
+
+    .icon-container {
+        right: 8px;
+        top: 45%;
+    }
+
+    .sendFormOptions {
+        width: 396px;
+        margin-bottom: 120px;
+        margin-top: 0;
+        position: fixed;
+        bottom: -40px;
+        background-color: rgba(246, 247, 248, 1);
+        padding-bottom: 16px;
+        padding-top: 16px;
+    }
+
+    .subtasks_margin {
+        margin-bottom: 300px;
+    }
+
+    .clearButton {
+        display: none;
+    }
+
+    .button-group{
+        width: 183px;
+    }
+
+    .required_field {
+        font-size: 16px;
+        width: 163px;
+    }
+
+    .createButton {
+        width: 183px;
+        height: 56px;
+    }
+}
+
+@media (max-width: 440px) {
+    .form {
+        flex-direction: column;
+        align-items: center;
+        width: 300px;
+    }
+
+    form {
+        width: 300px;
+    }
+
+    .left {
+        width: 300px;
+    }
+
+    .right {
+        width: 300px;
+    }
+
+    .title_position {
+        width: 300px;
+        font-size: 47px;
+        margin-bottom: 48px;
+    }
+
+    .separator {
+        display: none;
+    }
+
+    body::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    .form-group input {
+        width: 300px;
+        height: 40px;
+    }
+
+    .form-group textarea {
+        width: 300px;
+        height: 88px;
+    }
+
+    .custom-select {
+        width: 300px;
+    }
+
+    .custom-select-trigger {
+        font-size: 12px;
+    }
+
+    .form-group select {
+        width: 300px;
+    }
+
+    .urgency {
+        width: 300px;
+    }
+
+    .createButton {
+        width: 124px;
+        height: 48px;
+        font-size: 14px;
+    }
+
+    .required_field {
+        font-size: 12px;
+        width: 163px;
+        margin-top: 16px;
+    }
+
+    .urgentStatus {
+        width: 96px;
+        height: 41px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .sendFormOptions {
+        width: 300px;
+        margin-bottom: 100px;
+        position: fixed;
+        bottom: -24px;
+        background-color: rgba(246, 247, 248, 1);
+        padding-bottom: 8px;
+        padding-top: 8px;
+    }
+
+    .subtasks_margin {
+       max-height: 150px;
+    }
 }

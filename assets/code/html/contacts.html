@@ -22,12 +22,16 @@
                         <div class="contact_main_container">
                         <div class="contact_container">
                             <div id="contactList" ></div>
-                            <div class="mobile_contact_button"><img onclick="showOverlay()" src="../../img/contact_icon.png"></div>
+                            <div class="mobile_contact_button">
+                                <img id="contactButton" onclick="toggleButtonColor()" src="../../img/contact_icon.png">
+                                <img id="contactButtonActive" src="../../img/contact_icon_blue.png" style="display: none;">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="d_none_contacts_view">
+            <div id="contactView" class="d_none_contacts_view contact_view contact_overlay">
+                <div class="back_icon" onclick="showContactList()"><img src="../../img/back_icon.png"></div>
                 <div id="largeCardContainer" class="contact_title_container">
                     <div>
                         <p class="contact_title">Contacts</p>

@@ -5,7 +5,7 @@ function init() {
 function showOverlay() {
     let overlay = document.getElementById('overlay');
     overlay.classList.remove('slide-out');
-    overlay.style.display = 'flex';
+    overlay.style.display = 'block';
     document.getElementById('d_none').classList.remove('d_none');
 }
 
@@ -91,7 +91,15 @@ function showContactDetails(name, email, phone, color) {
     document.getElementById('largeCard').setAttribute('data-current-name', name);
     document.getElementById('largeCard').style.display = 'block';
     document.querySelector('.edit_button').setAttribute('onclick', `showEditOverlay('${name}', '${email}', '${phone}', '${color}')`);
+
+    
 }
+
+function showContactList() {
+    document.querySelector('.contact_list').style.display = 'flex'; 
+    document.getElementById('contactView').style.display = 'none'; 
+}
+
 
 function clearLargeCard() {
     document.getElementById('largeCardIcon').textContent = '';
@@ -128,6 +136,12 @@ function hideEditOverlay() {
         document.getElementById('editOverlayBackground').classList.add('d_none');
     }, 500);
 }
+
+function showContactMobile() {
+    console.log('showContactMobile aufgerufen');
+    document.getElementById('contactView').classList.remove('d_none_contacts_view');
+}
+
 
 function cancelEdit() {
     hideOverlay();
@@ -168,7 +182,7 @@ function saveContact(event) {
         saveContactToFirebase(contact).then(newContactId => {
             let contactList = document.getElementById('contactList');
             contactList.innerHTML += `
-                <div class="contact_small_card" data-contact-id="${newContactId}" onclick="showContactDetails('${name}', '${email}', '${phone}', '${color}', '${newContactId}')">
+                <div class="contact_small_card" data-contact-id="${newContactId}" onclick="showContactDetails('${name}', '${email}', '${phone}', '${color}', '${newContactId}'), showContactMobile()">
                     <p class="contact_icon" style="background-color: ${color}">${initials}</p>
                     <div>
                         <p class="m0">${name}</p>
@@ -214,6 +228,34 @@ function getInitials(name) {
         initials += names[names.length - 1].charAt(0);
     }
     return initials.toUpperCase();
+}
+// Funktion zum Umschalten der Button-Farbe beim Klicken
+function toggleButtonColor() {
+    let button = document.getElementById('contactButton');
+    let buttonActive = document.getElementById('contactButtonActive');
+
+    if (button.style.display !== 'none') {
+        button.style.display = 'none';
+        buttonActive.style.display = 'block';
+    } else {
+        button.style.display = 'block';
+        buttonActive.style.display = 'none';
+    }
+
+    showOverlay(); 
+}
+
+function resetButtonColor() {
+    let button = document.getElementById('contactButton');
+    let buttonActive = document.getElementById('contactButtonActive');
+
+    button.style.display = 'block';
+    buttonActive.style.display = 'none';
+}
+
+function hideOverlay() {
+    document.getElementById('d_none').classList.add('d_none');
+    resetButtonColor();
 }
 
 window.addEventListener('load', init)
