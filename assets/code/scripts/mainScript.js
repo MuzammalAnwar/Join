@@ -106,3 +106,8 @@ function notifyFailedAuthentication(inputField1Marker, inputField2Marker, Field1
     Field1ValueResetID.value = '';
     Field2ValueResetID.value = '';
 }
+
+function toggleUserMenu() {
+    let menu = document.getElementById('userMenu');
+    menu.classList.toggle('d_none');
+}

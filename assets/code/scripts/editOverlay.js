@@ -1,3 +1,19 @@
+const iconPaths = {
+    'edit_urgentIcon': {
+        defaultIcon: '../../img/urgentIcon.png',
+        hoverIcon: '../../img/urgentIconHover.png'
+    },
+    'edit_mediumIcon': {
+        defaultIcon: '../../img/mediumIcon.png',
+        hoverIcon: '../../img/mediumIconHover.png'
+    },
+    'edit_lowIcon': {
+        defaultIcon: '../../img/lowIcon.png',
+        hoverIcon: '../../img/lowIconHover.png'
+    }
+};
+let editSubtasks = []
+let currentCardID;
 document.querySelector('.edit_button').addEventListener('click', function () {
     const taskId = currentTaskId;
     const taskTitle = document.getElementById('tall_task_overlay_title').textContent;
@@ -10,7 +26,7 @@ document.querySelector('.edit_button').addEventListener('click', function () {
 
 function showEditOverlay(taskId, title, description, dueDate, priority, assignedTo) {
     hideTallTaskOverlay();
-
+    currentCardID = taskId
     let tallOverlay = document.getElementById('tall_task_overlay_background');
     if (tallOverlay) {
         tallOverlay.style.display = 'none';
@@ -54,6 +70,7 @@ function showEditOverlay(taskId, title, description, dueDate, priority, assigned
         console.error('Edit overlay element not found');
     }
     renderAssignedContactsInEditOverlay(taskId)
+    renderExistingSubtasks(taskId)
 }
 
 function saveTaskChanges(event) {
@@ -108,51 +125,16 @@ function updateTaskInBoard(taskId, updatedTask) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('edit_urgentIcon').addEventListener('click', function () {
-        setPriorityInEditOverlay('urgent');
+function togglePriority(button, selectedClass, iconPaths) {
+    const buttons = document.querySelectorAll('.urgency button');
+    buttons.forEach(btn => {
+        btn.classList.remove('edit_urgent_selected', 'edit_medium_selected', 'edit_low_selected');
+        const img = btn.querySelector('img');
+        img.src = iconPaths[btn.id].defaultIcon;
     });
-
-    document.getElementById('edit_mediumIcon').addEventListener('click', function () {
-        setPriorityInEditOverlay('medium');
-    });
-
-    document.getElementById('edit_lowIcon').addEventListener('click', function () {
-        setPriorityInEditOverlay('low');
-    });
-});
-
-function setPriorityInEditOverlay(selectedPriority) {
-    const priorityMapping = {
-        'urgent': {
-            buttonId: 'edit_urgentIcon',
-            selectedClass: 'edit_urgent_selected',
-            whiteIcon: '../../img/Prio alta white.png',
-            defaultIcon: '../../img/urgentIcon.png'
-        },
-        'medium': {
-            buttonId: 'edit_mediumIcon',
-            selectedClass: 'edit_medium_selected',
-            whiteIcon: '../../img/Prio media white.png',
-            defaultIcon: '../../img/mediumIcon.png'
-        },
-        'low': {
-            buttonId: 'edit_lowIcon',
-            selectedClass: 'edit_low_selected',
-            whiteIcon: '../../img/Prio baja white.png',
-            defaultIcon: '../../img/lowIcon.png'
-        }
-    };
-
-    Object.keys(priorityMapping).forEach(priority => {
-        const button = document.getElementById(priorityMapping[priority].buttonId);
-        button.classList.remove('edit_urgent_selected', 'edit_medium_selected', 'edit_low_selected');
-        button.querySelector('img').src = priorityMapping[priority].defaultIcon;
-    });
-
-    const selectedButton = document.getElementById(priorityMapping[selectedPriority].buttonId);
-    selectedButton.classList.add(priorityMapping[selectedPriority].selectedClass);
-    selectedButton.querySelector('img').src = priorityMapping[selectedPriority].whiteIcon;
+    button.classList.add(selectedClass);
+    const img = button.querySelector('img');
+    img.src = iconPaths[button.id].hoverIcon;
 }
 
 function getRandomRgbColor() {
@@ -246,6 +228,68 @@ async function updateAssignedContacts(taskID) {
     } catch (error) {
         console.error('Error updating contacts:', error);
     }
+}
+
+async function getExistingSubtasks(taskID) {
+    return await fetchTask(`/${userID}/addedTasks/${taskID}/subtasks`, null, 'GET');
+}
+
+async function renderExistingSubtasks(taskID) {
+    let subtaskList = document.getElementById('edit_subtaskList');
+    subtaskList.innerHTML = '';
+    editSubtasks = await getExistingSubtasks(taskID);
+    if (editSubtasks) {
+        editSubtasks.forEach((subtask, i) => {
+            subtaskList.innerHTML += /*HTML*/`
+            <li class="subtaskListItem" id="editSubtaskListItem${i}">
+                <p class="subtaskListText">${subtask}</p>
+                <div class="subtaskIcons">
+                    <img onclick="editSubtaskInEditOverlay(${i}, '${taskID}')" src="../../img/subtaskEditIcon.png" class="subtaskIcon" alt="Edit Icon">
+                    <img onclick="deleteEditSubtask(${i},'${taskID}')" src="../../img/subtaskTrashIcon.png" class="subtaskIcon" alt="Trash Icon">
+                </div>
+            </li>
+        `;
+        });
+    }
+}
+
+function editSubtaskInEditOverlay(index, taskID) {
+    let subtaskListItem = document.getElementById(`editSubtaskListItem${index}`);
+    let subtaskText = editSubtasks[index];
+    subtaskListItem.innerHTML = /*HTML*/`
+        <div class="subtaskEditContainer">
+            <input class="editInput" type="text" value="${subtaskText}" class="subtaskEditInput" id="editSubtaskEditInput${index}">
+            <div class="subtaskEditSeparator"></div>
+            <div class="subtaskEditIcons">
+                <img onclick="renderExistingSubtasks('${taskID}')" src="../../img/subtaskTrashIcon.png" class="subtaskIcon" alt="Cancel Icon">
+                <img onclick="saveEditSubtask(${index},'${taskID}')" src="../../img/subtaskAddIcon.png" class="subtaskIcon" alt="Save Icon">
+            </div>
+        </div>
+    `;
+}
+
+async function addEditSubtask() {
+    const subtaskInput = document.getElementById('edit_subtasks');
+    const newSubtask = subtaskInput.value.trim();
+    if (newSubtask) {
+        editSubtasks.push(newSubtask);
+        await fetchTask(`/${userID}/addedTasks/${currentCardID}/subtasks`, editSubtasks, 'PUT');
+        subtaskInput.value = '';
+        await renderExistingSubtasks(currentCardID);
+    }
+}
+
+async function saveEditSubtask(index, taskID) {
+    let input = document.getElementById(`editSubtaskEditInput${index}`);
+    editSubtasks[index] = input.value;
+    await fetchTask(`/${userID}/addedTasks/${taskID}/subtasks`, editSubtasks, 'PUT');
+    await renderExistingSubtasks(taskID);
+}
+
+async function deleteEditSubtask(index, taskID) {
+    editSubtasks.splice(index, 1);
+    await fetchTask(`/${userID}/addedTasks/${taskID}/subtasks`, editSubtasks, 'PUT');
+    await renderExistingSubtasks(taskID);
 }
 
 document.querySelector('.select-trigger').addEventListener('click', function () {

@@ -102,13 +102,15 @@ body {
 }
 
 .description_text {
-    height: 120px;
     border: 1px solid rgba(209, 209, 209, 1);
     border-radius: 10px;
     padding-left: 10px;
     padding-top: 10px;
     margin-bottom: 40px;
     margin-top: 8px;
+    resize: block;
+    max-height: 200px;
+    min-height: 150px;
 }
 
 .edit_date_position {
@@ -537,4 +539,20 @@ body {
     color: white;
     font-weight: bold;
     margin-right: 10px;
+}
+
+.editSubtaskList {
+    max-height: 140px;
+    overflow-y: auto;
+}
+
+#subtasks_container {
+    max-height: 120px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+#task_description {
+    max-height: 150px;
+    overflow-y: auto;
 }

@@ -10,7 +10,7 @@ a {
 }
 
 .legalNoticeText {
-    margin: 0 50px 50px 300px;
+    margin: 99px 50px 50px 300px;
 }
 
 .contractDetails {
@@ -111,4 +111,19 @@ p.Body p span span {
 
 .multiline {
     white-space: pre-line;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .legalNoticeText {
+        margin: 99px 0px 80px 0px;
+        padding: 12px;
+    }
+
+    .contractDetails {
+        padding-left: 0;
+    }
 }

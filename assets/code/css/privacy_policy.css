@@ -16,5 +16,17 @@ a {
 }
 
 .privacy_policy_text {
-    margin: 0 50px 50px 300px;
+    margin: 96px 50px 50px 300px;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .privacy_policy_text {
+        margin: 96px 0px 80px 0px;
+        padding: 12px 6px 80px;
+        word-break: break-word;
+    }
 }

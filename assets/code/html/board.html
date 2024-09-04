@@ -255,20 +255,24 @@
                     <div class="edit_prio_position">
                         <label>Priority</label>
                         <div class="urgency">
-                            <button id="edit_urgentIcon" type="button" class="urgentStatus">
+                            <button id="edit_urgentIcon" type="button" class="urgentStatus"
+                                onclick="togglePriority(this, 'edit_urgent_selected', iconPaths)">
                                 <img class="urgentIcon" src="../../img/urgentIcon.png" alt="Urgent Icon">
                                 Urgent
                             </button>
-                            <button id="edit_mediumIcon" type="button" class="urgentStatus">
+                            <button id="edit_mediumIcon" type="button" class="urgentStatus"
+                                onclick="togglePriority(this, 'edit_medium_selected', iconPaths)">
                                 <img class="mediumIcon" src="../../img/mediumIcon.png" alt="Medium Icon">
                                 Medium
                             </button>
-                            <button id="edit_lowIcon" type="button" class="urgentStatus">
+                            <button id="edit_lowIcon" type="button" class="urgentStatus"
+                                onclick="togglePriority(this, 'edit_low_selected', iconPaths)">
                                 <img class="lowIcon" src="../../img/lowIcon.png" alt="Low Icon">
                                 Low
                             </button>
                         </div>
                     </div>
+
                     <div class="assigned_position">
                         <label style="padding-bottom: 12px;">Assigned To:</label>
                         <div class="select-wrapper">
@@ -293,28 +297,20 @@
                                 <input type="text" id="edit_subtasks" name="subtasks" placeholder="Add new subtask"
                                     src="../../img/subtaskAddPlusIcon.png">
                                 <div id="icon-container" class="icon-container">
-                                    <img id="edit_subtaskAdd" src="../../img/subtaskAddPlusIcon.png" alt="Add Subtask"
-                                        class="input-icon">
-                                    <img onclick="clearSubtasks()" id="edit_subtaskCancel"
-                                        src="../../img/subtaskCancelIcon.png" alt="Cancel Subtask"
-                                        class="input-icon hidden">
-                                    <div class="separatorSubtask"></div>
-                                    <img id="edit_subtaskSave" onclick="addSubtask()" src="../../img/subtaskAddIcon.png"
-                                        alt="Save Subtask" class="input-icon hidden">
+                                    <img id="edit_subtaskAdd" onclick="addEditSubtask()"
+                                        src="../../img/subtaskAddPlusIcon.png" alt="Add Subtask" class="input-icon">
                                 </div>
                             </div>
-                            <div class="subtasksList">
+                            <div id="editSubtaskContainer" class="editSubtaskList">
                                 <ul class="subtaskUnsortedList" id="edit_subtaskList"></ul>
                             </div>
                         </div>
-
-                    </div>
-
-                    <div class="buttons">
-                        <button type="submit" class="ok_button">Ok <img src="../../img/check.png"></button>
                     </div>
                 </form>
                 <div class="scroll_bar"></div>
+            </div>
+            <div class="buttons" id="confirmEditButton">
+                <button type="submit" class="ok_button">Ok <img src="../../img/check.png"></button>
             </div>
         </div>
     </div>
