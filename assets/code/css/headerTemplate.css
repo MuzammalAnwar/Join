@@ -24,6 +24,7 @@ a {
     left: 0;
     right: 0;
     top: 0;
+    z-index: 998;
 }
 
 .help_icon:hover {
@@ -153,32 +154,32 @@ p {
 }
 
 @media (max-width: 1000px) {
-    .header_main_container{
+    .header_main_container {
         padding: 0;
     }
 
-.headline {
-    display: none;
-}
+    .headline {
+        display: none;
+    }
 
-.help_icon {
-    display: none;
-}
+    .help_icon {
+        display: none;
+    }
 
-.logo_header {
-    display: flex;
-    width: 32px;
-    padding-left: 40px;
-}
+    .logo_header {
+        display: flex;
+        width: 32px;
+        padding-left: 40px;
+    }
 
-.user {
-    width: 40px;
-    height: 40px;
-    font-size: 16px;
-}
+    .user {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
 
-.d_none_help {
-    display: block;
-}
+    .d_none_help {
+        display: block;
+    }
 
 }

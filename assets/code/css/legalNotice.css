@@ -117,10 +117,25 @@ p.Body p span span {
     display: none;
 }
 
+.arrow_containerPP {
+    position: absolute;
+    top: 135px;
+    right: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.arrow_containerPP:hover {
+    background-color: lightgray;
+    border-radius: 999px;
+}
+
 @media (max-width: 1000px) {
     .legalNoticeText {
         margin: 99px 0px 80px 0px;
-        padding: 12px;
+        padding: 12px 6px 80px;
     }
 
     .contractDetails {

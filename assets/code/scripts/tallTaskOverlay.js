@@ -20,15 +20,15 @@ function showTallTaskOverlay(taskId, title, category, urgency, dueDate, descript
         return;
     }
 
-    document.getElementById('tall_task_overlay_title').textContent = title || 'No title provided';
+    document.getElementById('tall_task_overlay_title').textContent = title || '';
 
     let categoryElement = document.getElementById('task_category');
     if (categoryElement) {
         categoryElement.textContent = category || 'No category';
     }
 
-    document.getElementById('task_due_date').textContent = formatDate(dueDate) || 'No due date';
-    document.getElementById('task_description').textContent = description || 'No description provided';
+    document.getElementById('task_due_date').textContent = formatDate(dueDate) || '';
+    document.getElementById('task_description').textContent = description || '';
 
     let subtasksContainer = document.getElementById('subtasks_container');
     if (subtasksContainer) {

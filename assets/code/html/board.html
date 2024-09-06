@@ -238,7 +238,7 @@
                 </div>
             </div>
             <div class="scroll_area">
-                <form id="editTaskForm" onsubmit="saveTaskChanges(event)">
+                <form id="editTaskForm">
                     <div class="edit_task_overlay_title">
                         <label for="edit_title">Title</label>
                         <input class="input_title" required type="text" id="edit_title" name="title">
@@ -256,17 +256,17 @@
                         <label>Priority</label>
                         <div class="urgency">
                             <button id="edit_urgentIcon" type="button" class="urgentStatus"
-                                onclick="togglePriority(this, 'edit_urgent_selected', iconPaths)">
+                                onclick="togglePriority(this, 'edit_urgent_selected', iconPaths, 'urgent')">
                                 <img class="urgentIcon" src="../../img/urgentIcon.png" alt="Urgent Icon">
                                 Urgent
                             </button>
                             <button id="edit_mediumIcon" type="button" class="urgentStatus"
-                                onclick="togglePriority(this, 'edit_medium_selected', iconPaths)">
+                                onclick="togglePriority(this, 'edit_medium_selected', iconPaths, 'medium')">
                                 <img class="mediumIcon" src="../../img/mediumIcon.png" alt="Medium Icon">
                                 Medium
                             </button>
                             <button id="edit_lowIcon" type="button" class="urgentStatus"
-                                onclick="togglePriority(this, 'edit_low_selected', iconPaths)">
+                                onclick="togglePriority(this, 'edit_low_selected', iconPaths, 'low')">
                                 <img class="lowIcon" src="../../img/lowIcon.png" alt="Low Icon">
                                 Low
                             </button>
@@ -310,7 +310,7 @@
                 <div class="scroll_bar"></div>
             </div>
             <div class="buttons" id="confirmEditButton">
-                <button type="submit" class="ok_button">Ok <img src="../../img/check.png"></button>
+                <button onclick="saveTaskChanges()"  class="ok_button">Ok <img src="../../img/check.png"></button>
             </div>
         </div>
     </div>

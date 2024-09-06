@@ -14,6 +14,7 @@ const iconPaths = {
 };
 let editSubtasks = []
 let currentCardID;
+let currentUrgency = 'none'
 document.querySelector('.edit_button').addEventListener('click', function () {
     const taskId = currentTaskId;
     const taskTitle = document.getElementById('tall_task_overlay_title').textContent;
@@ -35,8 +36,8 @@ function showEditOverlay(taskId, title, description, dueDate, priority, assigned
     let editOverlay = document.getElementById('edit_task_overlay_background');
     if (editOverlay) {
         editOverlay.style.display = 'flex';
-        document.getElementById('edit_title').value = title || 'No title provided';
-        document.getElementById('edit_description').value = description || 'No description provided';
+        document.getElementById('edit_title').value = title || '';
+        document.getElementById('edit_description').value = description || '';
 
         if (dueDate) {
             const localDate = new Date(dueDate);
@@ -73,104 +74,112 @@ function showEditOverlay(taskId, title, description, dueDate, priority, assigned
     renderExistingSubtasks(taskId)
 }
 
-function saveTaskChanges(event) {
-    event.preventDefault();
+async function saveTaskChanges() {
+    Promise.all([
+        saveEditTitleToFirebase(),
+        saveEditDescriptionToFirebase(),
+        saveEditDateToFirebase(),
+        saveEditSubtasksToFirebase(),
+        saveEditPrioToFirebase(),
+        updateAssignedContacts(currentCardID)
+    ]).then(() => {
+        hideEditOverlay()
+        initRender();
+    }).catch(error => {
+        console.error("Error during initialization:", error);
+    });
+}
 
-    const selectedElement = document.querySelector('.urgent_selected, .medium_selected, .low_selected');
-    let selectedPriority = '';
-    if (selectedElement) {
-        selectedPriority = selectedElement.classList[0].split('_')[0];
-    } else {
-        alert("Please select a priority before saving.");
-        return;
+async function saveEditTitleToFirebase() {
+    let title = document.getElementById('edit_title').value;
+    return fetchTask(`/${userID}/addedTasks/${currentCardID}/title`, title, 'PUT')
+}
+
+async function saveEditDescriptionToFirebase() {
+    let description = document.getElementById('edit_description').value;
+    return fetchTask(`/${userID}/addedTasks/${currentCardID}/description`, description, 'PUT')
+}
+
+async function saveEditDateToFirebase() {
+    let dueDate = document.getElementById('edit_due_date').value;
+    return fetchTask(`/${userID}/addedTasks/${currentCardID}/dueDate`, dueDate, 'PUT')
+}
+
+async function updateAssignedContacts(taskID) {
+    let checkedContacts = document.querySelectorAll('.custom-option input[type="checkbox"]:checked');
+    let assignedContacts = [];
+    checkedContacts.forEach(checkbox => {
+        assignedContacts.push(checkbox.value);
+    });
+    try {
+        await fetchTask(`/${userID}/addedTasks/${taskID}/assigned`, assignedContacts, 'PUT');
+    } catch (error) {
+        console.error('Error updating contacts:', error);
     }
+}
 
-    const updatedTask = {
-        title: document.getElementById('edit_title').value,
-        description: document.getElementById('edit_description').value,
-        dueDate: document.getElementById('edit_due_date').value,
-        priority: selectedPriority,
-        assignedTo: [...document.querySelectorAll('.selected-contacts .profile-circle')].map(el => el.textContent),
-        subtasks: [...document.querySelectorAll('#edit_subtaskList li')].map(li => ({
-            title: li.textContent,
-            completed: li.classList.contains('completed')
-        }))
+async function saveEditSubtasksToFirebase() {
+    let response = await fetchTask(`/${userID}/addedTasks/${currentCardID}/subtasks`, editSubtasks, 'PUT');
+    await renderExistingSubtasks(currentCardID);
+    return response;
+}
+
+async function saveEditPrioToFirebase() {
+    if (currentUrgency !== 'none') {
+        return fetchTask(`/${userID}/addedTasks/${currentCardID}/urgency`, currentUrgency, 'PUT');
+    }
+    return null
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('edit_urgentIcon').addEventListener('click', function () {
+        setPriorityInEditOverlay('urgent');
+    });
+
+    document.getElementById('edit_mediumIcon').addEventListener('click', function () {
+        setPriorityInEditOverlay('medium');
+    });
+
+    document.getElementById('edit_lowIcon').addEventListener('click', function () {
+        setPriorityInEditOverlay('low');
+    });
+});
+
+function setPriorityInEditOverlay(selectedPriority) {
+    const priorityMapping = {
+        'urgent': {
+            buttonId: 'edit_urgentIcon',
+            selectedClass: 'edit_urgent_selected',
+            whiteIcon: '../../img/Prio alta white.png',
+            defaultIcon: '../../img/urgentIcon.png'
+        },
+        'medium': {
+            buttonId: 'edit_mediumIcon',
+            selectedClass: 'edit_medium_selected',
+            whiteIcon: '../../img/Prio media white.png',
+            defaultIcon: '../../img/mediumIcon.png'
+        },
+        'low': {
+            buttonId: 'edit_lowIcon',
+            selectedClass: 'edit_low_selected',
+            whiteIcon: '../../img/Prio baja white.png',
+            defaultIcon: '../../img/lowIcon.png'
+        }
     };
 
-    const taskId = currentTaskId;
+    Object.keys(priorityMapping).forEach(priority => {
+        const button = document.getElementById(priorityMapping[priority].buttonId);
+        button.classList.remove('edit_urgent_selected', 'edit_medium_selected', 'edit_low_selected');
+        button.querySelector('img').src = priorityMapping[priority].defaultIcon;
+    });
 
-    console.log('Saving task:', taskId, updatedTask);
-
-    fetchTask(`/tasks/${taskId}`, updatedTask, 'PUT')
-        .then(responseData => {
-            console.log('Response data:', responseData);
-            updateTaskInBoard(taskId, updatedTask);
-            hideEditOverlay();
-        })
-        .catch(error => {
-            console.error('Fehler beim Speichern der Änderungen:', error);
-            alert('Es gab einen Fehler beim Speichern der Änderungen. Bitte versuche es erneut.');
-        });
+    const selectedButton = document.getElementById(priorityMapping[selectedPriority].buttonId);
+    selectedButton.classList.add(priorityMapping[selectedPriority].selectedClass);
+    selectedButton.querySelector('img').src = priorityMapping[selectedPriority].whiteIcon;
 }
 
- document.addEventListener('DOMContentLoaded', function () {
-     document.getElementById('edit_urgentIcon').addEventListener('click', function () {
-         setPriorityInEditOverlay('urgent');
-     });
-
-     document.getElementById('edit_mediumIcon').addEventListener('click', function () {
-         setPriorityInEditOverlay('medium');
-     });
-
-     document.getElementById('edit_lowIcon').addEventListener('click', function () {
-         setPriorityInEditOverlay('low');
-     });
- });
-
- function setPriorityInEditOverlay(selectedPriority) {
-     const priorityMapping = {
-         'urgent': {
-             buttonId: 'edit_urgentIcon',
-             selectedClass: 'edit_urgent_selected',
-             whiteIcon: '../../img/Prio alta white.png',
-             defaultIcon: '../../img/urgentIcon.png'
-         },
-         'medium': {
-             buttonId: 'edit_mediumIcon',
-             selectedClass: 'edit_medium_selected',
-             whiteIcon: '../../img/Prio media white.png',
-             defaultIcon: '../../img/mediumIcon.png'
-         },
-         'low': {
-             buttonId: 'edit_lowIcon',
-             selectedClass: 'edit_low_selected',
-             whiteIcon: '../../img/Prio baja white.png',
-             defaultIcon: '../../img/lowIcon.png'
-         }
-     };
-
-     Object.keys(priorityMapping).forEach(priority => {
-         const button = document.getElementById(priorityMapping[priority].buttonId);
-         button.classList.remove('edit_urgent_selected', 'edit_medium_selected', 'edit_low_selected');
-         button.querySelector('img').src = priorityMapping[priority].defaultIcon;
-     });
-
-     const selectedButton = document.getElementById(priorityMapping[selectedPriority].buttonId);
-     selectedButton.classList.add(priorityMapping[selectedPriority].selectedClass);
-     selectedButton.querySelector('img').src = priorityMapping[selectedPriority].whiteIcon;
- }
-
-function updateTaskInBoard(taskId, updatedTask) {
-    const taskElement = document.getElementById(`task${taskId}`);
-    if (taskElement) {
-        taskElement.querySelector('.title').textContent = updatedTask.title;
-        taskElement.querySelector('.description').textContent = updatedTask.description;
-        taskElement.querySelector('#task_due_date').textContent = updatedTask.dueDate;
-        taskElement.querySelector('#prio_name').textContent = updatedTask.priority;
-    }
-}
-
-function togglePriority(button, selectedClass, iconPaths) {
+function togglePriority(button, selectedClass, iconPaths, urgency) {
+    currentUrgency = urgency;
     const buttons = document.querySelectorAll('.urgency button');
     buttons.forEach(btn => {
         btn.classList.remove('edit_urgent_selected', 'edit_medium_selected', 'edit_low_selected');
@@ -262,19 +271,6 @@ function updateContactStyle(checkbox) {
     }
 }
 
-async function updateAssignedContacts(taskID) {
-    let checkedContacts = document.querySelectorAll('.custom-option input[type="checkbox"]:checked');
-    let assignedContacts = [];
-    checkedContacts.forEach(checkbox => {
-        assignedContacts.push(checkbox.value);
-    });
-    try {
-        await fetchTask(`/${userID}/addedTasks/${taskID}/assigned`, assignedContacts, 'PUT');
-    } catch (error) {
-        console.error('Error updating contacts:', error);
-    }
-}
-
 async function getExistingSubtasks(taskID) {
     return await fetchTask(`/${userID}/addedTasks/${taskID}/subtasks`, null, 'GET');
 }
@@ -307,7 +303,7 @@ function editSubtaskInEditOverlay(index, taskID) {
             <div class="subtaskEditSeparator"></div>
             <div class="subtaskEditIcons">
                 <img onclick="renderExistingSubtasks('${taskID}')" src="../../img/subtaskTrashIcon.png" class="subtaskIcon" alt="Cancel Icon">
-                <img onclick="saveEditSubtask(${index},'${taskID}')" src="../../img/subtaskAddIcon.png" class="subtaskIcon" alt="Save Icon">
+                <img onclick="saveEditSubtask(${index})" src="../../img/subtaskAddIcon.png" class="subtaskIcon" alt="Save Icon">
             </div>
         </div>
     `;
@@ -316,6 +312,9 @@ function editSubtaskInEditOverlay(index, taskID) {
 async function addEditSubtask() {
     const subtaskInput = document.getElementById('edit_subtasks');
     const newSubtask = subtaskInput.value.trim();
+    if (!editSubtasks) {
+        editSubtasks = [];
+    }
     if (newSubtask) {
         editSubtasks.push(newSubtask);
         await fetchTask(`/${userID}/addedTasks/${currentCardID}/subtasks`, editSubtasks, 'PUT');
@@ -324,11 +323,9 @@ async function addEditSubtask() {
     }
 }
 
-async function saveEditSubtask(index, taskID) {
+function saveEditSubtask(index) {
     let input = document.getElementById(`editSubtaskEditInput${index}`);
     editSubtasks[index] = input.value;
-    await fetchTask(`/${userID}/addedTasks/${taskID}/subtasks`, editSubtasks, 'PUT');
-    await renderExistingSubtasks(taskID);
 }
 
 async function deleteEditSubtask(index, taskID) {
