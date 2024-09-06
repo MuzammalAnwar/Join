@@ -5,7 +5,7 @@ function init() {
 function showOverlay() {
     let overlay = document.getElementById('overlay');
     overlay.classList.remove('slide-out');
-    overlay.style.display = 'block';
+    overlay.style.display = 'normal';
     document.getElementById('d_none').classList.remove('d_none');
 }
 
@@ -63,7 +63,7 @@ function createContact(event) {
         email,
         phone,
         color,
-        userId 
+        userId
     };
 
     saveContactToFirebase(contact).then(newContactId => {
@@ -81,7 +81,11 @@ function createContact(event) {
     });
 }
 
-function showContactDetails(name, email, phone, color) {
+function showContactDetailsLocal(name, email, phone, color) {
+    console.log(`Name: ${name}`);
+    console.log(`Email: ${email}`);
+    console.log(`Phone: ${phone}`);
+    console.log(`Color: ${color}`);
     document.getElementById('largeCardIcon').textContent = name.charAt(0);
     document.getElementById('largeCardIcon').style.backgroundColor = color;
     document.getElementById('largeCardName').textContent = name;
@@ -91,28 +95,20 @@ function showContactDetails(name, email, phone, color) {
     document.getElementById('largeCard').setAttribute('data-current-name', name);
     document.getElementById('largeCard').style.display = 'block';
     document.querySelector('.edit_button').setAttribute('onclick', `showEditOverlay('${name}', '${email}', '${phone}', '${color}')`);
-
-    
 }
-
-function showContactList() {
-    document.querySelector('.contact_list').style.display = 'flex'; 
-    document.getElementById('contactView').style.display = 'none'; 
-}
-
-
 function clearLargeCard() {
     document.getElementById('largeCardIcon').textContent = '';
     document.getElementById('largeCardIcon').style.backgroundColor = 'transparent';
     document.getElementById('largeCardName').textContent = '';
     document.getElementById('largeCardEmail').textContent = '';
     document.getElementById('largeCardPhone').textContent = '';
-
     document.getElementById('largeCard').style.display = 'none';
 }
 
 function showEditOverlay(name, email, phone, color) {
     let initials = getInitials(name);
+console.log(showContactDetailsLocal(name, email, phone, color));
+
 
     let editOverlayIcon = document.getElementById('editOverlayIcon');
     editOverlayIcon.textContent = initials;
@@ -126,7 +122,21 @@ function showEditOverlay(name, email, phone, color) {
     let editOverlay = document.getElementById('editOverlay');
     editOverlay.classList.remove('slide-out');
     editOverlay.style.display = 'flex';
+
+    closeOptionsOverlay();
 }
+
+function closeOptionsOverlay() {
+    let menu = document.getElementById('optionsMenu');
+    let optionIcon = document.getElementById('option_normal');
+    let optionIconBlue = document.getElementById('option_blue');
+    menu.classList.remove('active');
+    menu.classList.add('hide');
+    optionIcon.style.display = 'block';
+    optionIconBlue.style.display = 'none';
+    document.removeEventListener('click', closeOptionsOverlayOnOutsideClick);
+}
+
 
 function hideEditOverlay() {
     let editOverlay = document.getElementById('editOverlay');
@@ -137,15 +147,9 @@ function hideEditOverlay() {
     }, 500);
 }
 
-function showContactMobile() {
-    console.log('showContactMobile aufgerufen');
-    document.getElementById('contactView').classList.remove('d_none_contacts_view');
-}
-
-
 function cancelEdit() {
     hideOverlay();
-    document.getElementById('contactForm').reset(); 
+    document.getElementById('contactForm').reset();
 }
 
 function saveContact(event) {
@@ -176,13 +180,13 @@ function saveContact(event) {
             existingCard.querySelector('.contact_icon').textContent = initials;
             existingCard.querySelector('.m0').textContent = name;
             existingCard.querySelector('.font_color_blue').textContent = email;
-            existingCard.setAttribute('onclick', `showContactDetails('${name}', '${email}', '${phone}', '${color}', '${contactId}')`);
+            existingCard.setAttribute('onclick', `showContactView(); showContactDetails('${name}', '${email}', '${phone}', '${color}', '${contactId}')`);
         }
     } else {
         saveContactToFirebase(contact).then(newContactId => {
             let contactList = document.getElementById('contactList');
             contactList.innerHTML += `
-                <div class="contact_small_card" data-contact-id="${newContactId}" onclick="showContactDetails('${name}', '${email}', '${phone}', '${color}', '${newContactId}'), showContactMobile()">
+                <div class="contact_small_card" data-contact-id="${newContactId}" onclick="showContactView(); showContactDetails('${name}', '${email}', '${phone}', '${color}', '${newContactId}')">
                     <p class="contact_icon" style="background-color: ${color}">${initials}</p>
                     <div>
                         <p class="m0">${name}</p>
@@ -194,7 +198,7 @@ function saveContact(event) {
         });
     }
 
-    showContactDetails(name, email, phone, color, contactId || newContactId);
+    showContactDetails(name, email, phone, color, contactId);
     hideEditOverlay();
 }
 
@@ -229,7 +233,7 @@ function getInitials(name) {
     }
     return initials.toUpperCase();
 }
-// Funktion zum Umschalten der Button-Farbe beim Klicken
+
 function toggleButtonColor() {
     let button = document.getElementById('contactButton');
     let buttonActive = document.getElementById('contactButtonActive');
@@ -242,7 +246,64 @@ function toggleButtonColor() {
         buttonActive.style.display = 'none';
     }
 
-    showOverlay(); 
+    showOverlay();
+}
+
+function toggleOptionButton() {
+    let button = document.getElementById('option_normal');
+    let buttonActive = document.getElementById('option_blue');
+    if (button.style.display !== 'none') {
+        button.style.display = 'none';
+        buttonActive.style.display = 'block';
+    } else {
+        button.style.display = 'block';
+        buttonActive.style.display = 'none';
+    }
+    document.addEventListener('click', resetButtonOnClickOutside);
+}
+
+function resetButtonOnClickOutside(event) {
+    let button = document.getElementById('option_normal');
+    let buttonActive = document.getElementById('option_blue');
+    if (!button.contains(event.target) && !buttonActive.contains(event.target)) {
+        button.style.display = 'block';
+        buttonActive.style.display = 'none';
+        document.removeEventListener('click', resetButtonOnClickOutside);
+    }
+}
+
+function toggleOptionsOverlay(event) {
+    event.stopPropagation();
+
+    let menu = document.getElementById('optionsMenu');
+    let optionIcon = document.getElementById('option_normal');
+    let optionIconBlue = document.getElementById('option_blue');
+    if (menu.classList.contains('hide')) {
+        menu.classList.remove('hide');
+        menu.classList.add('active');
+        optionIcon.style.display = 'none';
+        optionIconBlue.style.display = 'block';
+    } else {
+        menu.classList.remove('active');
+        menu.classList.add('hide');
+        optionIcon.style.display = 'block';
+        optionIconBlue.style.display = 'none';
+    }
+    document.addEventListener('click', closeOptionsOverlayOnOutsideClick);
+}
+
+function closeOptionsOverlayOnOutsideClick(event) {
+    let menu = document.getElementById('optionsMenu');
+    let optionIcon = document.getElementById('option_normal');
+    let optionIconBlue = document.getElementById('option_blue');
+
+    if (!menu.contains(event.target) && !event.target.closest('#optionButton')) {
+        menu.classList.remove('active');
+        menu.classList.add('hide');
+        optionIcon.style.display = 'block';
+        optionIconBlue.style.display = 'none';
+        document.removeEventListener('click', closeOptionsOverlayOnOutsideClick);
+    }
 }
 
 function resetButtonColor() {
@@ -256,6 +317,22 @@ function resetButtonColor() {
 function hideOverlay() {
     document.getElementById('d_none').classList.add('d_none');
     resetButtonColor();
+}
+
+function hideContactView() {
+    let contactView = document.getElementById('contactView');
+    if (contactView) {
+        contactView.classList.add('d_none_contacts');
+        contactView.style.display = 'none';  // Versteckt das Element
+    }
+}
+
+function showContactView() {
+    let contactView = document.getElementById('contactView');
+    if (contactView) {
+        contactView.classList.remove('d_none_contacts');
+        contactView.style.display = 'block';  // Zeigt das Element an
+    }
 }
 
 window.addEventListener('load', init)

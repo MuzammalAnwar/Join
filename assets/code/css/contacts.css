@@ -222,6 +222,10 @@ a {
 
 }
 
+.mobile_edit {
+    font-size: 12px;
+}
+
 .edit_button {
     border: none;
     background-color: white;
@@ -257,6 +261,22 @@ a {
 }
 
 .contact_icon_large {
+    border: 2px solid rgba(255, 255, 255, 1);
+    background: rgba(255, 122, 0, 1);
+    width: 120px;
+    height: 120px;
+    border-radius: 70px;
+    color: white;
+    text-align: center;
+    align-content: space-evenly;
+    font-size: 47px;
+    font-weight: 500;
+    line-height: 54.4px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    margin-right: 40px;
+}
+
+.edit_contact_icon_large {
     border: 2px solid rgba(255, 255, 255, 1);
     background: rgba(255, 122, 0, 1);
     width: 120px;
@@ -336,7 +356,7 @@ a {
     width: 1212px;
     height: 592px;
     background-color: rgba(255, 255, 255, 1);
-    z-index: 1000;
+    z-index: 1002;
     border-radius: 30px;
     animation: slideInRight 0.5s ease-out;
     display: flex;
@@ -497,6 +517,18 @@ a {
 }
 
 .overlay_close_button:hover {
+    background-color: rgba(209, 209, 209, 0.314);
+    cursor: pointer;
+}
+
+.edit_overlay_close_button {
+    width: 32px;
+    height: 32px;
+    border-radius: 56px;
+    margin-top: 40px;
+}
+
+.edit_overlay_close_button:hover {
     background-color: rgba(209, 209, 209, 0.314);
     cursor: pointer;
 }
@@ -681,34 +713,98 @@ a {
     cursor: pointer;
 }
 
-.show {
-    display: block !important;
-}
+.contact_overlay {
 
-/*.contact_overlay {
-    display: block;
     position: relative;
     width: 100%;
     right: 0;
-    transition: none; 
-}*/
+    transition: none;
+}
 
-.d_none_contacts_view {
-    display: none;
+.options_menu {
+    position: fixed;
+    top: 85%;
+    right: -150px;
+    /* Startpunkt außerhalb des sichtbaren Bereichs */
+    width: 116px;
+    height: 100px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px 20px 0px 20px;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Klasse, die das Menü sichtbar macht und es von rechts nach links slidet */
+.options_menu.active {
+    right: 0px;
+    /* Position, wenn sichtbar */
+    opacity: 1;
+}
+
+/* Optional: Animation zum Schließen */
+.options_menu.hide {
+    right: -150px;
+    /* Zurück nach rechts, außerhalb des Bildschirms */
+    opacity: 0;
+}
+
+/* Styling für die Option-Buttons */
+.options_menu button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 96px;
+    height: 40px;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.options_menu button img {
+    margin-right: 10px;
+}
+
+.options_menu button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.edit_overlay {
+    width: 1212px;
+    height: 592px;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 1002;
+    border-radius: 30px;
+    animation: slideInRight 0.5s ease-out;
+    display: flex;
+}
+
+.edit_overlay_content_right {
+    width: 65%;
+    display: flex;
+    justify-content: center;
 }
 
 
-
 @media (min-width: 1000px) {
-    .d_none_contacts_view {
-        display: block;
-    }
-
     .mobile_contact_button {
         display: none;
     }
 
     .back_icon {
+        display: none;
+    }
+
+    .option_icon_mobile {
         display: none;
     }
 }
@@ -765,6 +861,16 @@ a {
 }
 
 @media (max-width: 1000px) {
+    .d_none_contacts {
+        display: none;
+    }
+
+    .contact_details {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
     .contact_overlay {
         position: fixed;
@@ -774,12 +880,7 @@ a {
         height: 81%;
         background-color: white;
         z-index: 1000;
-        overflow-y: auto;
         box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
-    }
-
-    .contact_overlay.show {
-        right: 0; 
     }
 
     .main_container {
@@ -794,7 +895,7 @@ a {
         display: flex;
         flex-direction: column;
         align-items: normal;
-        width: 213px;
+        width: 300px;
         height: 56px;
         gap: 16px;
         margin-top: 40px;
@@ -821,6 +922,7 @@ a {
     .contact_large_card {
         margin-top: 80px;
         margin-left: 24px;
+        width: 300px;
     }
 
     .contact_icon_large {
@@ -892,7 +994,7 @@ a {
         right: 40px;
     }
 
-    .back_icon:hover{
+    .back_icon:hover {
         transform: scale(1.05);
         cursor: pointer;
     }
@@ -900,7 +1002,23 @@ a {
     .overlay {
         width: 396px;
         height: 760px;
-        
+        flex-direction: column;
+    }
+
+    .edit_overlay {
+        width: 396px;
+        height: 760px;
+        flex-direction: column;
+    }
+
+    .edit_overlay_content_right {
+        width: 50%;
+    }
+
+    .edit_contact_icon_large {
+        font-size: 27px;
+        font-weight: 400;
+        margin-right: 24px;
     }
 
     .overlay_content_left {
@@ -939,52 +1057,89 @@ a {
         font-size: 20px;
     }
 
-.overlay_content_right {
-    width: 100%;
-    position: relative;
-}
+    .overlay_content_right {
+        width: 100%;
+        position: relative;
+    }
 
-.user_overlay {
-    position: absolute;
-    top: 0%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
-}
+    .user_overlay {
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        z-index: 1;
+    }
 
-.overlay_close_button {
-    margin: 0;
-    position: absolute;
-    top: -59%;
-    left: 87%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-}
+    .edit_user_overlay {
+        position: absolute;
+        top: 47%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        z-index: 1;
+    }
 
-.cancel_icon {
-    display: none;
-}
+    .overlay_close_button {
+        margin: 0;
+        position: absolute;
+        top: -52%;
+        left: 90%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+    }
 
-.form_buttons {
-    justify-content: center;
-}
+    .edit_overlay_close_button {
+        margin: 0;
+        position: absolute;
+        top: 14%;
+        left: 76%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+    }
 
-.input_container_overlay {
-    width: 364px;
-    height: 41px;
-    margin-bottom: 16px;
-}
+    .cancel_icon {
+        display: none;
+    }
 
-.form_position {
-    justify-content: normal;
+    .form_buttons {
+        justify-content: center;
+    }
 
-    margin-top: 100px;
-}
+    .input_container_overlay {
+        width: 364px;
+        height: 41px;
+        margin-bottom: 16px;
+    }
 
-.create_icon {
-    margin-left: 0;
-    margin-top: 16px;
-}
+    .form_position {
+        justify-content: normal;
+
+        margin-top: 100px;
+    }
+
+    .create_icon {
+        margin-left: 0;
+        margin-top: 16px;
+    }
+
+    .option_icon_mobile {
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+    }
+
+    #option_normal {
+        display: block;
+    }
+
+    #option_blue {
+        display: none;
+    }
+
+    .overlay_background {
+        z-index: 1060;
+    }
 
 }
 
@@ -993,35 +1148,93 @@ a {
         font-size: 12px;
     }
 
-.contact_icon {
-    width: 36px;
-    height: 36px;
-}
+    .contact_icon {
+        width: 36px;
+        height: 36px;
+    }
 
-.separator {
-    width: 280px;
-}
+    .separator {
+        width: 280px;
+    }
 
-.contact_main_container {
-    width: 300px;
-}
+    .contact_main_container {
+        width: 300px;
+    }
 
-.contact_small_card {
-    margin-left: 0;
-    width: 290px;
-}
+    .contact_small_card {
+        margin-left: 0;
+        width: 290px;
+    }
 
-.letter {
-    margin-left: 36px;
-}
+    .letter {
+        margin-left: 36px;
+    }
 
-.alphabetical_index {
-    margin-top: 0;
-    width: 160px;
-}
+    .alphabetical_index {
+        margin-top: 0;
+        width: 160px;
+    }
 
-.contact_main_container {
-    width: 302px;
-}
+    .contact_main_container {
+        width: 302px;
+    }
+
+    .contact_icon_large {
+        width: 60px;
+        height: 60px;
+        font-size: 20px;
+    }
+
+    .large_card_name {
+        font-size: 20px;
+    }
+
+    .tall_card_header {
+        height: 60px;
+        margin-top: 24px;
+    }
+
+    .contact_view {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .edit_overlay {
+        width: 300px;
+        height: 650px;
+    }
+
+    .overlay_content_left {
+        width: 300px;
+        height: 260px;
+    }
+
+    .overlay_title_container {
+        width: 300px;
+    }
+
+    .overlay_title {
+        font-size: 40px;
+    }
+
+    .input_container_overlay {
+        width: 280px;
+    }
+
+    .edit_overlay_content_right {
+        width: 34%;
+    }
+
+    .edit_user_overlay {
+        top: 43%;
+    }
+
+    .overlay {
+        width: 300px;
+        height: 650px;
+    }
 
 }

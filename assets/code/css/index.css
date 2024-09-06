@@ -32,12 +32,55 @@ body {
 
 .logo {
     position: absolute;
-    left: 80px;
-    transform: translate(-50%, -50%) scale(1);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(2); 
     height: auto;
     width: 200px;
-    animation: slide-to-top-left 1s ease-in-out forwards;
-    padding-left: 40px;
+    animation: slide-to-top-left 1s ease-in-out forwards; 
+}
+
+@keyframes slide-to-top-left {
+    0% {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        top: 0;
+        left: 0;
+        transform: translate(0, 0) scale(0.60985);
+    }
+}
+
+.page1 {
+    opacity: 1;
+    animation: fade-out-page 0.5s ease-in-out forwards;
+}
+
+
+@keyframes fade-out-page {
+    0% {
+        opacity: 0; /* Start, komplett transparent */
+    }
+    25% {
+        opacity: 0.25; /* Leicht sichtbar */
+    }
+    50% {
+        opacity: 0.5; /* Halb sichtbar */
+    }
+    75% {
+        opacity: 0.75; /* Fast vollständig sichtbar */
+    }
+    100% {
+        opacity: 1; /* Endzustand, vollständig sichtbar */
+    }
+}
+
+
+.hidden {
+    display: none;
 }
 
 .text_style_responsive {
@@ -313,9 +356,6 @@ p {
 .responsiveSignUpContainer {
     display: none;
 }
-
-.logo_container {}
-
 
 @media (max-width: 700px) {
     .login_card {

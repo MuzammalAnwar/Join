@@ -601,7 +601,6 @@ input:focus {
 }
 
 .subtasksList {
-    height: 140px;
     overflow-y: auto;
 }
 
@@ -682,7 +681,12 @@ input:focus {
     }
 
     .subtasks_margin {
-        margin-bottom: 300px;
+        margin-bottom: 180px;
+        
+    }
+
+    .subtasksList {
+    max-height: 100px;
     }
 
     .clearButton {

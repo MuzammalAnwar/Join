@@ -17,59 +17,73 @@
                 <div class="scroll_area_contacts">
                     <div class="button_container">
                         <button onclick="showOverlay()" class="add_button">Add new contact<img class="button_icon"
-                            src="../../img/person_add.png"></button>
-                        </div>
-                        <div class="contact_main_container">
+                                src="../../img/person_add.png"></button>
+                    </div>
+                    <div class="contact_main_container">
                         <div class="contact_container">
-                            <div id="contactList" ></div>
+                            <div id="contactList" onclick="showContactView()"></div>
                             <div class="mobile_contact_button">
                                 <img id="contactButton" onclick="toggleButtonColor()" src="../../img/contact_icon.png">
-                                <img id="contactButtonActive" src="../../img/contact_icon_blue.png" style="display: none;">
+                                <img id="contactButtonActive" src="../../img/contact_icon_blue.png"
+                                    style="display: none;">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="contactView" class="d_none_contacts_view contact_view contact_overlay">
-                <div class="back_icon" onclick="showContactList()"><img src="../../img/back_icon.png"></div>
-                <div id="largeCardContainer" class="contact_title_container">
-                    <div>
-                        <p class="contact_title">Contacts</p>
-                    </div>
-                    <div class="title_separator"></div>
-                    <div>
-                        <p class="contact_subtitle">Better with a team</p>
-                    </div>
-                    <div class="title_separator_respo"></div>
-
-                </div>
-                <div id="largeCard" class="contact_large_card" style="display: none;">
-                    <div class="tall_card_header">
+            <div id="contactView" class="contact_view contact_overlay d_none_contacts">
+                <div class="back_icon" onclick="hideContactView()"><img src="../../img/back_icon.png"></div>
+                <div class="contact_details">
+                    <div id="largeCardContainer" class="contact_title_container">
                         <div>
-                            <p id="largeCardIcon" class="contact_icon_large"></p>
+                            <p class="contact_title">Contacts</p>
                         </div>
+                        <div class="title_separator"></div>
                         <div>
-                            <p id="largeCardName" class="large_card_name"></p>
-                            <div class="large_cards_buttons">
-                                <button class="edit_button"
-                                    onclick="showEditOverlay('${name}', '${email}', '${phone}')"><img class="edit_icon"
-                                        src="../../img/edit.png">Edit</button>
-                                <button onclick="deleteContact()" class="delete_button"><img class="delete_icon"
-                                        src="../../img/delete.png">Delete</button>
+                            <p class="contact_subtitle">Better with a team</p>
+                        </div>
+                        <div class="title_separator_respo"></div>
+                    </div>
+                    <div id="largeCard" class="contact_large_card" style="display: none;">
+                        <div class="tall_card_header">
+                            <div>
+                                <p id="largeCardIcon" class="contact_icon_large"></p>
+                            </div>
+                            <div>
+                                <p id="largeCardName" class="large_card_name"></p>
+                                <div class="large_cards_buttons">
+                                    <button class="edit_button"
+                                        ><img
+                                            class="edit_icon" src="../../img/edit.png">Edit</button>
+                                    <button onclick="deleteContact()" class="delete_button"><img class="delete_icon"
+                                            src="../../img/delete.png">Delete</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div>
-                        <p class="contact_info">Contact Information</p>
-                    </div>
-                    <div>
                         <div>
-                            <p class="text_info">Email</p>
-                            <p id="largeCardEmail" class="font_color_blue"></p>
+                            <p class="contact_info">Contact Information</p>
                         </div>
                         <div>
-                            <p class="text_info">Phone</p>
-                            <p id="largeCardPhone"></p>
+                            <div>
+                                <p class="text_info">Email</p>
+                                <p id="largeCardEmail" class="font_color_blue"></p>
+                            </div>
+                            <div>
+                                <p class="text_info">Phone</p>
+                                <p id="largeCardPhone"></p>
+                            </div>
+                        </div>
+                        <div class="option_icon_mobile" onclick="toggleOptionsOverlay(event)">
+                            <img id="option_normal" src="../../img/option_icon.png">
+                            <img id="option_blue" src="../../img/option_icon_blue.png">
+                        </div>
+                        <div id="optionsMenu" class="options_menu hide">
+                            <button class="mobile_edit" onclick="showEditOverlay('${name}', '${email}', '${phone}', '${color}')">
+                                <img src="../../img/edit.png" alt="Edit"> Edit
+                            </button>
+                            <button onclick="deleteContact()">
+                                <img src="../../img/subtaskTrashIcon.png" alt="Delete"> Delete
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -134,7 +148,7 @@
             Contact successfully created
         </div>
         <div id="editOverlayBackground" class="overlay_background d_none">
-            <div id="editOverlay" class="overlay">
+            <div id="editOverlay" class="edit_overlay">
                 <div class="overlay_content_left">
                     <div class="overlay_title_container">
                         <div class="overlay_title_position">
@@ -144,18 +158,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="overlay_content_right">
+                <div class="edit_overlay_content_right">
                     <form id="editContactForm" class="overlay_edit_content_position" onsubmit="saveContact(event)">
-
                         <div>
                             <div class="user_position">
-                                <p id="editOverlayIcon" class="contact_icon_large"></p>
+                                <p id="editOverlayIcon" class="edit_contact_icon_large edit_user_overlay"></p>
                             </div>
                         </div>
                         <div>
                             <div class="close_icon_position">
                                 <div>
-                                    <div class="overlay_close_button" onclick="hideEditOverlay()">
+                                    <div class="edit_overlay_close_button" onclick="hideEditOverlay()">
                                         <img class="close_icon" src="../../img/Close.png">
                                     </div>
                                 </div>
