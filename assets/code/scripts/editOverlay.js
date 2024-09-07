@@ -14,7 +14,9 @@ const iconPaths = {
 };
 let editSubtasks = []
 let currentCardID;
-let currentUrgency = 'none'
+let currentUrgency = 'none';
+
+
 document.querySelector('.edit_button').addEventListener('click', function () {
     const taskId = currentTaskId;
     const taskTitle = document.getElementById('tall_task_overlay_title').textContent;
@@ -26,6 +28,7 @@ document.querySelector('.edit_button').addEventListener('click', function () {
 });
 
 function showEditOverlay(taskId, title, description, dueDate, priority, assignedTo) {
+    document.getElementById('edit_due_date').setAttribute('min', today);
     hideTallTaskOverlay();
     currentCardID = taskId
     let tallOverlay = document.getElementById('tall_task_overlay_background');

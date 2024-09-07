@@ -1,5 +1,10 @@
 let userId = checkLoginStatus();
 let firebaseUrl = `https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/contacts.json`;
+let currentNameForEditOverlay = '';
+let currentEmailForEditOverlay = '';
+let currentPhoneForEditOverlay = '';
+let currentInitialsForEditOverlay = '';
+let currentColorForEditOverlay = '';
 
 async function saveContactToFirebase(contact, id = null) {
     try {
@@ -93,7 +98,7 @@ function updateContactList(contacts) {
         }
         let initials = getInitials(contact.name);
         contactList.innerHTML += `
-            <div class="contact_small_card" data-contact-id="${id}" onclick="showContactDetails('${contact.name}', '${contact.email}', '${contact.phone}', '${contact.color}', '${id}')">
+            <div class="contact_small_card" data-contact-id="${id}" onclick="showContactDetails('${contact.name}', '${contact.email}', '${contact.phone}', '${contact.color}', '${id}'); saveCurrentInfos('${contact.name}', '${contact.email}','${contact.phone}', '${contact.color}')">
                 <p class="contact_icon" style="background-color: ${contact.color}">${initials}</p>
                 <div>
                     <p class="m0">${contact.name}</p>
@@ -116,6 +121,13 @@ function showContactDetails(name, email, phone, color, id) {
     document.getElementById('largeCard').setAttribute('data-contact-id', id);
     document.getElementById('largeCard').style.display = 'block';
     document.querySelector('.edit_button').setAttribute('onclick', `showEditOverlay('${name}', '${email}', '${phone}', '${color}')`);
+}
+
+function saveCurrentInfos(name, email, phone, color) { //new function for storing data
+    currentNameForEditOverlay = name
+    currentEmailForEditOverlay = email
+    currentPhoneForEditOverlay = phone
+    currentColorForEditOverlay = color
 }
 
 async function deleteContactFromFirebase(contactId) {

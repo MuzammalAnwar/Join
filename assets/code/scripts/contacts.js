@@ -105,18 +105,16 @@ function clearLargeCard() {
     document.getElementById('largeCard').style.display = 'none';
 }
 
-function showEditOverlay(name, email, phone, color) {
-    let initials = getInitials(name);
-console.log(showContactDetailsLocal(name, email, phone, color));
-
-
+function showEditOverlay() {
+    let initials = getInitials(currentNameForEditOverlay);
+    console.log(showContactDetailsLocal(currentNameForEditOverlay, currentEmailForEditOverlay, currentPhoneForEditOverlay, currentColorForEditOverlay));
     let editOverlayIcon = document.getElementById('editOverlayIcon');
     editOverlayIcon.textContent = initials;
-    editOverlayIcon.style.backgroundColor = color;
+    editOverlayIcon.style.backgroundColor = currentColorForEditOverlay;
 
-    document.getElementById('editName').value = name;
-    document.getElementById('editEmail').value = email;
-    document.getElementById('editPhone').value = phone;
+    document.getElementById('editName').value = currentNameForEditOverlay;
+    document.getElementById('editEmail').value = currentEmailForEditOverlay;
+    document.getElementById('editPhone').value = currentPhoneForEditOverlay;
 
     document.getElementById('editOverlayBackground').classList.remove('d_none');
     let editOverlay = document.getElementById('editOverlay');
