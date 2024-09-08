@@ -240,7 +240,7 @@ input:focus {
 .sendFormOptions {
     display: flex;
     justify-content: space-between;
-    margin-top: 120px;
+    margin-top: 16px;
 }
 
 .required_field {
@@ -602,6 +602,7 @@ input:focus {
 
 .subtasksList {
     overflow-y: auto;
+    height: 140px;
 }
 
 @media (max-width: 1000px) {
