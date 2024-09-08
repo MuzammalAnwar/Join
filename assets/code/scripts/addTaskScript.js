@@ -180,11 +180,6 @@ function toggleInputIcons(inputId, addIconId, cancelIconId, saveIconId) {
             saveIcon.classList.add('hidden');
         }, 150);
     });
-
-    saveIcon.addEventListener('click', function (event) {
-        addSubtask();
-        input.focus();
-    });
 }
 
 document.addEventListener('DOMContentLoaded', function () {

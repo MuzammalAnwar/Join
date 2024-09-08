@@ -209,6 +209,21 @@ function updateProgressBarForTask(taskId, completedSubtasks, totalSubtasks) {
     }
 }
 
+function filterTasks() {
+    let searchTerm = document.getElementById('userInput').value.toLowerCase();
+    let tasks = document.querySelectorAll('.task');
+    tasks.forEach(task => {
+        let title = task.querySelector('.title').textContent.toLowerCase();
+        let description = task.querySelector('.description').textContent.toLowerCase();
+        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+            task.style.display = 'block'; 
+        } else {
+            task.style.display = 'none'; 
+        }
+    });
+}
+document.getElementById('userInput').addEventListener('input', filterTasks);
+
 window.addEventListener('load', includeHTML);
 window.addEventListener('load', initRender);
 window.addEventListener('load', setProfileCircleInitials);
