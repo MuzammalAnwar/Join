@@ -439,4 +439,23 @@ a {
         font-size: 12px;
         margin-block-start: 0em;
     }
+
+    body {
+        overflow-y: auto;
+    }
+
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) and (min-height: 600px) and (max-height: 800px) {
+    body {
+        overflow-y: auto;
+    }
+}
+
+@media (min-width: 760px) and (max-width: 1340px) {
+    .main_container {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
 }

@@ -244,7 +244,7 @@ input:focus {
 }
 
 .required_field {
-    width: 170px; 
+    width: 170px;
     height: 27px;
 }
 
@@ -683,18 +683,18 @@ input:focus {
 
     .subtasks_margin {
         margin-bottom: 180px;
-        
+
     }
 
     .subtasksList {
-    max-height: 100px;
+        max-height: 100px;
     }
 
     .clearButton {
         display: none;
     }
 
-    .button-group{
+    .button-group {
         width: 183px;
     }
 
@@ -798,6 +798,14 @@ input:focus {
     }
 
     .subtasks_margin {
-       max-height: 150px;
+        max-height: 150px;
     }
 }
+
+/* @media (max-width: 1400px) {
+    .form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+} */

@@ -217,6 +217,11 @@ margin-left: 24px;
 }
 
 .separator {
+    height: 424px;
+    border: 1px solid rgba(209, 209, 209, 1);
+}
+
+.separatorEdit {
     height: 24px;
     border: 1px solid rgba(209, 209, 209, 1);
 }
