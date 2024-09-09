@@ -3,6 +3,8 @@ let userID = checkLoginStatus();
 
 function init() {
     renderGreeting(`/${userID}`, 'greetingName');
+    renderGreeting(`/${userID}`, 'greetingNameOverlay');
+    showGreetingForSmallerScreen()
     renderTaskCategoryStats()
     sortByDateStat()
 }
@@ -93,6 +95,24 @@ function getGreeting() {
         return "Good evening";
     } else {
         return "Good night";
+    }
+}
+
+function showGreetingForSmallerScreen() {
+    let element = document.getElementById('greetingResponsive');
+    let greetingElement = document.getElementById('greetingTerm');
+    greetingElement.innerText = getGreeting() + ',';
+    if (window.innerWidth < 1340) {
+        element.style.display = 'flex';
+        setTimeout(() => {
+            element.classList.add('show');
+            setTimeout(() => {
+                element.classList.remove('show');
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 1000);
+            }, 3000);
+        }, 10);
     }
 }
 

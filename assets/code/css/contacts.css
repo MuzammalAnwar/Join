@@ -153,14 +153,13 @@ a {
 }
 
 .contact_small_card {
-    width: 352px;
+    width: 382px;
     height: 78px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     margin-left: 24px;
     margin-top: 8px;
-
 }
 
 .contact_small_card:hover {
