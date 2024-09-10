@@ -10,10 +10,10 @@
 </head>
 
 <body onload="includeHTML()">
-    <div w3-include-html="navbarTemplate.html"></div>
+    <div w3-include-html="navbarTemplateForAddTask.html"></div>
     <div w3-include-html="headerTemplate.html"></div>
     <div class="container">
-        <form onsubmit="addToTask(event), clearSubtasks()">
+        <form onsubmit="addToTask(event), clearSubtasks()" class="formOnsubmit">
             <div class="title_position">
                 <p>Add Task</p>
             </div>

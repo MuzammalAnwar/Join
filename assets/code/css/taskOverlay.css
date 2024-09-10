@@ -79,6 +79,8 @@ body {
 .tall_task_overlay_title {
     font-size: 61px;
     font-weight: 700;
+    width: 100%;
+    overflow-y: auto;
 }
 
 .date_position {

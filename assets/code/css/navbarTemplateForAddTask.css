@@ -1,0 +1,133 @@
+@font-face {
+    font-family: "inter";
+    src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(42, 54, 71);
+    width: 232px;
+    height: 100%;
+    z-index: 999;
+    font-family: "inter";
+}
+
+.toggled {
+    background-color: rgb(9, 25, 49) !important;
+}
+
+nav img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+a {
+    text-decoration: none;
+    color: unset;
+    width: 100%;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    cursor: pointer;
+    padding-left: 25%;
+}
+
+.flex:hover {
+    background-color: rgb(42, 61, 82);
+    color: rgb(205, 205, 205);
+}
+
+.joinLogo {
+    width: 100px;
+    object-fit: cover;
+    height: 120px;
+    padding: 24px;
+}
+
+.policy-legalNotice {
+    display: flex;
+    flex-direction: column;
+    color: rgb(168, 168, 168);
+    width: 100%;
+    align-items: center;
+}
+
+.sidebarNav {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0px;
+    color: rgb(205, 205, 205);
+    width: 100%;
+}
+
+.placeMid {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    width: 100%;
+}
+
+.privacyAndNoticeTxt:hover {
+    color: rgba(41, 171, 226, 1);
+}
+
+@media (max-width: 1240px) {
+    nav {
+        position: fixed;
+        top: unset;
+        left: 0;
+        bottom: -1px;
+        right: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        background-color: rgb(42, 54, 71);
+        width: auto;
+        height: 80px;
+        z-index: 999;
+        font-family: "inter";
+    }
+
+    .joinLogo {
+        display: none;
+    }
+
+    .sidebarNav {
+        flex-direction: row;
+    }
+
+    .policy-legalNotice {
+        display: none;
+    }
+
+    .sidebarNav p {
+        font-size: 14px;
+    }
+
+    .flex {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 0;
+        cursor: pointer;
+        padding-left: 0;
+    }
+
+    .sidebarNav img {
+        width: 24px;
+        height: 24px;
+    }
+}

@@ -123,7 +123,7 @@ function showContactDetails(name, email, phone, color, id) {
     document.querySelector('.edit_button').setAttribute('onclick', `showEditOverlay('${name}', '${email}', '${phone}', '${color}')`);
 }
 
-function saveCurrentInfos(name, email, phone, color) { //new function for storing data
+function saveCurrentInfos(name, email, phone, color) {
     currentNameForEditOverlay = name
     currentEmailForEditOverlay = email
     currentPhoneForEditOverlay = phone
@@ -139,11 +139,6 @@ async function deleteContactFromFirebase(contactId) {
                 'Content-Type': 'application/json'
             }
         });
-        if (response.ok) {
-            console.log('Contact deleted successfully from Firebase.');
-        } else {
-            console.error('Failed to delete contact from Firebase:', response.statusText);
-        }
     } catch (error) {
         console.error('Error deleting contact from Firebase:', error);
     }

@@ -26,7 +26,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    background: rgb(246, 247, 258);
+    background: rgba(246, 247, 248, 1) !important;
     font-family: "inter";
 }
 
@@ -221,9 +221,17 @@ h1 {
     flex-direction: column;
     gap: 10px;
     min-height: 100px;
-    max-height: 545px;
+    max-height: calc(62vh - 20px);
     overflow-y: auto;
+    overflow-x: auto;
     padding-right: 10px;
+}
+
+.sendFormOptionsOverlay {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 150px;
+    /* margin-bottom: 3px; */
 }
 
 .task:active {
@@ -249,7 +257,7 @@ h1 {
     font-weight: 400;
     line-height: 19.2px;
     text-align: left;
-    color: rgba(168, 168, 168, 1)
+    color: rgba(168, 168, 168, 1);
 }
 
 .taskSection {
@@ -550,12 +558,30 @@ h1 {
     width: 220px;
 }
 
-/* .boardText {
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-} */
+.drop-active {
+    border: 2px dashed rgb(42, 54, 71);
+    background-color: rgba(42, 54, 71, 0.1);
+}
 
-@media (min-width: 1000px) {
+@media (max-width: 1600px) {
+    .boardContainer {
+        margin: 0rem 3rem 0 4rem;
+    }
+
+    .notesAndBarContainer {
+        margin: 0rem 1rem 0 1rem;
+    }
+
+    .marginLastContainer {
+        margin-bottom: 40px;
+    }
+
+    .taskContainer {
+        max-height: calc(53vh - 20px);
+    }
+}
+
+@media (min-width: 1310px) {
     .mobile_plus_button {
         display: none;
     }
@@ -565,10 +591,33 @@ h1 {
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1310px) {
+    .NoTaskToDo {
+        width: 100%;
+    }
+
+    .overlay-background {
+        display: none;
+    }
+
     ::-webkit-scrollbar {
         display: none;
-      }
+    }
+
+    .taskContainer::-webkit-scrollbar {
+        display: block;
+        height: 9px;
+        padding: 0 12px 0 12px;
+    }
+
+    .taskContainer::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
+    }
+
+    .taskContainer::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
 
     .menuBar {
         height: 82%;
@@ -633,6 +682,11 @@ h1 {
         flex-direction: row;
         width: 100%;
         padding-right: 0;
+        max-height: unset;
+        overflow-y: auto;
+        margin-right: 10px;
+        margin-left: 10px;
+        min-height: auto;
     }
 
     h1 {
@@ -654,14 +708,71 @@ h1 {
         width: 30px;
         cursor: pointer;
     }
-    
+
     .plusIconBoardMobile:hover {
         background-image: url(../../img/Property\ 1=click.png);
     }
-    
+
     .plusPosition {
         flex-basis: content;
         display: block;
     }
 }
 
+@media (max-width: 1150px) {
+    .overlay {
+        width: 97%;
+    }
+}
+
+@media (min-width: 1750px) {
+    .task {
+        width: 295px;
+    }
+
+    .categoryPlacement {
+        width: 263px;
+    }
+
+    .taskTitleAndDescription {
+        width: 263px;
+    }
+
+    .progressSection {
+        width: 263px;
+    }
+
+    .contactsAndUrgencyInfo {
+        width: 263px;
+    }
+
+    .progress-container {
+        width: 175px;
+    }
+}
+
+@media (min-width: 2250px) {
+    .task {
+        width: 400px;
+    }
+
+    .categoryPlacement {
+        width: 368px;
+    }
+
+    .taskTitleAndDescription {
+        width: 368px;
+    }
+
+    .progressSection {
+        width: 368px;
+    }
+
+    .contactsAndUrgencyInfo {
+        width: 368px;
+    }
+
+    .progress-container {
+        width: 280px;
+    }
+}

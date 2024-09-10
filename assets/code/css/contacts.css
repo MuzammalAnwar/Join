@@ -513,6 +513,7 @@ a {
     height: 32px;
     border-radius: 56px;
     margin-top: 40px;
+    margin-right: 0px;
 }
 
 .overlay_close_button:hover {
@@ -793,7 +794,6 @@ a {
     justify-content: center;
 }
 
-
 @media (min-width: 1000px) {
     .mobile_contact_button {
         display: none;
@@ -806,6 +806,37 @@ a {
     .option_icon_mobile {
         display: none;
     }
+
+}
+
+@media (max-width: 1100px) {
+    .overlay_close_button {
+        margin-right: 55px;
+    }
+}
+
+@media (max-width: 1250px) {
+    .overlay {
+        width: 96%;
+    }
+}
+
+@media (max-width: 1160px) {
+    .overlay_title {
+        font-size: 50px;
+    }
+
+    .overlay_subtitle {
+        font-size: 23px;
+    }
+}
+
+
+@media (max-width: 1100px) {
+    .input_container_overlay {
+        width: 87%;
+    }
+
 }
 
 @media (max-width: 1330px) {

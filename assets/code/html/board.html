@@ -13,14 +13,16 @@
 </head>
 
 <body>
-    <div w3-include-html="navbarTemplate.html"></div>
+    <div w3-include-html="navbarTemplateForBoard.html"></div>
     <div w3-include-html="headerTemplate.html"></div>
 
     <section class="menuBar">
         <section class="boardContainer">
             <div class="mobile_plus_button_position">
-            <h1 class="boardText">Board</h1>
-            <a class="plusPosition" href="../html/addTask.html"><div class="mobile_plus_button"></div></a>
+                <h1 class="boardText">Board</h1>
+                <a class="plusPosition" href="../html/addTask.html">
+                    <div class="mobile_plus_button"></div>
+                </a>
             </div>
             <div class="inputAndAddTaskContainer">
                 <form class="input-size">
@@ -40,7 +42,9 @@
                 <div class="bar">
                     <p>To Do</p>
                     <div onclick="showOverlay()" class="plusIconBoard"></div>
-                    <a class="plusPosition" href="../html/addTask.html"><div class="plusIconBoardMobile"></div></a>
+                    <a class="plusPosition" href="../html/addTask.html">
+                        <div class="plusIconBoardMobile"></div>
+                    </a>
                 </div>
                 <div id="categoryToDo" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
                     ondragleave="dragleave(event)">
@@ -50,7 +54,9 @@
                 <div class="bar">
                     <p>In Progress</p>
                     <div onclick="showOverlay()" class="plusIconBoard"></div>
-                    <a class="plusPosition" href="../html/addTask.html"><div class="plusIconBoardMobile"></div></a>
+                    <a class="plusPosition" href="../html/addTask.html">
+                        <div class="plusIconBoardMobile"></div>
+                    </a>
                 </div>
                 <div id="categoryInProgress" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
                     ondragleave="dragleave(event)">
@@ -60,7 +66,9 @@
                 <div class="bar">
                     <p>Await feedback</p>
                     <div onclick="showOverlay()" class="plusIconBoard"></div>
-                    <a class="plusPosition" href="../html/addTask.html"><div class="plusIconBoardMobile"></div></a>
+                    <a class="plusPosition" href="../html/addTask.html">
+                        <div class="plusIconBoardMobile"></div>
+                    </a>
                 </div>
                 <div id="categoryAwaitFeedback" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
                     ondragleave="dragleave(event)">
@@ -78,8 +86,8 @@
     </section>
     <!-- <section class="taskSection">
     </section> -->
-    <div class="overlay-background" id="taskOverlay">
-        <div class="overlay">
+    <div class="overlay-background" id="taskOverlay" onclick="hideOverlay()">
+        <div class="overlay" onclick="handleInnerDivClick(event)">
             <div class="overlay_title_position">
                 <div>
                     <h2 class="overlay_title">Add Task</h2>
@@ -110,10 +118,10 @@
                                             <img src="../../img/dropDownMenuArrowIcon.png" class="arrow-icon"
                                                 alt="Arrow">
                                         </div>
-                                        <div class="custom-options">
+                                        <div style="" class="custom-options">
                                         </div>
-                                        <div class="selected-contacts">
-                                        </div>
+                                    </div>
+                                    <div class="selected-contacts">
                                     </div>
                                 </div>
                             </div>
@@ -155,8 +163,8 @@
                                 <div class="input-container-addTask">
                                     <input type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
                                     <div id="icon-container" class="icon-container">
-                                        <img id="subtaskAdd"
-                                            src="../../img/subtaskAddPlusIcon.png" alt="Add Subtask" class="input-icon">
+                                        <img id="subtaskAdd" src="../../img/subtaskAddPlusIcon.png" alt="Add Subtask"
+                                            class="input-icon">
                                         <img id="subtaskCancel" src="../../img/subtaskCancelIcon.png"
                                             alt="Cancel Subtask" class="input-icon hidden">
                                         <div class="separatorSubtask"></div>
@@ -170,7 +178,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sendFormOptions">
+                    <div class="sendFormOptionsOverlay">
                         <p style="width: 170px; height: 27px;"><b style="color: red;">*</b>This field is required</p>
                         <div class="button-group">
                             <button onclick="hideOverlay()" class="clearButton" type="reset">Cancel <b>✕</b></button>
@@ -181,8 +189,8 @@
             </div>
         </div>
     </div>
-    <div id="tall_task_overlay_background" class="tall_task_overlay_background">
-        <div id="tall_task_overlay" class="tall_task_overlay">
+    <div id="tall_task_overlay_background" class="tall_task_overlay_background" onclick="hideTallTaskOverlay()">
+        <div id="tall_task_overlay" class="tall_task_overlay" onclick="handleInnerDivClick(event)">
             <div class="tall_overlay_content_position">
                 <div class="tall_task_overlay_head">
                     <div id="task_category" class="task_category">User Story</div>
@@ -237,8 +245,8 @@
             </div>
         </div>
     </div>
-    <div id="edit_task_overlay_background" class="edit_task_overlay_background">
-        <div class="edit_task_overlay">
+    <div id="edit_task_overlay_background" class="edit_task_overlay_background" onclick="hideEditOverlay()">
+        <div class="edit_task_overlay" onclick="handleInnerDivClick(event)">
             <div class="edit_task_overlay_head">
                 <div class="edit_overlay_close_button">
                     <img onclick="hideEditOverlay()" src="../../img/Close.png" alt="Close">

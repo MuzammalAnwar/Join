@@ -82,10 +82,6 @@ function createContact(event) {
 }
 
 function showContactDetailsLocal(name, email, phone, color) {
-    console.log(`Name: ${name}`);
-    console.log(`Email: ${email}`);
-    console.log(`Phone: ${phone}`);
-    console.log(`Color: ${color}`);
     document.getElementById('largeCardIcon').textContent = name.charAt(0);
     document.getElementById('largeCardIcon').style.backgroundColor = color;
     document.getElementById('largeCardName').textContent = name;
@@ -107,7 +103,6 @@ function clearLargeCard() {
 
 function showEditOverlay() {
     let initials = getInitials(currentNameForEditOverlay);
-    console.log(showContactDetailsLocal(currentNameForEditOverlay, currentEmailForEditOverlay, currentPhoneForEditOverlay, currentColorForEditOverlay));
     let editOverlayIcon = document.getElementById('editOverlayIcon');
     editOverlayIcon.textContent = initials;
     editOverlayIcon.style.backgroundColor = currentColorForEditOverlay;

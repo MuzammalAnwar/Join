@@ -30,7 +30,6 @@ async function renderTasks(category, id) {
         } else {
             filteredTasks.forEach(taskKey_1 => {
                 let task = taskArray[taskKey_1];
-                console.log(task.assigned);
                 htmlContent.innerHTML += /*HTML*/ `
                 <div class="task" draggable="true" ondragend="dragend(event)" ondragstart="drag(event)" id="task${taskKey_1}" data-path="${task.path}" onclick="showTallTaskOverlay('${taskKey_1}', '${task.title}', '${task.category}', '${task.urgency}', '${task.dueDate}', '${task.description}', '${task.subtasks}')">
                     <div class="categoryPlacement">
@@ -85,17 +84,13 @@ function generateNoContactsCircle() {
 
 function generateContactCircles(contacts) {
     const contactArray = getContactArray(contacts);
-
     if (contactArray.length === 0) {
         return generateNoContactsCircle();
     }
-
     let contactHTML = contactArray.slice(0, 4).map(generateContactCircle).join('');
-
     if (contactArray.length > 4) {
         contactHTML += generateMoreContactsCircle();
     }
-
     return contactHTML;
 }
 
@@ -216,14 +211,23 @@ function filterTasks() {
         let title = task.querySelector('.title').textContent.toLowerCase();
         let description = task.querySelector('.description').textContent.toLowerCase();
         if (title.includes(searchTerm) || description.includes(searchTerm)) {
-            task.style.display = 'block'; 
+            task.style.display = 'block';
         } else {
-            task.style.display = 'none'; 
+            task.style.display = 'none';
         }
     });
 }
-document.getElementById('userInput').addEventListener('input', filterTasks);
 
+function checkScreenSize() {
+    let element = document.getElementById('taskOverlay');
+    if (window.innerWidth < 1000) {
+        element.style.display = 'none';
+    }
+}
+
+window.onload = checkScreenSize;
+window.onresize = checkScreenSize;
+document.getElementById('userInput').addEventListener('input', filterTasks);
 window.addEventListener('load', includeHTML);
 window.addEventListener('load', initRender);
 window.addEventListener('load', setProfileCircleInitials);

@@ -6,68 +6,147 @@ let userID = checkLoginStatus();
 let today = new Date().toISOString().split('T')[0];
 document.getElementById('due-date').setAttribute('min', today);
 
-document.addEventListener('DOMContentLoaded', function () {
+/**
+ * Initializes event listeners for urgency buttons.
+ */
+function initializeUrgencyButtons() {
     let urgencyButtons = document.querySelectorAll('.urgentStatus');
     urgencyButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            let isSelected = this.classList.contains('urgent-selected') ||
-                this.classList.contains('medium-selected') ||
-                this.classList.contains('low-selected');
-            if (isSelected) {
-                this.classList.remove('urgent-selected', 'medium-selected', 'low-selected');
-                this.style.boxShadow = '';
-                selectedStatus = 'none';
-            } else {
-                urgencyButtons.forEach(btn => {
-                    btn.classList.remove('urgent-selected', 'medium-selected', 'low-selected');
-                    btn.style.boxShadow = '';
-                });
-                selectedStatus = this.getAttribute('data-status');
-                if (selectedStatus === 'urgent') {
-                    this.classList.add('urgent-selected');
-                } else if (selectedStatus === 'medium') {
-                    this.classList.add('medium-selected');
-                } else if (selectedStatus === 'low') {
-                    this.classList.add('low-selected');
-                }
-                this.style.boxShadow = 'none';
-            }
-        });
+        button.addEventListener('click', handleUrgencyButtonClick);
     });
-});
+}
 
+/**
+ * Handles click events on urgency buttons to toggle their selected status.
+ *
+ * @param {MouseEvent} event - The click event.
+ */
+function handleUrgencyButtonClick(event) {
+    let button = event.currentTarget;
+    let isSelected = button.classList.contains('urgent-selected') ||
+        button.classList.contains('medium-selected') ||
+        button.classList.contains('low-selected');
+    if (isSelected) {
+        deselectButton(button);
+    } else {
+        selectButton(button);
+    }
+}
+
+/**
+ * Deselects the clicked button and resets the selected status.
+ *
+ * @param {HTMLElement} button - The button to deselect.
+ */
+function deselectButton(button) {
+    button.classList.remove('urgent-selected', 'medium-selected', 'low-selected');
+    button.style.boxShadow = '';
+    selectedStatus = 'none';
+}
+
+/**
+ * Selects the clicked button and updates the selected status.
+ *
+ * @param {HTMLElement} button - The button to select.
+ */
+function selectButton(button) {
+    let urgencyButtons = document.querySelectorAll('.urgentStatus');
+    urgencyButtons.forEach(btn => {
+        btn.classList.remove('urgent-selected', 'medium-selected', 'low-selected');
+        btn.style.boxShadow = '';
+    });
+    selectedStatus = button.getAttribute('data-status');
+    button.classList.add(getSelectedClass(selectedStatus));
+    button.style.boxShadow = 'none';
+}
+
+/**
+ * Gets the appropriate class for the selected urgency status.
+ *
+ * @param {string} status - The urgency status.
+ * @returns {string} - The class name to add.
+ */
+function getSelectedClass(status) {
+    switch (status) {
+        case 'urgent': return 'urgent-selected';
+        case 'medium': return 'medium-selected';
+        case 'low': return 'low-selected';
+        default: return '';
+    }
+}
+
+/**
+ * Handles the form submission to add a new task.
+ *
+ * @param {Event} event - The submit event.
+ */
 function addToTask(event) {
     event.preventDefault();
+    let taskData = gatherTaskData();
+    createAndAddTask(taskData);
+    clearTaskForm();
+    window.location = 'board.html';
+}
 
-    let title = document.getElementById('title');
-    let description = document.getElementById('description');
-    let dueDate = document.getElementById('due-date');
-    let category = document.getElementById('category');
-    let taskKey = generateUniqueKey();
-    taskPath = `/${userID}/addedTasks/${taskKey}`;
-    let task = {
-        "title": title.value,
-        "description": description.value,
-        "assigned": returnSelectedContacts(),
-        "dueDate": dueDate.value,
-        "category": category.value,
-        "subtasks": subtasks,
-        "urgency": selectedStatus == 'medium' || selectedStatus == 'low' || selectedStatus == 'urgent' ? selectedStatus : 'none',
-        "path": taskPath,
-        "taskCategory": 'toDo'
+/**
+ * Gathers task input values from the form elements.
+ *
+ * @returns {Object} - An object containing the task data.
+ */
+function gatherTaskData() {
+    let title = document.getElementById('title').value;
+    let description = document.getElementById('description').value;
+    let dueDate = document.getElementById('due-date').value;
+    let category = document.getElementById('category').value;
+
+    return {
+        title,
+        description,
+        dueDate,
+        category
     };
+}
 
+/**
+ * Creates a new task object and adds it to the tasks array.
+ *
+ * @param {Object} taskData - The data of the task to be added.
+ */
+function createAndAddTask(taskData) {
+    let taskKey = generateUniqueKey();
+    let taskPath = `/${userID}/addedTasks/${taskKey}`;
+    let task = {
+        ...taskData,
+        assigned: returnSelectedContacts(),
+        subtasks,
+        urgency: getUrgency(),
+        path: taskPath,
+        taskCategory: 'toDo'
+    };
     tasks.push(task);
-    console.log(tasks);
-
-    title.value = '';
-    description.value = '';
-    assigned.value = '';
-    dueDate.value = '';
-    category.value = '';
-
     fetchTask(taskPath, task, 'PUT');
 }
+
+/**
+ * Returns the urgency level based on the selected status.
+ *
+ * @returns {string} - The urgency level ('medium', 'low', 'urgent', or 'none').
+ */
+function getUrgency() {
+    return ['medium', 'low', 'urgent'].includes(selectedStatus) ? selectedStatus : 'none';
+}
+
+/**
+ * Clears all input fields in the task form.
+ */
+function clearTaskForm() {
+    document.getElementById('title').value = '';
+    document.getElementById('description').value = '';
+    document.getElementById('assigned').value = '';
+    document.getElementById('due-date').value = '';
+    document.getElementById('category').value = '';
+}
+
 
 function changeImgSource(id, src) {
     document.getElementById(id).src = src;
@@ -307,3 +386,4 @@ document.addEventListener('DOMContentLoaded', initializeEventListeners);
 window.addEventListener('load', getContacts);
 window.addEventListener('load', checkLoginStatus);
 window.addEventListener('load', setProfileCircleInitials);
+document.addEventListener('DOMContentLoaded', initializeUrgencyButtons);
