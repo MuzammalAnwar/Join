@@ -1,11 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../img/joinLogoFavicon.png">
+    <link rel="stylesheet" href="../css/helpInstructions.css">
     <title>Join | Help Instructions</title>
 </head>
+
 <body>
-    
+    <div w3-include-html="navbarTemplate.html"></div>
+    <div w3-include-html="headerTemplate.html"></div>
+    <div onclick="window.history.back();" class="arrow_containerHI">
+        <img class="goToLogInIcon" src="../../img/arrow-left-line.png" alt="Back to Login">
+    </div>
+    <section class="instructionText">
+        <h1>Help</h1>
+        <p>Welcome to the help page for <span class="highlight">Join</span>, your guide to using our kanban project
+            management tool. Below, we’ll
+            provide
+            an overview of what <span class="highlight">Join</span> is, how it can benefit you, and how to use it.</p>
+
+        <h2>What is Join?</h2>
+        <p><span class="highlight">Join</span> is a kanban-based project management tool developed by a group of
+            dedicated students as part of their
+            web
+            development bootcamp at the Developer Akademie.</p>
+
+        <p>Kanban, meaning "signboard" in Japanese, is a highly efficient approach to visualizing tasks, managing work
+            in
+            progress, and improving overall productivity. <span class="highlight">Join</span> uses kanban principles to
+            help users organize tasks and
+            projects using a simple and visual interface.</p>
+
+        <p>Note that <span class="highlight">Join</span> is an educational project, not intended for extensive business
+            use. While we aim to provide
+            the
+            best experience, we cannot guarantee full availability, reliability, or accuracy regarding Join’s
+            functionality.
+        </p>
+
+        <h2>How to Use <span class="highlight">Join</span></h2>
+        <p>Follow these steps to start using <span class="highlight">Join</span>:</p>
+
+        <h3 class="align">
+            <p class="bulletNumbers2">1.</p> Exploring the Board
+        </h3>
+        <p class="tabAlign">Once logged in, you'll see a default board. This board represents your project, divided into
+            four sections:
+            "To
+            Do", "In Progress", "Await Feedback", and "Done".</p>
+
+        <h3 class="align">
+            <p class="bulletNumbers">2.</p> Creating Contacts
+        </h3>
+        <p class="tabAlign">In <span class="highlight">Join</span>, you can add contacts to collaborate on your
+            projects. Navigate to the "Contacts"
+            section, click "New
+            Contact", and enter the required details. Once added, these contacts can be assigned to tasks and interact
+            with
+            the project board.</p>
+
+        <h3 class="align">
+            <p class="bulletNumbers">3.</p> Adding Cards
+        </h3>
+        <p class="tabAlign">After setting up your contacts, you can begin adding cards to represent individual tasks.
+            Click the "+"
+            button
+            under any list to create a new card. You can add task details like name, description, due date, and assign
+            contacts to each task.</p>
+
+        <h3 class="align">
+            <p class="bulletNumbers">4.</p> Moving Cards
+        </h3>
+        <p class="tabAlign">As tasks progress, you can move them across lists by dragging and dropping the cards from
+            one section to
+            another,
+            allowing you to visually track the current status of each task.</p>
+
+        <h3 class="align">
+            <p class="bulletNumbers">5.</p> Deleting Cards
+        </h3>
+        <p class="tabAlign">Once a task is finished, you can either move it to the "Done" list or delete it. Be cautious
+            when deleting
+            tasks,
+            as this action cannot be undone.</p>
+
+        <p class="tabAlign">To use <span class="highlight">Join</span> effectively, regular updates from you and your
+            team are necessary to keep the
+            board accurate and
+            up
+            to date.</p>
+
+        <p class="tabAlign">
+            If you have further questions about <span class="highlight">Join</span>, feel free to contact us at
+            <a class="mailStyle" href="mailto:muzammalanwar556@gmail.com">muzammalanwar556@gmail.com</a> and
+            <a class="mailStyle" href="mailto:kguenes0@gmail.com">kguenes0@gmail.com</a>. We're here to assist you!
+        </p>
+        <h2 style="margin-top: 34px;">Enjoy using Join!</h2>
+    </section>
+    <script src="../scripts/mainScript.js"></script>
+    <script src="../scripts/includeHTML.js"></script>
 </body>
+
 </html>

@@ -3,6 +3,25 @@
     src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
 }
 
+*::-webkit-scrollbar {
+    width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(168, 168, 168, 1) !important;
+    border-radius: 12px !important;
+    border: none !important;
+    background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(128, 128, 128, 1);
+}
+
 body {
     margin: 0;
     display: flex;
@@ -14,6 +33,16 @@ a {
     text-decoration: none;
     color: unset;
 }
+
+.mailStyle {
+    color: rgb(60, 186, 228);
+    cursor: pointer;
+}
+
+.mailStyle:hover {
+    text-decoration: underline;
+}
+
 
 .privacy_policy_text {
     margin: 96px 50px 50px 300px;

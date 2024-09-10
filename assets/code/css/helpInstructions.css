@@ -1,0 +1,120 @@
+*::-webkit-scrollbar {
+    width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(168, 168, 168, 1) !important;
+    border-radius: 12px !important;
+    border: none !important;
+    background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(128, 128, 128, 1);
+}
+
+body {
+    font-family: "inter";
+}
+
+.mailStyle {
+    color: rgb(60, 186, 228);
+    cursor: pointer;
+}
+
+.mailStyle:hover {
+    text-decoration: underline;
+}
+
+.align {
+    display: inline;
+    font-weight: bold;
+}
+
+.tabAlign {
+    padding-left: 44px;
+    margin-block-start: 0em;
+}
+
+p span.highlight {
+    color: rgba(41, 171, 226, 1);
+}
+
+.bulletNumbers {
+    font-size: 27px;
+    display: inline;
+    padding-right: 16px;
+}
+
+.bulletNumbers2 {
+    font-size: 27px;
+    display: inline;
+    padding-right: 21px;
+}
+
+h1,
+h2 {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 61px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 27px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 25px;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    line-height: 20px;
+}
+
+ul {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.instructionText {
+    margin: 124px 16px 24px 300px;
+    padding: 0 0 16px 0;
+}
+
+.arrow_containerHI {
+    position: absolute;
+    top: 148px;
+    right: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.arrow_containerHI:hover {
+    background-color: lightgray;
+    border-radius: 999px;
+}
+
+@media (max-width: 1000px) {
+    .instructionText {
+        margin: 99px 14px 80px 14px;
+        padding: 12px 6px 80px;
+    }
+
+    .arrow_containerHI {
+        top: 185px;
+    }
+}

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/addTask.css">
     <link rel="stylesheet" href="../css/taskOverlay.css">
     <link rel="stylesheet" href="../css/editOverlay.css">
+    <link rel="icon" type="image/x-icon" href="../../img/joinLogoFavicon.png">
     <title>Join | Board</title>
 </head>
 
@@ -154,13 +155,13 @@
                                 <div class="input-container-addTask">
                                     <input type="text" id="subtasks" name="subtasks" placeholder="Enter subtasks">
                                     <div id="icon-container" class="icon-container">
-                                        <img id="subtaskAdd" onclick="addSubtask()"
+                                        <img id="subtaskAdd"
                                             src="../../img/subtaskAddPlusIcon.png" alt="Add Subtask" class="input-icon">
                                         <img id="subtaskCancel" src="../../img/subtaskCancelIcon.png"
                                             alt="Cancel Subtask" class="input-icon hidden">
                                         <div class="separatorSubtask"></div>
                                         <img id="subtaskSave" src="../../img/subtaskAddIcon.png" alt="Save Subtask"
-                                            class="input-icon hidden">
+                                            class="input-icon hidden" onclick="addSubtask()">
                                     </div>
                                 </div>
                                 <div class="subtasksList">
@@ -226,7 +227,7 @@
                             <div class="delete"></div>
                             <p>Delete</p>
                         </div>
-                        <div class="separator"></div>
+                        <div class="separatorEdit"></div>
                         <div class="edit_button">
                             <div class="edit"></div>
                             <p>Edit</p>

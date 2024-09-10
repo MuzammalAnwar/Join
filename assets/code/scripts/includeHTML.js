@@ -1,4 +1,3 @@
-// Hier ist die navbar javascript Datei
 function includeHTML() {
     var z, i, elmnt, file, xhttp;
     z = document.getElementsByTagName("*");
@@ -22,6 +21,3 @@ function includeHTML() {
     }
 }
 includeHTML();
-// Copy these lines to insert Navbar in each html file:
-// <div w3-include-html="navbarTemplate.html"></div>
-// <script src="../scripts/includeHTML.js"></script>

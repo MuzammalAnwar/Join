@@ -405,6 +405,7 @@ body {
     justify-content: flex-end;
     margin-top: 24px;
     margin-bottom: 40px;
+    align-items: center;
 }
 
 .ok_button {
@@ -420,12 +421,12 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 40px;
 }
 
 .ok_button:hover {
     cursor: pointer;
     background-color: rgba(41, 171, 226, 1);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .scroll_area {
