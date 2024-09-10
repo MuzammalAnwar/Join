@@ -53,6 +53,10 @@ h1 {
     font-size: 61px;
 }
 
+.plusPosition {
+    display: none;
+}
+
 .addTaskButton {
     padding: 12px;
     border-radius: 10px;
@@ -416,11 +420,11 @@ h1 {
 }
 
 .tall_task_overlay {
-    animation: slideInLeftTall 0.5s ease-out;
+    animation: slideInLeftTall 0.2s ease-out;
 }
 
 .tall_task_overlay.slide-out {
-    animation: slideOutLeftTall 0.5s ease-out forwards;
+    animation: slideOutLeftTall 0.2s ease-out forwards;
 }
 
 #tall_task_overlay_background {
@@ -550,3 +554,114 @@ h1 {
     margin-block-start: 0em;
     margin-block-end: 0em;
 } */
+
+@media (min-width: 1000px) {
+    .mobile_plus_button {
+        display: none;
+    }
+
+    .plusIconBoardMobile {
+        display: none;
+    }
+}
+
+@media (max-width: 1000px) {
+    ::-webkit-scrollbar {
+        display: none;
+      }
+
+    .menuBar {
+        height: 82%;
+    }
+
+    .marginLastContainer {
+        margin-bottom: 40px;
+    }
+
+    .boardContainer {
+        flex-direction: column;
+        margin-left: 24px;
+        margin-right: 24px;
+    }
+
+    .addTaskButton {
+        display: none;
+    }
+
+    .inputAndAddTaskContainer {
+        width: 100%;
+    }
+
+    .mobile_plus_button {
+        background-image: url(../../img/plusMobile.png);
+        height: 40px;
+        width: 40px;
+        cursor: pointer;
+    }
+
+    .mobile_plus_button:hover {
+        background-image: url(../../img/plusMobileBlue.png);
+    }
+
+    .mobile_plus_button_position {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: baseline;
+    }
+
+    .input-size {
+        width: 100%;
+    }
+
+    .notesAndBarContainer {
+        flex-direction: column;
+        margin-left: 24px;
+        margin-right: 24px;
+        overflow-y: auto;
+    }
+
+    .bar {
+        width: 100%;
+    }
+
+    .categoryAndIconBar {
+        width: 100%;
+    }
+
+    .taskContainer {
+        flex-direction: row;
+        width: 100%;
+        padding-right: 0;
+    }
+
+    h1 {
+        font-size: 47px;
+    }
+
+    .boardText {
+        margin-bottom: 16px;
+    }
+
+    .plusIconBoard {
+        display: none;
+    }
+
+    .plusIconBoardMobile {
+        background-image: url(../../img/Property\ 1=Default.png);
+        background-repeat: no-repeat;
+        height: 30px;
+        width: 30px;
+        cursor: pointer;
+    }
+    
+    .plusIconBoardMobile:hover {
+        background-image: url(../../img/Property\ 1=click.png);
+    }
+    
+    .plusPosition {
+        flex-basis: content;
+        display: block;
+    }
+}
+

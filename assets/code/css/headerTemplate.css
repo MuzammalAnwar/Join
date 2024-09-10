@@ -182,4 +182,9 @@ p {
         display: block;
     }
 
+    .user_container {
+        padding: 0;
+        margin-right: 20px;
+    }
+
 }

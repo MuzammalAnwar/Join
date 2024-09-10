@@ -17,9 +17,12 @@
 
     <section class="menuBar">
         <section class="boardContainer">
+            <div class="mobile_plus_button_position">
             <h1 class="boardText">Board</h1>
+            <a class="plusPosition" href="../html/addTask.html"><div class="mobile_plus_button"></div></a>
+            </div>
             <div class="inputAndAddTaskContainer">
-                <form>
+                <form class="input-size">
                     <div class="input-container">
                         <input id="userInput" placeholder="Find Task" type="text">
                         <button type="button" class="search-button">
@@ -36,6 +39,7 @@
                 <div class="bar">
                     <p>To Do</p>
                     <div onclick="showOverlay()" class="plusIconBoard"></div>
+                    <a class="plusPosition" href="../html/addTask.html"><div class="plusIconBoardMobile"></div></a>
                 </div>
                 <div id="categoryToDo" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
                     ondragleave="dragleave(event)">
@@ -45,6 +49,7 @@
                 <div class="bar">
                     <p>In Progress</p>
                     <div onclick="showOverlay()" class="plusIconBoard"></div>
+                    <a class="plusPosition" href="../html/addTask.html"><div class="plusIconBoardMobile"></div></a>
                 </div>
                 <div id="categoryInProgress" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
                     ondragleave="dragleave(event)">
@@ -54,12 +59,13 @@
                 <div class="bar">
                     <p>Await feedback</p>
                     <div onclick="showOverlay()" class="plusIconBoard"></div>
+                    <a class="plusPosition" href="../html/addTask.html"><div class="plusIconBoardMobile"></div></a>
                 </div>
                 <div id="categoryAwaitFeedback" class="taskContainer" ondrop="drop(event)" ondragover="allowDrop(event)"
                     ondragleave="dragleave(event)">
                 </div>
             </div>
-            <div class="categoryAndIconBar">
+            <div class="categoryAndIconBar marginLastContainer">
                 <div class="bar">
                     <p>Done</p>
                 </div>
@@ -183,7 +189,7 @@
                         <img src="../../img/Close.png">
                     </div>
                 </div>
-                <div>
+                <div class="tall_task_position">
                     <div id="tall_task_overlay_title" class="tall_task_overlay_title">Kochwelt Page & Recipe Recommender
                     </div>
                     <p id="task_description">Build start page with recipe recommendation</p>
@@ -204,7 +210,7 @@
                         <div>
                             <p>Assigned To:</p>
                         </div>
-                        <div class="df">
+                        <div class="df_content">
                             <div id="assignedContactsContainer">
                             </div>
                         </div>

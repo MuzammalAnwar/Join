@@ -55,7 +55,7 @@ body {
 .tall_task_overlay_head {
     display: flex;
     justify-content: space-between;
-    
+
 }
 
 .tall_overlay_content_position {
@@ -82,14 +82,14 @@ body {
 }
 
 .date_position {
-display: flex;
-flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .prio_position {
-display: flex;
-flex-direction: column;
-margin-left: 24px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 24px;
 }
 
 .prio_icon_position {
@@ -131,7 +131,7 @@ margin-left: 24px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-right: 8px; 
+    margin-right: 8px;
 }
 
 .checkbox {
@@ -145,7 +145,7 @@ margin-left: 24px;
 
 .sub_task_position {
     display: flex;
-    align-items: center; 
+    align-items: center;
 }
 
 .sub_task {
@@ -193,11 +193,11 @@ margin-left: 24px;
 .delete_button:hover {
     background-repeat: no-repeat;
     background-image: url(../../img/delete_blue.png);
-    color:rgba(41, 171, 226, 1);
+    color: rgba(41, 171, 226, 1);
     font-weight: 700;
 }
 
-.edit_button{
+.edit_button {
     font-weight: 400;
     width: 62px;
     height: 24px;
@@ -212,11 +212,60 @@ margin-left: 24px;
 .edit_button:hover {
     background-repeat: no-repeat;
     background-image: url(../../img/edit_blue.png);
-    color:rgba(41, 171, 226, 1);
+    color: rgba(41, 171, 226, 1);
     font-weight: 700;
 }
 
 .separator {
     height: 24px;
     border: 1px solid rgba(209, 209, 209, 1);
+}
+
+@media (max-width: 600px) {
+
+    .tall_task_position {
+        width: 360px;
+    }
+
+    .tall_overlay_content_position {
+        align-items: center;
+    }
+
+    .tall_task_overlay {
+        width: 400px;
+    }
+
+    .tall_task_overlay_head {
+        width: 360px;
+    }
+
+    .tall_task_overlay_title {
+        width: 380px;
+        font-size: 48px;
+    }
+
+}
+
+@media (max-width: 420px) {
+
+    .tall_task_position {
+        width: 260px;
+    }
+
+    .tall_overlay_content_position {
+        align-items: center;
+    }
+
+    .tall_task_overlay {
+        width: 300px;
+    }
+
+    .tall_task_overlay_head {
+        width: 260px;
+    }
+
+    .tall_task_overlay_title {
+        width: 260px;
+        font-size: 36px;
+    }
 }

@@ -280,8 +280,10 @@ body {
     background-color: #f0f0f0;
 }
 
-.df {
+.df_content {
     display: flex;
+    overflow-y: auto;
+    height: 80px;
 }
 
 .contact_icon {
@@ -438,7 +440,7 @@ body {
 }
 
 .scroll_area::-webkit-scrollbar {
-    width: 16px;
+    width: 8px;
 }
 
 .scroll_area::-webkit-scrollbar-track {
@@ -560,5 +562,172 @@ body {
 @media (max-width: 1000px) {
     .overlay_background {
         z-index: 1060;
+    }
+
+    .buttons {
+        align-items: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .buttons {
+        width: 360px;
+        align-items: center;
+    }
+
+    .edit_task_overlay {
+        width: 400px;
+    }
+
+    .scroll_area {
+        width: 360px;
+        height: 600px;
+    }
+
+    .edit_task_overlay_head {
+        width: 360px;
+    }
+
+    #editTaskForm {
+        width: 360px;
+    }
+
+    .edit_task_overlay_title {
+        width: 360px;
+    }
+
+    .description_position {
+        width: 360px;
+    }
+
+    .edit_date_position {
+        width: 360px;
+    }
+
+    .edit_prio_position {
+        width: 360px;
+    }
+
+    .urgency {
+        width: 360px;
+    }
+
+    .urgentStatus {
+        width: 90px;
+        height: 40px;
+        margin: 2px;
+    }
+
+    .urgentStatus:hover {
+        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.22);
+    }
+
+    .assigned_position {
+        width: 360px;
+    }
+
+    .subtasks_position {
+        width: 360px;
+    }
+
+    .edit_prio_position {
+        margin-bottom: 16px;
+    }
+
+    .ok_button {
+        width: 80px;
+        height: 50px;
+        margin-bottom: 0;
+    }
+
+    .select-options {
+        width: 357px;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .tall_task_overlay {
+        width: 300px;
+        min-height: 600px;
+        overflow-y: scroll;
+    }
+
+    .buttons {
+        width: 260px;
+    }
+
+    .edit_task_overlay {
+        width: 300px;
+        height: 80%;
+        justify-content: space-between;
+    }
+
+    .scroll_area {
+        width: 260px;
+        height: 600px;
+    }
+
+    .edit_task_overlay_head {
+        width: 260px;
+    }
+
+    #editTaskForm {
+        width: 260px;
+    }
+
+    .edit_task_overlay_title {
+        width: 260px;
+    }
+
+    .description_position {
+        width: 260px;
+    }
+
+    .edit_date_position {
+        width: 260px;
+    }
+
+    .edit_prio_position {
+        width: 260px;
+    }
+
+    .urgency {
+        width: 260px;
+        height: 40px;
+    }
+
+    .urgentStatus {
+        width: 80px;
+        height: 32px;
+        margin: 2px;
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    .urgentStatus:hover {
+        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.22);
+    }
+
+    .assigned_position {
+        width: 260px;
+    }
+
+    .subtasks_position {
+        width: 260px;
+    }
+
+    .edit_prio_position {
+        margin-bottom: 16px;
+    }
+
+    .ok_button {
+        width: 80px;
+        height: 50px;
+        margin-bottom: 0;
+    }
+
+    .select-options {
+        width: 258px;
     }
 }
