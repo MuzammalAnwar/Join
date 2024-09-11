@@ -905,13 +905,13 @@ a {
 }
 
 @media (max-width: 1000px) {
-.close_icon {
-    display: none;
-}
+    .close_icon {
+        display: none;
+    }
 
-.close_icon_edit {
-    display: none;
-}
+    .close_icon_edit {
+        display: none;
+    }
 
     .d_none_contacts {
         display: none;
