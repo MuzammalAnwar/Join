@@ -34,10 +34,10 @@ body {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%) scale(2); 
+    transform: translate(-50%, -50%) scale(2);
     height: auto;
     width: 200px;
-    animation: slide-to-top-left 1s ease-in-out forwards; 
+    animation: slide-to-top-left 1s ease-in-out forwards;
 }
 
 @keyframes slide-to-top-left {
@@ -62,19 +62,28 @@ body {
 
 @keyframes fade-out-page {
     0% {
-        opacity: 0; /* Start, komplett transparent */
+        opacity: 0;
+        /* Start, komplett transparent */
     }
+
     25% {
-        opacity: 0.25; /* Leicht sichtbar */
+        opacity: 0.25;
+        /* Leicht sichtbar */
     }
+
     50% {
-        opacity: 0.5; /* Halb sichtbar */
+        opacity: 0.5;
+        /* Halb sichtbar */
     }
+
     75% {
-        opacity: 0.75; /* Fast vollständig sichtbar */
+        opacity: 0.75;
+        /* Fast vollständig sichtbar */
     }
+
     100% {
-        opacity: 1; /* Endzustand, vollständig sichtbar */
+        opacity: 1;
+        /* Endzustand, vollständig sichtbar */
     }
 }
 

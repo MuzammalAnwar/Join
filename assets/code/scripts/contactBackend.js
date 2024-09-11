@@ -107,7 +107,6 @@ function updateContactList(contacts) {
     sortedContacts.forEach(id => {
         let contact = contacts[id];
         let firstLetter = contact.name.charAt(0).toUpperCase();
-
         if (firstLetter !== currentLetter) {
             currentLetter = firstLetter;
             contactList.innerHTML += createAlphabeticalIndexTemplate(currentLetter);

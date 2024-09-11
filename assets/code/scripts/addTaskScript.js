@@ -174,7 +174,8 @@ function addSubtask() {
         input.value = '';
         input.blur();
     } else {
-        alert('Please write something');
+        document.getElementById('subtasks').classList.add('errorFeedbackForInput')
+        setTimeout(() => { document.getElementById('subtasks').classList.remove('errorFeedbackForInput') }, 1000)
     }
 }
 
