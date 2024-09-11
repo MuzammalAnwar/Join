@@ -236,3 +236,43 @@ function createSubtaskEditTemplateForEdit(index, subtaskText, taskID) {
         </div>
     `;
 }
+
+
+function renderAssignedContactsInEditOverlayTemplate(contact, isAssigned) {
+    return `<div class="custom-option" data-value="${contact.name}" style="${returnStyleBasedOnContactAssignStatus(isAssigned)}">
+                    <div class="profileCircleAndName"> 
+                        <div class="profile-circle" style="background-color: ${contact.color};">
+                            ${getInitials(contact.name)}
+                        </div>
+                        <span>${contact.name}</span>
+                    </div>
+                    <input type="checkbox" value="${contact.name}" ${isAssigned ? 'checked' : ''}>
+                </div>`;
+}
+
+
+function renderAssignedContactsTemplate(contact) {
+    return ` <div class="profileCircleAndNameForFullTaskView"> 
+                    <div class="profile-circle" style="background-color: ${getRandomRgbColor()};">
+                        ${getInitials(contact)}
+                    </div>
+                    <span>${contact}</span>
+                </div>`;
+}
+
+function renderAssignedContactsInOverlayTemplate(contact) {
+    return `<div class="profileCircleAndNameForFullTaskView"> 
+                        <div class="profile-circle" style="background-color: ${getRandomRgbColor()};">
+                            ${getInitials(contact)}
+                        </div>
+                        <span>${contact}</span>
+                    </div>`;
+}
+
+function generateSubtaskListTemplate(isChecked, index, subtask) {
+    return `
+            <div class="sub_task_position">
+                <input class="checkbox" type="checkbox" ${isChecked} data-index="${index}" onchange="updateProgress()">
+                <label class="sub_task">${subtask.name}</label>
+            </div>`;
+}

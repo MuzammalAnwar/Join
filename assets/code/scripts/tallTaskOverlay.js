@@ -1,170 +1,207 @@
+/**
+ * Stores the current task ID.
+ * @type {number}
+ */
 let currentTaskId;
 
+/**
+ * Displays the tall task overlay with provided task details.
+ * @param {number} taskId - The ID of the task.
+ * @param {string} title - The title of the task.
+ * @param {string} category - The category of the task.
+ * @param {string} urgency - The urgency level of the task ('low', 'medium', 'urgent').
+ * @param {string} dueDate - The due date of the task in a readable format.
+ * @param {string} description - A description of the task.
+ * @param {Array} subTasks - An array of subtasks associated with the task.
+ */
 function showTallTaskOverlay(taskId, title, category, urgency, dueDate, description, subTasks) {
     currentTaskId = taskId;
-
-    let overlay = document.getElementById('tall_task_overlay_background');
-    if (overlay) {
-        overlay.style.display = 'flex';
-    } else {
-        console.error('Overlay background element not found');
-        return;
-    }
-
-    let tallOverlay = document.getElementById('tall_task_overlay');
-    if (tallOverlay) {
-        tallOverlay.classList.remove('slide-out');
-        tallOverlay.classList.add('slide-in');
-    } else {
-        console.error('Tall overlay element not found');
-        return;
-    }
-
-    document.getElementById('tall_task_overlay_title').textContent = title || '';
-
-    let categoryElement = document.getElementById('task_category');
-    if (categoryElement) {
-        categoryElement.textContent = category || 'No category';
-    }
-
-    document.getElementById('task_due_date').textContent = formatDate(dueDate) || '';
-    document.getElementById('task_description').textContent = description || '';
-
-    let subtasksContainer = document.getElementById('subtasks_container');
-    if (subtasksContainer) {
-        subtasksContainer.innerHTML = generateSubtaskList(subTasks);
-    } else {
-        console.error('Element with ID "subtasks_container" not found');
-    }
-
-    let checkboxes = subtasksContainer.querySelectorAll('.checkbox');
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => updateProgress(taskId));
-    });
-
-    let prioText = 'Low';
-    let prioIconPath = '../../img/lowIcon.png';
-
-    if (urgency === 'medium') {
-        prioText = 'Medium';
-        prioIconPath = '../../img/mediumIcon.png';
-    } else if (urgency === 'urgent') {
-        prioText = 'Urgent';
-        prioIconPath = '../../img/urgentIcon.png';
-    }
-
-    document.getElementById('prio_name').textContent = prioText;
-    document.getElementById('prio_icon').src = prioIconPath;
-
-    if (categoryElement) {
-        categoryElement.className = '';
-        categoryElement.classList.remove('categoryTechnicalTaskOverlay', 'categoryUserStoryOverlay');
-        if (category === 'Technical Task') {
-            categoryElement.classList.add('categoryTechnicalTaskOverlay');
-        } else if (category === 'User Story') {
-            categoryElement.classList.add('categoryUserStoryOverlay');
-        }
-    }
+    if (!toggleOverlay(true)) return;
+    updateContent(title, category, dueDate, description, subTasks);
+    setUrgency(urgency);
+    setCategoryClass(category);
     renderAssignedContactsInOverlay(taskId);
 }
 
+/**
+ * Toggles the visibility of the overlay.
+ * @param {boolean} show - Whether to show or hide the overlay.
+ * @returns {boolean} - Returns true if the overlay is toggled successfully.
+ */
+function toggleOverlay(show) {
+    let overlay = document.getElementById('tall_task_overlay_background');
+    if (!overlay) return console.error('Overlay not found');
+    if (show) {
+        overlay.style.display = 'flex'; 
+        let tallOverlay = document.getElementById('tall_task_overlay');
+        if (tallOverlay) {
+            tallOverlay.classList.remove('slide-out'); 
+            tallOverlay.classList.add('slide-in');  
+        }
+    } else {
+        overlay.style.display = 'none';  
+    }
+    return true;
+}
 
+/**
+ * Updates the content in the overlay based on the task details.
+ * @param {string} title - The title of the task.
+ * @param {string} category - The category of the task.
+ * @param {string} dueDate - The due date of the task.
+ * @param {string} description - The description of the task.
+ * @param {Array} subTasks - An array of subtasks.
+ */
+function updateContent(title, category, dueDate, description, subTasks) {
+    setText('tall_task_overlay_title', title || '');
+    setText('task_category', category || 'No category');
+    setText('task_due_date', formatDate(dueDate) || '');
+    setText('task_description', description || '');
+    updateSubtasks(subTasks);
+}
 
+/**
+ * Updates the list of subtasks in the overlay.
+ * @param {Array} subTasks - An array of subtasks.
+ */
+function updateSubtasks(subTasks) {
+    let container = document.getElementById('subtasks_container');
+    if (!container) return console.error('Subtasks container not found');
+    container.innerHTML = generateSubtaskList(subTasks);
+    container.querySelectorAll('.checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', () => updateProgress(currentTaskId));
+    });
+}
+
+/**
+ * Sets the urgency level in the task overlay.
+ * @param {string} urgency - The urgency level of the task ('low', 'medium', 'urgent').
+ */
+function setUrgency(urgency) {
+    let urgencyMap = { 'medium': ['Medium', '../../img/mediumIcon.png'], 'urgent': ['Urgent', '../../img/urgentIcon.png'], 'low': ['Low', '../../img/lowIcon.png'] };
+    let [prioText, prioIconPath] = urgencyMap[urgency] || urgencyMap['low'];
+    setText('prio_name', prioText);
+    document.getElementById('prio_icon').src = prioIconPath;
+}
+
+/**
+ * Updates the text content of a DOM element.
+ * @param {string} elementId - The ID of the DOM element.
+ * @param {string} content - The text content to set.
+ */
+function setText(elementId, content) {
+    let element = document.getElementById(elementId);
+    if (element) element.textContent = content;
+}
+
+/**
+ * Sets the CSS class for the task category.
+ * @param {string} category - The category of the task.
+ */
+function setCategoryClass(category) {
+    let categoryElement = document.getElementById('task_category');
+    if (!categoryElement) return;
+    categoryElement.className = '';
+    categoryElement.classList.add(
+        category === 'Technical Task' ? 'categoryTechnicalTaskOverlay' :
+        category === 'User Story' ? 'categoryUserStoryOverlay' : ''
+    );
+}
+
+/**
+ * Generates the HTML list of subtasks.
+ * @param {Array|string} subTasks - The subtasks array or a comma-separated string.
+ * @returns {string} - The HTML string for the subtask list.
+ */
 function generateSubtaskList(subTasks) {
     if (typeof subTasks === 'string') {
         subTasks = subTasks.split(',').map(subtask => ({ name: subtask, completed: false }));
-    }
-    if (!Array.isArray(subTasks) || subTasks.length === 0) {
-        return '<p>No subtasks available</p>';
-    }
-
+    }if (!Array.isArray(subTasks) || subTasks.length === 0) {
+        return '<p>No subtasks available</p>';}
     let storedSubTaskStates = JSON.parse(localStorage.getItem('subTasks_' + currentTaskId)) || [];
     let completedSubtasks = 0;
     let subtaskHtml = '<ul class="subtask-list">';
     subTasks.forEach((subtask, index) => {
-        const isChecked = storedSubTaskStates[index] ? 'checked' : (subtask.completed ? 'checked' : '');
+        let isChecked = storedSubTaskStates[index] ? 'checked' : (subtask.completed ? 'checked' : '');
         if (isChecked) {
-            completedSubtasks++;
-        }
-        subtaskHtml += `
-            <div class="sub_task_position">
-                <input class="checkbox" type="checkbox" ${isChecked} data-index="${index}" onchange="updateProgress()">
-                <label class="sub_task">${subtask.name}</label>
-            </div>`;
+            completedSubtasks++;}subtaskHtml += generateSubtaskListTemplate(isChecked, index, subtask);
     });
     subtaskHtml += '</ul>';
-
     return subtaskHtml;
 }
 
+/**
+ * Initializes the progress bar based on subtasks.
+ */
 function initializeProgressBar() {
     let checkboxes = document.querySelectorAll('.sub_task_position .checkbox');
     let totalSubtasks = checkboxes.length;
     let completedSubtasks = 0;
     let subTaskStates = JSON.parse(localStorage.getItem('subTasks_' + currentTaskId)) || [];
-
     checkboxes.forEach((checkbox, index) => {
         if (subTaskStates[index]) {
             checkbox.checked = true;
-            completedSubtasks++;
-        }
+            completedSubtasks++;}
     });
-
     updateProgressBar(completedSubtasks, totalSubtasks);
 }
 
-
+/**
+ * Updates the progress bar based on the number of completed subtasks.
+ * @param {number} completedSubtasks - The number of completed subtasks.
+ * @param {number} totalSubtasks - The total number of subtasks.
+ */
 function updateProgressBar(completedSubtasks, totalSubtasks) {
     let progressPercentage = (completedSubtasks / totalSubtasks) * 100;
     let progressBar = document.getElementById('progress-bar');
     let progressText = document.getElementById('progress-text');
-
     if (progressBar && progressText && totalSubtasks > 0) {
         progressBar.style.width = `${progressPercentage}%`;
         progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`;
     }
 }
 
+/**
+ * Updates the progress for the current task.
+ * @param {number} taskId - The ID of the task.
+ */
 function updateProgress(taskId) {
     let checkboxes = document.querySelectorAll(`#subtasks_container .checkbox`);
     let totalSubtasks = checkboxes.length;
     let completedSubtasks = 0;
     let subTaskStates = [];
-
     checkboxes.forEach((checkbox, index) => {
         let isChecked = checkbox.checked;
         subTaskStates.push(isChecked);
         if (isChecked) {
             completedSubtasks++;
-        }
-    });
-
+        } });
     localStorage.setItem('subTasks_' + taskId, JSON.stringify(subTaskStates));
-
     updateProgressBarForTask(taskId, completedSubtasks, totalSubtasks);
 }
 
-
+/**
+ * Deletes the current task from Firebase.
+ */
 async function deleteTaskFromFirebase() {
-    try {
-        let taskElement = document.getElementById('task' + currentTaskId);
+    try {let taskElement = document.getElementById('task' + currentTaskId);
         if (!taskElement) {
             console.error("Task element not found");
-            return;
-        }
+            return;}
         let taskPath = taskElement.dataset.path;
         await fetchTask(taskPath, null, 'DELETE');
-
         taskElement.remove();
         hideTallTaskOverlay();
         checkIfCategoryHasNoTasks();
-
         console.log(`Task ${currentTaskId} successfully deleted`);
     } catch (error) {
         console.error(`Failed to delete task ${currentTaskId}:`, error);
     }
 }
 
+/**
+ * Hides the tall task overlay.
+ */
 function hideTallTaskOverlay() {
     let overlay = document.getElementById('tall_task_overlay_background');
     let tallOverlay = document.getElementById('tall_task_overlay');
@@ -181,20 +218,17 @@ function hideTallTaskOverlay() {
     }
 }
 
+/**
+ * Renders the assigned contacts in the overlay.
+ * @param {number} taskID - The ID of the task.
+ */
 function renderAssignedContactsInOverlay(taskID) {
     let inputContent = document.getElementById('assignedContactsContainer');
     inputContent.innerHTML = '';
     fetchTask(`/${userID}/addedTasks/${taskID}/assigned/`, null, 'GET').then(assignedContacts => {
         if (assignedContacts) {
             assignedContacts.forEach(contact => {
-                inputContent.innerHTML += /*HTML*/`
-                <div class="profileCircleAndNameForFullTaskView"> 
-                        <div class="profile-circle" style="background-color: ${getRandomRgbColor()};">
-                            ${getInitials(contact)}
-                        </div>
-                        <span>${contact}</span>
-                    </div>
-            `;
+                inputContent.innerHTML += renderAssignedContactsInOverlayTemplate(contact);
             })
         }
         else {

@@ -526,6 +526,9 @@ a {
     height: 32px;
     border-radius: 56px;
     margin-top: 40px;
+    position: relative;
+    left: 225%;
+    bottom: 180px;
 }
 
 .edit_overlay_close_button:hover {
@@ -741,21 +744,16 @@ a {
     justify-content: center;
 }
 
-/* Klasse, die das Menü sichtbar macht und es von rechts nach links slidet */
 .options_menu.active {
     right: 0px;
-    /* Position, wenn sichtbar */
     opacity: 1;
 }
 
-/* Optional: Animation zum Schließen */
 .options_menu.hide {
     right: -150px;
-    /* Zurück nach rechts, außerhalb des Bildschirms */
     opacity: 0;
 }
 
-/* Styling für die Option-Buttons */
 .options_menu button {
     display: flex;
     align-items: center;
@@ -807,6 +805,14 @@ a {
         display: none;
     }
 
+    .close_icon_white {
+        display: none;
+    }
+
+    .close_icon_edit {
+        display: block;
+    }
+
 }
 
 @media (max-width: 1100px) {
@@ -819,6 +825,10 @@ a {
     .overlay {
         width: 96%;
     }
+
+    .edit_overlay {
+        width: 96%;
+    }
 }
 
 @media (max-width: 1160px) {
@@ -828,6 +838,10 @@ a {
 
     .overlay_subtitle {
         font-size: 23px;
+    }
+
+    .edit_overlay {
+        width: 90%;
     }
 }
 
@@ -891,6 +905,14 @@ a {
 }
 
 @media (max-width: 1000px) {
+.close_icon {
+    display: none;
+}
+
+.close_icon_edit {
+    display: none;
+}
+
     .d_none_contacts {
         display: none;
     }
@@ -1121,9 +1143,9 @@ a {
 
     .edit_overlay_close_button {
         margin: 0;
-        position: absolute;
-        top: 14%;
-        left: 76%;
+        position: relative;
+        top: -24%;
+        left: 90%;
         transform: translate(-50%, -50%);
         z-index: 9999;
     }
@@ -1174,6 +1196,10 @@ a {
 }
 
 @media (max-width: 449px) {
+    .edit_overlay_close_button {
+        top: -18%;
+    }
+
     p {
         font-size: 12px;
     }

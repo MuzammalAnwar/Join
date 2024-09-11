@@ -113,6 +113,7 @@
                                 <div class="close_button_container">
                                     <div class="overlay_close_button" onclick="hideOverlay()">
                                         <img class="close_icon" src="../../img/Close.png">
+                                        <img class="close_icon_white" src="../../img/Close white.png">
                                     </div>
                                 </div>
                                 <div class="form_position">
@@ -150,7 +151,13 @@
         <div id="editOverlayBackground" class="overlay_background d_none" onclick="hideEditOverlay()">
             <div id="editOverlay" class="edit_overlay" onclick="handleInnerDivClick(event)">
                 <div class="overlay_content_left">
+                    
+                    
                     <div class="overlay_title_container">
+                        <div class="edit_overlay_close_button" onclick="hideEditOverlay()">
+                            <img class="close_icon_edit" src="../../img/Close.png">
+                            <img class="close_icon_white" src="../../img/Close white.png">
+                        </div>
                         <div class="overlay_title_position">
                             <img class="overlay_logo" src="../../img/Capa1.png" alt="Logo">
                             <p class="overlay_title">Edit contact</p>
@@ -167,11 +174,6 @@
                         </div>
                         <div>
                             <div class="close_icon_position">
-                                <div>
-                                    <div class="edit_overlay_close_button" onclick="hideEditOverlay()">
-                                        <img class="close_icon" src="../../img/Close.png">
-                                    </div>
-                                </div>
                                 <div class="form_position">
                                     <div class="input_container_overlay">
                                         <input required id="editName" class="input_size_overlay" type="text"
