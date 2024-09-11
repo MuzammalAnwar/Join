@@ -75,6 +75,11 @@ function getSelectedClass(status) {
     }
 }
 
+document.addEventListener('DOMContentLoaded', initializeUrgencyButtons);
+document.addEventListener('DOMContentLoaded', function () {
+    toggleInputIcons('subtasks', 'subtaskAdd', 'subtaskCancel', 'subtaskSave');
+});
+
 /**
  * Handles the form submission to add a new task.
  *
@@ -98,7 +103,6 @@ function gatherTaskData() {
     let description = document.getElementById('description').value;
     let dueDate = document.getElementById('due-date').value;
     let category = document.getElementById('category').value;
-
     return {
         title,
         description,
@@ -147,11 +151,21 @@ function clearTaskForm() {
     document.getElementById('category').value = '';
 }
 
-
+/**
+ * Changes the source of an image element by updating its `src` attribute.
+ *
+ * @param {string} id - The ID of the image element to change.
+ * @param {string} src - The new source URL for the image.
+ */
 function changeImgSource(id, src) {
     document.getElementById(id).src = src;
 }
 
+/**
+ * Adds a new subtask to the list if the input field is not empty.
+ * After adding, it renders the updated subtask list and clears the input field.
+ * If the input is empty, it alerts the user to enter a value.
+ */
 function addSubtask() {
     let input = document.getElementById('subtasks');
     if (input.value !== '') {
@@ -164,54 +178,69 @@ function addSubtask() {
     }
 }
 
+/**
+ * Returns an array of selected contact values from the checkboxes
+ * inside elements with the class 'custom-option'.
+ *
+ * @returns {Array<string>} An array of values of the selected checkboxes.
+ */
 function returnSelectedContacts() {
     return Array.from(document.querySelectorAll('.custom-option input[type="checkbox"]:checked'))
         .map(checkbox => checkbox.value);
 }
 
+/**
+ * Renders the list of subtasks by updating the HTML content of the subtask list element.
+ */
 function renderSubtasks() {
     let subtaskList = document.getElementById('subtaskList');
     subtaskList.innerHTML = '';
     subtasks.forEach((subtask, i) => {
-        subtaskList.innerHTML += /*HTML*/`
-            <li class="subtaskListItem" id="subtaskListItem${i}">
-                <p class="subtaskListText">${subtask}</p>
-                <div class="subtaskIcons">
-                    <img onclick="editSubtask(${i})" src="../../img/subtaskEditIcon.png" class="subtaskIcon" alt="Edit Icon">
-                    <img onclick="deleteSubtask(${i})" src="../../img/subtaskTrashIcon.png" class="subtaskIcon" alt="Trash Icon">
-                </div>
-            </li>
-        `;
+        subtaskList.innerHTML += createSubtaskListItemTemplate(i, subtask);
     });
 }
 
+/**
+ * Replaces the content of a subtask list item with an edit view.
+ *
+ * @param {number} index - The index of the subtask to edit.
+ */
 function editSubtask(index) {
     let subtaskListItem = document.getElementById(`subtaskListItem${index}`);
     let subtaskText = subtasks[index];
 
-    subtaskListItem.innerHTML = /*HTML*/`
-        <div class="subtaskEditContainer">
-            <input class="editInput" type="text" value="${subtaskText}" class="subtaskEditInput" id="subtaskEditInput${index}">
-            <div class="subtaskEditSeparator"></div>
-            <div class="subtaskEditIcons">
-                <img onclick="renderSubtasks()" src="../../img/subtaskTrashIcon.png" class="subtaskIcon" alt="Cancel Icon">
-                <img onclick="saveSubtask(${index})" src="../../img/subtaskAddIcon.png" class="subtaskIcon" alt="Save Icon">
-            </div>
-        </div>
-    `;
+    subtaskListItem.innerHTML = createSubtaskEditTemplate(index, subtaskText);
 }
 
+/**
+ * Saves the edited subtask text from the input field.
+ *
+ * @param {number} index - The index of the subtask to save.
+ */
 function saveSubtask(index) {
     let input = document.getElementById(`subtaskEditInput${index}`);
     subtasks[index] = input.value;
     renderSubtasks();
 }
 
+/**
+ * Deletes a subtask from the list based on its index.
+ *
+ * @param {number} index - The index of the subtask to delete.
+ */
 function deleteSubtask(index) {
     subtasks.splice(index, 1);
     renderSubtasks();
 }
 
+/**
+ * Handles button click events by toggling icon images.
+ *
+ * @param {string} clickedIconId - The ID of the clicked icon.
+ * @param {string} originalSrc - The original source URL of the icon.
+ * @param {string} hoverSrc - The source URL of the icon when hovered.
+ * @param {Array<string>} otherIconIds - An array of IDs for other icons to reset.
+ */
 function handleButtonClick(clickedIconId, originalSrc, hoverSrc, otherIconIds) {
     otherIconIds.forEach(function (id) {
         let icon = document.getElementById(id);
@@ -224,12 +253,21 @@ function handleButtonClick(clickedIconId, originalSrc, hoverSrc, otherIconIds) {
     toggleIcon(clickedIconId, originalSrc, hoverSrc);
 }
 
-
+/**
+ * Clears all subtasks from the list and resets the subtasks array.
+ */
 function clearSubtasks() {
     document.getElementById('subtaskList').innerHTML = '';
     subtasks = [];
 }
 
+/**
+ * Toggles the source URL of an icon between its original and hover states.
+ *
+ * @param {string} iconId - The ID of the icon to toggle.
+ * @param {string} originalSrc - The original source URL of the icon.
+ * @param {string} hoverSrc - The source URL of the icon when hovered.
+ */
 function toggleIcon(iconId, originalSrc, hoverSrc) {
     let icon = document.getElementById(iconId);
     let currentSrc = icon.src.split('/').pop();
@@ -240,18 +278,24 @@ function toggleIcon(iconId, originalSrc, hoverSrc) {
     }
 }
 
+/**
+ * Toggles the visibility of input-related icons based on focus and blur events.
+ *
+ * @param {string} inputId - The ID of the input field.
+ * @param {string} addIconId - The ID of the add icon.
+ * @param {string} cancelIconId - The ID of the cancel icon.
+ * @param {string} saveIconId - The ID of the save icon.
+ */
 function toggleInputIcons(inputId, addIconId, cancelIconId, saveIconId) {
     let input = document.getElementById(inputId);
     let addIcon = document.getElementById(addIconId);
     let cancelIcon = document.getElementById(cancelIconId);
     let saveIcon = document.getElementById(saveIconId);
-
     input.addEventListener('focus', function () {
         addIcon.classList.add('hidden');
         cancelIcon.classList.remove('hidden');
         saveIcon.classList.remove('hidden');
     });
-
     input.addEventListener('blur', function () {
         setTimeout(function () {
             addIcon.classList.remove('hidden');
@@ -261,117 +305,151 @@ function toggleInputIcons(inputId, addIconId, cancelIconId, saveIconId) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    toggleInputIcons('subtasks', 'subtaskAdd', 'subtaskCancel', 'subtaskSave');
-});
-
-function getContacts() {
+/**
+ * Fetches and renders the contact options into the custom select dropdown.
+ * 
+ * @async
+ */
+async function getContacts() {
     let taskPath = `/${userID}/contacts`;
     let selectWrapper = document.querySelector('.custom-options');
-    fetchTask(taskPath, null, 'GET').then(contacts => {
+    try {
+        let contacts = await fetchTask(taskPath, null, 'GET');
         let keys = Object.keys(contacts);
         let html = '';
         for (let i = 0; i < keys.length; i++) {
             let contact = contacts[keys[i]];
-            html += /*HTML*/`
-                <div class="custom-option" data-value="${contact.name}">
-                    <div class="profileCircleAndName"> 
-                        <div class="profile-circle" style="background-color: ${contact.color};">
-                            ${getInitials(contact.name)}
-                        </div>
-                        <span>${contact.name}</span>
-                    </div>
-                    <input type="checkbox" value="${contact.name}">
-                </div>
-            `;
+            html += createContactOptionTemplate(contact);
         }
         selectWrapper.innerHTML = html;
-
-
         document.querySelectorAll('.custom-option').forEach(option => {
             option.addEventListener('click', handleOptionClick);
         });
-    });
+    } catch (error) {
+        console.error("Error fetching contacts:", error);
+    }
 }
 
+/**
+ * Updates the text of the custom select trigger based on the number of selected contacts.
+ * 
+ * @param {Array<string>} selected - The list of selected contact names.
+ */
 function updateTriggerText(selected) {
     let trigger = document.querySelector('.custom-select-trigger');
     trigger.querySelector('span').textContent = selected.length > 0 ? '' : 'Select contacts to assign';
 }
 
+/**
+ * Adds a more-indicator element to the wrapper if the number of selected contacts exceeds 5.
+ * 
+ * @param {Array<string>} selected - The list of selected contact names.
+ * @param {HTMLElement} wrapper - The wrapper element to append the more-indicator to.
+ */
 function addMoreIndicatorIfNeeded(selected, wrapper) {
     if (selected.length > 5) {
         wrapper.innerHTML += '<div class="more-indicator">...</div>';
     }
 }
 
+/**
+ * Renders the selected contacts inside the given wrapper element.
+ *
+ * @param {Array<string>} selected - The list of selected contact names.
+ * @param {HTMLElement} wrapper - The wrapper element to append the contact elements to.
+ */
 function renderSelectedContacts(selected, wrapper) {
     selected.forEach((contactName, index) => {
         if (index < 5) {
             let contactElement = document.querySelector(`.custom-option[data-value="${contactName}"]`);
             let color = contactElement.querySelector('.profile-circle').style.backgroundColor;
             let initials = contactElement.querySelector('.profile-circle').textContent;
-            wrapper.innerHTML += `
-                <div class="profile-circle" style="background-color: ${color};">
-                    ${initials}
-                </div>
-            `;
+            wrapper.innerHTML += createContactCircleTemplate(color, initials);
         }
     });
 }
 
+/**
+ * Clears all selected contacts from the given wrapper element.
+ *
+ * @param {HTMLElement} wrapper - The wrapper element to clear.
+ */
 function clearSelectedContacts(wrapper) {
     wrapper.innerHTML = '';
 }
 
+/**
+ * Gets the values of all selected contact checkboxes.
+ *
+ * @returns {Array<string>} - An array of selected contact values.
+ */
 function getSelectedContacts() {
     let checkboxes = document.querySelectorAll('.custom-option input[type="checkbox"]:checked');
     return Array.from(checkboxes).map(checkbox => checkbox.value);
 }
 
+/**
+ * Updates the selected contacts display and other related elements.
+ */
 function updateSelectedContacts() {
     let selected = getSelectedContacts();
     let selectedContactsWrapper = document.querySelector('.selected-contacts');
-
     clearSelectedContacts(selectedContactsWrapper);
     renderSelectedContacts(selected, selectedContactsWrapper);
     addMoreIndicatorIfNeeded(selected, selectedContactsWrapper);
     updateTriggerText(selected);
 }
 
+/**
+ * Closes the dropdown if a click occurs outside of the select element.
+ *
+ * @param {Event} e - The click event.
+ */
 function closeDropdownOnClickOutside(e) {
     let select = document.querySelector('.custom-select');
     let options = document.querySelector('.custom-options');
-
     if (!select.contains(e.target)) {
         options.classList.remove('open');
     }
 }
 
+/**
+ * Toggles the selection of an option when clicked.
+ *
+ * @param {Event} e - The click event.
+ */
 function handleOptionClick(e) {
     let option = e.currentTarget;
     let checkbox = option.querySelector('input[type="checkbox"]');
-
     checkbox.checked = !checkbox.checked;
-
     if (checkbox.checked) {
         option.classList.add('selected');
     } else {
         option.classList.remove('selected');
     }
-
     updateSelectedContacts();
 }
 
+/**
+ * Prevents the click event from propagating to parent elements.
+ *
+ * @param {Event} e - The click event.
+ */
 function preventClickBubbling(e) {
     e.stopPropagation();
 }
 
+/**
+ * Toggles the visibility of the dropdown options.
+ */
 function toggleDropdown() {
     let options = document.querySelector('.custom-options');
     options.classList.toggle('open');
 }
 
+/**
+ * Initializes event listeners for the custom select dropdown.
+ */
 function initializeEventListeners() {
     let select = document.querySelector('.custom-select');
     let options = document.querySelector('.custom-options');
@@ -386,4 +464,3 @@ document.addEventListener('DOMContentLoaded', initializeEventListeners);
 window.addEventListener('load', getContacts);
 window.addEventListener('load', checkLoginStatus);
 window.addEventListener('load', setProfileCircleInitials);
-document.addEventListener('DOMContentLoaded', initializeUrgencyButtons);

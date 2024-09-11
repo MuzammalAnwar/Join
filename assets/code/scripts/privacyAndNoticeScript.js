@@ -1,22 +1,26 @@
-
-
+/**
+ * Toggles the visibility of the sidebar navigation based on user login status.
+ * Displays the sidebar if a user is logged in, otherwise hides it and adjusts the margin of the policy notice.
+ */
 function showNavbarIfLoggedIn() {
     const sideNavElements = document.querySelectorAll('.sidebarNav');
-
+    const policyLegalNotice = document.querySelector('.policy-legalNotice');
     if (localStorage.getItem('loggedInUserID')) {
-        // User is logged in, show the sidebar by setting display to flex
         sideNavElements.forEach(element => {
             element.style.display = 'flex';
         });
     } else {
-        // User is not logged in, hide the sidebar by setting display to none
         sideNavElements.forEach(element => {
             element.style.display = 'none';
         });
-        document.querySelector('.policy-legalNotice').style.margin = '25rem 0 0 0';
+        policyLegalNotice.style.margin = '25rem 0 0 0';
     }
 }
 
+/**
+ * Handles the back navigation action based on the user's login status and browser history.
+ * Navigates to the previous page in history if available, or redirects to a default page based on login status.
+ */
 function goBackArrow() {
     if (localStorage.getItem('loggedInUserID')) {
         if (window.history.length > 1) {
@@ -29,21 +33,22 @@ function goBackArrow() {
     }
 }
 
-// Check the screen width when the page loads
+/**
+ * Checks the screen size and toggles the visibility of the navigation bar.
+ * Hides the navigation bar on small screens if the user is not logged in.
+ */
 function checkScreenSize() {
     let element = document.getElementById('navBar');
+
     if (!localStorage.getItem('loggedInUserID')) {
         if (window.innerWidth < 1000) {
-            // Hide the element if screen width is less than 600px
             element.style.display = 'none';
         } else {
-            // Show the element for larger screens
             element.style.display = 'block';
         }
     }
 }
 
-// Call the function on page load
 window.onload = checkScreenSize;
 window.onresize = checkScreenSize;
 window.addEventListener('load', showNavbarIfLoggedIn);

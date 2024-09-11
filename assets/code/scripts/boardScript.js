@@ -5,6 +5,14 @@ let categories = [
     { id: 'done', element: document.getElementById('categoryDone'), message: 'No tasks done' }
 ];
 
+/**
+ * Initializes the rendering of tasks across multiple categories.
+ * Calls the `renderTasks` function for each category ('toDo', 'inProgress', 'awaitFeedback', 'done').
+ * After all categories are rendered, it checks if any category has no tasks.
+ * Logs any errors that occur during the initialization process.
+ *
+ * @returns {Promise<void>} A promise that resolves once all tasks are rendered and the check is complete.
+ */
 function initRender() {
     Promise.all([
         renderTasks('toDo', 'categoryToDo'),
@@ -18,70 +26,91 @@ function initRender() {
     });
 }
 
+
+/**
+ * Renders tasks of the specified category into the HTML element with the given ID.
+ * Fetches tasks from the user task path and filters them by category.
+ * If no tasks are found, it displays a message. Otherwise, it renders the tasks.
+ *
+ * @async
+ * @param {string} category - The category of tasks to render (e.g., 'urgent', 'medium').
+ * @param {string} id - The ID of the HTML element where the tasks will be rendered.
+ */
 async function renderTasks(category, id) {
-    let htmlContent = document.getElementById(id);
-    htmlContent.innerHTML = '';
+    let htmlContent = getElementByIdAndClear(id);
     let taskPath = `/${userID}/addedTasks/`;
     try {
         let taskArray = await fetchTask(taskPath, null, 'GET');
-        let filteredTasks = Object.keys(taskArray).filter(taskKey => taskArray[taskKey].taskCategory === category);
+        let filteredTasks = filterTasksByCategory(taskArray, category);
         if (filteredTasks.length === 0) {
-            htmlContent.innerHTML = `<div class="NoTaskToDo">${returnEqualMsg(category)}</div>`;
+            showNoTasksMessage(htmlContent, category);
         } else {
-            filteredTasks.forEach(taskKey_1 => {
-                let task = taskArray[taskKey_1];
-                htmlContent.innerHTML += /*HTML*/ `
-                <div class="task" draggable="true" ondragend="dragend(event)" ondragstart="drag(event)" id="task${taskKey_1}" data-path="${task.path}" onclick="showTallTaskOverlay('${taskKey_1}', '${task.title}', '${task.category}', '${task.urgency}', '${task.dueDate}', '${task.description}', '${task.subtasks}')">
-                    <div class="categoryPlacement">
-                        <p id="category" class='${returnClass(task.category)}'>${task.category}</p>
-                    </div>
-                    <div class="taskTitleAndDescription">
-                        <p class="title">${task.title}</p>
-                        <p class="description">${task.description}</p>
-                    </div>
-                        ${insertSubtaskBar(taskKey_1, task.subtasks)}
-                    <div class="contactsAndUrgencyInfo">
-                        ${generateImage(task.urgency)}
-                        <div id="contactCircles">${generateContactCircles(task.assigned)}</div>
-                    </div>
-                </div>
-            `;
-                initializeProgressBarForTask(taskKey_1);
-            });
+            renderFilteredTasks(filteredTasks, htmlContent, taskArray);
         }
     } catch (error) {
         console.error(`Error rendering tasks for category ${category}:`, error);
     }
 }
 
+/**
+ * Retrieves an HTML element by its ID and clears its inner HTML content.
+ *
+ * @param {string} id - The ID of the HTML element.
+ * @returns {HTMLElement} The HTML element with cleared content.
+ */
+function getElementByIdAndClear(id) {
+    let element = document.getElementById(id);
+    element.innerHTML = '';
+    return element;
+}
+
+/**
+ * Filters tasks by their category.
+ *
+ * @param {object} taskArray - The array of task objects.
+ * @param {string} category - The category to filter tasks by.
+ * @returns {Array<string>} An array of filtered task keys.
+ */
+function filterTasksByCategory(taskArray, category) {
+    return Object.keys(taskArray).filter(taskKey => taskArray[taskKey].taskCategory === category);
+}
+
+/**
+ * Displays a "No tasks" message when no tasks are found for the given category.
+ *
+ * @param {HTMLElement} htmlContent - The HTML element where the message will be displayed.
+ * @param {string} category - The task category that has no tasks.
+ */
+function showNoTasksMessage(htmlContent, category) {
+    htmlContent.innerHTML = `<div class="NoTaskToDo">${returnEqualMsg(category)}</div>`;
+}
+
+/**
+ * Renders filtered tasks into the HTML element and initializes their progress bars.
+ *
+ * @param {Array<string>} filteredTasks - The keys of the filtered tasks.
+ * @param {HTMLElement} htmlContent - The HTML element where the tasks will be rendered.
+ */
+function renderFilteredTasks(filteredTasks, htmlContent, taskArray) {
+    filteredTasks.forEach(taskKey => {
+        let task = taskArray[taskKey];
+        htmlContent.innerHTML += renderTasksTemplate(taskKey, task);
+        initializeProgressBarForTask(taskKey);
+    });
+}
+
 function getContactArray(contacts) {
     return contacts ? Object.values(contacts) : [];
 }
 
-function generateContactCircle(contact) {
-    return `
-        <div class="profile-circleSmall" style="background-color: ${getRandomRgbColor()};">
-            ${getInitials(contact)}
-        </div>
-    `;
-}
-
-function generateMoreContactsCircle() {
-    return `
-        <div class="profile-circleSmall more-contacts" style="background-color: #cccccc;">
-            ...
-        </div>
-    `;
-}
-
-function generateNoContactsCircle() {
-    return `
-        <div class="no-contacts">
-            N/A
-        </div>
-    `;
-}
-
+/**
+ * Generates the HTML for contact circles based on the provided contacts array.
+ * If there are more than 4 contacts, it displays a "more contacts" circle.
+ * If no contacts are available, it returns a "no contacts" indicator.
+ *
+ * @param {Array<string>} contacts - The array of contacts.
+ * @returns {string} The generated HTML for the contact circles.
+ */
 function generateContactCircles(contacts) {
     const contactArray = getContactArray(contacts);
     if (contactArray.length === 0) {
@@ -94,8 +123,13 @@ function generateContactCircles(contacts) {
     return contactHTML;
 }
 
-
-
+/**
+ * Updates the task's category by fetching the task, modifying its category, and saving it back.
+ * Logs any errors encountered during the process.
+ *
+ * @param {string} taskId - The ID of the task element.
+ * @param {string} newCategory - The new category to assign to the task.
+ */
 function updateTaskCategory(taskId, newCategory) {
     let taskElement = document.getElementById(taskId);
     let taskPath = taskElement.dataset.path;
@@ -107,8 +141,12 @@ function updateTaskCategory(taskId, newCategory) {
     });
 }
 
+/**
+ * Checks if any task category has no tasks and adds a placeholder message if necessary.
+ * Removes placeholder messages for categories that have tasks.
+ */
 function checkIfCategoryHasNoTasks() {
-    removePlaceholders()
+    removePlaceholders();
     categories.forEach(category => {
         if (category.element.children.length === 0) {
             category.element.innerHTML = `<div class="NoTaskToDo">${category.message}</div>`;
@@ -116,6 +154,9 @@ function checkIfCategoryHasNoTasks() {
     });
 }
 
+/**
+ * Removes placeholder messages from categories that have tasks.
+ */
 function removePlaceholders() {
     categories.forEach(category => {
         if (category.element.children.length > 0) {
@@ -127,6 +168,12 @@ function removePlaceholders() {
     });
 }
 
+/**
+ * Returns the placeholder message for an empty task category.
+ *
+ * @param {string} category - The category ID for which to return the message.
+ * @returns {string} The placeholder message for the specified category.
+ */
 function returnEqualMsg(category) {
     let categoryObj = categories.find(cat => cat.id === category);
     if (categoryObj) {
@@ -134,6 +181,12 @@ function returnEqualMsg(category) {
     }
 }
 
+/**
+ * Generates an image HTML based on the task's urgency level.
+ *
+ * @param {string} urgency - The urgency level of the task ('none', 'urgent', 'medium', 'low').
+ * @returns {string} The HTML for the corresponding urgency icon.
+ */
 function generateImage(urgency) {
     if (urgency === 'none') {
         return '';
@@ -152,6 +205,12 @@ function generateImage(urgency) {
     }
 }
 
+/**
+ * Returns the corresponding CSS class for the given task category.
+ *
+ * @param {string} category - The category of the task ('Technical Task', 'User Story', etc.).
+ * @returns {string} The CSS class for the task's category.
+ */
 function returnClass(category) {
     if (category === 'Technical Task') {
         return 'categoryTechnicalTask';
@@ -162,37 +221,51 @@ function returnClass(category) {
     }
 }
 
+/**
+ * Inserts a subtask progress bar for the given task based on completed subtasks.
+ * If no subtasks are present, it returns an empty string.
+ *
+ * @param {string} taskId - The ID of the task.
+ * @param {Array<Object>} subtasks - An array of subtasks, each containing a 'completed' property.
+ * @returns {string} The HTML string for the progress bar.
+ */
 function insertSubtaskBar(taskId, subtasks) {
     if (!Array.isArray(subtasks) || subtasks.length === 0) {
         return '';
-    } else {
-        let completedSubtasks = subtasks.filter(subtask => subtask.completed).length;
-        return /*HTML*/`
-        <div class="progressSection">
-            <div class="progress-container">
-                <div id="progress-bar-${taskId}" class="progress-bar" style="width: ${(completedSubtasks / subtasks.length) * 100}%"></div>
-            </div>
-            <div class="progress-text" id="progress-text-${taskId}">${completedSubtasks}/${subtasks.length} Subtasks</div>
-        </div>
-        `;
     }
+    let completedSubtasks = subtasks.filter(subtask => subtask.completed).length;
+    return insertSubtaskBarTemplate(taskId, completedSubtasks, subtasks.length);
 }
 
+/**
+ * Initializes the progress bar for a given task by retrieving subtask states from localStorage.
+ *
+ * @param {string} taskId - The ID of the task.
+ */
 function initializeProgressBarForTask(taskId) {
-    let progressBar = document.getElementById(`progress-bar-${taskId}`);
-    let progressText = document.getElementById(`progress-text-${taskId}`);
-
-    let subTaskStates = JSON.parse(localStorage.getItem('subTasks_' + taskId)) || [];
+    let subTaskStates = getStoredSubtaskStates(taskId);
     let totalSubtasks = subTaskStates.length;
     let completedSubtasks = subTaskStates.filter(state => state).length;
-
-    if (progressBar && progressText && totalSubtasks > 0) {
-        let progressPercentage = (completedSubtasks / totalSubtasks) * 100;
-        progressBar.style.width = `${progressPercentage}%`;
-        progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`;
-    }
+    updateProgressBarForTask(taskId, completedSubtasks, totalSubtasks);
 }
 
+/**
+ * Retrieves the subtask states for a task from localStorage.
+ *
+ * @param {string} taskId - The ID of the task.
+ * @returns {Array<boolean>} An array of boolean values representing the completion state of each subtask.
+ */
+function getStoredSubtaskStates(taskId) {
+    return JSON.parse(localStorage.getItem('subTasks_' + taskId)) || [];
+}
+
+/**
+ * Updates the progress bar and progress text for the given task.
+ *
+ * @param {string} taskId - The ID of the task.
+ * @param {number} completedSubtasks - The number of completed subtasks.
+ * @param {number} totalSubtasks - The total number of subtasks.
+ */
 function updateProgressBarForTask(taskId, completedSubtasks, totalSubtasks) {
     let progressPercentage = (completedSubtasks / totalSubtasks) * 100;
     let progressBar = document.getElementById(`progress-bar-${taskId}`);
@@ -204,20 +277,22 @@ function updateProgressBarForTask(taskId, completedSubtasks, totalSubtasks) {
     }
 }
 
+/**
+ * Filters tasks based on a search term entered by the user.
+ * Only tasks whose title or description match the search term are displayed.
+ */
 function filterTasks() {
     let searchTerm = document.getElementById('userInput').value.toLowerCase();
-    let tasks = document.querySelectorAll('.task');
-    tasks.forEach(task => {
+    document.querySelectorAll('.task').forEach(task => {
         let title = task.querySelector('.title').textContent.toLowerCase();
         let description = task.querySelector('.description').textContent.toLowerCase();
-        if (title.includes(searchTerm) || description.includes(searchTerm)) {
-            task.style.display = 'block';
-        } else {
-            task.style.display = 'none';
-        }
+        task.style.display = (title.includes(searchTerm) || description.includes(searchTerm)) ? 'block' : 'none';
     });
 }
 
+/**
+ * Hides the task overlay if the screen width is less than 1000 pixels.
+ */
 function checkScreenSize() {
     let element = document.getElementById('taskOverlay');
     if (window.innerWidth < 1000) {

@@ -1,4 +1,4 @@
-const iconPaths = {
+let iconPaths = {
     'edit_urgentIcon': {
         defaultIcon: '../../img/urgentIcon.png',
         hoverIcon: '../../img/urgentIconHover.png'
@@ -12,10 +12,31 @@ const iconPaths = {
         hoverIcon: '../../img/lowIconHover.png'
     }
 };
+
+let priorityMapping = {
+    'urgent': {
+        buttonId: 'edit_urgentIcon',
+        selectedClass: 'edit_urgent_selected',
+        whiteIcon: '../../img/Prio alta white.png',
+        defaultIcon: '../../img/urgentIcon.png'
+    },
+    'medium': {
+        buttonId: 'edit_mediumIcon',
+        selectedClass: 'edit_medium_selected',
+        whiteIcon: '../../img/Prio media white.png',
+        defaultIcon: '../../img/mediumIcon.png'
+    },
+    'low': {
+        buttonId: 'edit_lowIcon',
+        selectedClass: 'edit_low_selected',
+        whiteIcon: '../../img/Prio baja white.png',
+        defaultIcon: '../../img/lowIcon.png'
+    }
+};
+
 let editSubtasks = []
 let currentCardID;
 let currentUrgency = 'none';
-
 
 document.querySelector('.edit_button').addEventListener('click', function () {
     const taskId = currentTaskId;
@@ -77,43 +98,66 @@ function showEditOverlay(taskId, title, description, dueDate, priority, assigned
     renderExistingSubtasks(taskId)
 }
 
+/**
+ * Saves all changes made to a task by calling various functions and updating Firebase.
+ * @async
+ */
 async function saveTaskChanges() {
-    Promise.all([
-        saveEditTitleToFirebase(),
-        saveEditDescriptionToFirebase(),
-        saveEditDateToFirebase(),
-        saveEditSubtasksToFirebase(),
-        saveEditPrioToFirebase(),
-        updateAssignedContacts(currentCardID)
-    ]).then(() => {
-        hideEditOverlay()
+    try {
+        await Promise.all([
+            saveEditTitleToFirebase(),
+            saveEditDescriptionToFirebase(),
+            saveEditDateToFirebase(),
+            saveEditSubtasksToFirebase(),
+            saveEditPrioToFirebase(),
+            updateAssignedContacts(currentCardID)
+        ]);
+        hideEditOverlay();
         initRender();
-    }).catch(error => {
+    } catch (error) {
         console.error("Error during initialization:", error);
-    });
+    }
 }
 
+/**
+ * Saves the edited title of the task to Firebase.
+ * @async
+ * @returns {Promise<Response>} The fetch response from Firebase.
+ */
 async function saveEditTitleToFirebase() {
     let title = document.getElementById('edit_title').value;
-    return fetchTask(`/${userID}/addedTasks/${currentCardID}/title`, title, 'PUT')
+    return fetchTask(`/${userID}/addedTasks/${currentCardID}/title`, title, 'PUT');
 }
 
+/**
+ * Saves the edited description of the task to Firebase.
+ * @async
+ * @returns {Promise<Response>} The fetch response from Firebase.
+ */
 async function saveEditDescriptionToFirebase() {
     let description = document.getElementById('edit_description').value;
-    return fetchTask(`/${userID}/addedTasks/${currentCardID}/description`, description, 'PUT')
+    return fetchTask(`/${userID}/addedTasks/${currentCardID}/description`, description, 'PUT');
 }
 
+/**
+ * Saves the edited due date of the task to Firebase.
+ * @async
+ * @returns {Promise<Response>} The fetch response from Firebase.
+ */
 async function saveEditDateToFirebase() {
     let dueDate = document.getElementById('edit_due_date').value;
-    return fetchTask(`/${userID}/addedTasks/${currentCardID}/dueDate`, dueDate, 'PUT')
+    return fetchTask(`/${userID}/addedTasks/${currentCardID}/dueDate`, dueDate, 'PUT');
 }
 
+/**
+ * Updates the assigned contacts for a task in Firebase.
+ * @async
+ * @param {string} taskID - The ID of the task whose contacts are to be updated.
+ * @returns {Promise<void>} A promise that resolves when the update is complete.
+ */
 async function updateAssignedContacts(taskID) {
     let checkedContacts = document.querySelectorAll('.custom-option input[type="checkbox"]:checked');
-    let assignedContacts = [];
-    checkedContacts.forEach(checkbox => {
-        assignedContacts.push(checkbox.value);
-    });
+    let assignedContacts = Array.from(checkedContacts).map(checkbox => checkbox.value);
     try {
         await fetchTask(`/${userID}/addedTasks/${taskID}/assigned`, assignedContacts, 'PUT');
     } catch (error) {
@@ -121,18 +165,29 @@ async function updateAssignedContacts(taskID) {
     }
 }
 
+/**
+ * Saves the edited subtasks of the task to Firebase.
+ * @async
+ * @returns {Promise<Response>} The fetch response from Firebase.
+ */
 async function saveEditSubtasksToFirebase() {
     let response = await fetchTask(`/${userID}/addedTasks/${currentCardID}/subtasks`, editSubtasks, 'PUT');
     await renderExistingSubtasks(currentCardID);
     return response;
 }
 
+/**
+ * Saves the edited priority level of the task to Firebase if it's not 'none'.
+ * @async
+ * @returns {Promise<Response|null>} The fetch response from Firebase, or null if no update was made.
+ */
 async function saveEditPrioToFirebase() {
     if (currentUrgency !== 'none') {
         return fetchTask(`/${userID}/addedTasks/${currentCardID}/urgency`, currentUrgency, 'PUT');
     }
-    return null
+    return null;
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('edit_urgentIcon').addEventListener('click', function () {
@@ -149,27 +204,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function setPriorityInEditOverlay(selectedPriority) {
-    const priorityMapping = {
-        'urgent': {
-            buttonId: 'edit_urgentIcon',
-            selectedClass: 'edit_urgent_selected',
-            whiteIcon: '../../img/Prio alta white.png',
-            defaultIcon: '../../img/urgentIcon.png'
-        },
-        'medium': {
-            buttonId: 'edit_mediumIcon',
-            selectedClass: 'edit_medium_selected',
-            whiteIcon: '../../img/Prio media white.png',
-            defaultIcon: '../../img/mediumIcon.png'
-        },
-        'low': {
-            buttonId: 'edit_lowIcon',
-            selectedClass: 'edit_low_selected',
-            whiteIcon: '../../img/Prio baja white.png',
-            defaultIcon: '../../img/lowIcon.png'
-        }
-    };
-
     Object.keys(priorityMapping).forEach(priority => {
         const button = document.getElementById(priorityMapping[priority].buttonId);
         button.classList.remove('edit_urgent_selected', 'edit_medium_selected', 'edit_low_selected');
@@ -278,40 +312,36 @@ async function getExistingSubtasks(taskID) {
     return await fetchTask(`/${userID}/addedTasks/${taskID}/subtasks`, null, 'GET');
 }
 
+/**
+ * Renders the existing subtasks for the given task ID.
+ * @param {string} taskID - The ID of the task whose subtasks are to be rendered.
+ */
 async function renderExistingSubtasks(taskID) {
     let subtaskList = document.getElementById('edit_subtaskList');
     subtaskList.innerHTML = '';
     editSubtasks = await getExistingSubtasks(taskID);
     if (editSubtasks) {
         editSubtasks.forEach((subtask, i) => {
-            subtaskList.innerHTML += /*HTML*/`
-            <li class="subtaskListItem" id="editSubtaskListItem${i}">
-                <p class="subtaskListText">${subtask}</p>
-                <div class="subtaskIcons">
-                    <img onclick="editSubtaskInEditOverlay(${i}, '${taskID}')" src="../../img/subtaskEditIcon.png" class="subtaskIcon" alt="Edit Icon">
-                    <img onclick="deleteEditSubtask(${i},'${taskID}')" src="../../img/subtaskTrashIcon.png" class="subtaskIcon" alt="Trash Icon">
-                </div>
-            </li>
-        `;
+            subtaskList.innerHTML += createSubtaskListItemTemplateForEdit(i, subtask, taskID);
         });
     }
 }
 
+/**
+ * Edits a subtask in the edit overlay by replacing its HTML content with an editable form.
+ * @param {number} index - The index of the subtask to edit.
+ * @param {string} taskID - The ID of the task containing the subtask.
+ */
 function editSubtaskInEditOverlay(index, taskID) {
-    let subtaskListItem = document.getElementById(`editSubtaskListItem${index}`);
-    let subtaskText = editSubtasks[index];
-    subtaskListItem.innerHTML = /*HTML*/`
-        <div class="subtaskEditContainer">
-            <input class="editInput" type="text" value="${subtaskText}" class="subtaskEditInput" id="editSubtaskEditInput${index}">
-            <div class="subtaskEditSeparator"></div>
-            <div class="subtaskEditIcons">
-                <img onclick="renderExistingSubtasks('${taskID}')" src="../../img/subtaskTrashIcon.png" class="subtaskIcon" alt="Cancel Icon">
-                <img onclick="saveEditSubtask(${index})" src="../../img/subtaskAddIcon.png" class="subtaskIcon" alt="Save Icon">
-            </div>
-        </div>
-    `;
+    const subtaskListItem = document.getElementById(`editSubtaskListItem${index}`);
+    const subtaskText = editSubtasks[index];
+    subtaskListItem.innerHTML = createSubtaskEditTemplateForEdit(index, subtaskText, taskID);
 }
 
+/**
+ * Adds a new subtask to the list and updates Firebase.
+ * @async
+ */
 async function addEditSubtask() {
     const subtaskInput = document.getElementById('edit_subtasks');
     const newSubtask = subtaskInput.value.trim();
@@ -326,26 +356,44 @@ async function addEditSubtask() {
     }
 }
 
+/**
+ * Saves the edited subtask value into the `editSubtasks` array.
+ * @param {number} index - The index of the subtask to save.
+ */
 function saveEditSubtask(index) {
-    let input = document.getElementById(`editSubtaskEditInput${index}`);
+    const input = document.getElementById(`editSubtaskEditInput${index}`);
     editSubtasks[index] = input.value;
 }
 
+/*
+ * Deletes a subtask from the list and updates the backend.
+ * 
+ * @param {number} index - The index of the subtask to delete.
+ * @param {string} taskID - The ID of the task to which the subtask belongs.
+ * @returns {Promise<void>} A promise that resolves once the subtask is deleted and the UI is updated.
+ */
 async function deleteEditSubtask(index, taskID) {
     editSubtasks.splice(index, 1);
     await fetchTask(`/${userID}/addedTasks/${taskID}/subtasks`, editSubtasks, 'PUT');
     await renderExistingSubtasks(taskID);
 }
 
+/**
+ * Toggles the visibility of the select box when the select trigger is clicked.
+ */
 document.querySelector('.select-trigger').addEventListener('click', function () {
     const selectBox = document.querySelector('.select-box');
     selectBox.classList.toggle('active');
 });
 
+/**
+ * Closes the select box if a click is detected outside of it.
+ * 
+ * @param {Event} e - The click event.
+ */
 window.addEventListener('click', function (e) {
     const selectBox = document.querySelector('.select-box');
     if (!selectBox.contains(e.target) && selectBox.classList.contains('active')) {
         selectBox.classList.remove('active');
     }
 });
-

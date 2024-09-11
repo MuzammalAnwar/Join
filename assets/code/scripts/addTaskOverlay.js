@@ -1,3 +1,7 @@
+/**
+ * Displays the task overlay by showing the overlay element and animating it with a slide-in effect.
+ * The element is displayed in a 'flex' layout.
+ */
 function showOverlay() {
     let overlay = document.getElementById('taskOverlay');
     overlay.style.display = 'flex';
@@ -5,6 +9,10 @@ function showOverlay() {
     overlay.querySelector('.overlay').classList.add('slide-in');
 }
 
+/**
+ * Hides the task overlay by applying a slide-out animation and then hiding the element after a delay.
+ * The element's display is set to 'none' after the animation completes (500ms).
+ */
 function hideOverlay() {
     let overlay = document.getElementById('taskOverlay');
     overlay.querySelector('.overlay').classList.remove('slide-in');
@@ -14,36 +22,19 @@ function hideOverlay() {
     }, 500);
 }
 
+/**
+ * Sets the selected priority in the edit overlay by updating the button styles and icons
+ * based on the selected priority. It resets the styles of all other priority buttons.
+ *
+ * @param {string} selectedPriority - The key of the selected priority ('urgent', 'medium', 'low').
+ */
 function setPriorityInEditOverlay(selectedPriority) {
-    const priorityMapping = {
-        'urgent': {
-            buttonId: 'edit_urgentIcon',
-            selectedClass: 'edit_urgent_selected',
-            whiteIcon: '../../img/Prio alta white.png',
-            defaultIcon: '../../img/urgentIcon.png'
-        },
-        'medium': {
-            buttonId: 'edit_mediumIcon',
-            selectedClass: 'edit_medium_selected',
-            whiteIcon: '../../img/Prio media white.png',
-            defaultIcon: '../../img/mediumIcon.png'
-        },
-        'low': {
-            buttonId: 'edit_lowIcon',
-            selectedClass: 'edit_low_selected',
-            whiteIcon: '../../img/Prio baja white.png',
-            defaultIcon: '../../img/lowIcon.png'
-        }
-    };
-
     Object.keys(priorityMapping).forEach(priority => {
         const button = document.getElementById(priorityMapping[priority].buttonId);
         button.classList.remove('edit_urgent_selected', 'edit_medium_selected', 'edit_low_selected');
         button.querySelector('img').src = priorityMapping[priority].defaultIcon;
     });
-
-    const selectedButton = document.getElementById(priorityMapping[selectedPriority].buttonId);
+    let selectedButton = document.getElementById(priorityMapping[selectedPriority].buttonId);
     selectedButton.classList.add(priorityMapping[selectedPriority].selectedClass);
     selectedButton.querySelector('img').src = priorityMapping[selectedPriority].whiteIcon;
 }
-
