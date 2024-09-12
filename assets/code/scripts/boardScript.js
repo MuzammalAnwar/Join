@@ -41,11 +41,13 @@ async function renderTasks(category, id) {
     let taskPath = `/${userID}/addedTasks/`;
     try {
         let taskArray = await fetchTask(taskPath, null, 'GET');
-        let filteredTasks = filterTasksByCategory(taskArray, category);
-        if (filteredTasks.length === 0) {
-            showNoTasksMessage(htmlContent, category);
-        } else {
-            renderFilteredTasks(filteredTasks, htmlContent, taskArray);
+        if (taskArray) {
+            let filteredTasks = filterTasksByCategory(taskArray, category);
+            if (filteredTasks.length === 0) {
+                showNoTasksMessage(htmlContent, category);
+            } else {
+                renderFilteredTasks(filteredTasks, htmlContent, taskArray);
+            }
         }
     } catch (error) {
         console.error(`Error rendering tasks for category ${category}:`, error);

@@ -316,16 +316,18 @@ async function getContacts() {
     let selectWrapper = document.querySelector('.custom-options');
     try {
         let contacts = await fetchTask(taskPath, null, 'GET');
-        let keys = Object.keys(contacts);
-        let html = '';
-        for (let i = 0; i < keys.length; i++) {
-            let contact = contacts[keys[i]];
-            html += createContactOptionTemplate(contact);
+        if (contacts) {
+            let keys = Object.keys(contacts);
+            let html = '';
+            for (let i = 0; i < keys.length; i++) {
+                let contact = contacts[keys[i]];
+                html += createContactOptionTemplate(contact);
+            }
+            selectWrapper.innerHTML = html;
+            document.querySelectorAll('.custom-option').forEach(option => {
+                option.addEventListener('click', handleOptionClick);
+            });
         }
-        selectWrapper.innerHTML = html;
-        document.querySelectorAll('.custom-option').forEach(option => {
-            option.addEventListener('click', handleOptionClick);
-        });
     } catch (error) {
         console.error("Error fetching contacts:", error);
     }

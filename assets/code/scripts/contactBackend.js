@@ -42,12 +42,9 @@ async function saveContactToFirebase(contact, id = null) {
  */
 async function fetchContactsFromFirebase() {
     try {
-        let response = await fetch(firebaseUrl);
-        if (response.ok) {
-            const contacts = await response.json();
-            updateContactList(contacts);
-        } else {
-            console.error('Failed to fetch contacts:', response.statusText);
+        let response = await fetchTask(`/${userId}/contacts`, null, 'GET');
+        if (response) {
+            updateContactList(response);
         }
     } catch (error) {
         console.error('Error fetching contacts:', error);
