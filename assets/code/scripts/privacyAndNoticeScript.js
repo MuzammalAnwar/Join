@@ -50,5 +50,6 @@ function checkScreenSize() {
 }
 
 window.onload = checkScreenSize;
+window.onload = showNavbarIfLoggedIn;
 window.onresize = checkScreenSize;
 window.addEventListener('load', showNavbarIfLoggedIn);
