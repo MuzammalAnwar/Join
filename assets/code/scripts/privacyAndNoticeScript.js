@@ -11,7 +11,7 @@ function showNavbarIfLoggedIn() {
         });
     } else {
         sideNavElements.forEach(element => {
-            element.style.display = 'none';
+            element.style.opacity = '0';
         });
         policyLegalNotice.style.margin = '25rem 0 0 0';
     }
