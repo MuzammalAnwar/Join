@@ -1,4 +1,6 @@
 let userId = checkLoginStatus();
+let contacts = {};
+let lastLetter = '';
 let firebaseUrl = `https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/contacts.json`;
 let currentNameForEditOverlay = '';
 let currentEmailForEditOverlay = '';
@@ -102,13 +104,14 @@ function updateContactList(contacts) {
     let sortedContacts = Object.keys(contacts).sort((a, b) => 
         contacts[a].name.localeCompare(contacts[b].name)
     );
-    let currentLetter = '';
+    lastLetter = '';
     sortedContacts.forEach(id => {
         let contact = contacts[id];
-        renderContact(contactList, contact, id, currentLetter);
+        renderContact(contactList, contact, id);
     });
     attachCardClickListeners();
 }
+
 
 /**
  * Renders a contact in the contact list. 
@@ -119,11 +122,11 @@ function updateContactList(contacts) {
  * @param {string} id - The unique ID of the contact.
  * @param {string} currentLetter - The current letter of the alphabet used for grouping contacts.
  */
-function renderContact(contactList, contact, id, currentLetter) {
+function renderContact(contactList, contact, id) {
     let firstLetter = contact.name.charAt(0).toUpperCase();
-    if (firstLetter !== currentLetter) {
-        currentLetter = firstLetter;
-        contactList.innerHTML += createAlphabeticalIndexTemplate(currentLetter);
+    if (firstLetter !== lastLetter) {
+        lastLetter = firstLetter;
+        contactList.innerHTML += createAlphabeticalIndexTemplate(firstLetter);
     }
     contactList.innerHTML += createContactCardTemplate(contact, id);
 }
@@ -147,12 +150,15 @@ function attachCardClickListeners() {
                     }
                 });
                 let contactId = card.getAttribute('data-contact-id');  
-                let contact = getContactById(contactId);  
-                showContactDetails(contact.name, contact.email, contact.phone, contact.color, contactId);
+                let contact = contacts[contactId]; 
+                if (contact) {
+                    showContactDetails(contact.name, contact.email, contact.phone, contact.color, contactId);
+                }
             }
         });
     });
 }
+
 
 /**
  * Closes the large contact details card overlay in the UI.
