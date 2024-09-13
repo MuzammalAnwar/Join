@@ -172,7 +172,7 @@ function createContactOptionTemplate(contact) {
  */
 function createContactCardTemplate(contact, id) {
     return `
-        <div class="contact_small_card" data-contact-id="${id}" onclick="showContactDetails('${contact.name}', '${contact.email}', '${contact.phone}', '${contact.color}', '${id}'); saveCurrentInfos('${contact.name}', '${contact.email}', '${contact.phone}', '${contact.color}')">
+        <div class="contact_small_card" data-contact-id="${id}" onclick="showContactDetails('${contact.name}', '${contact.email}', '${contact.phone}', '${contact.color}', '${id}'); saveCurrentInfos('${contact.name}', '${contact.email}', '${contact.phone}', '${contact.color}');">
             <p class="contact_icon" style="background-color: ${contact.color}">${getInitials(contact.name)}</p>
             <div>
                 <p class="m0">${contact.name}</p>

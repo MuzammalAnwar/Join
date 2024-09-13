@@ -24,6 +24,7 @@ async function saveContactToFirebase(contact, id = null) {
         });
         if (response.ok) {
             let responseData = await response.json();
+            console.log("Contact saved successfully:", responseData);  // Debug
             return id || responseData.name;
         } else {
             console.error('Failed to save contact:', response.statusText);
@@ -98,20 +99,52 @@ function resetForm() {
  */
 function updateContactList(contacts) {
     let contactList = document.getElementById('contactList');
-    contactList.innerHTML = '';
-    let sortedContacts = Object.keys(contacts).sort((a, b) => contacts[a].name.localeCompare(contacts[b].name));
+    contactList.innerHTML = ''; 
+    let sortedContacts = Object.keys(contacts).sort((a, b) => 
+        contacts[a].name.localeCompare(contacts[b].name)
+    );
     let currentLetter = '';
     sortedContacts.forEach(id => {
         let contact = contacts[id];
-        let firstLetter = contact.name.charAt(0).toUpperCase();
-        if (firstLetter !== currentLetter) {
-            currentLetter = firstLetter;
-            contactList.innerHTML += createAlphabeticalIndexTemplate(currentLetter);
-        }
-        contactList.innerHTML += createContactCardTemplate(contact, id);
+        renderContact(contactList, contact, id, currentLetter);
+    });
+    attachCardClickListeners();
+}
+
+function renderContact(contactList, contact, id, currentLetter) {
+    let firstLetter = contact.name.charAt(0).toUpperCase();
+    if (firstLetter !== currentLetter) {
+        currentLetter = firstLetter;
+        contactList.innerHTML += createAlphabeticalIndexTemplate(currentLetter);
+    }
+    contactList.innerHTML += createContactCardTemplate(contact, id);
+}
+
+function attachCardClickListeners() {
+    document.querySelectorAll('.contact_small_card').forEach(card => {
+        card.addEventListener('click', function() {
+            if (card.classList.contains('contact_selected')) {
+                card.classList.remove('contact_selected');  
+                closeContactDetails(); 
+            } else {
+                card.classList.add('contact_selected');
+                document.querySelectorAll('.contact_small_card').forEach(otherCard => {
+                    if (otherCard !== card) {
+                        otherCard.classList.remove('contact_selected');  
+                    }
+                });
+                let contactId = card.getAttribute('data-contact-id');  
+                let contact = getContactById(contactId);  
+                showContactDetails(contact.name, contact.email, contact.phone, contact.color, contactId);
+            }
+        });
     });
 }
 
+function closeContactDetails() {
+    let largeCard = document.getElementById('largeCard');
+    largeCard.style.display = 'none';  // Verstecke die Großansicht
+}
 
 /**
  * Displays contact details in a large card overlay.
@@ -125,15 +158,15 @@ function updateContactList(contacts) {
 function showContactDetails(name, email, phone, color, id) {
     let largeCard = document.getElementById('largeCard');
     let icon = document.getElementById('largeCardIcon');
-    icon.textContent = getInitials(name);
-    icon.style.backgroundColor = color;
+    icon.textContent = getInitials(name);  
+    icon.style.backgroundColor = color;   
     document.getElementById('largeCardName').textContent = name;
-    document.getElementById('largeCardEmail').textContent = email;
-    document.getElementById('largeCardPhone').textContent = phone;
-    largeCard.dataset.color = color;
-    largeCard.dataset.currentName = name;
-    largeCard.dataset.contactId = id;
-    largeCard.style.display = 'block';
+    document.getElementById('largeCardEmail').textContent = email;  
+    document.getElementById('largeCardPhone').textContent = phone;  
+    largeCard.dataset.color = color; 
+    largeCard.dataset.currentName = name; 
+    largeCard.dataset.contactId = id; 
+    largeCard.style.display = 'block'; 
     document.querySelector('.edit_button').onclick = () => showEditOverlay(name, email, phone, color);
 }
 

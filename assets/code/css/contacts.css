@@ -204,6 +204,7 @@ a {
     font-weight: 500;
     line-height: 56.4px;
     margin: 0;
+    width: 500px;
 }
 
 .large_cards_buttons {
@@ -666,6 +667,18 @@ a {
     animation: slideIn 0.5s forwards, slideOut 0.5s 2.5s forwards;
 }
 
+.contact_selected {
+    background-color: rgba(42, 54, 71, 1);
+    color: white;
+    border-radius: 10px;
+}
+
+.contact_selected:hover {
+    background-color: rgba(42, 54, 71, 1);
+    cursor: default; 
+}
+
+
 @keyframes slideIn {
     from {
         left: 100%;
@@ -791,6 +804,22 @@ a {
     display: flex;
     justify-content: center;
 }
+
+.contact_small_card.contact_selected:hover {
+    background: rgba(42, 54, 71, 1); /* Beibehaltung der Hintergrundfarbe */
+    color: white; /* Beibehaltung der Schriftfarbe */
+    cursor: default; /* Kein Hover-Effekt */
+}
+
+
+
+.contact_selected {
+    background-color: rgba(42, 54, 71, 1); 
+    color: white; 
+    border-radius: 10px;
+}
+
+
 
 @media (min-width: 1000px) {
     .mobile_contact_button {

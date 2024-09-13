@@ -138,7 +138,7 @@ function clearLargeCard() {
 /**
  * Displays the edit overlay for editing contact details.
  */
-function showEditOverlay() {
+function showEditOverlayMobile() {
     let initials = getInitials(currentNameForEditOverlay);
     let editOverlayIcon = document.getElementById('editOverlayIcon');
     editOverlayIcon.textContent = initials;
@@ -152,6 +152,23 @@ function showEditOverlay() {
     editOverlay.style.display = 'flex';
     closeOptionsOverlay();
 }
+
+function showEditOverlay(name, email, phone, color) {
+    let initials = getInitials(name);  // Initialen generieren
+    let editOverlayIcon = document.getElementById('editOverlayIcon');
+    editOverlayIcon.textContent = initials;  // Initialen setzen
+    editOverlayIcon.style.backgroundColor = color;  // Farbe setzen
+
+    document.getElementById('editName').value = name;  // Name in Bearbeitungsfeld
+    document.getElementById('editEmail').value = email;  // E-Mail in Bearbeitungsfeld
+    document.getElementById('editPhone').value = phone;  // Telefonnummer in Bearbeitungsfeld
+
+    document.getElementById('editOverlayBackground').classList.remove('d_none');  // Hintergrund anzeigen
+    document.getElementById('editOverlay').classList.remove('slide-out');  // Overlay anzeigen
+    document.getElementById('editOverlay').style.display = 'flex';  // Edit-Overlay sichtbar machen
+}
+
+
 
 /**
  * Closes the options overlay.
@@ -200,8 +217,15 @@ function saveContact(event) {
         color: document.getElementById('largeCardIcon').style.backgroundColor
     };
     let contactId = document.getElementById('largeCard').getAttribute('data-contact-id');
-    contactId ? updateExistingContact(contact, contactId) : addNewContact(contact);
-    showContactDetails(contact.name, contact.email, contact.phone, contact.color, contactId);
+        if (contactId) {
+        updateExistingContact(contact, contactId).then(() => {
+            reloadContacts();
+        });
+    } else {
+        addNewContact(contact).then(() => {
+            reloadContacts();
+        });
+    }
     hideEditOverlay();
 }
 
@@ -211,9 +235,43 @@ function saveContact(event) {
  * @param {string} contactId - The ID of the contact to update.
  */
 function updateExistingContact(contact, contactId) {
-    saveContactToFirebase(contact, contactId);
-    let card = document.querySelector(`.contact_small_card[data-contact-id="${contactId}"]`);
-    updateCardDetails(card, contact);
+    return saveContactToFirebase(contact, contactId).then(() => {
+        let card = document.querySelector(`.contact_small_card[data-contact-id="${contactId}"]`);
+        updateCardDetails(card, contact);  // Aktualisiere die kleine Kontaktkarte
+
+        // Großansicht aktualisieren
+        showContactDetails(contact.name, contact.email, contact.phone, contact.color, contactId);
+    });
+}
+
+/**
+ * Updates the details of a contact card in the user interface.
+ *
+ * @param {HTMLElement} card - The HTML element of the contact card to be updated.
+ * @param {Object} contact - An object containing the new contact information.
+ * @param {string} contact.name - The name of the contact.
+ * @param {string} contact.email - The email address of the contact.
+ * @param {string} contact.color - The background color of the contact icon.
+ */
+function updateCardDetails(card, contact) {
+    card.querySelector('.contact_icon').textContent = getInitials(contact.name);
+    card.querySelector('.contact_icon').style.backgroundColor = contact.color; 
+    card.querySelector('.m0').textContent = contact.name; 
+    card.querySelector('.font_color_blue').textContent = contact.email; 
+}
+
+async function reloadContacts() {
+    try {
+        let response = await fetch(`https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/contacts.json`);
+        if (response.ok) {
+            let contacts = await response.json();
+            updateContactList(contacts);  
+        } else {
+            console.error('Failed to reload contacts:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error reloading contacts:', error);
+    }
 }
 
 /**
@@ -221,7 +279,9 @@ function updateExistingContact(contact, contactId) {
  * @param {Object} contact - The contact details to add.
  */
 function addNewContact(contact) {
-    saveContactToFirebase(contact).then(newContactId => addCardToList(contact, newContactId));
+    return saveContactToFirebase(contact).then(newContactId => {
+        addCardToList(contact, newContactId);  // Karte hinzufügen
+    });
 }
 
 /**
@@ -389,4 +449,3 @@ function showContactView() {
         contactView.style.display = 'block';  
     }
 }
-
