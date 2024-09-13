@@ -154,21 +154,17 @@ function showEditOverlayMobile() {
 }
 
 function showEditOverlay(name, email, phone, color) {
-    let initials = getInitials(name);  // Initialen generieren
+    let initials = getInitials(name);  
     let editOverlayIcon = document.getElementById('editOverlayIcon');
-    editOverlayIcon.textContent = initials;  // Initialen setzen
-    editOverlayIcon.style.backgroundColor = color;  // Farbe setzen
-
-    document.getElementById('editName').value = name;  // Name in Bearbeitungsfeld
-    document.getElementById('editEmail').value = email;  // E-Mail in Bearbeitungsfeld
-    document.getElementById('editPhone').value = phone;  // Telefonnummer in Bearbeitungsfeld
-
-    document.getElementById('editOverlayBackground').classList.remove('d_none');  // Hintergrund anzeigen
-    document.getElementById('editOverlay').classList.remove('slide-out');  // Overlay anzeigen
-    document.getElementById('editOverlay').style.display = 'flex';  // Edit-Overlay sichtbar machen
+    editOverlayIcon.textContent = initials;  
+    editOverlayIcon.style.backgroundColor = color;  
+    document.getElementById('editName').value = name;  
+    document.getElementById('editEmail').value = email;  
+    document.getElementById('editPhone').value = phone; 
+    document.getElementById('editOverlayBackground').classList.remove('d_none');  
+    document.getElementById('editOverlay').classList.remove('slide-out');  
+    document.getElementById('editOverlay').style.display = 'flex';  
 }
-
-
 
 /**
  * Closes the options overlay.
@@ -237,9 +233,7 @@ function saveContact(event) {
 function updateExistingContact(contact, contactId) {
     return saveContactToFirebase(contact, contactId).then(() => {
         let card = document.querySelector(`.contact_small_card[data-contact-id="${contactId}"]`);
-        updateCardDetails(card, contact);  // Aktualisiere die kleine Kontaktkarte
-
-        // Großansicht aktualisieren
+        updateCardDetails(card, contact); 
         showContactDetails(contact.name, contact.email, contact.phone, contact.color, contactId);
     });
 }
@@ -260,6 +254,14 @@ function updateCardDetails(card, contact) {
     card.querySelector('.font_color_blue').textContent = contact.email; 
 }
 
+/**
+ * Reloads the contacts from Firebase and updates the contact list in the UI.
+ * Fetches the contacts from the Firebase database for the current user
+ * and updates the displayed contact list. If the request fails, it logs an error message.
+ * 
+ * @async
+ * @returns {Promise<void>} - A promise that resolves once the contacts are reloaded and displayed.
+ */
 async function reloadContacts() {
     try {
         let response = await fetch(`https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/contacts.json`);
@@ -280,7 +282,7 @@ async function reloadContacts() {
  */
 function addNewContact(contact) {
     return saveContactToFirebase(contact).then(newContactId => {
-        addCardToList(contact, newContactId);  // Karte hinzufügen
+        addCardToList(contact, newContactId);  
     });
 }
 

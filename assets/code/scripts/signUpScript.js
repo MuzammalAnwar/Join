@@ -51,12 +51,11 @@ async function saveUser(signUpData, userID) {
  * @returns {Promise<void>} - Resolves when the sign-up process is complete.
  */
 async function signUp(event) {
-    event.preventDefault(); // Prevents the default form submission.
-    let userData = getSignUpData(); // Retrieves user data.
-    if (checkbox.checked) { // Checks if the terms and conditions checkbox is selected.
-        if (atob(userData.password) === confirmedPasswordInput.value) { // Validates password match.
-            await saveUser(userData, userData.userID); // Saves user data.
-            window.location.href = 'index.html'; // Redirects to the home page.
+    event.preventDefault(); 
+    let userData = getSignUpData(); 
+    if (checkbox.checked) { 
+        if (atob(userData.password) === confirmedPasswordInput.value) { 
+            await saveUser(userData, userData.userID); 
         } else {
             notifyFailedAuthentication('input_containerPassword', 'input_containerConfirmedPassword', passwordInput, confirmedPasswordInput, 'Password is not the same', 'Password is not the same', 'Password', 'Confirm Password');
         }

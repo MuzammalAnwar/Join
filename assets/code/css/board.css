@@ -563,14 +563,8 @@ h1 {
     background-color: rgba(42, 54, 71, 0.1);
 }
 
-@media (max-width: 1600px) {
-    .boardContainer {
-        margin: 0rem 3rem 0 4rem;
-    }
+@media (max-width: 1000px) {
 
-    .notesAndBarContainer {
-        margin: 0rem 1rem 0 1rem;
-    }
 
     .marginLastContainer {
         margin-bottom: 40px;
@@ -581,7 +575,7 @@ h1 {
     }
 }
 
-@media (min-width: 1310px) {
+@media (min-width: 1600px) {
     .mobile_plus_button {
         display: none;
     }
@@ -591,7 +585,132 @@ h1 {
     }
 }
 
-@media (max-width: 1310px) {
+@media (max-width: 1600px) {
+    .NoTaskToDo {
+        width: 100%;
+    }
+
+    .overlay-background {
+        display: none;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .taskContainer::-webkit-scrollbar {
+        display: block;
+        height: 9px;
+        padding: 0 12px 0 12px;
+    }
+
+    .taskContainer::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
+    }
+
+    .taskContainer::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+
+    .menuBar {
+        height: 82%;
+    }
+
+    .marginLastContainer {
+        margin-bottom: 40px;
+    }
+
+    .boardContainer {
+        flex-direction: column;
+        margin: 0rem 2rem 0 17rem;
+    }
+
+    .addTaskButton {
+        display: none;
+    }
+
+    .inputAndAddTaskContainer {
+        width: 100%;
+    }
+
+    .mobile_plus_button {
+        background-image: url(../../img/plusMobile.png);
+        height: 40px;
+        width: 40px;
+        cursor: pointer;
+    }
+
+    .mobile_plus_button:hover {
+        background-image: url(../../img/plusMobileBlue.png);
+    }
+
+    .mobile_plus_button_position {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: baseline;
+    }
+
+    .input-size {
+        width: 100%;
+    }
+
+    .notesAndBarContainer {
+        flex-direction: column;
+        margin: 0rem 2rem 0 17rem;
+        overflow-y: auto;
+    }
+
+    .bar {
+        width: 100%;
+    }
+
+    .categoryAndIconBar {
+        width: 100%;
+    }
+
+    .taskContainer {
+        flex-direction: row;
+        width: 100%;
+        padding-right: 0;
+        max-height: unset;
+        overflow-y: auto;
+        margin-right: 10px;
+        margin-left: 10px;
+        min-height: auto;
+    }
+
+    h1 {
+        font-size: 47px;
+    }
+
+    .boardText {
+        margin-bottom: 16px;
+    }
+
+    .plusIconBoard {
+        display: none;
+    }
+
+    .plusIconBoardMobile {
+        background-image: url(../../img/Property\ 1=Default.png);
+        background-repeat: no-repeat;
+        height: 30px;
+        width: 30px;
+        cursor: pointer;
+    }
+
+    .plusIconBoardMobile:hover {
+        background-image: url(../../img/Property\ 1=click.png);
+    }
+
+    .plusPosition {
+        flex-basis: content;
+        display: block;
+    }
+}
+@media (max-width: 1000px) {
     .NoTaskToDo {
         width: 100%;
     }

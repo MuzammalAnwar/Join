@@ -24,7 +24,6 @@ async function saveContactToFirebase(contact, id = null) {
         });
         if (response.ok) {
             let responseData = await response.json();
-            console.log("Contact saved successfully:", responseData);  // Debug
             return id || responseData.name;
         } else {
             console.error('Failed to save contact:', response.statusText);
@@ -111,6 +110,15 @@ function updateContactList(contacts) {
     attachCardClickListeners();
 }
 
+/**
+ * Renders a contact in the contact list. 
+ * Adds the contact to the UI, grouped alphabetically by the first letter of the contact's name.
+ *
+ * @param {HTMLElement} contactList - The HTML element where the contact list is rendered.
+ * @param {Object} contact - The contact object containing details such as name, email, and phone.
+ * @param {string} id - The unique ID of the contact.
+ * @param {string} currentLetter - The current letter of the alphabet used for grouping contacts.
+ */
 function renderContact(contactList, contact, id, currentLetter) {
     let firstLetter = contact.name.charAt(0).toUpperCase();
     if (firstLetter !== currentLetter) {
@@ -120,6 +128,11 @@ function renderContact(contactList, contact, id, currentLetter) {
     contactList.innerHTML += createContactCardTemplate(contact, id);
 }
 
+/**
+ * Attaches click event listeners to each contact card.
+ * When a contact card is clicked, it either selects or deselects the card, 
+ * and shows or hides the contact details in the UI.
+ */
 function attachCardClickListeners() {
     document.querySelectorAll('.contact_small_card').forEach(card => {
         card.addEventListener('click', function() {
@@ -141,9 +154,13 @@ function attachCardClickListeners() {
     });
 }
 
+/**
+ * Closes the large contact details card overlay in the UI.
+ * Hides the overlay displaying detailed contact information.
+ */
 function closeContactDetails() {
     let largeCard = document.getElementById('largeCard');
-    largeCard.style.display = 'none';  // Verstecke die Großansicht
+    largeCard.style.display = 'none'; 
 }
 
 /**

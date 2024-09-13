@@ -193,7 +193,6 @@ async function deleteTaskFromFirebase() {
         taskElement.remove();
         hideTallTaskOverlay();
         checkIfCategoryHasNoTasks();
-        console.log(`Task ${currentTaskId} successfully deleted`);
     } catch (error) {
         console.error(`Failed to delete task ${currentTaskId}:`, error);
     }

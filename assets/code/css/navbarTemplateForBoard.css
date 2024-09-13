@@ -83,7 +83,7 @@ a {
     color: rgba(41, 171, 226, 1);
 }
 
-@media (max-width: 1600px) {
+@media (max-width: 1000px) {
     nav {
         position: fixed;
         top: unset;
