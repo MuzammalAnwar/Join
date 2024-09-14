@@ -1,8 +1,6 @@
-/**
- * Stores the current task ID.
- * @type {number}
- */
 let currentTaskId;
+let currentTaskCategory = null
+let newTaskCategory = '';
 
 /**
  * Displays the tall task overlay with provided task details.
@@ -24,6 +22,46 @@ function showTallTaskOverlay(taskId, title, category, urgency, dueDate, descript
 }
 
 /**
+ * Sets the current task category in the dropdown.
+ * @param {string} status - The current task category (e.g., "To do", "In progress").
+ */
+function getCurrentTaskCategory(status) {
+    currentTaskCategory = status
+    console.log(currentTaskCategory);
+    let dropdown = document.getElementById('status-select');
+    dropdown.value = currentTaskCategory;
+}
+
+/**
+ * Updates the task's category based on the stored category.
+ * Fetches the task, modifies its category, and saves it back.
+ * Logs any errors encountered during the process.
+ */
+async function updateTaskCategoryFromDropdown(newCategory) {
+    try {
+        let taskPath = `/${userID}/addedTasks/${currentTaskId}`;
+        let response = await fetchTask(taskPath, null, 'GET');
+        let task = response;
+        task.taskCategory = newCategory;
+        await fetchTask(taskPath, task, 'PUT');
+        initRender()
+    } catch (error) {
+        console.error("Error updating task category:", error);
+    }
+}
+
+/**
+ * Listens to changes in the dropdown and updates the current task category.
+ */
+let dropdown = document.getElementById('status-select');
+dropdown.addEventListener('change', function () {
+    let newTaskCategory = dropdown.value; // Read the dropdown value
+    currentTaskCategory = newTaskCategory; // Update the current task category
+    updateTaskCategoryFromDropdown(newTaskCategory)
+});
+
+
+/**
  * Toggles the visibility of the overlay.
  * @param {boolean} show - Whether to show or hide the overlay.
  * @returns {boolean} - Returns true if the overlay is toggled successfully.
@@ -32,14 +70,14 @@ function toggleOverlay(show) {
     let overlay = document.getElementById('tall_task_overlay_background');
     if (!overlay) return console.error('Overlay not found');
     if (show) {
-        overlay.style.display = 'flex'; 
+        overlay.style.display = 'flex';
         let tallOverlay = document.getElementById('tall_task_overlay');
         if (tallOverlay) {
-            tallOverlay.classList.remove('slide-out'); 
-            tallOverlay.classList.add('slide-in');  
+            tallOverlay.classList.remove('slide-out');
+            tallOverlay.classList.add('slide-in');
         }
     } else {
-        overlay.style.display = 'none';  
+        overlay.style.display = 'none';
     }
     return true;
 }
@@ -104,7 +142,7 @@ function setCategoryClass(category) {
     categoryElement.className = '';
     categoryElement.classList.add(
         category === 'Technical Task' ? 'categoryTechnicalTaskOverlay' :
-        category === 'User Story' ? 'categoryUserStoryOverlay' : ''
+            category === 'User Story' ? 'categoryUserStoryOverlay' : ''
     );
 }
 
@@ -116,15 +154,17 @@ function setCategoryClass(category) {
 function generateSubtaskList(subTasks) {
     if (typeof subTasks === 'string') {
         subTasks = subTasks.split(',').map(subtask => ({ name: subtask, completed: false }));
-    }if (!Array.isArray(subTasks) || subTasks.length === 0) {
-        return '<p>No subtasks available</p>';}
+    } if (!Array.isArray(subTasks) || subTasks.length === 0) {
+        return '<p>No subtasks available</p>';
+    }
     let storedSubTaskStates = JSON.parse(localStorage.getItem('subTasks_' + currentTaskId)) || [];
     let completedSubtasks = 0;
     let subtaskHtml = '<ul class="subtask-list">';
     subTasks.forEach((subtask, index) => {
         let isChecked = storedSubTaskStates[index] ? 'checked' : (subtask.completed ? 'checked' : '');
         if (isChecked) {
-            completedSubtasks++;}subtaskHtml += generateSubtaskListTemplate(isChecked, index, subtask);
+            completedSubtasks++;
+        } subtaskHtml += generateSubtaskListTemplate(isChecked, index, subtask);
     });
     subtaskHtml += '</ul>';
     return subtaskHtml;
@@ -141,7 +181,8 @@ function initializeProgressBar() {
     checkboxes.forEach((checkbox, index) => {
         if (subTaskStates[index]) {
             checkbox.checked = true;
-            completedSubtasks++;}
+            completedSubtasks++;
+        }
     });
     updateProgressBar(completedSubtasks, totalSubtasks);
 }
@@ -175,7 +216,8 @@ function updateProgress(taskId) {
         subTaskStates.push(isChecked);
         if (isChecked) {
             completedSubtasks++;
-        } });
+        }
+    });
     localStorage.setItem('subTasks_' + taskId, JSON.stringify(subTaskStates));
     updateProgressBarForTask(taskId, completedSubtasks, totalSubtasks);
 }
@@ -184,10 +226,12 @@ function updateProgress(taskId) {
  * Deletes the current task from Firebase.
  */
 async function deleteTaskFromFirebase() {
-    try {let taskElement = document.getElementById('task' + currentTaskId);
+    try {
+        let taskElement = document.getElementById('task' + currentTaskId);
         if (!taskElement) {
             console.error("Task element not found");
-            return;}
+            return;
+        }
         let taskPath = taskElement.dataset.path;
         await fetchTask(taskPath, null, 'DELETE');
         taskElement.remove();
@@ -199,7 +243,7 @@ async function deleteTaskFromFirebase() {
 }
 
 /**
- * Hides the tall task overlay.
+ * Hides the tall task overlay and updates the task's category.
  */
 function hideTallTaskOverlay() {
     let overlay = document.getElementById('tall_task_overlay_background');

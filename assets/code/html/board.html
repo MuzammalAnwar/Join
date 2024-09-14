@@ -229,6 +229,14 @@
                         </div>
                     </div>
                     <div class="buttons">
+                        <div class="mobile-dropdown-wrapper">
+                            <select id="status-select">
+                                <option value="toDo">To Do</option>
+                                <option value="inProgress">In Progress</option>
+                                <option value="awaitFeedback">Await feedback</option>
+                                <option value="done">Done</option>
+                            </select>
+                        </div>
                         <div id="delete_task_button" onclick="deleteTaskFromFirebase()" class="delete_button">
                             <div class="delete"></div>
                             <p>Delete</p>

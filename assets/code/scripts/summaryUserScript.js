@@ -9,6 +9,7 @@ function init() {
     renderGreeting(`/${userID}`, 'greetingNameOverlay');
     showGreetingForSmallerScreen();
     renderTaskCategoryStats();
+    renderTotalAmountofUrgentTasks()
     sortByDateStat();
 }
 
@@ -74,6 +75,24 @@ async function renderTaskCategoryStats() {
     document.getElementById('totalAmountOfTasks').innerText = '0';
     setTimeout(() => incrementalDisplay(taskCount, 'totalAmountOfTasks'), taskCount * 60);
 }
+
+/**
+ * Renders the total amount of urgent tasks.
+ */
+async function renderTotalAmountofUrgentTasks() {
+    let inputContent = document.getElementById('urgentTaskAmount');
+    let urgentTaskCount = 0;
+    let tasks = await fetchTask(`/${userID}/addedTasks`, null, 'GET');
+    if (typeof tasks === 'object' && tasks !== null) {
+        Object.values(tasks).forEach((task) => {
+            if (task.urgency == 'urgent') {
+                urgentTaskCount++;
+            }
+        });
+    }
+    inputContent.innerText = urgentTaskCount;
+}
+
 
 /**
  * Calculates and updates the total task count.

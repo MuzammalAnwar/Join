@@ -462,6 +462,15 @@ function initializeEventListeners() {
     options.addEventListener('click', preventClickBubbling);
     document.addEventListener('click', closeDropdownOnClickOutside);
 }
+/**
+ * Resets all selected contacts in the dropdown menu, including background colors.
+ */
+function resetSelectedContacts() {
+    let selectedContactsContainer = document.querySelector('.selected-contacts');
+    selectedContactsContainer.innerHTML = '';
+    getContacts()
+}
+
 
 document.addEventListener('DOMContentLoaded', initializeEventListeners);
 window.addEventListener('load', getContacts);

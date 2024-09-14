@@ -8,7 +8,7 @@
 function renderTasksTemplate(taskKey, task) {
     return /*HTML*/ `
         <div class="task" draggable="true" ondragend="dragend(event)" ondragstart="drag(event)" id="task${taskKey}" data-path="${task.path}" 
-            onclick="showTallTaskOverlay('${taskKey}', '${task.title}', '${task.category}', '${task.urgency}', '${task.dueDate}', '${task.description}', '${task.subtasks}')">
+            onclick="showTallTaskOverlay('${taskKey}', '${task.title}', '${task.category}', '${task.urgency}', '${task.dueDate}', '${task.description}', '${task.subtasks}'); getCurrentTaskCategory('${task.taskCategory}')">
             <div class="categoryPlacement">
                 <p id="category" class='${returnClass(task.category)}'>${task.category}</p>
             </div>

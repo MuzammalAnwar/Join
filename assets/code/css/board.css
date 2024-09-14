@@ -176,6 +176,7 @@ h1 {
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .NoTaskToDo {
@@ -614,7 +615,7 @@ h1 {
     }
 
     .menuBar {
-        height: 82%;
+        height: 88%;
     }
 
     .marginLastContainer {
@@ -658,7 +659,7 @@ h1 {
 
     .notesAndBarContainer {
         flex-direction: column;
-        margin: 0rem 2rem 0 17rem;
+        margin: 1rem 2rem 0 17rem;
         overflow-y: auto;
     }
 
@@ -710,6 +711,7 @@ h1 {
         display: block;
     }
 }
+
 @media (max-width: 1000px) {
     .NoTaskToDo {
         width: 100%;
@@ -893,5 +895,17 @@ h1 {
 
     .progress-container {
         width: 280px;
+    }
+}
+
+/* Hide dropdown by default for non-mobile devices */
+.mobile-dropdown-wrapper {
+    display: none;
+}
+
+/* Show dropdown for mobile devices (768px or less) */
+@media only screen and (max-width: 768px) {
+    .mobile-dropdown-wrapper {
+        display: block;
     }
 }
