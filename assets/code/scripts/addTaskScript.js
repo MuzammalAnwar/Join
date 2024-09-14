@@ -468,6 +468,7 @@ function initializeEventListeners() {
 function resetSelectedContacts() {
     let selectedContactsContainer = document.querySelector('.selected-contacts');
     selectedContactsContainer.innerHTML = '';
+    document.getElementById('selectContactsText').innerText = 'Select contacts to assign';
     getContacts()
 }
 

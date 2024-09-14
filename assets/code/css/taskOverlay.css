@@ -318,6 +318,8 @@ body {
 
     .tall_task_position {
         width: 260px;
+        height: 540px;
+        overflow: auto;
     }
 
     .tall_overlay_content_position {

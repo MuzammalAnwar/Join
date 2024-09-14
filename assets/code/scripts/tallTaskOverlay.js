@@ -27,7 +27,6 @@ function showTallTaskOverlay(taskId, title, category, urgency, dueDate, descript
  */
 function getCurrentTaskCategory(status) {
     currentTaskCategory = status
-    console.log(currentTaskCategory);
     let dropdown = document.getElementById('status-select');
     dropdown.value = currentTaskCategory;
 }
@@ -55,8 +54,8 @@ async function updateTaskCategoryFromDropdown(newCategory) {
  */
 let dropdown = document.getElementById('status-select');
 dropdown.addEventListener('change', function () {
-    let newTaskCategory = dropdown.value; // Read the dropdown value
-    currentTaskCategory = newTaskCategory; // Update the current task category
+    let newTaskCategory = dropdown.value;
+    currentTaskCategory = newTaskCategory;
     updateTaskCategoryFromDropdown(newTaskCategory)
 });
 
