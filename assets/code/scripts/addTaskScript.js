@@ -137,7 +137,7 @@ function createAndAddTask(taskData) {
  * @returns {string} - The urgency level ('medium', 'low', 'urgent', or 'none').
  */
 function getUrgency() {
-    return ['medium', 'low', 'urgent'].includes(selectedStatus) ? selectedStatus : 'none';
+    return ['medium', 'low', 'urgent'].includes(selectedStatus) ? selectedStatus : 'medium';
 }
 
 /**
@@ -472,8 +472,37 @@ function resetSelectedContacts() {
     getContacts()
 }
 
+/**
+ * Deselects all urgency buttons and resets their styles.
+ */
+function unsetAllButtons() {
+    let urgencyButtons = document.querySelectorAll('.urgentStatus');
+    urgencyButtons.forEach(button => {
+        button.classList.remove('urgent-selected', 'medium-selected', 'low-selected');
+        button.style.boxShadow = '';
+    });
+    selectedStatus = 'none';
+}
+
+/**
+ * Sets Urgency to mdeium by default on window.onload for addTask.html
+ */
+function setDefaultPrioButtonForAddTask() {
+    if (window.location.pathname.includes('addTask.html')) {
+        unsetAllButtons();
+        let mediumButtonImg = document.getElementById('mediumIcon');
+        let lowButtonImg = document.getElementById('lowIcon');
+        let urgentButtonImg = document.getElementById('urgentIcon');
+        let mediumButton = document.querySelector('.urgentStatus[data-status="medium"]');
+        mediumButton.classList.add('medium-selected');
+        mediumButtonImg.src = '../../img/mediumIconHover.png';
+        urgentButtonImg.src = '../../img/urgentIcon.png';
+        lowButtonImg.src = '../../img/lowIcon.png';
+    }
+}
 
 document.addEventListener('DOMContentLoaded', initializeEventListeners);
 window.addEventListener('load', getContacts);
 window.addEventListener('load', checkLoginStatus);
 window.addEventListener('load', setProfileCircleInitials);
+window.onload = setDefaultPrioButtonForAddTask();
