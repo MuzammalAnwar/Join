@@ -100,7 +100,7 @@ h1 {
 }
 
 .input-container:hover {
-    border: 1px solid rgba(42, 54, 71, 1);
+    border: 1px solid rgba(41, 171, 226, 1);
 }
 
 .search-button {
@@ -115,7 +115,10 @@ h1 {
 }
 
 .search-button:hover {
-    border-left: 1px solid rgba(42, 54, 71, 1);
+    margin: 0px 2px;
+    padding: 4px 16px;
+    border-radius: 999px;
+    background-color: lightgray;
 }
 
 .notesAndBarContainer {
@@ -177,6 +180,12 @@ h1 {
     align-items: center;
     flex-direction: column;
     justify-content: space-evenly;
+    transition: transform 0.075s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.task:hover {
+    transform: scale(1.05);
+    cursor: pointer;
 }
 
 .NoTaskToDo {
