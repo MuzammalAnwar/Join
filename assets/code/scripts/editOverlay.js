@@ -469,6 +469,8 @@ async function addEditSubtask() {
 function saveEditSubtask(index) {
     let input = document.getElementById(`editSubtaskEditInput${index}`);
     editSubtasks[index] = input.value;
+    saveEditSubtasksToFirebase()
+    renderExistingSubtasks(currentCardID)
 }
 
 /*

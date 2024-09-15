@@ -283,7 +283,7 @@ body {
 .df_content {
     display: flex;
     overflow-y: auto;
-    height: 80px;
+    max-height: 100px;
 }
 
 .contact_icon {
