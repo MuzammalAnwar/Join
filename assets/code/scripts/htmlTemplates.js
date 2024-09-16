@@ -271,8 +271,8 @@ function renderAssignedContactsInOverlayTemplate(contact) {
 
 function generateSubtaskListTemplate(isChecked, index, subtask) {
     return `
-            <div class="sub_task_position">
-                <input class="checkbox" type="checkbox" ${isChecked} data-index="${index}" onchange="updateProgress()">
-                <label class="sub_task">${subtask.name}</label>
-            </div>`;
+        <div class="sub_task_position">
+            <input class="checkbox-subtask checkbox" type="checkbox" ${isChecked} data-index="${index}" onchange="updateProgress()">
+            <label class="sub_task">${subtask.name}</label>
+        </div>`;
 }

@@ -3,6 +3,25 @@
     src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
 }
 
+.custom-options::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-options::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-options::-webkit-scrollbar-thumb {
+    background-color: rgba(42, 54, 71, 1) !important;
+    border-radius: 12px !important;
+    border: none !important;
+    background-clip: padding-box;
+}
+
+.custom-options::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(128, 128, 128, 1);
+}
+
 body {
     margin: 0;
     display: flex;
