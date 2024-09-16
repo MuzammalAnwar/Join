@@ -90,7 +90,6 @@ function addToTask(event) {
     let taskData = gatherTaskData();
     createAndAddTask(taskData);
     clearTaskForm();
-    window.location = 'board.html';
 }
 
 /**
@@ -128,7 +127,7 @@ function createAndAddTask(taskData) {
         taskCategory: 'toDo'
     };
     tasks.push(task);
-    fetchTask(taskPath, task, 'PUT');
+    fetchTask(taskPath, task, 'PUT').then(() => { window.location = 'board.html'; });
 }
 
 /**
