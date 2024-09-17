@@ -7,6 +7,19 @@ function showOverlay() {
     overlay.style.display = 'flex';
     overlay.querySelector('.overlay').classList.remove('slide-out');
     overlay.querySelector('.overlay').classList.add('slide-in');
+    // document.getElementById('overlayAddtaskContactsAssigned').innerHTML = '';
+    // document.getElementById('overlayContactsText').innerHTML = 'Select contacts to assign';
+    resetSelectedContactsForOverlay()
+}
+
+/**
+ * Resets all selected contacts in the dropdown menu, including background colors.
+ */
+function resetSelectedContactsForOverlay() {
+    let selectedContactsContainer = document.querySelector('.selected-contacts');
+    selectedContactsContainer.innerHTML = '';
+    document.getElementById('overlayContactsText').innerText = 'Select contacts to assign';
+    getContacts()
 }
 
 /**

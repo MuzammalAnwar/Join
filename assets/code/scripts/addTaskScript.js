@@ -306,31 +306,69 @@ function toggleInputIcons(inputId, addIconId, cancelIconId, saveIconId) {
 }
 
 /**
- * Fetches and renders the contact options into the custom select dropdown.
+ * Fetches and renders contact options into the dropdown.
  * 
  * @async
  */
 async function getContacts() {
     let taskPath = `/${userID}/contacts`;
-    let selectWrapper = document.querySelector('.custom-options');
     try {
         let contacts = await fetchTask(taskPath, null, 'GET');
-        if (contacts) {
-            let keys = Object.keys(contacts);
-            let html = '';
-            for (let i = 0; i < keys.length; i++) {
-                let contact = contacts[keys[i]];
-                html += createContactOptionTemplate(contact);
-            }
-            selectWrapper.innerHTML = html;
-            document.querySelectorAll('.custom-option').forEach(option => {
-                option.addEventListener('click', handleOptionClick);
-            });
-        }
+        if (contacts) renderContactOptions(contacts);
     } catch (error) {
         console.error("Error fetching contacts:", error);
     }
 }
+
+/**
+ * Renders the contact options and sets up event listeners.
+ * 
+ * @param {Object} contacts - The contacts object fetched from the server.
+ */
+function renderContactOptions(contacts) {
+    let selectWrapper = document.querySelector('.custom-options');
+    let html = Object.values(contacts).map(contact => createContactOptionTemplate(contact)).join('');
+    selectWrapper.innerHTML = html;
+    setupEventListeners();
+}
+
+/**
+ * Sets up event listeners for contact options and checkboxes.
+ */
+function setupEventListeners() {
+    document.querySelectorAll('.custom-option').forEach(option => {
+        let checkbox = option.querySelector('input[type="checkbox"]');
+        option.addEventListener('click', (e) => toggleOptionSelection(e, option, checkbox));
+        checkbox.addEventListener('click', (e) => handleCheckboxClick(e, option, checkbox));
+    });
+}
+
+/**
+ * Toggles the option selection when the option container is clicked.
+ * 
+ * @param {Event} e - The click event.
+ * @param {HTMLElement} option - The custom option element.
+ * @param {HTMLInputElement} checkbox - The checkbox element.
+ */
+function toggleOptionSelection(e, option, checkbox) {
+    if (e.target !== checkbox) {
+        checkbox.checked = !checkbox.checked;
+        handleCheckboxState(option, checkbox);
+    }
+}
+
+/**
+ * Handles the checkbox click event to stop propagation and update state.
+ * 
+ * @param {Event} e - The click event.
+ * @param {HTMLElement} option - The custom option element.
+ * @param {HTMLInputElement} checkbox - The checkbox element.
+ */
+function handleCheckboxClick(e, option, checkbox) {
+    e.stopPropagation();
+    handleCheckboxState(option, checkbox);
+}
+
 
 /**
  * Updates the text of the custom select trigger based on the number of selected contacts.
@@ -416,20 +454,30 @@ function closeDropdownOnClickOutside(e) {
 }
 
 /**
- * Toggles the selection of an option when clicked.
+ * Handles the option click event to toggle the checkbox.
  *
  * @param {Event} e - The click event.
  */
 function handleOptionClick(e) {
     let option = e.currentTarget;
     let checkbox = option.querySelector('input[type="checkbox"]');
-    checkbox.checked = !checkbox.checked;
+    checkbox.checked = !checkbox.checked; // Toggle checkbox
+    handleCheckboxState(option, checkbox); // Update selected state
+}
+
+/**
+ * Updates the option state based on checkbox status.
+ *
+ * @param {HTMLElement} option - The custom option element.
+ * @param {HTMLInputElement} checkbox - The checkbox element.
+ */
+function handleCheckboxState(option, checkbox) {
     if (checkbox.checked) {
         option.classList.add('selected');
     } else {
         option.classList.remove('selected');
     }
-    updateSelectedContacts();
+    updateSelectedContacts(); // Call your function to update selected contacts
 }
 
 /**

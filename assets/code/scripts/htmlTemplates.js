@@ -238,18 +238,26 @@ function createSubtaskEditTemplateForEdit(index, subtaskText, taskID) {
 }
 
 
+/**
+ * Generates the HTML for a contact option in the edit overlay.
+ * 
+ * @param {Object} contact - The contact object containing name and color.
+ * @param {boolean} isAssigned - True if the contact is already assigned.
+ * @returns {string} - The HTML string for the contact option.
+ */
 function renderAssignedContactsInEditOverlayTemplate(contact, isAssigned) {
-    return `<div class="custom-option" data-value="${contact.name}" style="${returnStyleBasedOnContactAssignStatus(isAssigned)}">
-                    <div class="profileCircleAndName"> 
-                        <div class="profile-circle" style="background-color: ${contact.color};">
-                            ${getInitials(contact.name)}
-                        </div>
-                        <span>${contact.name}</span>
-                    </div>
-                    <input type="checkbox" value="${contact.name}" ${isAssigned ? 'checked' : ''}>
-                </div>`;
+    return `
+        <div class="custom-option" data-value="${contact.name}" style="${returnStyleBasedOnContactAssignStatus(isAssigned)}">
+            <div class="profileCircleAndName">
+                <div class="profile-circle" style="background-color: ${contact.color};">
+                    ${getInitials(contact.name)}
+                </div>
+                <span>${contact.name}</span>
+            </div>
+            <input type="checkbox" value="${contact.name}" ${isAssigned ? 'checked' : ''}>
+        </div>
+    `;
 }
-
 
 function renderAssignedContactsTemplate(contact) {
     return ` <div class="profileCircleAndNameForFullTaskView"> 

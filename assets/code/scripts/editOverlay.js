@@ -346,6 +346,7 @@ function hideEditOverlay() {
 
 /**
  * Renders the assigned contacts in the edit overlay, fetching the full list of contacts and marking the already assigned ones.
+ * 
  * @async
  * @param {string} taskID - The ID of the task to render assigned contacts for.
  * @returns {Promise<void>} - A promise that resolves when the rendering is complete.
@@ -354,11 +355,13 @@ async function renderAssignedContactsInEditOverlay(taskID) {
     let selectWrapper = document.querySelector('.select-options');
     let contacts = await fetchTask(`/${userID}/contacts`, null, 'GET') || {};
     let assignedContacts = await highlightAlreadyAssignedContacts(taskID);
+
     selectWrapper.innerHTML = Object.values(contacts).map(contact => {
         let isAssigned = assignedContacts.includes(contact.name);
         return renderAssignedContactsInEditOverlayTemplate(contact, isAssigned);
     }).join('') || 'No contacts available';
-    addCheckboxListeners();
+
+    addContactOptionListeners(); // Add event listeners after rendering
 }
 
 /**
@@ -395,20 +398,45 @@ function returnStyleBasedOnContactAssignStatus(isAssigned) {
 }
 
 /**
+ * Adds event listeners to both containers and checkboxes to toggle selection.
+ */
+function addContactOptionListeners() {
+    let options = document.querySelectorAll('.custom-option');
+    options.forEach(option => {
+        let checkbox = option.querySelector('input[type="checkbox"]');
+
+        // Add listener to container
+        option.addEventListener('click', () => {
+            checkbox.checked = !checkbox.checked; // Toggle checkbox
+            updateContactStyle(checkbox); // Update style based on checkbox state
+        });
+
+        // Add listener to checkbox to prevent container double toggle
+        checkbox.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent triggering the container click event
+            updateContactStyle(checkbox); // Update style based on checkbox state
+        });
+
+        // Initialize the style based on the checkbox state
+        updateContactStyle(checkbox);
+    });
+}
+
+/**
  * Updates the visual style of a contact in the list based on whether the checkbox is checked or not.
+ * 
  * @param {HTMLInputElement} checkbox - The checkbox element for the contact.
  */
 function updateContactStyle(checkbox) {
     let customOption = checkbox.closest('.custom-option');
     if (checkbox.checked) {
-        customOption.style.backgroundColor = 'rgba(42, 54, 71, 1)';
-        customOption.style.color = 'white';
+        customOption.style.backgroundColor = 'rgb(9, 25, 49)'; // Selected color
+        customOption.style.color = 'white'; // Text color for contrast
     } else {
-        customOption.style.backgroundColor = 'white';
-        customOption.style.color = 'black';
+        customOption.style.backgroundColor = 'white'; // Default color
+        customOption.style.color = 'black'; // Reset text color
     }
 }
-
 /**
  * Fetches existing subtasks for a task by task ID.
  * @param {string} taskID - The task ID to fetch subtasks for.
