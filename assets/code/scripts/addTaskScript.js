@@ -7,6 +7,17 @@ let today = new Date().toISOString().split('T')[0];
 document.getElementById('due-date').setAttribute('min', today);
 
 /**
+ * Sets category based on clicked PlusIcon in board site
+ */
+function setCategoryForNewTask() {
+    if (categoryForAddTask === '') {
+        return 'toDo';
+    } else {
+        return categoryForAddTask
+    }
+}
+
+/**
  * Initializes event listeners for urgency buttons.
  */
 function initializeUrgencyButtons() {
@@ -124,7 +135,7 @@ function createAndAddTask(taskData) {
         subtasks,
         urgency: getUrgency(),
         path: taskPath,
-        taskCategory: 'toDo'
+        taskCategory: setCategoryForNewTask()
     };
     tasks.push(task);
     fetchTask(taskPath, task, 'PUT').then(() => { window.location = 'board.html'; });

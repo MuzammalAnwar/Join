@@ -254,14 +254,14 @@ function hideTallTaskOverlay() {
             if (overlay) {
                 overlay.style.display = 'none';
             }
-        }, 500);
+        }, 200);
     } else {
         console.error('Tall overlay element not found');
     }
 }
 
 /**
- * Renders the assigned contacts in the overlay.
+ * Fetches and renders the assigned contacts in the overlay.
  * @param {number} taskID - The ID of the task.
  */
 function renderAssignedContactsInOverlay(taskID) {

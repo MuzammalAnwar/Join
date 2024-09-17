@@ -33,7 +33,7 @@
                         </button>
                     </div>
                 </form>
-                <button class="addTaskButton" onclick="showOverlay()">Add Task <img class="plusIcon"
+                <button class="addTaskButton" onclick="showOverlay(); setCategoryForAddTaskBasedOnPlusIcon('toDo')">Add Task <img class="plusIcon"
                         src="../../img/boardAddTaskIcon.png" alt=""></button>
             </div>
         </section>
@@ -41,7 +41,7 @@
             <div class="categoryAndIconBar">
                 <div class="bar">
                     <p>To Do</p>
-                    <div onclick="showOverlay()" class="plusIconBoard"></div>
+                    <div onclick="showOverlay(); setCategoryForAddTaskBasedOnPlusIcon('toDo')" class="plusIconBoard"></div>
                     <a class="plusPosition" href="../html/addTask.html">
                         <div class="plusIconBoardMobile"></div>
                     </a>
@@ -53,7 +53,7 @@
             <div class="categoryAndIconBar">
                 <div class="bar">
                     <p>In Progress</p>
-                    <div onclick="showOverlay()" class="plusIconBoard"></div>
+                    <div onclick="showOverlay(); setCategoryForAddTaskBasedOnPlusIcon('inProgress')" class="plusIconBoard"></div>
                     <a class="plusPosition" href="../html/addTask.html">
                         <div class="plusIconBoardMobile"></div>
                     </a>
@@ -65,7 +65,7 @@
             <div class="categoryAndIconBar">
                 <div class="bar">
                     <p>Await feedback</p>
-                    <div onclick="showOverlay()" class="plusIconBoard"></div>
+                    <div onclick="showOverlay(); setCategoryForAddTaskBasedOnPlusIcon('awaitFeedback')" class="plusIconBoard"></div>
                     <a class="plusPosition" href="../html/addTask.html">
                         <div class="plusIconBoardMobile"></div>
                     </a>

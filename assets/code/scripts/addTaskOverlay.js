@@ -1,3 +1,5 @@
+let categoryForAddTask = '';
+
 /**
  * Displays the task overlay by showing the overlay element and animating it with a slide-in effect.
  * The element is displayed in a 'flex' layout.
@@ -10,6 +12,11 @@ function showOverlay() {
     // document.getElementById('overlayAddtaskContactsAssigned').innerHTML = '';
     // document.getElementById('overlayContactsText').innerHTML = 'Select contacts to assign';
     resetSelectedContactsForOverlay()
+}
+
+function setCategoryForAddTaskBasedOnPlusIcon(selectedCategory) {
+    categoryForAddTask = selectedCategory;
+    console.log(categoryForAddTask);
 }
 
 /**
