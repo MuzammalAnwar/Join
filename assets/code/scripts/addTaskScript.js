@@ -75,9 +75,17 @@ function selectButton(button) {
         btn.style.boxShadow = '';
     });
     selectedStatus = button.getAttribute('data-status');
-    button.classList.add(getSelectedClass(selectedStatus));
-    button.style.boxShadow = 'none';
+    
+    // Überprüfen, ob selectedStatus eine gültige Klasse hat
+    let selectedClass = getSelectedClass(selectedStatus);
+    if (selectedClass) {
+        button.classList.add(selectedClass);
+        button.style.boxShadow = 'none';
+    } else {
+        console.error("Ungültiger Dringlichkeitsstatus:", selectedStatus);
+    }
 }
+
 
 /**
  * Gets the appropriate class for the selected urgency status.
