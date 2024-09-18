@@ -18,6 +18,14 @@ function getCategoryForAddTask() {
 }
 
 /**
+ * Gets and sets category based on clicked PlusIcon in board site
+ */
+function getCategoryOfOverlayForAddTask() {
+    let category = localStorage.getItem('categoryOverlayForAddTask');
+    return category;
+}
+
+/**
  * Initializes event listeners for urgency buttons.
  */
 function initializeUrgencyButtons() {
@@ -112,7 +120,7 @@ function gatherTaskData() {
     let title = document.getElementById('title').value;
     let description = document.getElementById('description').value;
     let dueDate = document.getElementById('due-date').value;
-    let category = document.getElementById('category').value;
+    let category = getCategoryOfOverlayForAddTask();
     return {
         title,
         description,
