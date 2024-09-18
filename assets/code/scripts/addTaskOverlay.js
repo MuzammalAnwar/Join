@@ -1,20 +1,46 @@
+let categoryForAddTask = '';
+
 /**
- * Displays the task overlay by showing the overlay element and animating it with a slide-in effect.
- * The element is displayed in a 'flex' layout.
+ * Sets the priority in the task overlay by highlighting the selected priority.
+ * It removes the selection from all other priority buttons and resets their icons to default.
+ *
+ * @param {string} [selectedPriority='medium'] - The priority to be selected (default is 'medium').
+ */
+function setPriorityInAddTaskOverlay(selectedPriority = 'medium') {
+    Object.keys(priorityMapping).forEach(priority => {
+        const button = document.getElementById(priorityMapping[priority].buttonId);
+        button.classList.remove('urgent-selected', 'medium-selected', 'low-selected');
+        button.querySelector('img').src = priorityMapping[priority].defaultIcon;
+    });
+    let selectedButton = document.getElementById(priorityMapping[selectedPriority].buttonId);
+    selectedButton.classList.add(priorityMapping[selectedPriority].selectedClass);
+    selectedButton.querySelector('img').src = priorityMapping[selectedPriority].whiteIcon;
+}
+
+/**
+ * Displays the task overlay and sets the default priority to 'medium'.
+ * It also resets any selected contacts within the overlay.
  */
 function showOverlay() {
     let overlay = document.getElementById('taskOverlay');
     overlay.style.display = 'flex';
     overlay.querySelector('.overlay').classList.remove('slide-out');
     overlay.querySelector('.overlay').classList.add('slide-in');
-    // document.getElementById('overlayAddtaskContactsAssigned').innerHTML = '';
-    // document.getElementById('overlayContactsText').innerHTML = 'Select contacts to assign';
-    resetSelectedContactsForOverlay()
+    setPriorityInAddTaskOverlay('medium');
+    resetSelectedContactsForOverlay();
 }
 
+/**
+ * Sets the category for the task based on the icon selected from the UI.
+ * This is used when clicking the "+" icon to add a task to a specific category.
+ *
+ * @param {string} selectedCategory - The category selected for the new task.
+ */
 function setCategoryForAddTaskBasedOnPlusIcon(selectedCategory) {
-    localStorage.setItem('categoryForAddTask', selectedCategory);
+    categoryForAddTask = selectedCategory;
+    console.log(categoryForAddTask);
 }
+
 
 /**
  * Resets all selected contacts in the dropdown menu, including background colors.

@@ -413,22 +413,16 @@ input:focus {
     align-items: center;
     width: 100%;
     padding-left: 0;
-    /* Remove padding when in edit mode */
     gap: 0;
-    /* Remove gap between input and icons */
 }
 
 .subtaskEditInput {
     flex-grow: 1;
-    /* Make the input take the remaining space */
     height: 100%;
-    /* Ensure input height matches list item */
     border: 1px solid #ccc;
     border-radius: 6px;
     padding: 0 40px 0 10px;
-    /* Add padding for text and space for icons */
     box-sizing: border-box;
-    /* Include padding and border in width */
     font-size: 14px;
 }
 
@@ -443,13 +437,11 @@ input:focus {
 
 .subtaskEditIcons img {
     height: 20px;
-    /* Ensure icon size is consistent */
     width: auto;
 }
 
 .subtaskListItem.edit-mode::before {
     content: none;
-    /* Remove bullet point in edit mode */
 }
 
 .subtaskEditContainer input {
@@ -466,7 +458,6 @@ input:focus {
 .subtaskEditSeparator {
     position: absolute;
     right: 40px;
-    /* Adjust based on icon width */
     top: 50%;
     transform: translateY(-50%);
     height: 24px;
@@ -518,7 +509,6 @@ input:focus {
     display: block;
 }
 
-/* Corrected rotation selector */
 .custom-options.open+.custom-select-trigger img.arrow-icon {
     transform: rotate(90deg);
 }
@@ -538,7 +528,6 @@ input:focus {
     background-color: #f0f0f0;
 }
 
-/* Custom option checkbox */
 .custom-option input[type="checkbox"] {
     gap: 0px;
     opacity: 0px;
@@ -557,11 +546,9 @@ input:focus {
 
 .custom-option input[type="checkbox"]:checked {
     background-color: #ffffff;
-    /* Color when checked */
     border-color: #000000;
 }
 
-/* Custom checkmark when checkbox is checked */
 .custom-option input[type="checkbox"]:checked::after {
     width: 16px;
     height: 16px;

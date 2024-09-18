@@ -7,14 +7,14 @@ let today = new Date().toISOString().split('T')[0];
 document.getElementById('due-date').setAttribute('min', today);
 
 /**
- * Gets and sets category based on clicked PlusIcon in board site
+ * Sets category based on clicked PlusIcon in board site
  */
-function getCategoryForAddTask() {
-    let category = localStorage.getItem('categoryForAddTask');
-    if (category) {
-        return category;
+function setCategoryForNewTask() {
+    if (categoryForAddTask === '') {
+        return 'toDo';
+    } else {
+        return categoryForAddTask
     }
-    return 'toDo';
 }
 
 /**
@@ -135,7 +135,7 @@ function createAndAddTask(taskData) {
         subtasks,
         urgency: getUrgency(),
         path: taskPath,
-        taskCategory: getCategoryForAddTask()
+        taskCategory: setCategoryForNewTask()
     };
     tasks.push(task);
     fetchTask(taskPath, task, 'PUT').then(() => { window.location = 'board.html'; });
@@ -564,4 +564,3 @@ window.addEventListener('load', getContacts);
 window.addEventListener('load', checkLoginStatus);
 window.addEventListener('load', setProfileCircleInitials);
 window.onload = setDefaultPrioButtonForAddTask();
-window.onload = getCategoryForAddTask;

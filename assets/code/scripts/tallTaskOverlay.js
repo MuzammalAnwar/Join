@@ -139,11 +139,21 @@ function setCategoryClass(category) {
     let categoryElement = document.getElementById('task_category');
     if (!categoryElement) return;
     categoryElement.className = '';
-    categoryElement.classList.add(
-        category === 'Technical Task' ? 'categoryTechnicalTaskOverlay' :
-            category === 'User Story' ? 'categoryUserStoryOverlay' : ''
-    );
+    
+    let categoryClass = '';
+    if (category === 'Technical Task') {
+        categoryClass = 'categoryTechnicalTaskOverlay';
+    } else if (category === 'User Story') {
+        categoryClass = 'categoryUserStoryOverlay';
+    } else {
+        categoryClass = 'defaultCategoryOverlay'; // Fallback-Klasse hinzufügen
+    }
+
+    if (categoryClass) {
+        categoryElement.classList.add(categoryClass);
+    }
 }
+
 
 /**
  * Generates the HTML list of subtasks.
