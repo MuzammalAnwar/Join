@@ -16,7 +16,6 @@ function showOverlay() {
 
 function setCategoryForAddTaskBasedOnPlusIcon(selectedCategory) {
     categoryForAddTask = selectedCategory;
-    console.log(categoryForAddTask);
 }
 
 /**

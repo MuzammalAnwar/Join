@@ -3,8 +3,8 @@
  * Displays the sidebar if a user is logged in, otherwise hides it and adjusts the margin of the policy notice.
  */
 function showNavbarIfLoggedIn() {
-    const sideNavElements = document.querySelectorAll('.sidebarNav');
-    const policyLegalNotice = document.querySelector('.policy-legalNotice');
+    let sideNavElements = document.querySelectorAll('.sidebarNav');
+    let loggedInUserID = localStorage.getItem('loggedInUserID');
     if (localStorage.getItem('loggedInUserID')) {
         sideNavElements.forEach(element => {
             element.style.display = 'flex';
@@ -13,7 +13,6 @@ function showNavbarIfLoggedIn() {
         sideNavElements.forEach(element => {
             element.style.opacity = '0';
         });
-        policyLegalNotice.style.margin = '25rem 0 0 0';
     }
 }
 
@@ -39,17 +38,27 @@ function goBackArrow() {
  */
 function checkScreenSize() {
     let element = document.getElementById('navBar');
-
-    if (!localStorage.getItem('loggedInUserID')) {
+    if (!element) {
+        console.error('navBar-Element nicht gefunden');
+        return;  
+    }
+    let loggedInUserID = localStorage.getItem('loggedInUserID');
+    if (!loggedInUserID) {
         if (window.innerWidth < 1000) {
-            element.style.display = 'none';
+            element.style.display = 'none'; 
         } else {
-            element.style.display = 'block';
+            element.style.display = 'normal'; 
         }
     }
 }
 
-window.onload = checkScreenSize;
-window.onload = showNavbarIfLoggedIn;
+function onHTMLLoaded() {
+    checkScreenSize();
+    showNavbarIfLoggedIn();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(onHTMLLoaded, 50); 
+});
+
 window.onresize = checkScreenSize;
-window.addEventListener('load', showNavbarIfLoggedIn);
