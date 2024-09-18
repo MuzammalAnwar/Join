@@ -7,6 +7,7 @@ let categoryForAddTask = '';
  * @param {string} [selectedPriority='medium'] - The priority to be selected (default is 'medium').
  */
 function setPriorityInAddTaskOverlay(selectedPriority = 'medium') {
+    unsetButtons()
     Object.keys(priorityMapping).forEach(priority => {
         const button = document.getElementById(priorityMapping[priority].buttonId);
         button.classList.remove('urgent-selected', 'medium-selected', 'low-selected');
@@ -15,7 +16,23 @@ function setPriorityInAddTaskOverlay(selectedPriority = 'medium') {
     let selectedButton = document.getElementById(priorityMapping[selectedPriority].buttonId);
     selectedButton.classList.add(priorityMapping[selectedPriority].selectedClass);
     selectedButton.querySelector('img').src = priorityMapping[selectedPriority].whiteIcon;
+    let mediumButtonImg = document.getElementById('edit_mediumIcon');
+    let lowButtonImg = document.getElementById('edit_lowIcon');
+    let urgentButtonImg = document.getElementById('edit_urgentIcon');
+    let mediumButton = document.getElementById('edit_mediumIcon');
+    mediumButton.classList.add('medium-selected');
+    mediumButtonImg.src = '../../img/mediumIconHover.png';
+    urgentButtonImg.src = '../../img/urgentIcon.png';
+    lowButtonImg.src = '../../img/lowIcon.png';
 }
+
+function unsetButtons() {
+    let lowButtonImg = document.getElementById('edit_lowIcon');
+    let urgentButtonImg = document.getElementById('edit_urgentIcon');
+    lowButtonImg.className = 'urgentStatus';
+    urgentButtonImg.className = 'urgentStatus';
+}
+
 
 /**
  * Displays the task overlay and sets the default priority to 'medium'.
