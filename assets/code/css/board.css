@@ -917,3 +917,36 @@ h1 {
         display: block;
     }
 }
+
+@media (min-width: 1600px) {
+    .taskContainer {
+        margin-top: 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        min-height: 100px;
+        max-height: calc(62vh - 20px);
+        padding-right: 10px;
+        z-index: 1;
+    }
+
+    .bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 244px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 32.4px;
+        position: fixed;
+        z-index: 999;
+        padding: 0px 36px 0 28px;
+        background-color: rgb(246, 247, 255);
+    }
+}
+
+@media (min-width: 1700px) {
+    .bar {
+        padding: 0px 100px 0 100px;
+    }
+}
