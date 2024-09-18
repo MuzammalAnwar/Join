@@ -33,7 +33,6 @@ function unsetButtons() {
     urgentButtonImg.className = 'urgentStatus';
 }
 
-
 /**
  * Displays the task overlay and sets the default priority to 'medium'.
  * It also resets any selected contacts within the overlay.
