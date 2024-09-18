@@ -79,7 +79,7 @@
                     </div>
                     <div style="height: 80px;" class="form-group">
                         <label for="category">Category<b style="color: red;">*</b></label>
-                        <select required id="category" name="category">
+                        <select required id="category" name="category" onchange="setCategory(this.value)">
                             <option value="User Story">User Story</option>
                             <option value="Technical Task">Technical Task</option>
                         </select>

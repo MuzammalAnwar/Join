@@ -161,10 +161,10 @@ function setCategoryClass(category) {
  * @returns {string} - The HTML string for the subtask list.
  */
 function generateSubtaskList(subTasks) {
-    if (typeof subTasks === 'string') {
+    if (typeof subTasks === 'string' && subTasks !== 'false') {
         subTasks = subTasks.split(',').map(subtask => ({ name: subtask, completed: false }));
-    } if (!Array.isArray(subTasks) || subTasks.length === 0) {
-        return '<p>No subtasks available</p>';
+    } if (subTasks === 'false') {
+        return '<p style="margin: 0px 0 0 22px;">No subtasks added!</p>';
     }
     let storedSubTaskStates = JSON.parse(localStorage.getItem('subTasks_' + currentTaskId)) || [];
     let completedSubtasks = 0;

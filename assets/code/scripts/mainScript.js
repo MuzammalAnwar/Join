@@ -174,3 +174,13 @@ function toggleUserMenu() {
 function handleInnerDivClick(event) {
     event.stopPropagation();
 }
+
+/**
+ * Sets the category in the dropdown menu for adding tasks
+ * @param {string} category 
+ */
+function setCategory(category) {
+    localStorage.setItem('categoryOverlayForAddTask', category);
+}
+
+document.addEventListener('DOMContentLoaded', setCategory(document.getElementById('category').value));
