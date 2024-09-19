@@ -1,22 +1,4 @@
 /**
- * Toggles the visibility of the sidebar navigation based on user login status.
- * Displays the sidebar if a user is logged in, otherwise hides it and adjusts the margin of the policy notice.
- */
-function showNavbarIfLoggedIn() {
-    let sideNavElements = document.querySelectorAll('.sidebarNav');
-    let loggedInUserID = localStorage.getItem('loggedInUserID');
-    if (localStorage.getItem('loggedInUserID')) {
-        sideNavElements.forEach(element => {
-            element.style.display = 'flex';
-        });
-    } else {
-        sideNavElements.forEach(element => {
-            element.style.opacity = '0';
-        });
-    }
-}
-
-/**
  * Handles the back navigation action based on the user's login status and browser history.
  * Navigates to the previous page in history if available, or redirects to a default page based on login status.
  */
@@ -52,13 +34,39 @@ function checkScreenSize() {
     }
 }
 
-function onHTMLLoaded() {
-    checkScreenSize();
-    showNavbarIfLoggedIn();
+/**
+ * Loads the appropriate navigation bar based on the user's login status.
+ * - By default, the limited navbar (Privacy and Notice) is already shown.
+ * - If the user is logged in, the function replaces the limited navbar with the full one.
+ */
+function checkLoginStatus() {
+    // If user is logged in, load the full navbar
+    if (localStorage.getItem('loggedInUserID')) {
+        loadFullNavbar();
+    }
 }
 
+/**
+ * Loads the full navbar and replaces the current (limited) navbar.
+ */
+function loadFullNavbar() {
+    let navbarPlaceholder = document.getElementById('navbarPlaceholder');
+    
+    fetch('./navbarTemplate.html')
+        .then(response => response.text())
+        .then(data => {
+            navbarPlaceholder.innerHTML = data;  // Replace the limited navbar with full navbar
+        })
+        .catch(error => {
+            console.error('Error loading full navbar:', error);
+        });
+}
+
+// Ensure the function runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(onHTMLLoaded, 250); 
+    checkLoginStatus();  // Check login status and possibly replace the navbar
 });
+
+
 
 window.onresize = checkScreenSize;
