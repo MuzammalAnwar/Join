@@ -1,22 +1,4 @@
 /**
- * Toggles the visibility of the sidebar navigation based on user login status.
- * Displays the sidebar if a user is logged in, otherwise hides it and adjusts the margin of the policy notice.
- */
-function showNavbarIfLoggedIn() {
-    let sideNavElements = document.querySelectorAll('.sidebarNav');
-    let loggedInUserID = localStorage.getItem('loggedInUserID');
-    if (localStorage.getItem('loggedInUserID')) {
-        sideNavElements.forEach(element => {
-            element.style.display = 'flex';
-        });
-    } else {
-        sideNavElements.forEach(element => {
-            element.style.opacity = '0';
-        });
-    }
-}
-
-/**
  * Handles the back navigation action based on the user's login status and browser history.
  * Navigates to the previous page in history if available, or redirects to a default page based on login status.
  */
@@ -52,13 +34,39 @@ function checkScreenSize() {
     }
 }
 
-function onHTMLLoaded() {
-    checkScreenSize();
-    showNavbarIfLoggedIn();
+/**
+ * Loads the appropriate navigation bar based on the user's login status.
+ * 
+ * - If the user is logged in (determined by the existence of 'loggedInUserID' in localStorage), 
+ *   the full navigation bar from 'navbarTemplate.html' is loaded.
+ * - If the user is not logged in, a limited navigation bar from 'navbarPrivacyAndNotice.html' is loaded.
+ *
+ * The content is dynamically inserted into the HTML element with the ID 'navbarPlaceholder'.
+ * 
+ * @function
+ */
+function loadNavbar() {
+    let navbarPlaceholder = document.getElementById('navbarPlaceholder');
+    if (localStorage.getItem('loggedInUserID')) {
+        fetch('./navbarTemplate.html')
+            .then(response => response.text())
+            .then(data => {
+                navbarPlaceholder.innerHTML = data;  
+            })
+            .catch(error => {
+                console.error('Fehler beim Laden von navbarTemplate:', error);
+            });
+    } else {
+        fetch('./navbarPrivacyAndNotice.html')
+            .then(response => response.text())
+            .then(data => {
+                navbarPlaceholder.innerHTML = data;  
+            })
+            .catch(error => {
+                console.error('Fehler beim Laden von navbarPrivacyAndNotice:', error);
+            });
+    }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(onHTMLLoaded, 50); 
-});
-
+window.onload = loadNavbar;
 window.onresize = checkScreenSize;

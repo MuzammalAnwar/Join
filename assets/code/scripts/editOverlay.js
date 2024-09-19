@@ -182,8 +182,8 @@ async function saveAllTaskChanges() {
         saveEditDescriptionToFirebase(),
         saveEditDateToFirebase(),
         saveEditSubtasksToFirebase(),
-        updateAssignedContacts(currentCardID),
-        saveEditPrioToFirebase()
+        saveEditPrioToFirebase(),
+        updateAssignedContacts(currentCardID)
     ]);
 }
 
@@ -251,9 +251,7 @@ async function saveEditSubtasksToFirebase() {
  */
 async function saveEditPrioToFirebase() {
     if (currentUrgency !== 'none') {
-        let response = await fetchTask(`/${userID}/addedTasks/${currentCardID}`, currentUrgency, 'GET');
-        response.urgency = currentUrgency;
-        return await fetchTask(`/${userID}/addedTasks/${currentCardID}`, response, 'PUT');
+        return fetchTask(`/${userID}/addedTasks/${currentCardID}/urgency`, currentUrgency, 'PUT');
     }
     return null;
 }
