@@ -341,7 +341,7 @@ async function getContacts() {
     let taskPath = `/${userID}/contacts`;
     try {
         let contacts = await fetchTask(taskPath, null, 'GET');
-        if (contacts) renderContactOptions(contacts);
+        if (contacts && contacts != 'N/A') renderContactOptions(contacts);
     } catch (error) {
         console.error("Error fetching contacts:", error);
     }

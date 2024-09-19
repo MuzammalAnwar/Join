@@ -45,7 +45,7 @@ async function saveContactToFirebase(contact, id = null) {
 async function fetchContactsFromFirebase() {
     try {
         let response = await fetchTask(`/${userId}/contacts`, null, 'GET');
-        if (response) {
+        if (response && response != 'N/A') {
             updateContactList(response);
         }
     } catch (error) {
