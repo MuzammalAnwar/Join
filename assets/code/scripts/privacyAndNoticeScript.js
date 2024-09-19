@@ -35,38 +35,60 @@ function checkScreenSize() {
 }
 
 /**
- * Loads the appropriate navigation bar based on the user's login status.
- * 
- * - If the user is logged in (determined by the existence of 'loggedInUserID' in localStorage), 
- *   the full navigation bar from 'navbarTemplate.html' is loaded.
- * - If the user is not logged in, a limited navigation bar from 'navbarPrivacyAndNotice.html' is loaded.
- *
- * The content is dynamically inserted into the HTML element with the ID 'navbarPlaceholder'.
- * 
- * @function
+ * Determines which navigation bar to load based on the user's login status.
+ * Calls the appropriate function to load the full or limited navbar.
  */
-function loadNavbar() {
-    let navbarPlaceholder = document.getElementById('navbarPlaceholder');
+function checkLoginStatus() {
     if (localStorage.getItem('loggedInUserID')) {
-        fetch('./navbarTemplate.html')
-            .then(response => response.text())
-            .then(data => {
-                navbarPlaceholder.innerHTML = data;  
-            })
-            .catch(error => {
-                console.error('Fehler beim Laden von navbarTemplate:', error);
-            });
+        loadFullNavbar();
     } else {
-        fetch('./navbarPrivacyAndNotice.html')
-            .then(response => response.text())
-            .then(data => {
-                navbarPlaceholder.innerHTML = data;  
-            })
-            .catch(error => {
-                console.error('Fehler beim Laden von navbarPrivacyAndNotice:', error);
-            });
+        loadLimitedNavbar();
     }
 }
 
-window.onload = loadNavbar;
+/**
+ * Loads the full navigation bar from 'navbarTemplate.html' and makes it visible.
+ */
+function loadFullNavbar() {
+    let navbarPlaceholder = document.getElementById('navbarPlaceholder');
+    fetch('./navbarTemplate.html')
+        .then(response => response.text())
+        .then(data => {
+            navbarPlaceholder.innerHTML = data;
+            showNavbar();
+        })
+        .catch(error => {
+            console.error('Error loading navbarTemplate:', error);
+        });
+}
+
+/**
+ * Loads the limited navigation bar from 'navbarPrivacyAndNotice.html' and makes it visible.
+ */
+function loadLimitedNavbar() {
+    let navbarPlaceholder = document.getElementById('navbarPlaceholder');
+    
+    fetch('./navbarPrivacyAndNotice.html')
+        .then(response => response.text())
+        .then(data => {
+            navbarPlaceholder.innerHTML = data;
+            showNavbar();
+        })
+        .catch(error => {
+            console.error('Error loading navbarPrivacyAndNotice:', error);
+        });
+}
+
+/**
+ * Makes the navbar visible by setting its opacity to 1.
+ */
+function showNavbar() {
+    let navbarPlaceholder = document.getElementById('navbarPlaceholder');
+    navbarPlaceholder.style.opacity = '1';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    checkLoginStatus();
+});
+
 window.onresize = checkScreenSize;
