@@ -35,60 +35,38 @@ function checkScreenSize() {
 }
 
 /**
- * Determines which navigation bar to load based on the user's login status.
- * Calls the appropriate function to load the full or limited navbar.
+ * Loads the appropriate navigation bar based on the user's login status.
+ * - By default, the limited navbar (Privacy and Notice) is already shown.
+ * - If the user is logged in, the function replaces the limited navbar with the full one.
  */
 function checkLoginStatus() {
+    // If user is logged in, load the full navbar
     if (localStorage.getItem('loggedInUserID')) {
         loadFullNavbar();
-    } else {
-        loadLimitedNavbar();
     }
 }
 
 /**
- * Loads the full navigation bar from 'navbarTemplate.html' and makes it visible.
+ * Loads the full navbar and replaces the current (limited) navbar.
  */
 function loadFullNavbar() {
     let navbarPlaceholder = document.getElementById('navbarPlaceholder');
+    
     fetch('./navbarTemplate.html')
         .then(response => response.text())
         .then(data => {
-            navbarPlaceholder.innerHTML = data;
-            showNavbar();
+            navbarPlaceholder.innerHTML = data;  // Replace the limited navbar with full navbar
         })
         .catch(error => {
-            console.error('Error loading navbarTemplate:', error);
+            console.error('Error loading full navbar:', error);
         });
 }
 
-/**
- * Loads the limited navigation bar from 'navbarPrivacyAndNotice.html' and makes it visible.
- */
-function loadLimitedNavbar() {
-    let navbarPlaceholder = document.getElementById('navbarPlaceholder');
-    
-    fetch('./navbarPrivacyAndNotice.html')
-        .then(response => response.text())
-        .then(data => {
-            navbarPlaceholder.innerHTML = data;
-            showNavbar();
-        })
-        .catch(error => {
-            console.error('Error loading navbarPrivacyAndNotice:', error);
-        });
-}
-
-/**
- * Makes the navbar visible by setting its opacity to 1.
- */
-function showNavbar() {
-    let navbarPlaceholder = document.getElementById('navbarPlaceholder');
-    navbarPlaceholder.style.opacity = '1';
-}
-
+// Ensure the function runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    checkLoginStatus();
+    checkLoginStatus();  // Check login status and possibly replace the navbar
 });
+
+
 
 window.onresize = checkScreenSize;
