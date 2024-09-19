@@ -75,7 +75,7 @@ function selectButton(button) {
         btn.style.boxShadow = '';
     });
     selectedStatus = button.getAttribute('data-status');
-    
+
     // Überprüfen, ob selectedStatus eine gültige Klasse hat
     let selectedClass = getSelectedClass(selectedStatus);
     if (selectedClass) {
@@ -144,7 +144,7 @@ function gatherTaskData() {
  */
 function createAndAddTask(taskData) {
     let taskKey = generateUniqueKey();
-    let taskPath = `/${userID}/addedTasks/${taskKey}`;
+    let taskPath = `/addedTasks/${taskKey}`;
     let task = {
         ...taskData,
         assigned: returnSelectedContacts(),
@@ -338,7 +338,7 @@ function toggleInputIcons(inputId, addIconId, cancelIconId, saveIconId) {
  * @async
  */
 async function getContacts() {
-    let taskPath = `/${userID}/contacts`;
+    let taskPath = `/contacts`;
     try {
         let contacts = await fetchTask(taskPath, null, 'GET');
         if (contacts && contacts != 'N/A') renderContactOptions(contacts);

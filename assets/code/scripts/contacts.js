@@ -264,7 +264,7 @@ function updateCardDetails(card, contact) {
  */
 async function reloadContacts() {
     try {
-        let response = await fetch(`https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/contacts.json`);
+        let response = await fetch(`https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users/contacts.json`);
         if (response.ok) {
             let contacts = await response.json();
             updateContactList(contacts);  

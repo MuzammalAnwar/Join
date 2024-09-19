@@ -38,7 +38,7 @@ function getCurrentTaskCategory(status) {
  */
 async function updateTaskCategoryFromDropdown(newCategory) {
     try {
-        let taskPath = `/${userID}/addedTasks/${currentTaskId}`;
+        let taskPath = `/addedTasks/${currentTaskId}`;
         let response = await fetchTask(taskPath, null, 'GET');
         let task = response;
         task.taskCategory = newCategory;
@@ -139,14 +139,14 @@ function setCategoryClass(category) {
     let categoryElement = document.getElementById('task_category');
     if (!categoryElement) return;
     categoryElement.className = '';
-    
+
     let categoryClass = '';
     if (category === 'Technical Task') {
         categoryClass = 'categoryTechnicalTaskOverlay';
     } else if (category === 'User Story') {
         categoryClass = 'categoryUserStoryOverlay';
     } else {
-        categoryClass = 'defaultCategoryOverlay'; // Fallback-Klasse hinzufügen
+        categoryClass = 'defaultCategoryOverlay'; 
     }
 
     if (categoryClass) {
@@ -277,14 +277,14 @@ function hideTallTaskOverlay() {
 function renderAssignedContactsInOverlay(taskID) {
     let inputContent = document.getElementById('assignedContactsContainer');
     inputContent.innerHTML = '';
-    fetchTask(`/${userID}/addedTasks/${taskID}/assigned/`, null, 'GET').then(assignedContacts => {
+    fetchTask(`/addedTasks/${taskID}/assigned/`, null, 'GET').then(assignedContacts => {
         if (assignedContacts) {
             assignedContacts.forEach(contact => {
                 inputContent.innerHTML += renderAssignedContactsInOverlayTemplate(contact);
             })
         }
         else {
-            inputContent.innerHTML = `No contacts assigned`
+            inputContent.innerHTML = `<p style="margin: 0px 0 0 22px;">None</p>`
         }
     })
 }

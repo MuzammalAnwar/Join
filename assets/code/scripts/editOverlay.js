@@ -194,7 +194,7 @@ async function saveAllTaskChanges() {
  */
 async function saveEditTitleToFirebase() {
     let title = document.getElementById('edit_title').value;
-    return fetchTask(`/${userID}/addedTasks/${currentCardID}/title`, title, 'PUT');
+    return fetchTask(`/addedTasks/${currentCardID}/title`, title, 'PUT');
 }
 
 /**
@@ -204,7 +204,7 @@ async function saveEditTitleToFirebase() {
  */
 async function saveEditDescriptionToFirebase() {
     let description = document.getElementById('edit_description').value;
-    return fetchTask(`/${userID}/addedTasks/${currentCardID}/description`, description, 'PUT');
+    return fetchTask(`/addedTasks/${currentCardID}/description`, description, 'PUT');
 }
 
 /**
@@ -214,7 +214,7 @@ async function saveEditDescriptionToFirebase() {
  */
 async function saveEditDateToFirebase() {
     let dueDate = document.getElementById('edit_due_date').value;
-    return fetchTask(`/${userID}/addedTasks/${currentCardID}/dueDate`, dueDate, 'PUT');
+    return fetchTask(`/addedTasks/${currentCardID}/dueDate`, dueDate, 'PUT');
 }
 
 /**
@@ -227,7 +227,7 @@ async function updateAssignedContacts(taskID) {
     let checkedContacts = document.querySelectorAll('.custom-option input[type="checkbox"]:checked');
     let assignedContacts = Array.from(checkedContacts).map(checkbox => checkbox.value);
     try {
-        await fetchTask(`/${userID}/addedTasks/${taskID}/assigned`, assignedContacts, 'PUT');
+        await fetchTask(`/addedTasks/${taskID}/assigned`, assignedContacts, 'PUT');
     } catch (error) {
         console.error('Error updating contacts:', error);
     }
@@ -239,7 +239,7 @@ async function updateAssignedContacts(taskID) {
  * @returns {Promise<Response>} The fetch response from Firebase.
  */
 async function saveEditSubtasksToFirebase() {
-    let response = await fetchTask(`/${userID}/addedTasks/${currentCardID}/subtasks`, editSubtasks, 'PUT');
+    let response = await fetchTask(`/addedTasks/${currentCardID}/subtasks`, editSubtasks, 'PUT');
     await renderExistingSubtasks(currentCardID);
     return response;
 }
@@ -251,7 +251,7 @@ async function saveEditSubtasksToFirebase() {
  */
 async function saveEditPrioToFirebase() {
     if (currentUrgency !== 'none') {
-        return fetchTask(`/${userID}/addedTasks/${currentCardID}/urgency`, currentUrgency, 'PUT');
+        return fetchTask(`/addedTasks/${currentCardID}/urgency`, currentUrgency, 'PUT');
     }
     return null;
 }
@@ -329,8 +329,9 @@ function getRandomRgbColor() {
  * @returns {string} - The initials of the contact.
  */
 function getInitials(name) {
-    return name.split(' ').map(word => word[0]).join('').toUpperCase();
+    return name === '' ? null : name.split(' ').map(word => word[0]).join('').toUpperCase();
 }
+
 
 /**
  * Hides the edit overlay.
@@ -353,15 +354,16 @@ function hideEditOverlay() {
  */
 async function renderAssignedContactsInEditOverlay(taskID) {
     let selectWrapper = document.querySelector('.select-options');
-    let contacts = await fetchTask(`/${userID}/contacts`, null, 'GET') || {};
+    let contacts = await fetchTask(`/contacts`, null, 'GET') || {};
     let assignedContacts = await highlightAlreadyAssignedContacts(taskID);
 
-    selectWrapper.innerHTML = Object.values(contacts).map(contact => {
-        let isAssigned = assignedContacts.includes(contact.name);
-        return renderAssignedContactsInEditOverlayTemplate(contact, isAssigned);
-    }).join('') || 'No contacts available';
-
-    addContactOptionListeners(); // Add event listeners after rendering
+    if (contacts && contacts !== 'N/A') {
+        selectWrapper.innerHTML = Object.values(contacts).map(contact => {
+            let isAssigned = assignedContacts.includes(contact.name);
+            return renderAssignedContactsInEditOverlayTemplate(contact, isAssigned);
+        }).join('') || 'No contacts available';
+        addContactOptionListeners(); 
+    }
 }
 
 /**
@@ -384,7 +386,7 @@ function addCheckboxListeners() {
  * @returns {Promise<Array>} - A promise that resolves with the list of assigned contacts.
  */
 async function highlightAlreadyAssignedContacts(taskID) {
-    let assignedContacts = await fetchTask(`/${userID}/addedTasks/${taskID}/assigned`, null, 'GET');
+    let assignedContacts = await fetchTask(`/addedTasks/${taskID}/assigned`, null, 'GET');
     return assignedContacts || [];
 }
 
@@ -404,20 +406,14 @@ function addContactOptionListeners() {
     let options = document.querySelectorAll('.custom-option');
     options.forEach(option => {
         let checkbox = option.querySelector('input[type="checkbox"]');
-
-        // Add listener to container
         option.addEventListener('click', () => {
-            checkbox.checked = !checkbox.checked; // Toggle checkbox
-            updateContactStyle(checkbox); // Update style based on checkbox state
+            checkbox.checked = !checkbox.checked; 
+            updateContactStyle(checkbox); 
         });
-
-        // Add listener to checkbox to prevent container double toggle
         checkbox.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent triggering the container click event
-            updateContactStyle(checkbox); // Update style based on checkbox state
+            e.stopPropagation(); 
+            updateContactStyle(checkbox); 
         });
-
-        // Initialize the style based on the checkbox state
         updateContactStyle(checkbox);
     });
 }
@@ -430,11 +426,11 @@ function addContactOptionListeners() {
 function updateContactStyle(checkbox) {
     let customOption = checkbox.closest('.custom-option');
     if (checkbox.checked) {
-        customOption.style.backgroundColor = 'rgb(9, 25, 49)'; // Selected color
-        customOption.style.color = 'white'; // Text color for contrast
+        customOption.style.backgroundColor = 'rgb(9, 25, 49)'; 
+        customOption.style.color = 'white'; 
     } else {
-        customOption.style.backgroundColor = 'white'; // Default color
-        customOption.style.color = 'black'; // Reset text color
+        customOption.style.backgroundColor = 'white'; 
+        customOption.style.color = 'black';
     }
 }
 /**
@@ -443,7 +439,7 @@ function updateContactStyle(checkbox) {
  * @returns {Promise<Array>} - A promise that resolves with the list of subtasks.
  */
 async function getExistingSubtasks(taskID) {
-    return await fetchTask(`/${userID}/addedTasks/${taskID}/subtasks`, null, 'GET');
+    return await fetchTask(`/addedTasks/${taskID}/subtasks`, null, 'GET');
 }
 
 /**
@@ -484,7 +480,7 @@ async function addEditSubtask() {
     }
     if (newSubtask) {
         editSubtasks.push(newSubtask);
-        await fetchTask(`/${userID}/addedTasks/${currentCardID}/subtasks`, editSubtasks, 'PUT');
+        await fetchTask(`/addedTasks/${currentCardID}/subtasks`, editSubtasks, 'PUT');
         subtaskInput.value = '';
         await renderExistingSubtasks(currentCardID);
     }
@@ -510,7 +506,7 @@ function saveEditSubtask(index) {
  */
 async function deleteEditSubtask(index, taskID) {
     editSubtasks.splice(index, 1);
-    await fetchTask(`/${userID}/addedTasks/${taskID}/subtasks`, editSubtasks, 'PUT');
+    await fetchTask(`/addedTasks/${taskID}/subtasks`, editSubtasks, 'PUT');
     await renderExistingSubtasks(taskID);
 }
 

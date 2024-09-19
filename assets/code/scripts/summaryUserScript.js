@@ -38,7 +38,7 @@ function renderGreeting(taskPath, contentID) {
  */
 function sortByDateStat() {
     const inputContentDate = document.getElementById('taskDate');
-    fetchTask(`/${userID}/addedTasks`, null, 'GET').then(tasks => {
+    fetchTask(`/addedTasks`, null, 'GET').then(tasks => {
         if (tasks) {
             const taskArray = Object.values(tasks);
             const urgentTasks = taskArray.filter(task => task.urgency === 'urgent')
@@ -58,7 +58,7 @@ async function renderTaskCategoryStats() {
     let taskCount = 0;
     for (const category of categories) {
         try {
-            let tasks = await fetchTask(`/${userID}/addedTasks`, null, 'GET');
+            let tasks = await fetchTask(`/addedTasks`, null, 'GET');
             if (tasks) {
                 let count = Object.values(tasks).filter(task => task.taskCategory === category).length;
                 document.getElementById(category).innerText = count;
@@ -82,7 +82,7 @@ async function renderTaskCategoryStats() {
 async function renderTotalAmountofUrgentTasks() {
     let inputContent = document.getElementById('urgentTaskAmount');
     let urgentTaskCount = 0;
-    let tasks = await fetchTask(`/${userID}/addedTasks`, null, 'GET');
+    let tasks = await fetchTask(`/addedTasks`, null, 'GET');
     if (typeof tasks === 'object' && tasks !== null) {
         Object.values(tasks).forEach((task) => {
             if (task.urgency == 'urgent') {

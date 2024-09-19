@@ -1,7 +1,7 @@
 let userId = checkLoginStatus();
 let contacts = {};
 let lastLetter = '';
-let firebaseUrl = `https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/contacts.json`;
+let firebaseUrl = `https://join-301-default-rtdb.europe-west1.firebasedatabase.app/users/contacts.json`;
 let currentNameForEditOverlay = '';
 let currentEmailForEditOverlay = '';
 let currentPhoneForEditOverlay = '';
@@ -44,7 +44,7 @@ async function saveContactToFirebase(contact, id = null) {
  */
 async function fetchContactsFromFirebase() {
     try {
-        let response = await fetchTask(`/${userId}/contacts`, null, 'GET');
+        let response = await fetchTask(`/contacts`, null, 'GET');
         if (response && response != 'N/A') {
             updateContactList(response);
         }
@@ -100,8 +100,8 @@ function resetForm() {
  */
 function updateContactList(contacts) {
     let contactList = document.getElementById('contactList');
-    contactList.innerHTML = ''; 
-    let sortedContacts = Object.keys(contacts).sort((a, b) => 
+    contactList.innerHTML = '';
+    let sortedContacts = Object.keys(contacts).sort((a, b) =>
         contacts[a].name.localeCompare(contacts[b].name)
     );
     lastLetter = '';
@@ -138,19 +138,19 @@ function renderContact(contactList, contact, id) {
  */
 function attachCardClickListeners() {
     document.querySelectorAll('.contact_small_card').forEach(card => {
-        card.addEventListener('click', function() {
+        card.addEventListener('click', function () {
             if (card.classList.contains('contact_selected')) {
-                card.classList.remove('contact_selected');  
-                closeContactDetails(); 
+                card.classList.remove('contact_selected');
+                closeContactDetails();
             } else {
                 card.classList.add('contact_selected');
                 document.querySelectorAll('.contact_small_card').forEach(otherCard => {
                     if (otherCard !== card) {
-                        otherCard.classList.remove('contact_selected');  
+                        otherCard.classList.remove('contact_selected');
                     }
                 });
-                let contactId = card.getAttribute('data-contact-id');  
-                let contact = contacts[contactId]; 
+                let contactId = card.getAttribute('data-contact-id');
+                let contact = contacts[contactId];
                 if (contact) {
                     showContactDetails(contact.name, contact.email, contact.phone, contact.color, contactId);
                 }
@@ -166,7 +166,7 @@ function attachCardClickListeners() {
  */
 function closeContactDetails() {
     let largeCard = document.getElementById('largeCard');
-    largeCard.style.display = 'none'; 
+    largeCard.style.display = 'none';
 }
 
 /**
@@ -181,15 +181,15 @@ function closeContactDetails() {
 function showContactDetails(name, email, phone, color, id) {
     let largeCard = document.getElementById('largeCard');
     let icon = document.getElementById('largeCardIcon');
-    icon.textContent = getInitials(name);  
-    icon.style.backgroundColor = color;   
+    icon.textContent = getInitials(name);
+    icon.style.backgroundColor = color;
     document.getElementById('largeCardName').textContent = name;
-    document.getElementById('largeCardEmail').textContent = email;  
-    document.getElementById('largeCardPhone').textContent = phone;  
-    largeCard.dataset.color = color; 
-    largeCard.dataset.currentName = name; 
-    largeCard.dataset.contactId = id; 
-    largeCard.style.display = 'block'; 
+    document.getElementById('largeCardEmail').textContent = email;
+    document.getElementById('largeCardPhone').textContent = phone;
+    largeCard.dataset.color = color;
+    largeCard.dataset.currentName = name;
+    largeCard.dataset.contactId = id;
+    largeCard.style.display = 'block';
     document.querySelector('.edit_button').onclick = () => showEditOverlay(name, email, phone, color);
 }
 

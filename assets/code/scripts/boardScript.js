@@ -38,7 +38,7 @@ function initRender() {
  */
 async function renderTasks(category, id) {
     let htmlContent = getElementByIdAndClear(id);
-    let taskPath = `/${userID}/addedTasks/`;
+    let taskPath = `/addedTasks/`;
     try {
         let taskArray = await fetchTask(taskPath, null, 'GET');
         if (taskArray) {

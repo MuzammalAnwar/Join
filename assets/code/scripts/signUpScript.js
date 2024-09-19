@@ -56,46 +56,9 @@ async function signUp(event) {
     if (checkbox.checked) {
         if (atob(userData.password) === confirmedPasswordInput.value) {
             await saveUser(userData, userData.userID);
-            createAndDefaultAddTask(userData.userID)
             window.location.href = 'index.html';
         } else {
             notifyFailedAuthentication('input_containerPassword', 'input_containerConfirmedPassword', passwordInput, confirmedPasswordInput, 'Password is not the same', 'Password is not the same', 'Password', 'Confirm Password');
         }
     }
-}
-
-/**
- * Creates a new task object and adds it to the tasks array.
- *
- * @param {Object} taskData - The data of the task to be added.
- */
-function createAndDefaultAddTask(userID) {
-    let taskData = gatherDefaultTaskData();
-    let taskKey = generateUniqueKey();
-    let taskPath = `/${userID}/addedTasks/${taskKey}`;
-    let task = {
-        ...taskData,
-        urgency: 'low',
-        path: taskPath,
-        taskCategory: 'toDo'
-    };
-    fetchTask(taskPath, task, 'PUT');
-}
-
-/**
- * Gathers task input values from the form elements.
- *
- * @returns {Object} - An object containing the task data.
- */
-function gatherDefaultTaskData() {
-    let title = 'Hello World';
-    let description = 'Hello World';
-    let dueDate = '2024-09-29';
-    let category = 'User Story';
-    return {
-        title,
-        description,
-        dueDate,
-        category
-    };
 }
