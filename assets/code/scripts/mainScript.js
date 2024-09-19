@@ -182,5 +182,3 @@ function handleInnerDivClick(event) {
 function setCategory(category) {
     localStorage.setItem('categoryOverlayForAddTask', category);
 }
-
-document.addEventListener('DOMContentLoaded', setCategory(document.getElementById('category').value));

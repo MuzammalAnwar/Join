@@ -308,3 +308,4 @@ document.getElementById('userInput').addEventListener('input', filterTasks);
 window.addEventListener('load', includeHTML);
 window.addEventListener('load', initRender);
 window.addEventListener('load', setProfileCircleInitials);
+document.addEventListener('DOMContentLoaded', setCategory(document.getElementById('category').value));

@@ -58,7 +58,7 @@ function onHTMLLoaded() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(onHTMLLoaded, 50); 
+    setTimeout(onHTMLLoaded, 250); 
 });
 
 window.onresize = checkScreenSize;
