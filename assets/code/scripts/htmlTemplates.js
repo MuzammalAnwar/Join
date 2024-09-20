@@ -126,7 +126,7 @@ function createSubtaskEditTemplate(index, subtaskText) {
             <input class="editInput" type="text" value="${subtaskText}" id="subtaskEditInput${index}">
             <div class="subtaskEditSeparator"></div>
             <div class="subtaskEditIcons">
-                <img onclick="renderSubtasks()" src="../../img/subtaskTrashIcon.png" class="subtaskIcon" alt="Cancel Icon">
+                <img onclick="deleteSubtask(${index})" src="../../img/subtaskTrashIcon.png" class="subtaskIcon" alt="Cancel Icon">
                 <img onclick="saveSubtask(${index})" src="../../img/subtaskAddIcon.png" class="subtaskIcon" alt="Save Icon">
             </div>
         </div>

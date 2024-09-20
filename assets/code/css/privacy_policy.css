@@ -70,6 +70,21 @@ a {
     border-radius: 999px;
 }
 
+@media (min-width: 1920px) {
+    body {
+        display: flex;
+        align-items: center;
+    }
+
+    .privacy_policy_text {
+        padding-top: 120px;
+        padding-bottom: 40px;
+        margin-right: 0;
+        padding-left: 0;
+        width: 1000px;
+    }
+}
+
 @media (max-width: 1000px) {
     .privacy_policy_text {
         margin: 96px 0px 80px 6px;

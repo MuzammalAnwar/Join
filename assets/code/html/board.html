@@ -277,7 +277,7 @@
                     </div>
                     <div class="edit_date_position">
                         <label>Due date</label>
-                        <input class="date" type="date" id="edit_due_date" name="due-date">
+                        <input required class="date" type="date" id="edit_due_date" name="due-date" min="">
                     </div>
                     <div class="edit_prio_position">
                         <label>Priority</label>
@@ -333,12 +333,12 @@
                             </div>
                         </div>
                     </div>
-                </form>
-                <div class="scroll_bar"></div>
-            </div>
-            <div class="buttons" id="confirmEditButton">
-                <button onclick="saveTaskChanges()" class="ok_button">Ok <img src="../../img/check.png"></button>
-            </div>
+                    <div class="scroll_bar"></div>
+                </div>
+                <div class="buttons" id="confirmEditButton">
+                    <button type="submit" onclick="saveTaskChanges()" class="ok_button">Ok <img src="../../img/check.png"></button>
+                </div>
+            </form>
         </div>
     </div>
 

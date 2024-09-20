@@ -108,12 +108,20 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /**
+ * Removes empty subtasks from the array.
+ */
+function removeEmptySubtasks() {
+    subtasks = subtasks.filter(subtask => subtask.trim() !== '');
+}
+
+/**
  * Handles the form submission to add a new task.
  *
  * @param {Event} event - The submit event.
  */
 function addToTask(event) {
     event.preventDefault();
+    removeEmptySubtasks();
     let taskData = gatherTaskData();
     createAndAddTask(taskData);
     clearTaskForm();
@@ -241,14 +249,24 @@ function editSubtask(index) {
 
 /**
  * Saves the edited subtask text from the input field.
+ * If the input is empty, the subtask will be deleted.
  *
  * @param {number} index - The index of the subtask to save.
  */
 function saveSubtask(index) {
     let input = document.getElementById(`subtaskEditInput${index}`);
-    subtasks[index] = input.value;
-    renderSubtasks();
+    
+    // If the input is empty, delete the subtask
+    if (input.value.trim() === '') {
+        deleteSubtask(index);
+    } else {
+        // Save the subtask if the input is not empty
+        subtasks[index] = input.value;
+        renderSubtasks();
+    }
 }
+
+
 
 /**
  * Deletes a subtask from the list based on its index.

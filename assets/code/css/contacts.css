@@ -1025,6 +1025,7 @@ a {
     .contact_list {
         margin: 0;
         width: 100%;
+        padding-bottom: 24px;
     }
 
     .title_separator {
@@ -1249,6 +1250,7 @@ a {
     .contact_small_card {
         margin-left: 0;
         width: 290px;
+        margin-bottom: 8px;
     }
 
     .letter {
@@ -1285,6 +1287,7 @@ a {
         bottom: 0;
         height: 100%;
         z-index: 1;
+        top: 90px;
     }
 
     .edit_overlay {

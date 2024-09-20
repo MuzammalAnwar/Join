@@ -29,7 +29,7 @@ function checkScreenSize() {
         if (window.innerWidth < 1000) {
             element.style.display = 'none'; 
         } else {
-            element.style.display = 'block'; 
+            element.style.display = 'normal'; 
         }
     }
 }

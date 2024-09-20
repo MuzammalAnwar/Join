@@ -37,6 +37,20 @@ body {
     text-align: left;
 }
 
+@media (min-width: 1920px) {
+    .content_position {
+        justify-content: center;
+    }
+
+    .headline {
+        width: 1000px;
+    }
+
+    .header_main_container {
+        padding: 0;
+    }
+}
+
 @media (max-width: 1000px) {
     .header_main_container {
         display: flex;

@@ -3,6 +3,18 @@
     src: url('../../fonts/Inter-VariableFont_opsz\,wght.ttf');
 }
 
+
+
+.form-group select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url('../../img/dropDownMenuArrowIcon.png') no-repeat right 10px center; 
+    background-size: 8px;
+    padding-right: 30px;
+    background-color: white;
+}
+
 .custom-options::-webkit-scrollbar {
     width: 6px;
 }
@@ -145,12 +157,11 @@ input:focus {
 .icon-container {
     position: absolute;
     right: 10px;
-    top: 50%;
+    top: 45%;
     transform: translateY(-50%);
     display: flex;
     align-items: center;
     gap: 3px;
-    /* Space between icons and separator */
 }
 
 .input-icon {
@@ -172,12 +183,9 @@ input:focus {
     height: 24px;
     border-left: 1px solid rgba(209, 209, 209, 1);
     margin: 0 5px;
-    /* Space around the separator */
     display: none;
-    /* Hide by default */
 }
 
-/* Show the separator and change icons when the input is focused */
 .input-container-addTask input:focus+.icon-container .separatorSubtask {
     display: block;
 }
@@ -190,20 +198,6 @@ input:focus {
 .input-container-addTask input:focus+.icon-container #subtaskSave {
     display: inline;
 }
-
-/* Reset to original state when input is not focused
-.input-container-addTask input:not(:focus)+.icon-container .separatorSubtask {
-    display: none;
-}
-
-.input-container-addTask input:not(:focus)+.icon-container #subtaskAdd {
-    display: inline;
-}
-
-.input-container-addTask input:not(:focus)+.icon-container #subtaskCancel,
-.input-container-addTask input:not(:focus)+.icon-container #subtaskSave {
-    display: none;
-} */
 
 .button-group {
     display: flex;
@@ -407,7 +401,6 @@ input:focus {
     background-color: #ccc;
 }
 
-/* Edit Mode Styles */
 .subtaskEditContainer {
     display: flex;
     align-items: center;
@@ -487,12 +480,6 @@ input:focus {
     align-items: center;
 }
 
-.custom-select-trigger img.arrow-icon {
-    width: 7.21px;
-    height: 4.6px;
-    transition: transform 0.3s ease;
-}
-
 .custom-options {
     display: none;
     position: absolute;
@@ -509,8 +496,10 @@ input:focus {
     display: block;
 }
 
-.custom-options.open+.custom-select-trigger img.arrow-icon {
-    transform: rotate(90deg);
+.arrow-icon {
+    width: 9px;
+    height: 4px;
+    transition: transform 0.3s ease;
 }
 
 .custom-option {

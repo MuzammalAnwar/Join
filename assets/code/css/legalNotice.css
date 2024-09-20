@@ -151,6 +151,22 @@ p.Body p span span {
     border-radius: 999px;
 }
 
+@media (min-width: 1920px) {
+    body {
+        display: flex;
+        align-items: center;
+    }
+
+    .legalNoticeText {
+        max-width: 1000px;
+        margin: 99px 0px 0px 0px;
+    }
+
+    .contractDetails {
+        padding: 0;
+    }
+}
+
 @media (max-width: 1000px) {
     .legalNoticeText {
         margin: 99px 0px 80px 0px;

@@ -239,12 +239,6 @@ body {
     align-items: center;
 }
 
-.custom-select-trigger img.arrow-icon {
-    width: 7.21px;
-    height: 4.6px;
-    transition: transform 0.3s ease;
-}
-
 .custom-options {
     display: none;
     position: absolute;
@@ -259,10 +253,6 @@ body {
 
 .custom-options.open {
     display: block;
-}
-
-.custom-options.open+.custom-select-trigger img.arrow-icon {
-    transform: rotate(90deg);
 }
 
 .custom-option {
@@ -324,7 +314,7 @@ body {
 .icon-container {
     position: absolute;
     right: 10px;
-    top: 48%;
+    top: 45%;
     transform: translateY(-50%);
     display: flex;
     align-items: center;
@@ -485,8 +475,8 @@ body {
 }
 
 .arrow-icon {
-    width: 8px;
-    height: 8px;
+    width: 9px;
+    height: 4px;
     transition: transform 0.3s ease;
 }
 
