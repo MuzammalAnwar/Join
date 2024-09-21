@@ -1,3 +1,6 @@
+let todayEditDate = new Date().toISOString().split('T')[0];
+document.getElementById('edit_due_date').setAttribute('min', todayEditDate);
+
 /**
  * A mapping object for priority icons. Contains default and hover states for urgent, medium, and low priorities.
  * This is used for dynamically setting icon paths based on priority.
@@ -362,7 +365,7 @@ async function renderAssignedContactsInEditOverlay(taskID) {
             let isAssigned = assignedContacts.includes(contact.name);
             return renderAssignedContactsInEditOverlayTemplate(contact, isAssigned);
         }).join('') || 'No contacts available';
-        addContactOptionListeners(); 
+        addContactOptionListeners();
     }
 }
 
@@ -407,12 +410,12 @@ function addContactOptionListeners() {
     options.forEach(option => {
         let checkbox = option.querySelector('input[type="checkbox"]');
         option.addEventListener('click', () => {
-            checkbox.checked = !checkbox.checked; 
-            updateContactStyle(checkbox); 
+            checkbox.checked = !checkbox.checked;
+            updateContactStyle(checkbox);
         });
         checkbox.addEventListener('click', (e) => {
-            e.stopPropagation(); 
-            updateContactStyle(checkbox); 
+            e.stopPropagation();
+            updateContactStyle(checkbox);
         });
         updateContactStyle(checkbox);
     });
@@ -426,10 +429,10 @@ function addContactOptionListeners() {
 function updateContactStyle(checkbox) {
     let customOption = checkbox.closest('.custom-option');
     if (checkbox.checked) {
-        customOption.style.backgroundColor = 'rgb(9, 25, 49)'; 
-        customOption.style.color = 'white'; 
+        customOption.style.backgroundColor = 'rgb(9, 25, 49)';
+        customOption.style.color = 'white';
     } else {
-        customOption.style.backgroundColor = 'white'; 
+        customOption.style.backgroundColor = 'white';
         customOption.style.color = 'black';
     }
 }

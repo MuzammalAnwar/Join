@@ -255,7 +255,7 @@ function editSubtask(index) {
  */
 function saveSubtask(index) {
     let input = document.getElementById(`subtaskEditInput${index}`);
-    
+
     // If the input is empty, delete the subtask
     if (input.value.trim() === '') {
         deleteSubtask(index);
