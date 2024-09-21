@@ -72,12 +72,23 @@ function resetSelectedContactsForOverlay() {
  * The element's display is set to 'none' after the animation completes (500ms).
  */
 function hideOverlay() {
+    clearInputFields()
     let overlay = document.getElementById('taskOverlay');
     overlay.querySelector('.overlay').classList.remove('slide-in');
     overlay.querySelector('.overlay').classList.add('slide-out');
     setTimeout(() => {
         overlay.style.display = 'none';
     }, 500);
+}
+
+/**
+ * Clear Input fields
+ */
+function clearInputFields() {
+    clearSubtasks()
+    document.getElementById('title').value = '';
+    document.getElementById('description').value = '';
+    document.getElementById('due-date').value = '';
 }
 
 /**
