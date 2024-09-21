@@ -126,7 +126,7 @@ body {
     padding-left: 10px;
     padding-right: 10px;
     margin-top: 8px;
-    margin-bottom: 40px;
+
 }
 
 .edit_prio_position {
@@ -134,6 +134,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-bottom: 40px;
+    margin-top: 40px;
 }
 
 .prio_position label {
@@ -413,10 +414,19 @@ body {
     gap: 10px;
 }
 
-.ok_button:hover {
+.ok_button:enabled:hover {
     cursor: pointer;
     background-color: rgba(41, 171, 226, 1);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.ok_button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+#date-error {
+    margin-top: 4px;
 }
 
 .scroll_area {

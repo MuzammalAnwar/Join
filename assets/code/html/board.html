@@ -20,7 +20,8 @@
         <section class="boardContainer">
             <div class="mobile_plus_button_position">
                 <h1 class="boardText">Board</h1>
-                <a onclick="setCategoryForAddTaskBasedOnPlusIcon('toDo')" class="plusPosition" href="../html/addTask.html">
+                <a onclick="setCategoryForAddTaskBasedOnPlusIcon('toDo')" class="plusPosition"
+                    href="../html/addTask.html">
                     <div class="mobile_plus_button"></div>
                 </a>
             </div>
@@ -278,17 +279,21 @@
                     <div class="edit_date_position">
                         <label>Due date</label>
                         <input required class="date" type="date" id="edit_due_date" name="due-date" min="">
+                        <span id="date-error" style="color: red; display: none;">Please select a valid future
+                            date.</span>
                     </div>
                     <div class="edit_prio_position">
                         <label>Priority</label>
                         <div class="urgency">
                             <button id="edit_urgentIcon" type="button" class="urgentStatus"
-                                onclick="togglePriority(this, 'edit_urgent_selected', iconPaths, 'urgent')" data-status="urgent">
+                                onclick="togglePriority(this, 'edit_urgent_selected', iconPaths, 'urgent')"
+                                data-status="urgent">
                                 <img class="urgentIcon" src="../../img/urgentIcon.png" alt="Urgent Icon">
                                 Urgent
                             </button>
                             <button id="edit_mediumIcon" type="button" class="urgentStatus"
-                                onclick="togglePriority(this, 'edit_medium_selected', iconPaths, 'medium')" data-status="medium">
+                                onclick="togglePriority(this, 'edit_medium_selected', iconPaths, 'medium')"
+                                data-status="medium">
                                 <img class="mediumIcon" src="../../img/mediumIcon.png" alt="Medium Icon">
                                 Medium
                             </button>
@@ -334,11 +339,12 @@
                         </div>
                     </div>
                     <div class="scroll_bar"></div>
-                </div>
+            </div>
             </form>
-                <div class="buttons" id="confirmEditButton">
-                    <button type="submit" onclick="saveTaskChanges()" class="ok_button">Ok <img src="../../img/check.png"></button>
-                </div>
+            <div class="buttons" id="confirmEditButton">
+                <button type="submit" onclick="saveTaskChanges()" class="ok_button">Ok <img
+                        src="../../img/check.png"></button>
+            </div>
         </div>
     </div>
 

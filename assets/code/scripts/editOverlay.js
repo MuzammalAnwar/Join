@@ -95,6 +95,7 @@ function showEditOverlay(taskId, title, description, dueDate, priority, assigned
     renderAssignedContacts(assignedTo);
     renderAssignedContactsInEditOverlay(taskId);
     renderExistingSubtasks(taskId);
+    preselectPriority(priority);
 }
 
 /**
@@ -174,12 +175,19 @@ async function saveTaskChanges() {
     }
 }
 
+
 /**
  * Saves all changes made to the task by calling multiple functions in parallel.
  * @async
  * @returns {Promise<void>} - A promise that resolves when all changes have been successfully saved.
  */
 async function saveAllTaskChanges() {
+    if (!validateDate()) {
+        console.log("Date validation failed, changes not saved.");
+        return;
+    }
+
+    // Proceed to save if the date is valid
     return Promise.all([
         saveEditTitleToFirebase(),
         saveEditDescriptionToFirebase(),
@@ -188,6 +196,89 @@ async function saveAllTaskChanges() {
         saveEditPrioToFirebase(),
         updateAssignedContacts(currentCardID)
     ]);
+}
+
+/**
+ * Enables or disables the submit button based on the date validation.
+ * If the date is valid, it removes the inline background color to allow CSS hover effects.
+ * If the date is invalid, it disables the button and sets the background to gray.
+ */
+function toggleSubmitButton() {
+    const submitButton = document.querySelector('.ok_button');
+
+    if (validateDate()) {
+        submitButton.disabled = false;
+        submitButton.style.removeProperty('background-color'); // Remove inline background color to allow CSS to take over
+    } else {
+        submitButton.disabled = true;
+        submitButton.style.backgroundColor = 'gray'; // Set background color for disabled state
+    }
+}
+
+/**
+ * Prevents form submission unless the date is valid.
+ * If the date is invalid, the submission is prevented.
+ * @param {Event} e - The event object for the form submission.
+ * @returns {Promise<void>} - A promise that resolves after the task changes are saved.
+ */
+document.getElementById('editTaskForm').addEventListener('submit', async function (e) {
+    if (!validateDate()) {
+        e.preventDefault(); // Prevent form submission if the date is invalid
+        return;
+    }
+    await saveAllTaskChanges();
+});
+
+/**
+ * Adds an event listener for real-time validation during input.
+ * The submit button state is toggled based on the validation.
+ */
+document.getElementById('edit_due_date').addEventListener('input', toggleSubmitButton);
+
+/**
+ * Adds an event listener for real-time validation during input.
+ * This ensures the date input is validated on every input change.
+ */
+document.getElementById('edit_due_date').addEventListener('input', validateDate);
+
+
+function preselectPriority(priority) {
+    console.log(priority);
+    const urgentButton = document.getElementById('edit_urgentIcon');
+    const mediumButton = document.getElementById('edit_mediumIcon');
+    const lowButton = document.getElementById('edit_lowIcon');
+    urgentButton.className = 'urgentStatus';
+    mediumButton.className = 'urgentStatus';
+    lowButton.className = 'urgentStatus';
+    if (priority == 'urgent') {
+        togglePriority(urgentButton, 'edit_urgent_selected', iconPaths, 'urgent')
+    } else if (priority === 'medium') {
+        mediumButton.classList.add('edit_medium_selected');
+    } else if (priority === 'low') {
+        lowButton.classList.add('edit_low_selected');
+    }
+}
+
+/**
+ * Validates the due date input to ensure it is not in the past.
+ * Displays an error message and marks the input as invalid if the date is invalid.
+ * Removes the error and marks the input as valid if the date is correct.
+ * @returns {boolean} - Returns true if the date is valid, false otherwise.
+ */
+function validateDate() {
+    let dueDateInput = document.getElementById('edit_due_date');
+    let selectedDate = new Date(dueDateInput.value);
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (selectedDate < today) {
+        document.getElementById('date-error').style.display = 'block';
+        dueDateInput.setCustomValidity("Invalid date");
+        return false; // Invalid date
+    } else {
+        document.getElementById('date-error').style.display = 'none';
+        dueDateInput.setCustomValidity("");
+        return true; // Valid date
+    }
 }
 
 /**
