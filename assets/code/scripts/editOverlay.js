@@ -241,22 +241,40 @@ document.getElementById('edit_due_date').addEventListener('input', toggleSubmitB
  */
 document.getElementById('edit_due_date').addEventListener('input', validateDate);
 
-
+/**
+ * Preselects the priority button based on the given priority.
+ * This function updates the visual state of the buttons by adding the selected class 
+ * and changing the image source to the corresponding hover icon, while resetting 
+ * other buttons to their default state.
+ *
+ * @param {string} priority - The priority level to preselect. Expected values are:
+ *                            'urgent', 'medium', or 'low'.
+ *
+ * @example
+ * // Preselect the medium priority button
+ * preselectPriority('medium');
+ */
 function preselectPriority(priority) {
-    console.log(priority);
-    const urgentButton = document.getElementById('edit_urgentIcon');
-    const mediumButton = document.getElementById('edit_mediumIcon');
-    const lowButton = document.getElementById('edit_lowIcon');
-    urgentButton.className = 'urgentStatus';
-    mediumButton.className = 'urgentStatus';
-    lowButton.className = 'urgentStatus';
-    if (priority == 'urgent') {
-        togglePriority(urgentButton, 'edit_urgent_selected', iconPaths, 'urgent')
-    } else if (priority === 'medium') {
-        mediumButton.classList.add('edit_medium_selected');
-    } else if (priority === 'low') {
-        lowButton.classList.add('edit_low_selected');
-    }
+    const priorityButtons = document.querySelectorAll('.urgentStatus');
+    priorityButtons.forEach(button => {
+        const buttonId = button.getAttribute('id');
+        button.classList.remove('edit_urgent_selected', 'edit_medium_selected', 'edit_low_selected');
+        button.querySelector('img').src = iconPaths[buttonId].defaultIcon;  // Reset image to default
+    });
+    priorityButtons.forEach(button => {
+        const buttonId = button.getAttribute('id');
+        const buttonPriority = button.getAttribute('data-status');
+        if (buttonPriority === priority) {
+            if (priority === 'urgent') {
+                button.classList.add('edit_urgent_selected');
+            } else if (priority === 'medium') {
+                button.classList.add('edit_medium_selected');
+            } else if (priority === 'low') {
+                button.classList.add('edit_low_selected');
+            }
+            button.querySelector('img').src = iconPaths[buttonId].hoverIcon;
+        }
+    });
 }
 
 /**
