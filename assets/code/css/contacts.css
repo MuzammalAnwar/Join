@@ -741,7 +741,6 @@ a {
     position: fixed;
     top: 85%;
     right: -150px;
-    /* Startpunkt außerhalb des sichtbaren Bereichs */
     width: 116px;
     height: 100px;
     background-color: white;
@@ -806,9 +805,9 @@ a {
 }
 
 .contact_small_card.contact_selected:hover {
-    background: rgba(42, 54, 71, 1); /* Beibehaltung der Hintergrundfarbe */
-    color: white; /* Beibehaltung der Schriftfarbe */
-    cursor: default; /* Kein Hover-Effekt */
+    background: rgba(42, 54, 71, 1); 
+    color: white;
+    cursor: default; 
 }
 
 
@@ -1323,6 +1322,10 @@ a {
     .overlay {
         width: 300px;
         height: 650px;
+    }
+
+    .options_menu {
+        top: 80%;
     }
 
 }

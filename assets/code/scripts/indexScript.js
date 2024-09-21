@@ -1,7 +1,5 @@
 let emailInput = document.getElementById('inputEmail');
 let passwordInput = document.getElementById('inputPassword');
-// emailInput.value = 'tester_mail@test.com';
-// passwordInput.value = 'testing';
 
 /**
  * Retrieves login data from input fields and returns an object with this data.

@@ -183,11 +183,8 @@ async function saveTaskChanges() {
  */
 async function saveAllTaskChanges() {
     if (!validateDate()) {
-        console.log("Date validation failed, changes not saved.");
         return;
     }
-
-    // Proceed to save if the date is valid
     return Promise.all([
         saveEditTitleToFirebase(),
         saveEditDescriptionToFirebase(),
@@ -208,10 +205,10 @@ function toggleSubmitButton() {
 
     if (validateDate()) {
         submitButton.disabled = false;
-        submitButton.style.removeProperty('background-color'); // Remove inline background color to allow CSS to take over
+        submitButton.style.removeProperty('background-color'); 
     } else {
         submitButton.disabled = true;
-        submitButton.style.backgroundColor = 'gray'; // Set background color for disabled state
+        submitButton.style.backgroundColor = 'gray'; 
     }
 }
 
@@ -223,7 +220,7 @@ function toggleSubmitButton() {
  */
 document.getElementById('editTaskForm').addEventListener('submit', async function (e) {
     if (!validateDate()) {
-        e.preventDefault(); // Prevent form submission if the date is invalid
+        e.preventDefault();
         return;
     }
     await saveAllTaskChanges();
@@ -251,7 +248,7 @@ document.getElementById('edit_due_date').addEventListener('input', validateDate)
  *                            'urgent', 'medium', or 'low'.
  *
  * @example
- * // Preselect the medium priority button
+ * Preselect the medium priority button
  * preselectPriority('medium');
  */
 function preselectPriority(priority) {
@@ -259,7 +256,7 @@ function preselectPriority(priority) {
     priorityButtons.forEach(button => {
         const buttonId = button.getAttribute('id');
         button.classList.remove('edit_urgent_selected', 'edit_medium_selected', 'edit_low_selected');
-        button.querySelector('img').src = iconPaths[buttonId].defaultIcon;  // Reset image to default
+        button.querySelector('img').src = iconPaths[buttonId].defaultIcon; 
     });
     priorityButtons.forEach(button => {
         const buttonId = button.getAttribute('id');
@@ -291,11 +288,11 @@ function validateDate() {
     if (selectedDate < today) {
         document.getElementById('date-error').style.display = 'block';
         dueDateInput.setCustomValidity("Invalid date");
-        return false; // Invalid date
+        return false;
     } else {
         document.getElementById('date-error').style.display = 'none';
         dueDateInput.setCustomValidity("");
-        return true; // Valid date
+        return true;
     }
 }
 

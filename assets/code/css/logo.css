@@ -14,14 +14,12 @@ a {
     height: 100%;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
-    /* Smooth fade-out for page1 */
 }
 
 .hidden {
     opacity: 0;
     pointer-events: none;
     transition: opacity 1s ease-in-out, pointer-events 0s 1s;
-    /* Gradual fade-out, pointer-events disabled after 1s */
 }
 
 .icon {
@@ -41,9 +39,7 @@ a {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%) scale(2);
-    /* Center the logo */
     animation: slide-to-top-left 1.5s ease-in-out forwards;
-    /* Move logo smoothly to top-left */
 }
 
 @keyframes slide-to-top-left {

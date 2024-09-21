@@ -75,8 +75,6 @@ function selectButton(button) {
         btn.style.boxShadow = '';
     });
     selectedStatus = button.getAttribute('data-status');
-
-    // Überprüfen, ob selectedStatus eine gültige Klasse hat
     let selectedClass = getSelectedClass(selectedStatus);
     if (selectedClass) {
         button.classList.add(selectedClass);
@@ -255,12 +253,9 @@ function editSubtask(index) {
  */
 function saveSubtask(index) {
     let input = document.getElementById(`subtaskEditInput${index}`);
-
-    // If the input is empty, delete the subtask
     if (input.value.trim() === '') {
         deleteSubtask(index);
     } else {
-        // Save the subtask if the input is not empty
         subtasks[index] = input.value;
         renderSubtasks();
     }
@@ -506,8 +501,8 @@ function closeDropdownOnClickOutside(e) {
 function handleOptionClick(e) {
     let option = e.currentTarget;
     let checkbox = option.querySelector('input[type="checkbox"]');
-    checkbox.checked = !checkbox.checked; // Toggle checkbox
-    handleCheckboxState(option, checkbox); // Update selected state
+    checkbox.checked = !checkbox.checked;
+    handleCheckboxState(option, checkbox);
 }
 
 /**
@@ -522,7 +517,7 @@ function handleCheckboxState(option, checkbox) {
     } else {
         option.classList.remove('selected');
     }
-    updateSelectedContacts(); // Call your function to update selected contacts
+    updateSelectedContacts();
 }
 
 /**

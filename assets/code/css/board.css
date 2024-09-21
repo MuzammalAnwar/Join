@@ -240,7 +240,6 @@ h1 {
     display: flex;
     justify-content: space-between;
     margin-top: 150px;
-    /* margin-bottom: 3px; */
 }
 
 .task:active {
@@ -906,12 +905,10 @@ h1 {
     }
 }
 
-/* Hide dropdown by default for non-mobile devices */
 .mobile-dropdown-wrapper {
     display: none;
 }
 
-/* Show dropdown for mobile devices (768px or less) */
 @media only screen and (max-width: 768px) {
     .mobile-dropdown-wrapper {
         display: block;

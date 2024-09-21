@@ -600,7 +600,6 @@ input:focus {
 .custom-option.selected {
     background-color: rgba(42, 54, 71, 1) !important;
     color: #fff;
-    /* Optional: Adjust text color for better contrast */
 }
 
 .subtasksList {

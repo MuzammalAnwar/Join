@@ -63,27 +63,22 @@ body {
 @keyframes fade-out-page {
     0% {
         opacity: 0;
-        /* Start, komplett transparent */
     }
 
     25% {
         opacity: 0.25;
-        /* Leicht sichtbar */
     }
 
     50% {
         opacity: 0.5;
-        /* Halb sichtbar */
     }
 
     75% {
         opacity: 0.75;
-        /* Fast vollständig sichtbar */
     }
 
     100% {
         opacity: 1;
-        /* Endzustand, vollständig sichtbar */
     }
 }
 

@@ -563,16 +563,12 @@ body {
 .selected {
     background-color: rgb(9, 25, 49);
     color: white;
-    /* Optional: Set the text color to white for better contrast */
 }
 
 .custom-option {
     background-color: white;
-    /* Default color */
     transition: background-color 0.3s ease;
-    /* Smooth transition */
 }
-
 
 @media (max-width: 1000px) {
     .overlay_background {

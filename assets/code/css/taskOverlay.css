@@ -228,11 +228,9 @@ body {
     border: 1px solid rgba(209, 209, 209, 1);
 }
 
-/* Wrapper for the mobile dropdown */
 .mobile-dropdown-wrapper {
     max-width: 300px;
     margin: 0 auto;
-    /* Center the dropdown on the page */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -240,7 +238,6 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Label styling */
 .mobile-dropdown-wrapper label {
     display: block;
     margin-bottom: 8px;
@@ -248,7 +245,6 @@ body {
     color: #333;
 }
 
-/* Dropdown styling */
 .mobile-dropdown-wrapper select {
     width: 100%;
     padding: 10px;
@@ -259,36 +255,28 @@ body {
     color: #333;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
     appearance: none;
-    /* Remove default styling */
     cursor: pointer;
 }
 
-/* Dropdown option styling */
 .mobile-dropdown-wrapper option {
     padding: 10px;
 }
 
-/* Hover effect for options */
 .mobile-dropdown-wrapper select option:hover {
     background-color: #ffae00;
-    /* Blue background on hover */
     color: #fff;
-    /* White text color */
 }
 
-/* Add a subtle hover effect */
 .mobile-dropdown-wrapper select:hover {
     border-color: #888;
 }
 
-/* Add a subtle focus effect */
 .mobile-dropdown-wrapper select:focus {
     border-color: #0056b3;
     outline: none;
     box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.3);
 }
 
-/* Default checkbox appearance */
 input.checkbox-subtask {
     appearance: none;
     width: 20px;
@@ -301,16 +289,13 @@ input.checkbox-subtask {
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
     outline: none;
-    /* Prevent focus outline */
 }
 
-/* Checkbox appearance when checked */
 input.checkbox-subtask:checked {
     background-color: rgb(85, 170, 85);
     border-color: rgb(85, 170, 85);
 }
 
-/* Checkmark styling */
 input.checkbox-subtask:checked::after {
     content: "";
     position: absolute;
@@ -324,7 +309,6 @@ input.checkbox-subtask:checked::after {
     transform: rotate(45deg);
 }
 
-/* Prevent visual change on focus */
 input.checkbox-subtask:focus {
     outline: none;
 }

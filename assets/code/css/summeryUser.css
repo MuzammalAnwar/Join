@@ -279,11 +279,9 @@ a {
     background-color: rgba(246, 247, 248, 1);
     color: white;
     display: none;
-    /* Initially hidden */
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* Stack children vertically */
     text-align: center;
     font-size: 2rem;
     opacity: 0;

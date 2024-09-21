@@ -29,7 +29,7 @@ function checkScreenSize() {
         if (window.innerWidth < 1000) {
             element.style.display = 'none'; 
         } else {
-            element.style.display = 'normal'; 
+            element.style.display = 'flex'; 
         }
     }
 }
@@ -40,7 +40,6 @@ function checkScreenSize() {
  * - If the user is logged in, the function replaces the limited navbar with the full one.
  */
 function checkLoginStatus() {
-    // If user is logged in, load the full navbar
     if (localStorage.getItem('loggedInUserID')) {
         loadFullNavbar();
     }
@@ -51,22 +50,18 @@ function checkLoginStatus() {
  */
 function loadFullNavbar() {
     let navbarPlaceholder = document.getElementById('navbarPlaceholder');
-    
     fetch('./navbarTemplate.html')
         .then(response => response.text())
         .then(data => {
-            navbarPlaceholder.innerHTML = data;  // Replace the limited navbar with full navbar
+            navbarPlaceholder.innerHTML = data;  
         })
         .catch(error => {
             console.error('Error loading full navbar:', error);
         });
 }
 
-// Ensure the function runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    checkLoginStatus();  // Check login status and possibly replace the navbar
+    checkLoginStatus(); 
 });
-
-
 
 window.onresize = checkScreenSize;
