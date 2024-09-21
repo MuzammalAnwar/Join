@@ -348,9 +348,24 @@ async function updateAssignedContacts(taskID) {
  * @returns {Promise<Response>} The fetch response from Firebase.
  */
 async function saveEditSubtasksToFirebase() {
+    editSubtasks = validateSubtasks(editSubtasks);
     let response = await fetchTask(`/addedTasks/${currentCardID}/subtasks`, editSubtasks, 'PUT');
     await renderExistingSubtasks(currentCardID);
     return response;
+}
+
+/**
+ * Validates the subtasks array by removing any empty subtasks.
+ * Ensures that the input is an array, and returns a new array with only non-empty subtasks.
+ *
+ * @param {Array<string>} subtasksArray - The array of subtasks to be validated.
+ * @returns {Array<string>} A new array containing only non-empty subtasks. If the input is not an array, returns an empty array.
+ */
+function validateSubtasks(subtasksArray) {
+    if (!Array.isArray(subtasksArray)) {
+        return []; 
+    }
+    return subtasksArray.filter(subtask => subtask.trim() !== '');
 }
 
 /**
@@ -440,7 +455,6 @@ function getRandomRgbColor() {
 function getInitials(name) {
     return name === '' ? null : name.split(' ').map(word => word[0]).join('').toUpperCase();
 }
-
 
 /**
  * Hides the edit overlay.
@@ -589,6 +603,7 @@ async function addEditSubtask() {
     }
     if (newSubtask) {
         editSubtasks.push(newSubtask);
+        editSubtasks = validateSubtasks(editSubtasks); 
         await fetchTask(`/addedTasks/${currentCardID}/subtasks`, editSubtasks, 'PUT');
         subtaskInput.value = '';
         await renderExistingSubtasks(currentCardID);
