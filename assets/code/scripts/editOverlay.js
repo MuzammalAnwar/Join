@@ -95,6 +95,7 @@ function showEditOverlay(taskId, title, description, dueDate, priority, assigned
     renderAssignedContacts(assignedTo);
     renderAssignedContactsInEditOverlay(taskId);
     renderExistingSubtasks(taskId);
+    unsetAllButtons()
     preselectPriority(priority);
 }
 
@@ -205,10 +206,10 @@ function toggleSubmitButton() {
 
     if (validateDate()) {
         submitButton.disabled = false;
-        submitButton.style.removeProperty('background-color'); 
+        submitButton.style.removeProperty('background-color');
     } else {
         submitButton.disabled = true;
-        submitButton.style.backgroundColor = 'gray'; 
+        submitButton.style.backgroundColor = 'gray';
     }
 }
 
@@ -256,7 +257,7 @@ function preselectPriority(priority) {
     priorityButtons.forEach(button => {
         const buttonId = button.getAttribute('id');
         button.classList.remove('edit_urgent_selected', 'edit_medium_selected', 'edit_low_selected');
-        button.querySelector('img').src = iconPaths[buttonId].defaultIcon; 
+        button.querySelector('img').src = iconPaths[buttonId].defaultIcon;
     });
     priorityButtons.forEach(button => {
         const buttonId = button.getAttribute('id');
@@ -363,7 +364,7 @@ async function saveEditSubtasksToFirebase() {
  */
 function validateSubtasks(subtasksArray) {
     if (!Array.isArray(subtasksArray)) {
-        return []; 
+        return [];
     }
     return subtasksArray.filter(subtask => subtask.trim() !== '');
 }
@@ -603,7 +604,7 @@ async function addEditSubtask() {
     }
     if (newSubtask) {
         editSubtasks.push(newSubtask);
-        editSubtasks = validateSubtasks(editSubtasks); 
+        editSubtasks = validateSubtasks(editSubtasks);
         await fetchTask(`/addedTasks/${currentCardID}/subtasks`, editSubtasks, 'PUT');
         subtaskInput.value = '';
         await renderExistingSubtasks(currentCardID);

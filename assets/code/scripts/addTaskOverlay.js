@@ -89,6 +89,7 @@ function clearInputFields() {
     document.getElementById('title').value = '';
     document.getElementById('description').value = '';
     document.getElementById('due-date').value = '';
+    document.getElementById('subtasks').value = '';
 }
 
 /**

@@ -288,7 +288,7 @@ function filterTasks() {
     document.querySelectorAll('.task').forEach(task => {
         let title = task.querySelector('.title').textContent.toLowerCase();
         let description = task.querySelector('.description').textContent.toLowerCase();
-        task.style.display = (title.includes(searchTerm) || description.includes(searchTerm)) ? 'block' : 'none';
+        task.style.display = (title.includes(searchTerm) || description.includes(searchTerm)) ? 'flex' : 'none';
     });
 }
 
