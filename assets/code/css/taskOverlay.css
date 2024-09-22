@@ -230,7 +230,8 @@ body {
 
 .mobile-dropdown-wrapper {
     max-width: 300px;
-    margin: 0 auto;
+    margin-right: auto;
+    margin-left: 0;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
