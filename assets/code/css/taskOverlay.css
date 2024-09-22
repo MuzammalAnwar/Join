@@ -234,7 +234,7 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: rgb(42, 54, 71);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -251,8 +251,8 @@ body {
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #fff;
-    color: #333;
+    background-color: rgb(159 203 243);
+    color: #000000;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
     appearance: none;
     cursor: pointer;
@@ -314,7 +314,6 @@ input.checkbox-subtask:focus {
 }
 
 @media (max-width: 600px) {
-
     .tall_task_position {
         width: 360px;
     }
@@ -335,11 +334,9 @@ input.checkbox-subtask:focus {
         width: 380px;
         font-size: 48px;
     }
-
 }
 
 @media (max-width: 420px) {
-
     .tall_task_position {
         width: 260px;
         height: 540px;

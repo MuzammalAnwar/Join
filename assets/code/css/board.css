@@ -906,7 +906,7 @@ h1 {
 }
 
 .mobile-dropdown-wrapper {
-    display: none;
+    /* display: none; */
 }
 
 @media only screen and (max-width: 768px) {
