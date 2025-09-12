@@ -22,10 +22,7 @@ This project is a web-based Kanban task management tool that helps users organiz
   - HTML, CSS, JavaScript  
 
 - **Backend:**  
-  - Firebase (Realtime Database)  
-
-- **Additional Libraries:**  
-  - *(to be added as needed)*  
+  - Firebase (Realtime Database)
 
 ---
 
@@ -33,4 +30,4 @@ This project is a web-based Kanban task management tool that helps users organiz
 
 1. Clone this repository:  
    ```bash
-   git clone https://github.com/D-Aldin/join.git
+   git clone https://github.com/MuzammalAnwar/Join.git
